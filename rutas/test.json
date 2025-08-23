@@ -1,0 +1,422 @@
+{
+  "type": "FeatureCollection",
+  "bbox": [
+    -96.91614,
+    19.543392,
+    -96.90835,
+    19.552062
+  ],
+  "features": [
+    {
+      "bbox": [
+        -96.91614,
+        19.543392,
+        -96.90835,
+        19.552062
+      ],
+      "type": "Feature",
+      "properties": {
+        "segments": [
+          {
+            "distance": 1227.1,
+            "duration": 128.2,
+            "steps": [
+              {
+                "distance": 78.8,
+                "duration": 18.9,
+                "type": 11,
+                "instruction": "Head southeast on Calle David Ramírez Lavoignet",
+                "name": "Calle David Ramírez Lavoignet",
+                "way_points": [
+                  0,
+                  2
+                ]
+              },
+              {
+                "distance": 723.7,
+                "duration": 57.9,
+                "type": 0,
+                "instruction": "Turn left onto Avenida Presidente Miguel Alemán",
+                "name": "Avenida Presidente Miguel Alemán",
+                "way_points": [
+                  2,
+                  23
+                ]
+              },
+              {
+                "distance": 300.7,
+                "duration": 21.6,
+                "type": 1,
+                "instruction": "Turn right onto Avenida Ferrocarril Interoceánico",
+                "name": "Avenida Ferrocarril Interoceánico",
+                "way_points": [
+                  23,
+                  29
+                ]
+              },
+              {
+                "distance": 70.5,
+                "duration": 16.9,
+                "type": 1,
+                "instruction": "Turn right onto Calle Camino Antiguo a Naolinco",
+                "name": "Calle Camino Antiguo a Naolinco",
+                "way_points": [
+                  29,
+                  30
+                ]
+              },
+              {
+                "distance": 53.4,
+                "duration": 12.8,
+                "type": 0,
+                "instruction": "Turn left onto Calle Norberto Martínez",
+                "name": "Calle Norberto Martínez",
+                "way_points": [
+                  30,
+                  31
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Calle Norberto Martínez, on the right",
+                "name": "-",
+                "way_points": [
+                  31,
+                  31
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 1064.2,
+            "duration": 189.7,
+            "steps": [
+              {
+                "distance": 340.4,
+                "duration": 81.7,
+                "type": 11,
+                "instruction": "Head southeast on Calle Norberto Martínez",
+                "name": "Calle Norberto Martínez",
+                "way_points": [
+                  31,
+                  40
+                ]
+              },
+              {
+                "distance": 420,
+                "duration": 35.1,
+                "type": 1,
+                "instruction": "Turn right onto Prolongacion Pípila",
+                "name": "Prolongacion Pípila",
+                "way_points": [
+                  40,
+                  48
+                ]
+              },
+              {
+                "distance": 303.8,
+                "duration": 72.9,
+                "type": 3,
+                "instruction": "Turn sharp right onto Calle Gabriel Garzón",
+                "name": "Calle Gabriel Garzón",
+                "way_points": [
+                  48,
+                  57
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Calle Gabriel Garzón, on the right",
+                "name": "-",
+                "way_points": [
+                  57,
+                  57
+                ]
+              }
+            ]
+          }
+        ],
+        "way_points": [
+          0,
+          31,
+          57
+        ],
+        "summary": {
+          "distance": 2291.3,
+          "duration": 317.9
+        }
+      },
+      "geometry": {
+        "coordinates": [
+          [
+            -96.91614,
+            19.548973
+          ],
+          [
+            -96.916047,
+            19.548849
+          ],
+          [
+            -96.915704,
+            19.548396
+          ],
+          [
+            -96.914544,
+            19.549149
+          ],
+          [
+            -96.914431,
+            19.549269
+          ],
+          [
+            -96.914352,
+            19.549396
+          ],
+          [
+            -96.914314,
+            19.549523
+          ],
+          [
+            -96.914302,
+            19.549723
+          ],
+          [
+            -96.91431,
+            19.549895
+          ],
+          [
+            -96.914326,
+            19.550136
+          ],
+          [
+            -96.914307,
+            19.550269
+          ],
+          [
+            -96.914255,
+            19.550375
+          ],
+          [
+            -96.914197,
+            19.550435
+          ],
+          [
+            -96.9141,
+            19.550507
+          ],
+          [
+            -96.913669,
+            19.550707
+          ],
+          [
+            -96.912912,
+            19.551051
+          ],
+          [
+            -96.912659,
+            19.551159
+          ],
+          [
+            -96.912387,
+            19.551276
+          ],
+          [
+            -96.912297,
+            19.551315
+          ],
+          [
+            -96.912008,
+            19.551439
+          ],
+          [
+            -96.911869,
+            19.551499
+          ],
+          [
+            -96.911533,
+            19.551644
+          ],
+          [
+            -96.911078,
+            19.55184
+          ],
+          [
+            -96.910562,
+            19.552062
+          ],
+          [
+            -96.910249,
+            19.551525
+          ],
+          [
+            -96.909995,
+            19.550982
+          ],
+          [
+            -96.909799,
+            19.550585
+          ],
+          [
+            -96.909642,
+            19.550196
+          ],
+          [
+            -96.909421,
+            19.549658
+          ],
+          [
+            -96.909387,
+            19.549598
+          ],
+          [
+            -96.909773,
+            19.549079
+          ],
+          [
+            -96.909571,
+            19.548638
+          ],
+          [
+            -96.909415,
+            19.548301
+          ],
+          [
+            -96.909405,
+            19.548186
+          ],
+          [
+            -96.909287,
+            19.547895
+          ],
+          [
+            -96.909217,
+            19.547827
+          ],
+          [
+            -96.909019,
+            19.547425
+          ],
+          [
+            -96.908864,
+            19.54704
+          ],
+          [
+            -96.908837,
+            19.546967
+          ],
+          [
+            -96.908601,
+            19.546389
+          ],
+          [
+            -96.90835,
+            19.545816
+          ],
+          [
+            -96.90898,
+            19.545565
+          ],
+          [
+            -96.909673,
+            19.545308
+          ],
+          [
+            -96.909779,
+            19.545231
+          ],
+          [
+            -96.910057,
+            19.544799
+          ],
+          [
+            -96.910357,
+            19.544438
+          ],
+          [
+            -96.910744,
+            19.543994
+          ],
+          [
+            -96.910838,
+            19.543882
+          ],
+          [
+            -96.911248,
+            19.543392
+          ],
+          [
+            -96.91171,
+            19.543988
+          ],
+          [
+            -96.911712,
+            19.544037
+          ],
+          [
+            -96.91178,
+            19.544126
+          ],
+          [
+            -96.911885,
+            19.544205
+          ],
+          [
+            -96.912127,
+            19.544511
+          ],
+          [
+            -96.912189,
+            19.544585
+          ],
+          [
+            -96.912518,
+            19.544918
+          ],
+          [
+            -96.912861,
+            19.545238
+          ],
+          [
+            -96.913103,
+            19.545467
+          ]
+        ],
+        "type": "LineString"
+      }
+    }
+  ],
+  "metadata": {
+    "attribution": "openrouteservice.org | OpenStreetMap contributors",
+    "service": "routing",
+    "timestamp": 1755875306425,
+    "query": {
+      "coordinates": [
+        [
+          -96.91590981074197,
+          19.54912824607205
+        ],
+        [
+          -96.90955936795542,
+          19.548643085546193
+        ],
+        [
+          -96.91299203973193,
+          19.54557036834241
+        ]
+      ],
+      "profile": "driving-car",
+      "profileName": "driving-car",
+      "format": "geojson"
+    },
+    "engine": {
+      "version": "9.3.0",
+      "build_date": "2025-06-06T15:39:25Z",
+      "graph_date": "2025-08-17T11:38:17Z",
+      "osm_date": "2025-08-10T23:59:57Z"
+    }
+  }
+}

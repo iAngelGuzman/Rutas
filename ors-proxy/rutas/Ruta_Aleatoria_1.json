@@ -1,0 +1,673 @@
+{
+  "type": "FeatureCollection",
+  "bbox": [
+    -96.915465,
+    19.539557,
+    -96.908315,
+    19.545816
+  ],
+  "features": [
+    {
+      "bbox": [
+        -96.915465,
+        19.539557,
+        -96.908315,
+        19.545816
+      ],
+      "type": "Feature",
+      "properties": {
+        "segments": [
+          {
+            "distance": 526.6,
+            "duration": 70.5,
+            "steps": [
+              {
+                "distance": 109.7,
+                "duration": 26.3,
+                "type": 11,
+                "instruction": "Head west on Privada Gabriel Garzón",
+                "name": "Privada Gabriel Garzón",
+                "way_points": [
+                  0,
+                  3
+                ]
+              },
+              {
+                "distance": 358.8,
+                "duration": 37.2,
+                "type": 1,
+                "instruction": "Turn right onto Calle Pípila",
+                "name": "Calle Pípila",
+                "way_points": [
+                  3,
+                  11
+                ]
+              },
+              {
+                "distance": 58.1,
+                "duration": 7,
+                "type": 1,
+                "instruction": "Turn right onto Privada Municipal",
+                "name": "Privada Municipal",
+                "way_points": [
+                  11,
+                  12
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Privada Municipal, on the right",
+                "name": "-",
+                "way_points": [
+                  12,
+                  12
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 796.7,
+            "duration": 121,
+            "steps": [
+              {
+                "distance": 58.1,
+                "duration": 7,
+                "type": 11,
+                "instruction": "Head north on Privada Municipal",
+                "name": "Privada Municipal",
+                "way_points": [
+                  12,
+                  13
+                ]
+              },
+              {
+                "distance": 58.2,
+                "duration": 16.4,
+                "type": 1,
+                "instruction": "Turn right onto Prolongacion Pípila",
+                "name": "Prolongacion Pípila",
+                "way_points": [
+                  13,
+                  15
+                ]
+              },
+              {
+                "distance": 430,
+                "duration": 37.5,
+                "type": 6,
+                "instruction": "Continue straight onto Prolongacion Pípila",
+                "name": "Prolongacion Pípila",
+                "way_points": [
+                  15,
+                  24
+                ]
+              },
+              {
+                "distance": 166.7,
+                "duration": 40,
+                "type": 3,
+                "instruction": "Turn sharp right onto Calle Gabriel Garzón",
+                "name": "Calle Gabriel Garzón",
+                "way_points": [
+                  24,
+                  30
+                ]
+              },
+              {
+                "distance": 57.9,
+                "duration": 13.9,
+                "type": 0,
+                "instruction": "Turn left onto Calle Gobernador Antonio M. Quirasco",
+                "name": "Calle Gobernador Antonio M. Quirasco",
+                "way_points": [
+                  30,
+                  31
+                ]
+              },
+              {
+                "distance": 25.7,
+                "duration": 6.2,
+                "type": 1,
+                "instruction": "Turn right onto Calle Gobernador Antonio Nava",
+                "name": "Calle Gobernador Antonio Nava",
+                "way_points": [
+                  31,
+                  32
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Calle Gobernador Antonio Nava, on the left",
+                "name": "-",
+                "way_points": [
+                  32,
+                  32
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 914.7,
+            "duration": 147.8,
+            "steps": [
+              {
+                "distance": 25.7,
+                "duration": 6.2,
+                "type": 11,
+                "instruction": "Head southeast on Calle Gobernador Antonio Nava",
+                "name": "Calle Gobernador Antonio Nava",
+                "way_points": [
+                  32,
+                  33
+                ]
+              },
+              {
+                "distance": 87.6,
+                "duration": 21,
+                "type": 1,
+                "instruction": "Turn right onto Calle Gobernador Antonio M. Quirasco",
+                "name": "Calle Gobernador Antonio M. Quirasco",
+                "way_points": [
+                  33,
+                  35
+                ]
+              },
+              {
+                "distance": 79.1,
+                "duration": 19,
+                "type": 6,
+                "instruction": "Continue straight onto Calle Gobernador Antonio M. Quirasco",
+                "name": "Calle Gobernador Antonio M. Quirasco",
+                "way_points": [
+                  35,
+                  38
+                ]
+              },
+              {
+                "distance": 163.1,
+                "duration": 39.1,
+                "type": 1,
+                "instruction": "Turn right onto Calle Gobernador Antonio Nava",
+                "name": "Calle Gobernador Antonio Nava",
+                "way_points": [
+                  38,
+                  41
+                ]
+              },
+              {
+                "distance": 411,
+                "duration": 26.9,
+                "type": 1,
+                "instruction": "Turn right onto Calle Pípila",
+                "name": "Calle Pípila",
+                "way_points": [
+                  41,
+                  48
+                ]
+              },
+              {
+                "distance": 148.3,
+                "duration": 35.6,
+                "type": 1,
+                "instruction": "Turn right onto Calle Volcán de Colima",
+                "name": "Calle Volcán de Colima",
+                "way_points": [
+                  48,
+                  53
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Calle Volcán de Colima, on the right",
+                "name": "-",
+                "way_points": [
+                  53,
+                  53
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 1126.8,
+            "duration": 127.7,
+            "steps": [
+              {
+                "distance": 148.3,
+                "duration": 35.6,
+                "type": 11,
+                "instruction": "Head southeast on Calle Volcán de Colima",
+                "name": "Calle Volcán de Colima",
+                "way_points": [
+                  53,
+                  58
+                ]
+              },
+              {
+                "distance": 132.4,
+                "duration": 8.7,
+                "type": 3,
+                "instruction": "Turn sharp right onto Calle Pípila",
+                "name": "Calle Pípila",
+                "way_points": [
+                  58,
+                  61
+                ]
+              },
+              {
+                "distance": 467.5,
+                "duration": 32.6,
+                "type": 6,
+                "instruction": "Continue straight onto Calle Pípila",
+                "name": "Calle Pípila",
+                "way_points": [
+                  61,
+                  70
+                ]
+              },
+              {
+                "distance": 243.3,
+                "duration": 29.2,
+                "type": 1,
+                "instruction": "Turn right onto Calle Gobernador Jorge Serdán Norte",
+                "name": "Calle Gobernador Jorge Serdán Norte",
+                "way_points": [
+                  70,
+                  71
+                ]
+              },
+              {
+                "distance": 44.8,
+                "duration": 10.8,
+                "type": 1,
+                "instruction": "Turn right onto Avenida Encanto",
+                "name": "Avenida Encanto",
+                "way_points": [
+                  71,
+                  72
+                ]
+              },
+              {
+                "distance": 90.5,
+                "duration": 10.9,
+                "type": 1,
+                "instruction": "Turn right onto Calle Gobernador Jorge Serdán Sur",
+                "name": "Calle Gobernador Jorge Serdán Sur",
+                "way_points": [
+                  72,
+                  73
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Calle Gobernador Jorge Serdán Sur, on the left",
+                "name": "-",
+                "way_points": [
+                  73,
+                  73
+                ]
+              }
+            ]
+          }
+        ],
+        "way_points": [
+          0,
+          12,
+          32,
+          53,
+          73
+        ],
+        "summary": {
+          "distance": 3364.8,
+          "duration": 467
+        }
+      },
+      "geometry": {
+        "coordinates": [
+          [
+            -96.910337,
+            19.542764
+          ],
+          [
+            -96.910374,
+            19.542768
+          ],
+          [
+            -96.910628,
+            19.542911
+          ],
+          [
+            -96.911187,
+            19.543329
+          ],
+          [
+            -96.910775,
+            19.543819
+          ],
+          [
+            -96.910665,
+            19.543952
+          ],
+          [
+            -96.910296,
+            19.54439
+          ],
+          [
+            -96.909994,
+            19.544748
+          ],
+          [
+            -96.909736,
+            19.545149
+          ],
+          [
+            -96.909702,
+            19.545195
+          ],
+          [
+            -96.90961,
+            19.545249
+          ],
+          [
+            -96.908834,
+            19.545544
+          ],
+          [
+            -96.908635,
+            19.545057
+          ],
+          [
+            -96.908834,
+            19.545544
+          ],
+          [
+            -96.908495,
+            19.545666
+          ],
+          [
+            -96.908315,
+            19.545732
+          ],
+          [
+            -96.90835,
+            19.545816
+          ],
+          [
+            -96.90898,
+            19.545565
+          ],
+          [
+            -96.909673,
+            19.545308
+          ],
+          [
+            -96.909779,
+            19.545231
+          ],
+          [
+            -96.910057,
+            19.544799
+          ],
+          [
+            -96.910357,
+            19.544438
+          ],
+          [
+            -96.910744,
+            19.543994
+          ],
+          [
+            -96.910838,
+            19.543882
+          ],
+          [
+            -96.911248,
+            19.543392
+          ],
+          [
+            -96.91171,
+            19.543988
+          ],
+          [
+            -96.911712,
+            19.544037
+          ],
+          [
+            -96.91178,
+            19.544126
+          ],
+          [
+            -96.911885,
+            19.544205
+          ],
+          [
+            -96.912127,
+            19.544511
+          ],
+          [
+            -96.912189,
+            19.544585
+          ],
+          [
+            -96.912567,
+            19.544205
+          ],
+          [
+            -96.912744,
+            19.544365
+          ],
+          [
+            -96.912567,
+            19.544205
+          ],
+          [
+            -96.912878,
+            19.543874
+          ],
+          [
+            -96.913115,
+            19.54361
+          ],
+          [
+            -96.913044,
+            19.543541
+          ],
+          [
+            -96.912801,
+            19.543845
+          ],
+          [
+            -96.912636,
+            19.544021
+          ],
+          [
+            -96.91207,
+            19.543309
+          ],
+          [
+            -96.912024,
+            19.543269
+          ],
+          [
+            -96.911722,
+            19.542835
+          ],
+          [
+            -96.912213,
+            19.542237
+          ],
+          [
+            -96.912464,
+            19.541925
+          ],
+          [
+            -96.912926,
+            19.541416
+          ],
+          [
+            -96.913391,
+            19.540923
+          ],
+          [
+            -96.913955,
+            19.540333
+          ],
+          [
+            -96.914215,
+            19.54014
+          ],
+          [
+            -96.914321,
+            19.540089
+          ],
+          [
+            -96.914649,
+            19.540441
+          ],
+          [
+            -96.914751,
+            19.54051
+          ],
+          [
+            -96.914818,
+            19.540613
+          ],
+          [
+            -96.914949,
+            19.540891
+          ],
+          [
+            -96.915088,
+            19.541185
+          ],
+          [
+            -96.914949,
+            19.540891
+          ],
+          [
+            -96.914818,
+            19.540613
+          ],
+          [
+            -96.914751,
+            19.54051
+          ],
+          [
+            -96.914649,
+            19.540441
+          ],
+          [
+            -96.914321,
+            19.540089
+          ],
+          [
+            -96.915256,
+            19.539709
+          ],
+          [
+            -96.915383,
+            19.539652
+          ],
+          [
+            -96.915465,
+            19.53959
+          ],
+          [
+            -96.91536,
+            19.539557
+          ],
+          [
+            -96.91529,
+            19.539606
+          ],
+          [
+            -96.914289,
+            19.539993
+          ],
+          [
+            -96.914154,
+            19.540057
+          ],
+          [
+            -96.913913,
+            19.540267
+          ],
+          [
+            -96.913317,
+            19.540865
+          ],
+          [
+            -96.912843,
+            19.541363
+          ],
+          [
+            -96.912389,
+            19.541858
+          ],
+          [
+            -96.912131,
+            19.542178
+          ],
+          [
+            -96.910206,
+            19.540955
+          ],
+          [
+            -96.910455,
+            19.540627
+          ],
+          [
+            -96.911167,
+            19.54108
+          ]
+        ],
+        "type": "LineString"
+      }
+    }
+  ],
+  "metadata": {
+    "attribution": "openrouteservice.org | OpenStreetMap contributors",
+    "service": "routing",
+    "timestamp": 1755891613786,
+    "query": {
+      "coordinates": [
+        [
+          -96.9103,
+          19.5426
+        ],
+        [
+          -96.908452,
+          19.545123
+        ],
+        [
+          -96.912789,
+          19.544321
+        ],
+        [
+          -96.915001,
+          19.541234
+        ],
+        [
+          -96.911234,
+          19.540987
+        ]
+      ],
+      "profile": "driving-car",
+      "profileName": "driving-car",
+      "format": "geojson"
+    },
+    "engine": {
+      "version": "9.3.0",
+      "build_date": "2025-06-06T15:39:25Z",
+      "graph_date": "2025-08-17T11:38:17Z",
+      "osm_date": "2025-08-10T23:59:57Z"
+    }
+  }
+}
