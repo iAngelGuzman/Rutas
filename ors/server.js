@@ -10,7 +10,8 @@ app.use(express.json());
 
 const ORS_API_KEY = "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjM4NzUxZjU1ZGE5ZjQ3OGZiNjhkOGVjZTViM2M4ZGQwIiwiaCI6Im11cm11cjY0In0="; // pon aquí tu key de ORS
 const ORS_URL = "https://api.openrouteservice.org/v2/directions/driving-car/geojson";
-const RUTAS_DIR = path.join(process.cwd(), "rutas");
+const RUTAS_DIR = path.join(process.cwd(), "..", "rutas");
+const RUTAS_FILE = path.join(process.cwd(), "..", "rutasGenerar.json");
 
 // Crear carpeta si no existe
 if (!fs.existsSync(RUTAS_DIR)) fs.mkdirSync(RUTAS_DIR, { recursive: true });
@@ -59,6 +60,27 @@ app.get("/rutas", (req, res) => {
         return { nombre: f.replace(".json", ""), puntos, color: "blue" };
     });
     res.json({ rutas });
+});
+
+app.post("/guardar-ruta", (req, res) => {
+    const nuevaRuta = req.body;
+
+    // Leer contenido actual del archivo
+    let data = { rutas: [] };
+    if (fs.existsSync(RUTAS_FILE)) {
+        const fileContent = fs.readFileSync(RUTAS_FILE, "utf-8");
+        if (fileContent.trim()) {
+            data = JSON.parse(fileContent);
+        }
+    }
+
+    // Insertar la nueva ruta
+    data.rutas.push(nuevaRuta);
+
+    // Guardar nuevamente el JSON
+    fs.writeFileSync(RUTAS_FILE, JSON.stringify(data, null, 2));
+
+    res.json({ message: "Ruta guardada correctamente 🚍" });
 });
 
 app.listen(3000, () => console.log("Servidor corriendo en http://localhost:3000"));

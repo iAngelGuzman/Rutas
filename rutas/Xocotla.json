@@ -1,0 +1,2477 @@
+{
+  "type": "FeatureCollection",
+  "bbox": [
+    -96.985382,
+    19.532772,
+    -96.923514,
+    19.561008
+  ],
+  "features": [
+    {
+      "bbox": [
+        -96.985382,
+        19.532772,
+        -96.923514,
+        19.561008
+      ],
+      "type": "Feature",
+      "properties": {
+        "segments": [
+          {
+            "distance": 1087.3,
+            "duration": 262.7,
+            "steps": [
+              {
+                "distance": 1061.8,
+                "duration": 256.6,
+                "type": 11,
+                "instruction": "Head east",
+                "name": "-",
+                "way_points": [
+                  0,
+                  28
+                ]
+              },
+              {
+                "distance": 25.5,
+                "duration": 6.1,
+                "type": 4,
+                "instruction": "Turn slight left onto Calle Benito Juárez",
+                "name": "Calle Benito Juárez",
+                "way_points": [
+                  28,
+                  30
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Calle Benito Juárez, on the left",
+                "name": "-",
+                "way_points": [
+                  30,
+                  30
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 430.7,
+            "duration": 100.3,
+            "steps": [
+              {
+                "distance": 288.7,
+                "duration": 69.3,
+                "type": 11,
+                "instruction": "Head east on Calle Benito Juárez",
+                "name": "Calle Benito Juárez",
+                "way_points": [
+                  30,
+                  33
+                ]
+              },
+              {
+                "distance": 43.4,
+                "duration": 10.4,
+                "type": 12,
+                "instruction": "Keep left onto Calle Benito Juárez",
+                "name": "Calle Benito Juárez",
+                "way_points": [
+                  33,
+                  35
+                ]
+              },
+              {
+                "distance": 17.4,
+                "duration": 1.1,
+                "type": 1,
+                "instruction": "Turn right onto Fernando Gutiérrez Barrios",
+                "name": "Fernando Gutiérrez Barrios",
+                "way_points": [
+                  35,
+                  36
+                ]
+              },
+              {
+                "distance": 81.2,
+                "duration": 19.5,
+                "type": 0,
+                "instruction": "Turn left onto Calle Constitución",
+                "name": "Calle Constitución",
+                "way_points": [
+                  36,
+                  38
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Calle Constitución, on the left",
+                "name": "-",
+                "way_points": [
+                  38,
+                  38
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 312.9,
+            "duration": 75.1,
+            "steps": [
+              {
+                "distance": 312.9,
+                "duration": 75.1,
+                "type": 11,
+                "instruction": "Head southeast on Calle Constitución",
+                "name": "Calle Constitución",
+                "way_points": [
+                  38,
+                  44
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Calle Constitución, on the left",
+                "name": "-",
+                "way_points": [
+                  44,
+                  44
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 345.3,
+            "duration": 75.1,
+            "steps": [
+              {
+                "distance": 301.9,
+                "duration": 72.5,
+                "type": 11,
+                "instruction": "Head east",
+                "name": "-",
+                "way_points": [
+                  44,
+                  51
+                ]
+              },
+              {
+                "distance": 43.4,
+                "duration": 2.6,
+                "type": 4,
+                "instruction": "Turn slight left onto Fernando Gutiérrez Barrios",
+                "name": "Fernando Gutiérrez Barrios",
+                "way_points": [
+                  51,
+                  52
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Fernando Gutiérrez Barrios, on the right",
+                "name": "-",
+                "way_points": [
+                  52,
+                  52
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 855.1,
+            "duration": 51.3,
+            "steps": [
+              {
+                "distance": 855.1,
+                "duration": 51.3,
+                "type": 11,
+                "instruction": "Head southeast on Fernando Gutiérrez Barrios",
+                "name": "Fernando Gutiérrez Barrios",
+                "way_points": [
+                  52,
+                  66
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Fernando Gutiérrez Barrios, on the left",
+                "name": "-",
+                "way_points": [
+                  66,
+                  66
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 704.4,
+            "duration": 61.8,
+            "steps": [
+              {
+                "distance": 704.4,
+                "duration": 61.8,
+                "type": 11,
+                "instruction": "Head east on Fernando Gutiérrez Barrios",
+                "name": "Fernando Gutiérrez Barrios",
+                "way_points": [
+                  66,
+                  85
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Fernando Gutiérrez Barrios, on the left",
+                "name": "-",
+                "way_points": [
+                  85,
+                  85
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 689.7,
+            "duration": 50.5,
+            "steps": [
+              {
+                "distance": 689.7,
+                "duration": 50.5,
+                "type": 11,
+                "instruction": "Head east on Calle Fernando Gutiérrez Barrios",
+                "name": "Calle Fernando Gutiérrez Barrios",
+                "way_points": [
+                  85,
+                  95
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Calle Fernando Gutiérrez Barrios, on the right",
+                "name": "-",
+                "way_points": [
+                  95,
+                  95
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 223.1,
+            "duration": 23.9,
+            "steps": [
+              {
+                "distance": 170,
+                "duration": 20.5,
+                "type": 11,
+                "instruction": "Head east on Calle Fernando Gutiérrez Barrios",
+                "name": "Calle Fernando Gutiérrez Barrios",
+                "way_points": [
+                  95,
+                  105
+                ]
+              },
+              {
+                "distance": 53,
+                "duration": 3.5,
+                "type": 0,
+                "instruction": "Turn left onto Prolongación Mártires de 28 de Agosto",
+                "name": "Prolongación Mártires de 28 de Agosto",
+                "way_points": [
+                  105,
+                  106
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Prolongación Mártires de 28 de Agosto, on the right",
+                "name": "-",
+                "way_points": [
+                  106,
+                  106
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 933.9,
+            "duration": 71.1,
+            "steps": [
+              {
+                "distance": 933.9,
+                "duration": 71.1,
+                "type": 11,
+                "instruction": "Head southeast on Prolongación Mártires de 28 de Agosto",
+                "name": "Prolongación Mártires de 28 de Agosto",
+                "way_points": [
+                  106,
+                  128
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Prolongación Mártires de 28 de Agosto, on the right",
+                "name": "-",
+                "way_points": [
+                  128,
+                  128
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 1420.9,
+            "duration": 115.9,
+            "steps": [
+              {
+                "distance": 1342.4,
+                "duration": 99.2,
+                "type": 11,
+                "instruction": "Head southeast on Mártires de 28 de Agosto",
+                "name": "Mártires de 28 de Agosto",
+                "way_points": [
+                  128,
+                  144
+                ]
+              },
+              {
+                "distance": 13,
+                "duration": 1,
+                "type": 6,
+                "instruction": "Continue straight onto Mártires de 28 de Agosto",
+                "name": "Mártires de 28 de Agosto",
+                "way_points": [
+                  144,
+                  145
+                ]
+              },
+              {
+                "distance": 65.5,
+                "duration": 15.7,
+                "type": 6,
+                "instruction": "Continue straight onto Calle Sayago",
+                "name": "Calle Sayago",
+                "way_points": [
+                  145,
+                  146
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Calle Sayago, on the right",
+                "name": "-",
+                "way_points": [
+                  146,
+                  146
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 547.3,
+            "duration": 131.3,
+            "steps": [
+              {
+                "distance": 547.3,
+                "duration": 131.3,
+                "type": 11,
+                "instruction": "Head southeast on Calle Sayago",
+                "name": "Calle Sayago",
+                "way_points": [
+                  146,
+                  158
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Calle Sayago, on the right",
+                "name": "-",
+                "way_points": [
+                  158,
+                  158
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 241.5,
+            "duration": 36.9,
+            "steps": [
+              {
+                "distance": 66.4,
+                "duration": 15.9,
+                "type": 11,
+                "instruction": "Head southeast on Calle Sayago",
+                "name": "Calle Sayago",
+                "way_points": [
+                  158,
+                  159
+                ]
+              },
+              {
+                "distance": 175.2,
+                "duration": 21,
+                "type": 4,
+                "instruction": "Turn slight left onto Calle Sayago",
+                "name": "Calle Sayago",
+                "way_points": [
+                  159,
+                  161
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Calle Sayago, on the left",
+                "name": "-",
+                "way_points": [
+                  161,
+                  161
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 147.4,
+            "duration": 28.7,
+            "steps": [
+              {
+                "distance": 56,
+                "duration": 6.7,
+                "type": 11,
+                "instruction": "Head east on Calle Sayago",
+                "name": "Calle Sayago",
+                "way_points": [
+                  161,
+                  162
+                ]
+              },
+              {
+                "distance": 91.4,
+                "duration": 21.9,
+                "type": 0,
+                "instruction": "Turn left onto Calle Revolución",
+                "name": "Calle Revolución",
+                "way_points": [
+                  162,
+                  163
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Calle Revolución, on the left",
+                "name": "-",
+                "way_points": [
+                  163,
+                  163
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 125.3,
+            "duration": 30.1,
+            "steps": [
+              {
+                "distance": 72.2,
+                "duration": 17.3,
+                "type": 11,
+                "instruction": "Head north on Calle Revolución",
+                "name": "Calle Revolución",
+                "way_points": [
+                  163,
+                  164
+                ]
+              },
+              {
+                "distance": 53.1,
+                "duration": 12.8,
+                "type": 0,
+                "instruction": "Turn left onto Calle Melchor Ocampo",
+                "name": "Calle Melchor Ocampo",
+                "way_points": [
+                  164,
+                  165
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Calle Melchor Ocampo, on the right",
+                "name": "-",
+                "way_points": [
+                  165,
+                  165
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 514,
+            "duration": 123.4,
+            "steps": [
+              {
+                "distance": 458.4,
+                "duration": 110,
+                "type": 11,
+                "instruction": "Head west on Calle Melchor Ocampo",
+                "name": "Calle Melchor Ocampo",
+                "way_points": [
+                  165,
+                  172
+                ]
+              },
+              {
+                "distance": 55.6,
+                "duration": 13.3,
+                "type": 1,
+                "instruction": "Turn right onto Calle Sayago",
+                "name": "Calle Sayago",
+                "way_points": [
+                  172,
+                  175
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Calle Sayago, on the left",
+                "name": "-",
+                "way_points": [
+                  175,
+                  175
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 365,
+            "duration": 71.9,
+            "steps": [
+              {
+                "distance": 266.8,
+                "duration": 64,
+                "type": 11,
+                "instruction": "Head northwest on Calle Sayago",
+                "name": "Calle Sayago",
+                "way_points": [
+                  175,
+                  178
+                ]
+              },
+              {
+                "distance": 98.2,
+                "duration": 7.9,
+                "type": 6,
+                "instruction": "Continue straight onto Mártires de 28 de Agosto",
+                "name": "Mártires de 28 de Agosto",
+                "way_points": [
+                  178,
+                  180
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Mártires de 28 de Agosto, on the left",
+                "name": "-",
+                "way_points": [
+                  180,
+                  180
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 1377,
+            "duration": 101,
+            "steps": [
+              {
+                "distance": 76.4,
+                "duration": 6.1,
+                "type": 11,
+                "instruction": "Head northwest on Mártires de 28 de Agosto",
+                "name": "Mártires de 28 de Agosto",
+                "way_points": [
+                  180,
+                  181
+                ]
+              },
+              {
+                "distance": 1300.7,
+                "duration": 94.9,
+                "type": 6,
+                "instruction": "Continue straight onto Mártires de 28 de Agosto",
+                "name": "Mártires de 28 de Agosto",
+                "way_points": [
+                  181,
+                  199
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Mártires de 28 de Agosto, on the right",
+                "name": "-",
+                "way_points": [
+                  199,
+                  199
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 766.7,
+            "duration": 59.4,
+            "steps": [
+              {
+                "distance": 766.7,
+                "duration": 59.4,
+                "type": 11,
+                "instruction": "Head west on Mártires de 28 de Agosto",
+                "name": "Mártires de 28 de Agosto",
+                "way_points": [
+                  199,
+                  218
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Mártires de 28 de Agosto, on the left",
+                "name": "-",
+                "way_points": [
+                  218,
+                  218
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 224.4,
+            "duration": 24,
+            "steps": [
+              {
+                "distance": 100.5,
+                "duration": 6.6,
+                "type": 11,
+                "instruction": "Head northwest on Prolongación Mártires de 28 de Agosto",
+                "name": "Prolongación Mártires de 28 de Agosto",
+                "way_points": [
+                  218,
+                  219
+                ]
+              },
+              {
+                "distance": 123.9,
+                "duration": 17.5,
+                "type": 1,
+                "instruction": "Turn right onto Calle Fernando Gutiérrez Barrios",
+                "name": "Calle Fernando Gutiérrez Barrios",
+                "way_points": [
+                  219,
+                  226
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Calle Fernando Gutiérrez Barrios, on the left",
+                "name": "-",
+                "way_points": [
+                  226,
+                  226
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 834.7,
+            "duration": 60.6,
+            "steps": [
+              {
+                "distance": 834.7,
+                "duration": 60.6,
+                "type": 11,
+                "instruction": "Head northwest on Calle Fernando Gutiérrez Barrios",
+                "name": "Calle Fernando Gutiérrez Barrios",
+                "way_points": [
+                  226,
+                  240
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Calle Fernando Gutiérrez Barrios, on the right",
+                "name": "-",
+                "way_points": [
+                  240,
+                  240
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 504.4,
+            "duration": 43,
+            "steps": [
+              {
+                "distance": 398.5,
+                "duration": 32.1,
+                "type": 11,
+                "instruction": "Head west on Calle Fernando Gutiérrez Barrios",
+                "name": "Calle Fernando Gutiérrez Barrios",
+                "way_points": [
+                  240,
+                  250
+                ]
+              },
+              {
+                "distance": 105.9,
+                "duration": 10.9,
+                "type": 6,
+                "instruction": "Continue straight onto Calle Fernando Gutiérrez Barrios",
+                "name": "Calle Fernando Gutiérrez Barrios",
+                "way_points": [
+                  250,
+                  253
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Calle Fernando Gutiérrez Barrios, on the right",
+                "name": "-",
+                "way_points": [
+                  253,
+                  253
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 241.4,
+            "duration": 19.6,
+            "steps": [
+              {
+                "distance": 241.4,
+                "duration": 19.6,
+                "type": 11,
+                "instruction": "Head west on Calle Fernando Gutiérrez Barrios",
+                "name": "Calle Fernando Gutiérrez Barrios",
+                "way_points": [
+                  253,
+                  261
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Calle Fernando Gutiérrez Barrios, on the right",
+                "name": "-",
+                "way_points": [
+                  261,
+                  261
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 687.5,
+            "duration": 41.3,
+            "steps": [
+              {
+                "distance": 687.5,
+                "duration": 41.3,
+                "type": 11,
+                "instruction": "Head west on Fernando Gutiérrez Barrios",
+                "name": "Fernando Gutiérrez Barrios",
+                "way_points": [
+                  261,
+                  273
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Fernando Gutiérrez Barrios, on the left",
+                "name": "-",
+                "way_points": [
+                  273,
+                  273
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 236.1,
+            "duration": 44.1,
+            "steps": [
+              {
+                "distance": 69.8,
+                "duration": 4.2,
+                "type": 11,
+                "instruction": "Head northwest on Fernando Gutiérrez Barrios",
+                "name": "Fernando Gutiérrez Barrios",
+                "way_points": [
+                  273,
+                  275
+                ]
+              },
+              {
+                "distance": 166.4,
+                "duration": 39.9,
+                "type": 13,
+                "instruction": "Keep right",
+                "name": "-",
+                "way_points": [
+                  275,
+                  281
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at your destination, on the left",
+                "name": "-",
+                "way_points": [
+                  281,
+                  281
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 290.8,
+            "duration": 69.8,
+            "steps": [
+              {
+                "distance": 290.8,
+                "duration": 69.8,
+                "type": 11,
+                "instruction": "Head northwest",
+                "name": "-",
+                "way_points": [
+                  281,
+                  284
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at your destination, on the left",
+                "name": "-",
+                "way_points": [
+                  284,
+                  284
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 563.2,
+            "duration": 132.1,
+            "steps": [
+              {
+                "distance": 246.3,
+                "duration": 59.1,
+                "type": 11,
+                "instruction": "Head northwest on Calle Constitución",
+                "name": "Calle Constitución",
+                "way_points": [
+                  284,
+                  290
+                ]
+              },
+              {
+                "distance": 17.4,
+                "duration": 1.1,
+                "type": 1,
+                "instruction": "Turn right onto Fernando Gutiérrez Barrios",
+                "name": "Fernando Gutiérrez Barrios",
+                "way_points": [
+                  290,
+                  291
+                ]
+              },
+              {
+                "distance": 299.6,
+                "duration": 71.9,
+                "type": 0,
+                "instruction": "Turn left onto Calle Benito Juárez",
+                "name": "Calle Benito Juárez",
+                "way_points": [
+                  291,
+                  296
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Calle Benito Juárez, on the right",
+                "name": "-",
+                "way_points": [
+                  296,
+                  296
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 1122.4,
+            "duration": 271.1,
+            "steps": [
+              {
+                "distance": 58,
+                "duration": 13.9,
+                "type": 11,
+                "instruction": "Head west on Calle Benito Juárez",
+                "name": "Calle Benito Juárez",
+                "way_points": [
+                  296,
+                  298
+                ]
+              },
+              {
+                "distance": 1064.4,
+                "duration": 257.2,
+                "type": 13,
+                "instruction": "Keep right",
+                "name": "-",
+                "way_points": [
+                  298,
+                  326
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at your destination, on the left",
+                "name": "-",
+                "way_points": [
+                  326,
+                  326
+                ]
+              }
+            ]
+          }
+        ],
+        "way_points": [
+          0,
+          30,
+          38,
+          44,
+          52,
+          66,
+          85,
+          95,
+          106,
+          128,
+          146,
+          158,
+          161,
+          163,
+          165,
+          175,
+          180,
+          199,
+          218,
+          226,
+          240,
+          253,
+          261,
+          273,
+          281,
+          284,
+          296,
+          326
+        ],
+        "summary": {
+          "distance": 15792.4,
+          "duration": 2176
+        }
+      },
+      "geometry": {
+        "coordinates": [
+          [
+            -96.985359,
+            19.560793
+          ],
+          [
+            -96.984834,
+            19.560983
+          ],
+          [
+            -96.984716,
+            19.561008
+          ],
+          [
+            -96.984601,
+            19.561006
+          ],
+          [
+            -96.984483,
+            19.560973
+          ],
+          [
+            -96.984362,
+            19.560917
+          ],
+          [
+            -96.983837,
+            19.560523
+          ],
+          [
+            -96.983657,
+            19.560407
+          ],
+          [
+            -96.983016,
+            19.560081
+          ],
+          [
+            -96.982641,
+            19.559746
+          ],
+          [
+            -96.982548,
+            19.559648
+          ],
+          [
+            -96.98242,
+            19.559525
+          ],
+          [
+            -96.982107,
+            19.55931
+          ],
+          [
+            -96.981272,
+            19.558817
+          ],
+          [
+            -96.980776,
+            19.558506
+          ],
+          [
+            -96.98043,
+            19.558312
+          ],
+          [
+            -96.979734,
+            19.55797
+          ],
+          [
+            -96.979576,
+            19.557955
+          ],
+          [
+            -96.979402,
+            19.557974
+          ],
+          [
+            -96.979299,
+            19.557888
+          ],
+          [
+            -96.979192,
+            19.557657
+          ],
+          [
+            -96.978924,
+            19.557231
+          ],
+          [
+            -96.978527,
+            19.557426
+          ],
+          [
+            -96.978247,
+            19.557452
+          ],
+          [
+            -96.978081,
+            19.557392
+          ],
+          [
+            -96.977793,
+            19.556841
+          ],
+          [
+            -96.977741,
+            19.556617
+          ],
+          [
+            -96.977674,
+            19.556502
+          ],
+          [
+            -96.977458,
+            19.556388
+          ],
+          [
+            -96.977389,
+            19.556405
+          ],
+          [
+            -96.977228,
+            19.556349
+          ],
+          [
+            -96.976646,
+            19.556148
+          ],
+          [
+            -96.975748,
+            19.555745
+          ],
+          [
+            -96.974839,
+            19.555096
+          ],
+          [
+            -96.974716,
+            19.555082
+          ],
+          [
+            -96.974438,
+            19.555161
+          ],
+          [
+            -96.974421,
+            19.555005
+          ],
+          [
+            -96.974048,
+            19.554873
+          ],
+          [
+            -96.973706,
+            19.554725
+          ],
+          [
+            -96.973577,
+            19.554668
+          ],
+          [
+            -96.97315,
+            19.554393
+          ],
+          [
+            -96.972783,
+            19.554083
+          ],
+          [
+            -96.972581,
+            19.553815
+          ],
+          [
+            -96.971652,
+            19.553103
+          ],
+          [
+            -96.971388,
+            19.553015
+          ],
+          [
+            -96.970972,
+            19.552876
+          ],
+          [
+            -96.970054,
+            19.552336
+          ],
+          [
+            -96.969793,
+            19.55219
+          ],
+          [
+            -96.969603,
+            19.552112
+          ],
+          [
+            -96.969188,
+            19.552131
+          ],
+          [
+            -96.969014,
+            19.552045
+          ],
+          [
+            -96.968919,
+            19.55187
+          ],
+          [
+            -96.968654,
+            19.551572
+          ],
+          [
+            -96.968591,
+            19.551501
+          ],
+          [
+            -96.968294,
+            19.551207
+          ],
+          [
+            -96.967931,
+            19.550912
+          ],
+          [
+            -96.967648,
+            19.550813
+          ],
+          [
+            -96.967294,
+            19.550813
+          ],
+          [
+            -96.966866,
+            19.550883
+          ],
+          [
+            -96.965677,
+            19.551336
+          ],
+          [
+            -96.965362,
+            19.55134
+          ],
+          [
+            -96.964541,
+            19.55119
+          ],
+          [
+            -96.963713,
+            19.551029
+          ],
+          [
+            -96.96292,
+            19.55094
+          ],
+          [
+            -96.962329,
+            19.550893
+          ],
+          [
+            -96.961069,
+            19.550703
+          ],
+          [
+            -96.960964,
+            19.550716
+          ],
+          [
+            -96.960803,
+            19.550736
+          ],
+          [
+            -96.960609,
+            19.550816
+          ],
+          [
+            -96.96046,
+            19.550953
+          ],
+          [
+            -96.960426,
+            19.550979
+          ],
+          [
+            -96.96036,
+            19.55103
+          ],
+          [
+            -96.960308,
+            19.55107
+          ],
+          [
+            -96.960092,
+            19.551143
+          ],
+          [
+            -96.95981,
+            19.551186
+          ],
+          [
+            -96.959145,
+            19.551157
+          ],
+          [
+            -96.95902,
+            19.551127
+          ],
+          [
+            -96.958539,
+            19.551058
+          ],
+          [
+            -96.957303,
+            19.55087
+          ],
+          [
+            -96.95671,
+            19.550766
+          ],
+          [
+            -96.956322,
+            19.550755
+          ],
+          [
+            -96.956092,
+            19.550803
+          ],
+          [
+            -96.95591,
+            19.550838
+          ],
+          [
+            -96.955794,
+            19.550867
+          ],
+          [
+            -96.954949,
+            19.551035
+          ],
+          [
+            -96.954472,
+            19.551137
+          ],
+          [
+            -96.95387,
+            19.551265
+          ],
+          [
+            -96.9538,
+            19.551282
+          ],
+          [
+            -96.953687,
+            19.551301
+          ],
+          [
+            -96.953262,
+            19.551317
+          ],
+          [
+            -96.951856,
+            19.551226
+          ],
+          [
+            -96.950299,
+            19.55109
+          ],
+          [
+            -96.94962,
+            19.55097
+          ],
+          [
+            -96.948749,
+            19.550666
+          ],
+          [
+            -96.948326,
+            19.550512
+          ],
+          [
+            -96.948039,
+            19.550409
+          ],
+          [
+            -96.9479,
+            19.550359
+          ],
+          [
+            -96.947828,
+            19.55032
+          ],
+          [
+            -96.947698,
+            19.550249
+          ],
+          [
+            -96.94761,
+            19.550103
+          ],
+          [
+            -96.947588,
+            19.549943
+          ],
+          [
+            -96.947638,
+            19.549762
+          ],
+          [
+            -96.947659,
+            19.549713
+          ],
+          [
+            -96.947706,
+            19.549641
+          ],
+          [
+            -96.947772,
+            19.549509
+          ],
+          [
+            -96.947807,
+            19.549141
+          ],
+          [
+            -96.947406,
+            19.548851
+          ],
+          [
+            -96.946737,
+            19.548366
+          ],
+          [
+            -96.945927,
+            19.547646
+          ],
+          [
+            -96.945699,
+            19.547428
+          ],
+          [
+            -96.945362,
+            19.547198
+          ],
+          [
+            -96.944951,
+            19.546979
+          ],
+          [
+            -96.944849,
+            19.546948
+          ],
+          [
+            -96.944549,
+            19.546827
+          ],
+          [
+            -96.944298,
+            19.546727
+          ],
+          [
+            -96.943525,
+            19.546417
+          ],
+          [
+            -96.943361,
+            19.546413
+          ],
+          [
+            -96.94306,
+            19.546428
+          ],
+          [
+            -96.942859,
+            19.546417
+          ],
+          [
+            -96.942686,
+            19.546372
+          ],
+          [
+            -96.94197,
+            19.54612
+          ],
+          [
+            -96.941862,
+            19.546102
+          ],
+          [
+            -96.9416,
+            19.546109
+          ],
+          [
+            -96.941546,
+            19.546109
+          ],
+          [
+            -96.941346,
+            19.546094
+          ],
+          [
+            -96.940207,
+            19.54572
+          ],
+          [
+            -96.939767,
+            19.545576
+          ],
+          [
+            -96.939607,
+            19.545509
+          ],
+          [
+            -96.939512,
+            19.545453
+          ],
+          [
+            -96.939448,
+            19.545415
+          ],
+          [
+            -96.939265,
+            19.545287
+          ],
+          [
+            -96.939022,
+            19.545083
+          ],
+          [
+            -96.938952,
+            19.545023
+          ],
+          [
+            -96.937891,
+            19.544065
+          ],
+          [
+            -96.936938,
+            19.543205
+          ],
+          [
+            -96.936536,
+            19.542856
+          ],
+          [
+            -96.936021,
+            19.542373
+          ],
+          [
+            -96.935126,
+            19.541512
+          ],
+          [
+            -96.934241,
+            19.54063
+          ],
+          [
+            -96.933871,
+            19.540248
+          ],
+          [
+            -96.933384,
+            19.539728
+          ],
+          [
+            -96.932518,
+            19.538787
+          ],
+          [
+            -96.931735,
+            19.538023
+          ],
+          [
+            -96.931609,
+            19.537899
+          ],
+          [
+            -96.93062,
+            19.536787
+          ],
+          [
+            -96.930538,
+            19.536698
+          ],
+          [
+            -96.930222,
+            19.53619
+          ],
+          [
+            -96.92996,
+            19.535769
+          ],
+          [
+            -96.929507,
+            19.535436
+          ],
+          [
+            -96.928592,
+            19.534962
+          ],
+          [
+            -96.928391,
+            19.534799
+          ],
+          [
+            -96.928357,
+            19.534765
+          ],
+          [
+            -96.92828,
+            19.53464
+          ],
+          [
+            -96.928172,
+            19.534511
+          ],
+          [
+            -96.927984,
+            19.534321
+          ],
+          [
+            -96.927781,
+            19.534157
+          ],
+          [
+            -96.927545,
+            19.534003
+          ],
+          [
+            -96.926704,
+            19.533416
+          ],
+          [
+            -96.926238,
+            19.533112
+          ],
+          [
+            -96.925717,
+            19.532772
+          ],
+          [
+            -96.924558,
+            19.532811
+          ],
+          [
+            -96.924047,
+            19.532824
+          ],
+          [
+            -96.923514,
+            19.532838
+          ],
+          [
+            -96.923517,
+            19.53366
+          ],
+          [
+            -96.923519,
+            19.534309
+          ],
+          [
+            -96.924026,
+            19.53432
+          ],
+          [
+            -96.924564,
+            19.534331
+          ],
+          [
+            -96.92587,
+            19.53439
+          ],
+          [
+            -96.926694,
+            19.534513
+          ],
+          [
+            -96.927438,
+            19.534676
+          ],
+          [
+            -96.928164,
+            19.534782
+          ],
+          [
+            -96.92827,
+            19.534785
+          ],
+          [
+            -96.928357,
+            19.534765
+          ],
+          [
+            -96.928391,
+            19.534799
+          ],
+          [
+            -96.928592,
+            19.534962
+          ],
+          [
+            -96.928781,
+            19.53506
+          ],
+          [
+            -96.929507,
+            19.535436
+          ],
+          [
+            -96.92996,
+            19.535769
+          ],
+          [
+            -96.930538,
+            19.536698
+          ],
+          [
+            -96.93062,
+            19.536787
+          ],
+          [
+            -96.931141,
+            19.537373
+          ],
+          [
+            -96.931609,
+            19.537899
+          ],
+          [
+            -96.931735,
+            19.538023
+          ],
+          [
+            -96.932518,
+            19.538787
+          ],
+          [
+            -96.933384,
+            19.539728
+          ],
+          [
+            -96.933871,
+            19.540248
+          ],
+          [
+            -96.934241,
+            19.54063
+          ],
+          [
+            -96.935126,
+            19.541512
+          ],
+          [
+            -96.936021,
+            19.542373
+          ],
+          [
+            -96.936536,
+            19.542856
+          ],
+          [
+            -96.936938,
+            19.543205
+          ],
+          [
+            -96.937891,
+            19.544065
+          ],
+          [
+            -96.938952,
+            19.545023
+          ],
+          [
+            -96.939022,
+            19.545083
+          ],
+          [
+            -96.939265,
+            19.545287
+          ],
+          [
+            -96.939448,
+            19.545415
+          ],
+          [
+            -96.939607,
+            19.545509
+          ],
+          [
+            -96.939767,
+            19.545576
+          ],
+          [
+            -96.940207,
+            19.54572
+          ],
+          [
+            -96.940576,
+            19.545841
+          ],
+          [
+            -96.941346,
+            19.546094
+          ],
+          [
+            -96.941546,
+            19.546109
+          ],
+          [
+            -96.9416,
+            19.546109
+          ],
+          [
+            -96.941862,
+            19.546102
+          ],
+          [
+            -96.94197,
+            19.54612
+          ],
+          [
+            -96.942686,
+            19.546372
+          ],
+          [
+            -96.942859,
+            19.546417
+          ],
+          [
+            -96.94306,
+            19.546428
+          ],
+          [
+            -96.943361,
+            19.546413
+          ],
+          [
+            -96.943525,
+            19.546417
+          ],
+          [
+            -96.944298,
+            19.546727
+          ],
+          [
+            -96.944549,
+            19.546827
+          ],
+          [
+            -96.944849,
+            19.546948
+          ],
+          [
+            -96.944951,
+            19.546979
+          ],
+          [
+            -96.945362,
+            19.547198
+          ],
+          [
+            -96.945699,
+            19.547428
+          ],
+          [
+            -96.945927,
+            19.547646
+          ],
+          [
+            -96.946737,
+            19.548366
+          ],
+          [
+            -96.947046,
+            19.54859
+          ],
+          [
+            -96.947807,
+            19.549141
+          ],
+          [
+            -96.947772,
+            19.549509
+          ],
+          [
+            -96.947706,
+            19.549641
+          ],
+          [
+            -96.947659,
+            19.549713
+          ],
+          [
+            -96.947638,
+            19.549762
+          ],
+          [
+            -96.947588,
+            19.549943
+          ],
+          [
+            -96.94761,
+            19.550103
+          ],
+          [
+            -96.947669,
+            19.550201
+          ],
+          [
+            -96.947698,
+            19.550249
+          ],
+          [
+            -96.947828,
+            19.55032
+          ],
+          [
+            -96.9479,
+            19.550359
+          ],
+          [
+            -96.948326,
+            19.550512
+          ],
+          [
+            -96.948749,
+            19.550666
+          ],
+          [
+            -96.94962,
+            19.55097
+          ],
+          [
+            -96.950299,
+            19.55109
+          ],
+          [
+            -96.951856,
+            19.551226
+          ],
+          [
+            -96.953262,
+            19.551317
+          ],
+          [
+            -96.953687,
+            19.551301
+          ],
+          [
+            -96.9538,
+            19.551282
+          ],
+          [
+            -96.95387,
+            19.551265
+          ],
+          [
+            -96.954949,
+            19.551035
+          ],
+          [
+            -96.955391,
+            19.550947
+          ],
+          [
+            -96.955794,
+            19.550867
+          ],
+          [
+            -96.95591,
+            19.550838
+          ],
+          [
+            -96.956092,
+            19.550803
+          ],
+          [
+            -96.956337,
+            19.550795
+          ],
+          [
+            -96.956704,
+            19.550814
+          ],
+          [
+            -96.957308,
+            19.550926
+          ],
+          [
+            -96.958062,
+            19.55103
+          ],
+          [
+            -96.958532,
+            19.551103
+          ],
+          [
+            -96.959034,
+            19.551168
+          ],
+          [
+            -96.959145,
+            19.551157
+          ],
+          [
+            -96.95981,
+            19.551186
+          ],
+          [
+            -96.960092,
+            19.551143
+          ],
+          [
+            -96.960148,
+            19.551124
+          ],
+          [
+            -96.960308,
+            19.55107
+          ],
+          [
+            -96.96036,
+            19.55103
+          ],
+          [
+            -96.960426,
+            19.550979
+          ],
+          [
+            -96.96046,
+            19.550953
+          ],
+          [
+            -96.960609,
+            19.550816
+          ],
+          [
+            -96.960803,
+            19.550736
+          ],
+          [
+            -96.961069,
+            19.550703
+          ],
+          [
+            -96.962293,
+            19.550887
+          ],
+          [
+            -96.962329,
+            19.550893
+          ],
+          [
+            -96.96292,
+            19.55094
+          ],
+          [
+            -96.963713,
+            19.551029
+          ],
+          [
+            -96.964541,
+            19.55119
+          ],
+          [
+            -96.965362,
+            19.55134
+          ],
+          [
+            -96.965677,
+            19.551336
+          ],
+          [
+            -96.966866,
+            19.550883
+          ],
+          [
+            -96.967294,
+            19.550813
+          ],
+          [
+            -96.967648,
+            19.550813
+          ],
+          [
+            -96.967931,
+            19.550912
+          ],
+          [
+            -96.968294,
+            19.551207
+          ],
+          [
+            -96.968488,
+            19.551398
+          ],
+          [
+            -96.968591,
+            19.551501
+          ],
+          [
+            -96.968919,
+            19.55187
+          ],
+          [
+            -96.969014,
+            19.552045
+          ],
+          [
+            -96.969188,
+            19.552131
+          ],
+          [
+            -96.969603,
+            19.552112
+          ],
+          [
+            -96.969793,
+            19.55219
+          ],
+          [
+            -96.970054,
+            19.552336
+          ],
+          [
+            -96.97025,
+            19.552451
+          ],
+          [
+            -96.970972,
+            19.552876
+          ],
+          [
+            -96.971652,
+            19.553103
+          ],
+          [
+            -96.972574,
+            19.55381
+          ],
+          [
+            -96.972581,
+            19.553815
+          ],
+          [
+            -96.972783,
+            19.554083
+          ],
+          [
+            -96.97315,
+            19.554393
+          ],
+          [
+            -96.973577,
+            19.554668
+          ],
+          [
+            -96.974048,
+            19.554873
+          ],
+          [
+            -96.974421,
+            19.555005
+          ],
+          [
+            -96.974438,
+            19.555161
+          ],
+          [
+            -96.974716,
+            19.555082
+          ],
+          [
+            -96.974839,
+            19.555096
+          ],
+          [
+            -96.975748,
+            19.555745
+          ],
+          [
+            -96.976646,
+            19.556148
+          ],
+          [
+            -96.976937,
+            19.556248
+          ],
+          [
+            -96.977389,
+            19.556405
+          ],
+          [
+            -96.977458,
+            19.556388
+          ],
+          [
+            -96.977674,
+            19.556502
+          ],
+          [
+            -96.977741,
+            19.556617
+          ],
+          [
+            -96.977793,
+            19.556841
+          ],
+          [
+            -96.978081,
+            19.557392
+          ],
+          [
+            -96.978247,
+            19.557452
+          ],
+          [
+            -96.978527,
+            19.557426
+          ],
+          [
+            -96.978924,
+            19.557231
+          ],
+          [
+            -96.979192,
+            19.557657
+          ],
+          [
+            -96.979299,
+            19.557888
+          ],
+          [
+            -96.979402,
+            19.557974
+          ],
+          [
+            -96.979576,
+            19.557955
+          ],
+          [
+            -96.979734,
+            19.55797
+          ],
+          [
+            -96.98043,
+            19.558312
+          ],
+          [
+            -96.980776,
+            19.558506
+          ],
+          [
+            -96.981272,
+            19.558817
+          ],
+          [
+            -96.982107,
+            19.55931
+          ],
+          [
+            -96.98242,
+            19.559525
+          ],
+          [
+            -96.982548,
+            19.559648
+          ],
+          [
+            -96.982641,
+            19.559746
+          ],
+          [
+            -96.983016,
+            19.560081
+          ],
+          [
+            -96.983657,
+            19.560407
+          ],
+          [
+            -96.983837,
+            19.560523
+          ],
+          [
+            -96.984362,
+            19.560917
+          ],
+          [
+            -96.984483,
+            19.560973
+          ],
+          [
+            -96.984601,
+            19.561006
+          ],
+          [
+            -96.984716,
+            19.561008
+          ],
+          [
+            -96.984834,
+            19.560983
+          ],
+          [
+            -96.985382,
+            19.560785
+          ]
+        ],
+        "type": "LineString"
+      }
+    }
+  ],
+  "metadata": {
+    "attribution": "openrouteservice.org | OpenStreetMap contributors",
+    "service": "routing",
+    "timestamp": 1756092884148,
+    "query": {
+      "coordinates": [
+        [
+          -96.98536276817322,
+          19.560801689914832
+        ],
+        [
+          -96.97723031044008,
+          19.556343371149204
+        ],
+        [
+          -96.97370052337648,
+          19.554736325683002
+        ],
+        [
+          -96.9713830947876,
+          19.55302806617399
+        ],
+        [
+          -96.9686794281006,
+          19.55155250908529
+        ],
+        [
+          -96.96096539497375,
+          19.550722155310197
+        ],
+        [
+          -96.95447444915773,
+          19.55114667000511
+        ],
+        [
+          -96.94804787635803,
+          19.550387830142288
+        ],
+        [
+          -96.94740414619447,
+          19.548852255858865
+        ],
+        [
+          -96.93949699401857,
+          19.54547627440689
+        ],
+        [
+          -96.93022727966309,
+          19.536186907100724
+        ],
+        [
+          -96.92623615264894,
+          19.533113919313468
+        ],
+        [
+          -96.92404747009279,
+          19.532830878023685
+        ],
+        [
+          -96.92353248596193,
+          19.533659783257246
+        ],
+        [
+          -96.92402601242067,
+          19.534326947794025
+        ],
+        [
+          -96.9287896156311,
+          19.53504465202137
+        ],
+        [
+          -96.93114995956422,
+          19.537366337671703
+        ],
+        [
+          -96.94058060646059,
+          19.54582874561252
+        ],
+        [
+          -96.94703936576845,
+          19.548598843261043
+        ],
+        [
+          -96.94764018058777,
+          19.55021605740356
+        ],
+        [
+          -96.95539712905885,
+          19.550974120953036
+        ],
+        [
+          -96.9601607322693,
+          19.551157020852887
+        ],
+        [
+          -96.96228504180908,
+          19.550934656166262
+        ],
+        [
+          -96.96848630905153,
+          19.5513996001615
+        ],
+        [
+          -96.97025656700136,
+          19.552441838137824
+        ],
+        [
+          -96.97259545326234,
+          19.55378507667975
+        ],
+        [
+          -96.97695136070251,
+          19.556210681092104
+        ],
+        [
+          -96.98535203933716,
+          19.56071012239903
+        ]
+      ],
+      "profile": "driving-car",
+      "profileName": "driving-car",
+      "format": "geojson"
+    },
+    "engine": {
+      "version": "9.3.0",
+      "build_date": "2025-06-06T15:39:25Z",
+      "graph_date": "2025-08-24T11:22:16Z",
+      "osm_date": "2025-08-18T00:00:00Z"
+    }
+  }
+}
