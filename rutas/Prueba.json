@@ -1,0 +1,689 @@
+{
+  "type": "FeatureCollection",
+  "bbox": [
+    -96.934625,
+    19.532305,
+    -96.921138,
+    19.543438
+  ],
+  "features": [
+    {
+      "bbox": [
+        -96.934625,
+        19.532305,
+        -96.921138,
+        19.543438
+      ],
+      "type": "Feature",
+      "properties": {
+        "segments": [
+          {
+            "distance": 1789.9,
+            "duration": 195.4,
+            "steps": [
+              {
+                "distance": 116.1,
+                "duration": 7.6,
+                "type": 11,
+                "instruction": "Head southeast on Mártires de 28 de Agosto",
+                "name": "Mártires de 28 de Agosto",
+                "way_points": [
+                  0,
+                  2
+                ]
+              },
+              {
+                "distance": 100.5,
+                "duration": 12.1,
+                "type": 12,
+                "instruction": "Keep left onto Calle Misantla",
+                "name": "Calle Misantla",
+                "way_points": [
+                  2,
+                  3
+                ]
+              },
+              {
+                "distance": 1307.1,
+                "duration": 111.8,
+                "type": 12,
+                "instruction": "Keep left onto Calle Jesús Reyes Heroles",
+                "name": "Calle Jesús Reyes Heroles",
+                "way_points": [
+                  3,
+                  26
+                ]
+              },
+              {
+                "distance": 67.4,
+                "duration": 16.2,
+                "type": 3,
+                "instruction": "Turn sharp right onto Calle Revolución",
+                "name": "Calle Revolución",
+                "way_points": [
+                  26,
+                  29
+                ]
+              },
+              {
+                "distance": 24.3,
+                "duration": 5.8,
+                "type": 1,
+                "instruction": "Turn right onto Calle Revolución",
+                "name": "Calle Revolución",
+                "way_points": [
+                  29,
+                  31
+                ]
+              },
+              {
+                "distance": 81.2,
+                "duration": 19.5,
+                "type": 12,
+                "instruction": "Keep left onto Calle Revolución",
+                "name": "Calle Revolución",
+                "way_points": [
+                  31,
+                  36
+                ]
+              },
+              {
+                "distance": 52.1,
+                "duration": 12.5,
+                "type": 0,
+                "instruction": "Turn left",
+                "name": "-",
+                "way_points": [
+                  36,
+                  40
+                ]
+              },
+              {
+                "distance": 29.1,
+                "duration": 7,
+                "type": 0,
+                "instruction": "Turn left onto Calle Revolución",
+                "name": "Calle Revolución",
+                "way_points": [
+                  40,
+                  41
+                ]
+              },
+              {
+                "distance": 12.2,
+                "duration": 2.9,
+                "type": 1,
+                "instruction": "Turn right onto Calle Federico Froebel",
+                "name": "Calle Federico Froebel",
+                "way_points": [
+                  41,
+                  42
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Calle Federico Froebel, on the right",
+                "name": "-",
+                "way_points": [
+                  42,
+                  42
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 2714.1,
+            "duration": 358.8,
+            "steps": [
+              {
+                "distance": 119.3,
+                "duration": 28.6,
+                "type": 11,
+                "instruction": "Head southeast on Calle Federico Froebel",
+                "name": "Calle Federico Froebel",
+                "way_points": [
+                  42,
+                  44
+                ]
+              },
+              {
+                "distance": 36.8,
+                "duration": 8.8,
+                "type": 2,
+                "instruction": "Turn sharp left onto Calle Licenciado Othoniel Rodríguez Bazarte",
+                "name": "Calle Licenciado Othoniel Rodríguez Bazarte",
+                "way_points": [
+                  44,
+                  45
+                ]
+              },
+              {
+                "distance": 140.7,
+                "duration": 37.6,
+                "type": 6,
+                "instruction": "Continue straight onto Calle Licenciado Othoniel Rodríguez Bazarte",
+                "name": "Calle Licenciado Othoniel Rodríguez Bazarte",
+                "way_points": [
+                  45,
+                  49
+                ]
+              },
+              {
+                "distance": 665.3,
+                "duration": 49,
+                "type": 0,
+                "instruction": "Turn left onto Avenida de las Américas",
+                "name": "Avenida de las Américas",
+                "way_points": [
+                  49,
+                  58
+                ]
+              },
+              {
+                "distance": 41.9,
+                "duration": 10.1,
+                "type": 12,
+                "instruction": "Keep left onto Avenida de las Américas",
+                "name": "Avenida de las Américas",
+                "way_points": [
+                  58,
+                  62
+                ]
+              },
+              {
+                "distance": 390.1,
+                "duration": 33.4,
+                "type": 5,
+                "instruction": "Turn slight right onto Calle Ernesto Ortiz Medina",
+                "name": "Calle Ernesto Ortiz Medina",
+                "way_points": [
+                  62,
+                  70
+                ]
+              },
+              {
+                "distance": 529.6,
+                "duration": 31.8,
+                "type": 0,
+                "instruction": "Turn left onto Avenida Orizaba",
+                "name": "Avenida Orizaba",
+                "way_points": [
+                  70,
+                  77
+                ]
+              },
+              {
+                "distance": 13,
+                "duration": 1,
+                "type": 12,
+                "instruction": "Keep left onto Mártires de 28 de Agosto",
+                "name": "Mártires de 28 de Agosto",
+                "way_points": [
+                  77,
+                  78
+                ]
+              },
+              {
+                "distance": 180,
+                "duration": 43.2,
+                "type": 6,
+                "instruction": "Continue straight onto Calle Sayago",
+                "name": "Calle Sayago",
+                "way_points": [
+                  78,
+                  80
+                ]
+              },
+              {
+                "distance": 315.5,
+                "duration": 75.7,
+                "type": 1,
+                "instruction": "Turn right onto Calle Anastasio Bustamante",
+                "name": "Calle Anastasio Bustamante",
+                "way_points": [
+                  80,
+                  85
+                ]
+              },
+              {
+                "distance": 234,
+                "duration": 28.1,
+                "type": 0,
+                "instruction": "Turn left onto Calle Azcárate",
+                "name": "Calle Azcárate",
+                "way_points": [
+                  85,
+                  87
+                ]
+              },
+              {
+                "distance": 47.9,
+                "duration": 11.5,
+                "type": 1,
+                "instruction": "Turn right onto Calle Betancourt",
+                "name": "Calle Betancourt",
+                "way_points": [
+                  87,
+                  88
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Calle Betancourt, on the left",
+                "name": "-",
+                "way_points": [
+                  88,
+                  88
+                ]
+              }
+            ]
+          }
+        ],
+        "way_points": [
+          0,
+          42,
+          88
+        ],
+        "summary": {
+          "distance": 4504,
+          "duration": 554.2
+        }
+      },
+      "geometry": {
+        "coordinates": [
+          [
+            -96.934625,
+            19.541013
+          ],
+          [
+            -96.934241,
+            19.54063
+          ],
+          [
+            -96.933871,
+            19.540248
+          ],
+          [
+            -96.932922,
+            19.540119
+          ],
+          [
+            -96.932133,
+            19.540579
+          ],
+          [
+            -96.932021,
+            19.540635
+          ],
+          [
+            -96.931516,
+            19.54089
+          ],
+          [
+            -96.931125,
+            19.541088
+          ],
+          [
+            -96.93094,
+            19.541181
+          ],
+          [
+            -96.930238,
+            19.541536
+          ],
+          [
+            -96.930074,
+            19.541619
+          ],
+          [
+            -96.929345,
+            19.542063
+          ],
+          [
+            -96.929279,
+            19.542101
+          ],
+          [
+            -96.929185,
+            19.54215
+          ],
+          [
+            -96.928786,
+            19.542379
+          ],
+          [
+            -96.927895,
+            19.542862
+          ],
+          [
+            -96.927444,
+            19.543111
+          ],
+          [
+            -96.927034,
+            19.54332
+          ],
+          [
+            -96.926821,
+            19.543357
+          ],
+          [
+            -96.926751,
+            19.543355
+          ],
+          [
+            -96.926639,
+            19.543325
+          ],
+          [
+            -96.925594,
+            19.542761
+          ],
+          [
+            -96.925193,
+            19.542545
+          ],
+          [
+            -96.923996,
+            19.541918
+          ],
+          [
+            -96.923247,
+            19.541532
+          ],
+          [
+            -96.922671,
+            19.541221
+          ],
+          [
+            -96.922038,
+            19.540902
+          ],
+          [
+            -96.922178,
+            19.540753
+          ],
+          [
+            -96.922202,
+            19.54073
+          ],
+          [
+            -96.922467,
+            19.54045
+          ],
+          [
+            -96.922576,
+            19.540494
+          ],
+          [
+            -96.922689,
+            19.540488
+          ],
+          [
+            -96.922854,
+            19.540438
+          ],
+          [
+            -96.922978,
+            19.540376
+          ],
+          [
+            -96.923113,
+            19.540257
+          ],
+          [
+            -96.923201,
+            19.540153
+          ],
+          [
+            -96.923263,
+            19.540041
+          ],
+          [
+            -96.923188,
+            19.540007
+          ],
+          [
+            -96.923096,
+            19.539937
+          ],
+          [
+            -96.92301,
+            19.539835
+          ],
+          [
+            -96.922929,
+            19.539708
+          ],
+          [
+            -96.922702,
+            19.539857
+          ],
+          [
+            -96.922615,
+            19.539788
+          ],
+          [
+            -96.922209,
+            19.539464
+          ],
+          [
+            -96.921764,
+            19.539077
+          ],
+          [
+            -96.921639,
+            19.539387
+          ],
+          [
+            -96.921566,
+            19.539614
+          ],
+          [
+            -96.921454,
+            19.540157
+          ],
+          [
+            -96.921184,
+            19.540468
+          ],
+          [
+            -96.921138,
+            19.540526
+          ],
+          [
+            -96.921977,
+            19.540961
+          ],
+          [
+            -96.922632,
+            19.541284
+          ],
+          [
+            -96.923208,
+            19.54159
+          ],
+          [
+            -96.923952,
+            19.541993
+          ],
+          [
+            -96.924555,
+            19.542305
+          ],
+          [
+            -96.925189,
+            19.542638
+          ],
+          [
+            -96.92569,
+            19.542904
+          ],
+          [
+            -96.926562,
+            19.543355
+          ],
+          [
+            -96.926689,
+            19.543429
+          ],
+          [
+            -96.926849,
+            19.543438
+          ],
+          [
+            -96.926946,
+            19.543417
+          ],
+          [
+            -96.927001,
+            19.543383
+          ],
+          [
+            -96.927034,
+            19.54332
+          ],
+          [
+            -96.927444,
+            19.543111
+          ],
+          [
+            -96.927895,
+            19.542862
+          ],
+          [
+            -96.928786,
+            19.542379
+          ],
+          [
+            -96.929185,
+            19.54215
+          ],
+          [
+            -96.929279,
+            19.542101
+          ],
+          [
+            -96.929345,
+            19.542063
+          ],
+          [
+            -96.930074,
+            19.541619
+          ],
+          [
+            -96.930238,
+            19.541536
+          ],
+          [
+            -96.930253,
+            19.541249
+          ],
+          [
+            -96.930289,
+            19.540747
+          ],
+          [
+            -96.930376,
+            19.539728
+          ],
+          [
+            -96.930399,
+            19.539392
+          ],
+          [
+            -96.9305,
+            19.538198
+          ],
+          [
+            -96.930601,
+            19.537011
+          ],
+          [
+            -96.93062,
+            19.536787
+          ],
+          [
+            -96.930538,
+            19.536698
+          ],
+          [
+            -96.92996,
+            19.535769
+          ],
+          [
+            -96.929507,
+            19.535436
+          ],
+          [
+            -96.929629,
+            19.5352
+          ],
+          [
+            -96.929643,
+            19.535112
+          ],
+          [
+            -96.929634,
+            19.535019
+          ],
+          [
+            -96.929185,
+            19.5335
+          ],
+          [
+            -96.928959,
+            19.532712
+          ],
+          [
+            -96.927811,
+            19.532719
+          ],
+          [
+            -96.926726,
+            19.532734
+          ],
+          [
+            -96.926747,
+            19.532305
+          ]
+        ],
+        "type": "LineString"
+      }
+    }
+  ],
+  "metadata": {
+    "attribution": "openrouteservice.org | OpenStreetMap contributors",
+    "service": "routing",
+    "timestamp": 1756216492731,
+    "query": {
+      "coordinates": [
+        [
+          -96.9346046447754,
+          19.541031089108124
+        ],
+        [
+          -96.92258834838869,
+          19.539818110992158
+        ],
+        [
+          -96.92657947540285,
+          19.532297443274345
+        ]
+      ],
+      "profile": "driving-car",
+      "profileName": "driving-car",
+      "format": "geojson"
+    },
+    "engine": {
+      "version": "9.3.0",
+      "build_date": "2025-06-06T15:39:25Z",
+      "graph_date": "2025-08-24T11:22:16Z",
+      "osm_date": "2025-08-18T00:00:00Z"
+    }
+  }
+}
