@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
       localStorage.setItem("password", password);
 
       // Redirigir a inicio.html
-      window.location.href = "inicio.html";
+      window.location.href = "/paginas/inicio/inicio.html";
     } else {
       alert("Por favor completa todos los campos.");
     }
