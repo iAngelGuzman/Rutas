@@ -16,7 +16,7 @@
 
 <body>
   <div class="d-flex h-100">
-    <div class="col-0 col-md-6">
+    <div class="col-0 col-md-6 d-none d-md-block">
       <img src="/logo.jpg" alt="Logo" class="w-100 h-100 object-fit-cover">
     </div>
     <div class="col-12 col-md-6 container-fluid">
@@ -25,11 +25,13 @@
       <form action="login.html" method="get" class="d-flex flex-column align-items-center col-12 col-md-7 mx-auto">
         <div class="input-group mb-3">
           <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
-          <input type="text" class="form-control" placeholder="Usuario" aria-label="Usuario" aria-describedby="basic-addon1" required>
+          <input type="text" class="form-control" placeholder="Usuario" aria-label="Usuario"
+            aria-describedby="basic-addon1" required>
         </div>
-        <div class="input-group mb-3  ">
+        <div class="input-group mb-3">
           <span class="input-group-text" id="basic-addon2"><i class="fa-solid fa-lock"></i></span>
-          <input type="password" class="form-control" placeholder="Contraseña" aria-label="Contraseña" aria-describedby="basic-addon2" required>
+          <input type="password" class="form-control" placeholder="Contraseña" aria-label="Contraseña"
+            aria-describedby="basic-addon2" required>
           <button class="btn btn-outline-secondary" type="button" id="togglePassword">
             <i class="fa-solid fa-eye"></i>
           </button>
@@ -37,8 +39,9 @@
         <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
       </form>
       <div>
-        <p class="text-center mt-3">¿No tienes una cuenta? 
-          <a href="/paginas/signup/signup.html">Regístrate aquí</a></p>
+        <p class="text-center mt-3">¿No tienes una cuenta?
+          <a href="/paginas/signup/signup.html">Regístrate aquí</a>
+        </p>
       </div>
     </div>
   </div>
