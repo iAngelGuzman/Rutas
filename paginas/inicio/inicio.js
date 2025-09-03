@@ -392,6 +392,14 @@ document.addEventListener("DOMContentLoaded", () => {
             "Bienvenido, " + usuario + "!";
     } else {
         // Si no hay usuario guardado, regresar al login
-        window.location.href = "login.html";
+        window.location.href = "/paginas/login/login.html";
     }
 });
+
+function logout() {
+    if (confirm("¿Seguro que quieres cerrar sesión?")) {
+        localStorage.removeItem("usuario");
+        localStorage.removeItem("password");
+        window.location.href = "/paginas/login/login.html";
+    }
+}
