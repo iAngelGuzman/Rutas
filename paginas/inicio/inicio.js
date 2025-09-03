@@ -238,6 +238,11 @@ function verMiUbicacion() {
             fillOpacity: 0.2,
         }).addTo(map);
 
+        mensaje= L.popup()
+            .setLatLng(e.latlng)    
+            .setContent("¡Aquí estás!")
+            .openOn(map);
+
         map.setView(e.latlng, 17, { animate: true });
     });
 
@@ -386,20 +391,23 @@ function toggleSidebar() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    const usuario = localStorage.getItem("usuario");
+    const usuario = localStorage.getItem("usuarioActivo");
+
     if (usuario) {
-        document.getElementById("bienvenida").textContent =
-            "Bienvenido, " + usuario + "!";
+        // Si existe sesión activa → mostrar bienvenida
+        const bienvenidaEl = document.getElementById("bienvenida");
+        if (bienvenidaEl) {
+            bienvenidaEl.textContent = "Bienvenido, " + usuario + "!";
+        }
     } else {
-        // Si no hay usuario guardado, regresar al login
+        // Si no hay sesión activa → redirigir a login
         window.location.href = "/paginas/login/login.html";
     }
 });
 
 function logout() {
     if (confirm("¿Seguro que quieres cerrar sesión?")) {
-        localStorage.removeItem("usuario");
-        localStorage.removeItem("password");
+        localStorage.removeItem("usuarioActivo");
         window.location.href = "/paginas/login/login.html";
     }
 }

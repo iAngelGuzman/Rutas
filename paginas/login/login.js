@@ -4,22 +4,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const passInput = form.querySelector('input[placeholder="Contraseña"]');
 
   form.addEventListener("submit", (e) => {
-    e.preventDefault(); // evita que se recargue la página
+    e.preventDefault();
 
     const usuario = userInput.value.trim();
     const password = passInput.value.trim();
 
-    if (usuario && password) {
-      // Guardamos en localStorage
-      localStorage.setItem("usuario", usuario);
-      // ⚠️ No es buena práctica guardar la contraseña en localStorage
-      // pero si lo necesitas para pruebas:
-      localStorage.setItem("password", password);
+    // Recuperar usuarios guardados
+    let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
-      // Redirigir a inicio.html
+    // Buscar coincidencia
+    const userFound = usuarios.find(
+      (u) => u.usuario === usuario && u.password === password
+    );
+
+    if (userFound) {
+      localStorage.setItem("usuarioActivo", usuario);
       window.location.href = "/paginas/inicio/inicio.html";
     } else {
-      alert("Por favor completa todos los campos.");
+      alert("Usuario o contraseña incorrectos.");
     }
   });
 
