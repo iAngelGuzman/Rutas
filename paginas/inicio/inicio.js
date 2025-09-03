@@ -54,11 +54,11 @@ function guardarRuta() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(ruta)
     })
-    .then(res => res.json())
-    .then(data => {
-        alert(data.message);
-    })
-    .catch(err => console.error(err));
+        .then(res => res.json())
+        .then(data => {
+            alert(data.message);
+        })
+        .catch(err => console.error(err));
 }
 
 // 🔹 Función auxiliar para intercambiar posiciones
@@ -326,7 +326,7 @@ function dibujarRuta(latlngs, color = "red") {
     const polyline = L.polyline(latlngs, { color, weight: 5 }).addTo(map);
     rutasDibujadas.push(polyline);
 
-    polyline.on('click', function() {
+    polyline.on('click', function () {
         map.removeLayer(polyline);
         rutasDibujadas = rutasDibujadas.filter(l => l !== polyline);
     });
@@ -362,3 +362,36 @@ async function crearRuta(nombreRuta, color = "red") {
         console.error("Error cargando ruta:", err);
     }
 }
+
+
+// ---------------- Bienvenida ----------------
+window.onload = function () {
+    const mostrarBienvenida = localStorage.getItem("mostrarBienvenida", "false") === "true";
+    if (mostrarBienvenida) {
+        document.getElementById("bienvenida").style.display = "flex";
+    }
+};
+
+function cerrarBienvenida() {
+    document.getElementById("bienvenida").style.display = "none";
+}
+
+function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    if (sidebar.style.display === "none" || sidebar.style.display === "") {
+        sidebar.style.display = "block";
+    } else {
+        sidebar.style.display = "none";
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const usuario = localStorage.getItem("usuario");
+    if (usuario) {
+        document.getElementById("bienvenida").textContent =
+            "Bienvenido, " + usuario + "!";
+    } else {
+        // Si no hay usuario guardado, regresar al login
+        window.location.href = "login.html";
+    }
+});
