@@ -24,16 +24,18 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Usuario o contraseña incorrectos.");
     }
   });
-
-  // Mostrar / ocultar contraseña
-  const togglePassword = document.getElementById("togglePassword");
-  togglePassword.addEventListener("click", () => {
-    const type =
-      passInput.getAttribute("type") === "password" ? "text" : "password";
-    passInput.setAttribute("type", type);
-    togglePassword.innerHTML =
-      type === "password"
-        ? '<i class="fa-solid fa-eye"></i>'
-        : '<i class="fa-solid fa-eye-slash"></i>';
-  });
 });
+
+function togglePassword() {
+  const passInput = document.getElementById("passwordInput");
+
+  // Alternar tipo
+  const type = passInput.type === "password" ? "text" : "password";
+  passInput.type = type;
+
+  // Cambiar íconos
+  const icons = document.querySelectorAll(".toggle-password i");
+  icons.forEach(icon => {
+    icon.className = type === "password" ? "fa-solid fa-eye" : "fa-solid fa-eye-slash";
+  });
+}
