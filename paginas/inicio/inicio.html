@@ -20,17 +20,22 @@
 
   <header>
     <div id="menu" class="position-absolute top-0 p-3 w-100" style="z-index: 1000;">
-    <div class="d-flex gap-3 p-3 rounded h-100 bg-light shadow overflow-auto">
+    <div class="d-flex align-items-center gap-3 p-3 rounded h-100 bg-light shadow">
       <button id="btn-menu" class="btn btn-primary" onclick="toggleSidebar()">
         <i class="fa-solid fa-bars"></i>
       </button>
-      <input type="text" id="buscar-ruta" class="form-control ms-3" placeholder="Buscar ruta..." oninput="filtrarRutas()">
-      <button id="btn-centrar" class="btn btn-secondary ms-3" onclick="centrarMapa()">
+      <input type="text" id="buscar-ruta" class="form-control" placeholder="Buscar ruta..." oninput="filtrarRutas()">
+      <button id="btn-centrar" class="btn btn-secondary" onclick="centrarMapa()">
         <i class="fa-solid fa-crosshairs"></i>
       </button>
-      <a href="/paginas/perfil/perfil.html">
-        <img src="/icon.png" alt="Logo" class="ms-auto" style="height: 40px;">
-      </a>
+      <div class="dropdown">
+        <img src="/images/user-default.png" alt="Logo" class="ms-auto bg-light p-2 border rounded-circle btn btn-secondary dropdown-toggle" style="width: 2.45rem; height: 2.45rem;" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div class="dropdown-menu mt-2" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </div>
       <button id="btn-logout" class="btn btn-danger" onclick="logout()">
         <i class="fa-solid fa-right-from-bracket"></i>
       </button>
