@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// Función para eliminar una ruta
+// Elminar ruta
 function eliminarRuta(index) {
   let rutas = JSON.parse(localStorage.getItem("rutas")) || [];
   rutas.splice(index, 1);
