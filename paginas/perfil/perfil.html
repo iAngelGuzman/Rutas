@@ -1,11 +1,102 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Perfil - Rutas de Autobús Xalapa</title>
+    <link rel="icon" type="image/png" href="/icon.png">
+    
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Estilos propios -->
+    <link rel="stylesheet" href="perfil.css">
 </head>
 <body>
-    <h1>Perfil</h1>
+    <div class="container py-5">
+        <!-- Header con logo y botones -->
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <div class="d-flex align-items-center">
+                <img src="/icon.png" alt="Logo" width="50" class="me-3 header-logo" onclick="volverAlMapa()">
+                <h1 class="mb-0 fw-bold text-primary">Rutas de Autobús - Xalapa</h1>
+            </div>
+            <div>
+                <button class="btn btn-outline-primary me-2" onclick="volverAlMapa()">
+                    <i class="fas fa-map-marked-alt me-1"></i> Ver Mapa
+                </button>
+                <button class="btn btn-danger" onclick="cerrarSesion()">
+                    <i class="fas fa-sign-out-alt me-1"></i> Cerrar Sesión
+                </button>
+            </div>
+        </div>
+
+        <!-- Tarjeta de perfil -->
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white text-center py-4">
+                        <div class="avatar-circle mb-3 mx-auto">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h4 id="nombreUsuario" class="mb-1">Usuario</h4>
+                        <p id="emailUsuario" class="mb-0">usuario@ejemplo.com</p>
+                    </div>
+                    
+                    <div class="card-body p-4">
+                        <h5 class="card-title mb-4 text-center">Información del Perfil</h5>
+                        
+                        <form id="formPerfil">
+                            <div class="mb-3">
+                                <label class="form-label">Nombre completo</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    <input type="text" class="form-control" id="nombreCompleto" placeholder="Tu nombre completo">
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Correo electrónico</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                    <input type="email" class="form-control" id="email" placeholder="ejemplo@email.com">
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Número de teléfono</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                    <input type="tel" class="form-control" id="telefono" placeholder="123 456 7890">
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label">Dirección</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-home"></i></span>
+                                    <input type="text" class="form-control" id="direccion" placeholder="Tu dirección">
+                                </div>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save me-1"></i> Guardar Cambios
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- JS de Perfil -->
+    <script src="perfil.js"></script>
 </body>
 </html>
