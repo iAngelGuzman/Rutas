@@ -82,8 +82,23 @@
         <i class="fa-solid fa-comments me-1"></i>
         Foro / Comunidad
       </a>
+      
+    <a class="btn btn-warning mt-2 w-100 d-flex align-items-center justify-content-center" 
+      href="#" 
+      onclick="verFavoritos()" 
+      data-bs-toggle="collapse" 
+      data-bs-target="#lista-favoritos" 
+      aria-expanded="false" 
+      aria-controls="lista-favoritos">
+      <i class="fa-solid fa-bookmark me-2"></i>
+      Favoritos
+    </a>
+
+    <div class="collapse mt-3" id="lista-favoritos">
+      <h5 class="fw-bold">Rutas Favoritas</h5>
+      <div id="favoritos" class="d-flex flex-column gap-2 mt-2"></div>
     </div>
-  </div>
+
 
   <!-- Bienvenida -->
   <div id="bienvenida" class="flex-column position-absolute top-50 start-50 translate-middle p-4 rounded bg-white shadow text-center"

@@ -25,19 +25,78 @@ function limpiarMarcadores() {
 }
 
 function crearBotonRuta(ruta) {
-    const lista = document.getElementById("lista-rutas");
-    const btn = document.createElement("button");
-    btn.className = "btn btn-secondary text-start";
+  const lista = document.getElementById("lista-rutas");
 
-    const icono = document.createElement("i");
-    icono.className = "fa-solid fa-bus-simple me-2";
-    btn.appendChild(icono);
+  // Contenedor
+  const contenedor = document.createElement("div");
+  contenedor.className = "d-flex align-items-center justify-content-between mb-2";
 
-    btn.appendChild(document.createTextNode(ruta.nombre));
-    btn.onclick = () => crearRuta(ruta.archivo, ruta.color);
+  // Botón de la ruta
+  const btn = document.createElement("button");
+  btn.className = "btn btn-secondary text-start flex-grow-1 me-2";
 
-    lista.appendChild(btn);
+  const icono = document.createElement("i");
+  icono.className = "fa-solid fa-bus-simple me-2";
+  btn.appendChild(icono);
+
+  btn.appendChild(document.createTextNode(ruta.nombre));
+  btn.onclick = () => crearRuta(ruta.archivo, ruta.color);
+
+  // Botón de favoritos con ícono estilo "guardar"
+  const favBtn = document.createElement("button");
+  favBtn.className = "btn btn-outline-dark"; // bordeado tipo "guardar"
+  favBtn.innerHTML = '<i class="fa-solid fa-bookmark"></i>';
+
+  favBtn.onclick = () => {
+    guardarFavorito(ruta); // 👉 Aquí llamas tu lógica para guardarlo
+  };
+
+  // Agregar al contenedor
+  contenedor.appendChild(btn);
+  contenedor.appendChild(favBtn);
+
+  // Agregar a la lista
+  lista.appendChild(contenedor);
 }
+
+function guardarFavorito(ruta) {
+    let favoritos = JSON.parse(localStorage.getItem("rutasFavoritas")) || [];
+    if (!favoritos.some(fav => fav.nombre === ruta.nombre)) {
+        favoritos.push(ruta);
+        localStorage.setItem("rutasFavoritas", JSON.stringify(favoritos));
+        alert(`Ruta "${ruta.nombre}" guardada en favoritos.`);
+    } else {
+        alert(`La ruta "${ruta.nombre}" ya está en favoritos.`);
+    }
+}
+
+function verFavoritos() {
+    const favoritos = JSON.parse(localStorage.getItem("rutasFavoritas")) || [];
+    const lista = document.getElementById("favoritos");
+
+    lista.innerHTML = ""; // limpiar lista antes de mostrar
+
+    if (favoritos.length === 0) {
+        lista.innerHTML = '<p class="text-muted">No tienes rutas favoritas guardadas.</p>';
+    } else {
+        favoritos.forEach(ruta => {
+            // Botón que muestra el nombre y carga la ruta
+            const btn = document.createElement("button");
+            btn.className = "btn btn-outline-primary w-100 text-start";
+            btn.innerHTML = `<i class="fa-solid fa-bus-simple me-2"></i> ${ruta.nombre}`;
+
+            // 👉 aquí cargamos la ruta
+            btn.onclick = () => {
+                crearRuta(ruta.archivo, ruta.color);
+            };
+
+            lista.appendChild(btn);
+        });
+    }
+}
+
+
+// ---------------- Guardar ruta personalizada ----------------
 
 function guardarRuta() {
     const nombre = document.getElementById("nombre-ruta").value;
