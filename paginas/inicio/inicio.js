@@ -213,41 +213,80 @@ document.getElementById("form-ruta").addEventListener("submit", async (e) => {
 });
 
 // ---------------- Ubicación ----------------
+let circuloPulsante = null;
+let popupUbicacion = null;
+
 function verMiUbicacion() {
     map.locate({ setView: true, maxZoom: 17, watch: true });
 
-    map.once("locationfound", (e) => {
+    map.on("locationfound", (e) => {
+        // Eliminar anteriores
         if (marcadorUbicacion) map.removeLayer(marcadorUbicacion);
-        if (circuloUbicacion) map.removeLayer(circuloUbicacion);
+        if (circuloPulsante) map.removeLayer(circuloPulsante);
+        if (popupUbicacion) map.removeLayer(popupUbicacion);
 
-        marcadorUbicacion = L.circle(e.latlng, {
-            radius: 10,
-            color: "rgba(0, 63, 210, 1)",
-            opacity: 1.0,
-            weight: 2,
-            fillColor: "rgba(0, 76, 255, 1)",
-            fillOpacity: 1.0,
-        }).addTo(map);
+        // Marcador exacto
+        marcadorUbicacion = L.marker(e.latlng).addTo(map);
+
+        // Popup independiente
+        popupUbicacion = L.popup({
+            closeButton: false,
+            autoClose: false,
+            closeOnClick: false,
+            className: "popup-ubicacion"
+        })
+        .setLatLng(e.latlng)
+        .setContent("¡Aquí estás!")
+        .openOn(map);
+
+        const radioMax = e.accuracy || 150;
 
         circuloUbicacion = L.circle(e.latlng, {
-            radius: 150,
+            radius: 120,
             color: "blue",
             opacity: 0.4,
-            weight: 2,
+            weight: 1,
             fillColor: "rgba(0, 179, 255, 1)",
             fillOpacity: 0.2,
         }).addTo(map);
 
-        mensaje= L.popup()
-            .setLatLng(e.latlng)    
-            .setContent("¡Aquí estás!")
-            .openOn(map);
+        // Círculo pulsante
+        circuloPulsante = L.circle(e.latlng, {
+            radius: 0,
+            color: "blue",
+            weight: 2,
+            fillColor: "rgba(0, 179, 255, 1)",
+            fillOpacity: 0.5,
+        }).addTo(map);
 
-        map.setView(e.latlng, 17, { animate: true });
+        let radio = 0;
+        let opacity = 0.5;
+
+        function animarCirculo() {
+            if (!circuloPulsante) return;
+
+            radio += 1;
+            opacity = Math.max(0, 0.5 * (1 - radio / radioMax));
+
+            circuloPulsante.setRadius(radio);
+            circuloPulsante.setStyle({ fillOpacity: opacity, opacity: opacity });
+
+            if (radio >= radioMax) {
+                radio = 0;
+                opacity = 0.5;
+            }
+
+            // Mantener popup en la misma posición del marcador
+            popupUbicacion.setLatLng(marcadorUbicacion.getLatLng());
+
+            requestAnimationFrame(animarCirculo);
+        }
+
+        animarCirculo();
     });
-
-    map.once("locationerror", () => alert("No se pudo obtener tu ubicación 😥"));
 }
+
+
 
 // ---------------- Rutas ----------------
 async function crearGenerarRuta(nombre, puntos, color = "red") {
@@ -349,7 +388,7 @@ async function crearRuta(nombreRuta, color = "red") {
         }
 
         // Cargar desde archivo local (carpeta rutas)
-        const res = await fetch(`rutas/${nombreRuta}`);
+        const res = await fetch(`/rutas/${nombreRuta}`);
         if (!res.ok) throw new Error("Ruta no encontrada");
 
         const data = await res.json();
@@ -368,7 +407,6 @@ async function crearRuta(nombreRuta, color = "red") {
     }
 }
 
-
 // ---------------- Bienvenida ----------------
 window.onload = function () {
     const mostrarBienvenida = localStorage.getItem("mostrarBienvenida", "false") === "true";
@@ -378,31 +416,34 @@ window.onload = function () {
 };
 
 function cerrarBienvenida() {
-    document.getElementById("bienvenida").style.display = "none";
+    const bienvenida = document.getElementById("bienvenida");
+    const noMostrarCheckbox = document.getElementById("no-mostrar-checkbox");
+    if (noMostrarCheckbox.checked) {
+        localStorage.setItem("mostrarBienvenida", "false");
+    }
+    bienvenida.classList.toggle("d-none");
 }
 
 function toggleSidebar() {
     const sidebar = document.getElementById("sidebar");
-    if (sidebar.style.display === "none" || sidebar.style.display === "") {
-        sidebar.style.display = "block";
-    } else {
-        sidebar.style.display = "none";
-    }
+    sidebar.classList.toggle("d-none");
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    const usuario = localStorage.getItem("usuarioActivo");
-
-    if (usuario) {
-        // Si existe sesión activa → mostrar bienvenida
-        const bienvenidaEl = document.getElementById("bienvenida");
-        if (bienvenidaEl) {
-            bienvenidaEl.textContent = "Bienvenido, " + usuario + "!";
-        }
-    } else {
-        // Si no hay sesión activa → redirigir a login
-        window.location.href = "/paginas/login/login.html";
+    if (localStorage.getItem("mostrarBienvenida") === null) {
+        localStorage.setItem("mostrarBienvenida", "true");
     }
+    if (localStorage.getItem("mostrarBienvenida") === "true") {
+        bienvenida.classList.remove("d-flex");
+    } else {
+        bienvenida.classList.add("d-none");
+    }
+
+    // Inicializar tooltips de Bootstrap
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
 });
 
 function logout() {

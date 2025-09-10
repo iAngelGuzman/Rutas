@@ -1,0 +1,619 @@
+{
+  "type": "FeatureCollection",
+  "bbox": [
+    -96.951067,
+    19.552826,
+    -96.947695,
+    19.559799
+  ],
+  "features": [
+    {
+      "bbox": [
+        -96.951067,
+        19.552826,
+        -96.947695,
+        19.559799
+      ],
+      "type": "Feature",
+      "properties": {
+        "segments": [
+          {
+            "distance": 615.6,
+            "duration": 44.3,
+            "steps": [
+              {
+                "distance": 615.6,
+                "duration": 44.3,
+                "type": 11,
+                "instruction": "Head north on Calle Higuerillas",
+                "name": "Calle Higuerillas",
+                "way_points": [
+                  0,
+                  19
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Calle Higuerillas, on the left",
+                "name": "-",
+                "way_points": [
+                  19,
+                  19
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 474.3,
+            "duration": 111.6,
+            "steps": [
+              {
+                "distance": 4.7,
+                "duration": 0.3,
+                "type": 11,
+                "instruction": "Head north on Calle Solidaridad",
+                "name": "Calle Solidaridad",
+                "way_points": [
+                  19,
+                  20
+                ]
+              },
+              {
+                "distance": 92.4,
+                "duration": 22.2,
+                "type": 1,
+                "instruction": "Turn right onto Calle Francisco Villa",
+                "name": "Calle Francisco Villa",
+                "way_points": [
+                  20,
+                  23
+                ]
+              },
+              {
+                "distance": 31.3,
+                "duration": 7.5,
+                "type": 6,
+                "instruction": "Continue straight onto Calle Prolongación Francisco Villa",
+                "name": "Calle Prolongación Francisco Villa",
+                "way_points": [
+                  23,
+                  24
+                ]
+              },
+              {
+                "distance": 138.3,
+                "duration": 33.2,
+                "type": 13,
+                "instruction": "Keep right onto Calle Prolongación Francisco Villa",
+                "name": "Calle Prolongación Francisco Villa",
+                "way_points": [
+                  24,
+                  27
+                ]
+              },
+              {
+                "distance": 195.8,
+                "duration": 47,
+                "type": 13,
+                "instruction": "Keep right onto Calle Cedros",
+                "name": "Calle Cedros",
+                "way_points": [
+                  27,
+                  30
+                ]
+              },
+              {
+                "distance": 11.8,
+                "duration": 1.4,
+                "type": 13,
+                "instruction": "Keep right onto Calle Cedros",
+                "name": "Calle Cedros",
+                "way_points": [
+                  30,
+                  31
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Calle Cedros, on the right",
+                "name": "-",
+                "way_points": [
+                  31,
+                  31
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 400.6,
+            "duration": 71.2,
+            "steps": [
+              {
+                "distance": 208,
+                "duration": 25,
+                "type": 11,
+                "instruction": "Head south on Calle Cedros",
+                "name": "Calle Cedros",
+                "way_points": [
+                  31,
+                  33
+                ]
+              },
+              {
+                "distance": 47.5,
+                "duration": 11.4,
+                "type": 0,
+                "instruction": "Turn left",
+                "name": "-",
+                "way_points": [
+                  33,
+                  34
+                ]
+              },
+              {
+                "distance": 145.1,
+                "duration": 34.8,
+                "type": 1,
+                "instruction": "Turn right onto Calle Álamo",
+                "name": "Calle Álamo",
+                "way_points": [
+                  34,
+                  37
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Calle Álamo, on the right",
+                "name": "-",
+                "way_points": [
+                  37,
+                  37
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 326.7,
+            "duration": 78.4,
+            "steps": [
+              {
+                "distance": 98.2,
+                "duration": 23.6,
+                "type": 11,
+                "instruction": "Head south on Calle Álamo",
+                "name": "Calle Álamo",
+                "way_points": [
+                  37,
+                  40
+                ]
+              },
+              {
+                "distance": 28.8,
+                "duration": 6.9,
+                "type": 1,
+                "instruction": "Turn right onto Calle Pino",
+                "name": "Calle Pino",
+                "way_points": [
+                  40,
+                  41
+                ]
+              },
+              {
+                "distance": 165.4,
+                "duration": 39.7,
+                "type": 12,
+                "instruction": "Keep left onto Calle Jesús Carranza",
+                "name": "Calle Jesús Carranza",
+                "way_points": [
+                  41,
+                  45
+                ]
+              },
+              {
+                "distance": 31.7,
+                "duration": 7.6,
+                "type": 13,
+                "instruction": "Keep right onto Andador Jesús Carranza",
+                "name": "Andador Jesús Carranza",
+                "way_points": [
+                  45,
+                  46
+                ]
+              },
+              {
+                "distance": 2.6,
+                "duration": 0.6,
+                "type": 0,
+                "instruction": "Turn left onto Calle Diego Rivera",
+                "name": "Calle Diego Rivera",
+                "way_points": [
+                  46,
+                  47
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Calle Diego Rivera, on the right",
+                "name": "-",
+                "way_points": [
+                  47,
+                  47
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 112.9,
+            "duration": 26.8,
+            "steps": [
+              {
+                "distance": 2.6,
+                "duration": 0.6,
+                "type": 11,
+                "instruction": "Head north on Calle Diego Rivera",
+                "name": "Calle Diego Rivera",
+                "way_points": [
+                  47,
+                  48
+                ]
+              },
+              {
+                "distance": 108.4,
+                "duration": 26,
+                "type": 0,
+                "instruction": "Turn left onto Calle Jesús Carranza",
+                "name": "Calle Jesús Carranza",
+                "way_points": [
+                  48,
+                  50
+                ]
+              },
+              {
+                "distance": 1.9,
+                "duration": 0.1,
+                "type": 1,
+                "instruction": "Turn right onto Calle Oriente",
+                "name": "Calle Oriente",
+                "way_points": [
+                  50,
+                  51
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Calle Oriente, on the left",
+                "name": "-",
+                "way_points": [
+                  51,
+                  51
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 142.1,
+            "duration": 11.4,
+            "steps": [
+              {
+                "distance": 142.1,
+                "duration": 11.4,
+                "type": 11,
+                "instruction": "Head north on Calle Oriente",
+                "name": "Calle Oriente",
+                "way_points": [
+                  51,
+                  54
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Calle Oriente, on the left",
+                "name": "-",
+                "way_points": [
+                  54,
+                  54
+                ]
+              }
+            ]
+          }
+        ],
+        "way_points": [
+          0,
+          19,
+          31,
+          37,
+          47,
+          51,
+          54
+        ],
+        "summary": {
+          "distance": 2072.2,
+          "duration": 343.7
+        }
+      },
+      "geometry": {
+        "coordinates": [
+          [
+            -96.950944,
+            19.554351
+          ],
+          [
+            -96.950896,
+            19.554813
+          ],
+          [
+            -96.950882,
+            19.554942
+          ],
+          [
+            -96.950833,
+            19.555005
+          ],
+          [
+            -96.950775,
+            19.555043
+          ],
+          [
+            -96.950427,
+            19.555151
+          ],
+          [
+            -96.950364,
+            19.555193
+          ],
+          [
+            -96.950329,
+            19.555547
+          ],
+          [
+            -96.950305,
+            19.555722
+          ],
+          [
+            -96.950119,
+            19.557074
+          ],
+          [
+            -96.950049,
+            19.557757
+          ],
+          [
+            -96.95005,
+            19.557815
+          ],
+          [
+            -96.950081,
+            19.557854
+          ],
+          [
+            -96.950249,
+            19.557902
+          ],
+          [
+            -96.950286,
+            19.557969
+          ],
+          [
+            -96.950352,
+            19.558178
+          ],
+          [
+            -96.950685,
+            19.558548
+          ],
+          [
+            -96.950706,
+            19.559106
+          ],
+          [
+            -96.950712,
+            19.559202
+          ],
+          [
+            -96.950716,
+            19.559294
+          ],
+          [
+            -96.950718,
+            19.559337
+          ],
+          [
+            -96.950468,
+            19.559526
+          ],
+          [
+            -96.950239,
+            19.559636
+          ],
+          [
+            -96.949951,
+            19.559729
+          ],
+          [
+            -96.949661,
+            19.559799
+          ],
+          [
+            -96.94953,
+            19.559793
+          ],
+          [
+            -96.949026,
+            19.559671
+          ],
+          [
+            -96.948459,
+            19.559338
+          ],
+          [
+            -96.948216,
+            19.558409
+          ],
+          [
+            -96.948026,
+            19.55801
+          ],
+          [
+            -96.947899,
+            19.557664
+          ],
+          [
+            -96.94791,
+            19.557566
+          ],
+          [
+            -96.94803,
+            19.556537
+          ],
+          [
+            -96.948143,
+            19.55571
+          ],
+          [
+            -96.947695,
+            19.555644
+          ],
+          [
+            -96.947788,
+            19.55507
+          ],
+          [
+            -96.947868,
+            19.554416
+          ],
+          [
+            -96.947884,
+            19.554354
+          ],
+          [
+            -96.947989,
+            19.553926
+          ],
+          [
+            -96.948024,
+            19.553687
+          ],
+          [
+            -96.948056,
+            19.553488
+          ],
+          [
+            -96.948326,
+            19.553535
+          ],
+          [
+            -96.948562,
+            19.553432
+          ],
+          [
+            -96.949021,
+            19.553214
+          ],
+          [
+            -96.949313,
+            19.553075
+          ],
+          [
+            -96.94974,
+            19.552873
+          ],
+          [
+            -96.950042,
+            19.552849
+          ],
+          [
+            -96.950044,
+            19.552826
+          ],
+          [
+            -96.950042,
+            19.552849
+          ],
+          [
+            -96.950612,
+            19.552929
+          ],
+          [
+            -96.951067,
+            19.552984
+          ],
+          [
+            -96.951065,
+            19.553001
+          ],
+          [
+            -96.951045,
+            19.553166
+          ],
+          [
+            -96.950987,
+            19.55388
+          ],
+          [
+            -96.950951,
+            19.554269
+          ]
+        ],
+        "type": "LineString"
+      }
+    }
+  ],
+  "metadata": {
+    "attribution": "openrouteservice.org | OpenStreetMap contributors",
+    "service": "routing",
+    "timestamp": 1757459780422,
+    "query": {
+      "coordinates": [
+        [
+          -96.95094466209413,
+          19.554351024437672
+        ],
+        [
+          -96.95070862770082,
+          19.559294760277677
+        ],
+        [
+          -96.94790840148927,
+          19.557565986447006
+        ],
+        [
+          -96.9478225708008,
+          19.554340914393176
+        ],
+        [
+          -96.95002198219301,
+          19.552824400543116
+        ],
+        [
+          -96.95111632347107,
+          19.55300638295785
+        ],
+        [
+          -96.95096611976625,
+          19.554270144063956
+        ]
+      ],
+      "profile": "driving-car",
+      "profileName": "driving-car",
+      "format": "geojson"
+    },
+    "engine": {
+      "version": "9.3.0",
+      "build_date": "2025-06-06T15:39:25Z",
+      "graph_date": "2025-09-07T11:47:42Z",
+      "osm_date": "2025-09-01T00:00:02Z"
+    }
+  }
+}
