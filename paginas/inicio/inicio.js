@@ -298,10 +298,10 @@ function verMiUbicacion() {
         .setContent("¡Aquí estás!")
         .openOn(map);
 
-        const radioMax = e.accuracy || 150;
+        const radioMax = 110;
 
         circuloUbicacion = L.circle(e.latlng, {
-            radius: 120,
+            radius: 110,
             color: "blue",
             opacity: 0.4,
             weight: 1,
@@ -380,6 +380,8 @@ async function crearGenerarRuta(nombre, puntos, color = "red") {
 (async function init() {
     await cargarRutas();
     await cargarGenerarRutas();
+    configurarBienvenida();
+    configurarTooltip();
 })();
 
 // ---------------- Drag & Drop lista de puntos ----------------
@@ -466,44 +468,46 @@ async function crearRuta(nombreRuta, color = "red") {
     }
 }
 
-// ---------------- Bienvenida ----------------
-window.onload = function () {
-    const mostrarBienvenida = localStorage.getItem("mostrarBienvenida", "false") === "true";
-    if (mostrarBienvenida) {
-        document.getElementById("bienvenida").style.display = "flex";
-    }
-};
-
 function cerrarBienvenida() {
-    const bienvenida = document.getElementById("bienvenida");
-    const noMostrarCheckbox = document.getElementById("no-mostrar-checkbox");
-    if (noMostrarCheckbox.checked) {
+    const checkbox = document.getElementById("no-mostrar-checkbox");
+    const modalEl = document.getElementById("bienvenidaModal");
+
+    modalEl.addEventListener("hidden.bs.modal", () => {
+        if (checkbox.checked) {
         localStorage.setItem("mostrarBienvenida", "false");
-    }
-    bienvenida.classList.toggle("d-none");
+        }
+    });
 }
 
-function toggleSidebar() {
-    const sidebar = document.getElementById("sidebar");
+function alternarMenuIzquierdo() {
+    const sidebar = document.getElementById("sidebar-izquierdo");
     sidebar.classList.toggle("d-none");
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    if (localStorage.getItem("mostrarBienvenida") === null) {
-        localStorage.setItem("mostrarBienvenida", "true");
-    }
-    if (localStorage.getItem("mostrarBienvenida") === "true") {
-        bienvenida.classList.remove("d-flex");
-    } else {
-        bienvenida.classList.add("d-none");
-    }
+function alternarMenuDerecho() {
+    const sidebar = document.getElementById("sidebar-derecho");
+    sidebar.classList.toggle("d-none");
+}
 
-    // Inicializar tooltips de Bootstrap
+function configurarBienvenida() {
+  // Si no existe la clave en localStorage, la inicializamos
+  if (localStorage.getItem("mostrarBienvenida") === null) {
+    localStorage.setItem("mostrarBienvenida", "true");
+  }
+
+  // Si mostrarBienvenida está en true, mostramos el modal
+  if (localStorage.getItem("mostrarBienvenida") === "true") {
+    let modalBienvenida = new bootstrap.Modal(document.getElementById("bienvenidaModal"));
+    modalBienvenida.show();
+  }
+}
+
+function configurarTooltip() {
     const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
     tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     })
-});
+}
 
 function logout() {
     if (confirm("¿Seguro que quieres cerrar sesión?")) {
