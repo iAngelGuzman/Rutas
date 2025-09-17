@@ -8,602 +8,602 @@
     {
       "nombre": "Ruta 001",
       "color": "#FF1100",
-      "archivo": "001/route/route.json"
+      "archivo": "001/route/route.geojson"
     },
     {
       "nombre": "Ruta 002",
       "color": "#FF2200",
-      "archivo": "002/route/route.json"
+      "archivo": "002/route/route.geojson"
     },
     {
       "nombre": "Ruta 003",
       "color": "#FF3300",
-      "archivo": "003/route/route.json"
+      "archivo": "003/route/route.geojson"
     },
     {
       "nombre": "Ruta 004",
       "color": "#FF4400",
-      "archivo": "004/route/route.json"
+      "archivo": "004/route/route.geojson"
     },
     {
       "nombre": "Ruta 005",
       "color": "#FF5500",
-      "archivo": "005/route/route.json"
+      "archivo": "005/route/route.geojson"
     },
     {
       "nombre": "Ruta 006",
       "color": "#FF6600",
-      "archivo": "006/route/route.json"
+      "archivo": "006/route/route.geojson"
     },
     {
       "nombre": "Ruta 007",
       "color": "#FF7700",
-      "archivo": "007/route/route.json"
+      "archivo": "007/route/route.geojson"
     },
     {
       "nombre": "Ruta 008",
       "color": "#FF8800",
-      "archivo": "008/route/route.json"
+      "archivo": "008/route/route.geojson"
     },
     {
       "nombre": "Ruta 009",
       "color": "#FF9900",
-      "archivo": "009/route/route.json"
+      "archivo": "009/route/route.geojson"
     },
     {
       "nombre": "Ruta 010",
       "color": "#FFAA00",
-      "archivo": "010/route/route.json"
+      "archivo": "010/route/route.geojson"
     },
     {
       "nombre": "Ruta 011",
       "color": "#FFBB00",
-      "archivo": "011/route/route.json"
+      "archivo": "011/route/route.geojson"
     },
     {
       "nombre": "Ruta 012",
       "color": "#FFCC00",
-      "archivo": "012/route/route.json"
+      "archivo": "012/route/route.geojson"
     },
     {
       "nombre": "Ruta 013",
       "color": "#FFDD00",
-      "archivo": "013/route/route.json"
+      "archivo": "013/route/route.geojson"
     },
     {
       "nombre": "Ruta 014",
       "color": "#FFEE00",
-      "archivo": "014/route/route.json"
+      "archivo": "014/route/route.geojson"
     },
     {
       "nombre": "Ruta 015",
       "color": "#FFFF00",
-      "archivo": "015/route/route.json"
+      "archivo": "015/route/route.geojson"
     },
     {
       "nombre": "Ruta 016",
       "color": "#EEFF00",
-      "archivo": "016/route/route.json"
+      "archivo": "016/route/route.geojson"
     },
     {
       "nombre": "Ruta 017",
       "color": "#DDFF00",
-      "archivo": "017/route/route.json"
+      "archivo": "017/route/route.geojson"
     },
     {
       "nombre": "Ruta 018",
       "color": "#CCFF00",
-      "archivo": "018/route/route.json"
+      "archivo": "018/route/route.geojson"
     },
     {
       "nombre": "Ruta 019",
       "color": "#BBFF00",
-      "archivo": "019/route/route.json"
+      "archivo": "019/route/route.geojson"
     },
     {
       "nombre": "Ruta 020",
       "color": "#AAFF00",
-      "archivo": "020/route/route.json"
+      "archivo": "020/route/route.geojson"
     },
     {
       "nombre": "Ruta 021",
       "color": "#99FF00",
-      "archivo": "021/route/route.json"
+      "archivo": "021/route/route.geojson"
     },
     {
       "nombre": "Ruta 022",
       "color": "#88FF00",
-      "archivo": "022/route/route.json"
+      "archivo": "022/route/route.geojson"
     },
     {
       "nombre": "Ruta 023",
       "color": "#77FF00",
-      "archivo": "023/route/route.json"
+      "archivo": "023/route/route.geojson"
     },
     {
       "nombre": "Ruta 024",
       "color": "#66FF00",
-      "archivo": "024/route/route.json"
+      "archivo": "024/route/route.geojson"
     },
     {
       "nombre": "Ruta 025",
       "color": "#55FF00",
-      "archivo": "025/route/route.json"
+      "archivo": "025/route/route.geojson"
     },
     {
       "nombre": "Ruta 026",
       "color": "#44FF00",
-      "archivo": "026/route/route.json"
+      "archivo": "026/route/route.geojson"
     },
     {
       "nombre": "Ruta 027",
       "color": "#33FF00",
-      "archivo": "027/route/route.json"
+      "archivo": "027/route/route.geojson"
     },
     {
       "nombre": "Ruta 028",
       "color": "#22FF00",
-      "archivo": "028/route/route.json"
+      "archivo": "028/route/route.geojson"
     },
     {
       "nombre": "Ruta 029",
       "color": "#11FF00",
-      "archivo": "029/route/route.json"
+      "archivo": "029/route/route.geojson"
     },
     {
       "nombre": "Ruta 030",
       "color": "#00FF00",
-      "archivo": "030/route/route.json"
+      "archivo": "030/route/route.geojson"
     },
     {
       "nombre": "Ruta 031",
       "color": "#00FF11",
-      "archivo": "031/route/route.json"
+      "archivo": "031/route/route.geojson"
     },
     {
       "nombre": "Ruta 032",
       "color": "#00FF22",
-      "archivo": "032/route/route.json"
+      "archivo": "032/route/route.geojson"
     },
     {
       "nombre": "Ruta 033",
       "color": "#00FF33",
-      "archivo": "033/route/route.json"
+      "archivo": "033/route/route.geojson"
     },
     {
       "nombre": "Ruta 034",
       "color": "#00FF44",
-      "archivo": "034/route/route.json"
+      "archivo": "034/route/route.geojson"
     },
     {
       "nombre": "Ruta 035",
       "color": "#00FF55",
-      "archivo": "035/route/route.json"
+      "archivo": "035/route/route.geojson"
     },
     {
       "nombre": "Ruta 036",
       "color": "#00FF66",
-      "archivo": "036/route/route.json"
+      "archivo": "036/route/route.geojson"
     },
     {
       "nombre": "Ruta 037",
       "color": "#00FF77",
-      "archivo": "037/route/route.json"
+      "archivo": "037/route/route.geojson"
     },
     {
       "nombre": "Ruta 038",
       "color": "#00FF88",
-      "archivo": "038/route/route.json"
+      "archivo": "038/route/route.geojson"
     },
     {
       "nombre": "Ruta 039",
       "color": "#00FF99",
-      "archivo": "039/route/route.json"
+      "archivo": "039/route/route.geojson"
     },
     {
       "nombre": "Ruta 040",
       "color": "#00FFAA",
-      "archivo": "040/route/route.json"
+      "archivo": "040/route/route.geojson"
     },
     {
       "nombre": "Ruta 041",
       "color": "#00FFBB",
-      "archivo": "041/route/route.json"
+      "archivo": "041/route/route.geojson"
     },
     {
       "nombre": "Ruta 042",
       "color": "#00FFCC",
-      "archivo": "042/route/route.json"
+      "archivo": "042/route/route.geojson"
     },
     {
       "nombre": "Ruta 043",
       "color": "#00FFDD",
-      "archivo": "043/route/route.json"
+      "archivo": "043/route/route.geojson"
     },
     {
       "nombre": "Ruta 044",
       "color": "#00FFEE",
-      "archivo": "044/route/route.json"
+      "archivo": "044/route/route.geojson"
     },
     {
       "nombre": "Ruta 045",
       "color": "#00FFFF",
-      "archivo": "045/route/route.json"
+      "archivo": "045/route/route.geojson"
     },
     {
       "nombre": "Ruta 046",
       "color": "#00EEFF",
-      "archivo": "046/route/route.json"
+      "archivo": "046/route/route.geojson"
     },
     {
       "nombre": "Ruta 047",
       "color": "#00DDFF",
-      "archivo": "047/route/route.json"
+      "archivo": "047/route/route.geojson"
     },
     {
       "nombre": "Ruta 048",
       "color": "#00CCFF",
-      "archivo": "048/route/route.json"
+      "archivo": "048/route/route.geojson"
     },
     {
       "nombre": "Ruta 049",
       "color": "#00BBFF",
-      "archivo": "049/route/route.json"
+      "archivo": "049/route/route.geojson"
     },
     {
       "nombre": "Ruta 050",
       "color": "#00AAFF",
-      "archivo": "050/route/route.json"
+      "archivo": "050/route/route.geojson"
     },
     {
       "nombre": "Ruta 051",
       "color": "#0099FF",
-      "archivo": "051/route/route.json"
+      "archivo": "051/route/route.geojson"
     },
     {
       "nombre": "Ruta 052",
       "color": "#0088FF",
-      "archivo": "052/route/route.json"
+      "archivo": "052/route/route.geojson"
     },
     {
       "nombre": "Ruta 053",
       "color": "#0077FF",
-      "archivo": "053/route/route.json"
+      "archivo": "053/route/route.geojson"
     },
     {
       "nombre": "Ruta 054",
       "color": "#0066FF",
-      "archivo": "054/route/route.json"
+      "archivo": "054/route/route.geojson"
     },
     {
       "nombre": "Ruta 055",
       "color": "#0055FF",
-      "archivo": "055/route/route.json"
+      "archivo": "055/route/route.geojson"
     },
     {
       "nombre": "Ruta 056",
       "color": "#0044FF",
-      "archivo": "056/route/route.json"
+      "archivo": "056/route/route.geojson"
     },
     {
       "nombre": "Ruta 057",
       "color": "#0033FF",
-      "archivo": "057/route/route.json"
+      "archivo": "057/route/route.geojson"
     },
     {
       "nombre": "Ruta 058",
       "color": "#0022FF",
-      "archivo": "058/route/route.json"
+      "archivo": "058/route/route.geojson"
     },
     {
       "nombre": "Ruta 059",
       "color": "#0011FF",
-      "archivo": "059/route/route.json"
+      "archivo": "059/route/route.geojson"
     },
     {
       "nombre": "Ruta 060",
       "color": "#0000FF",
-      "archivo": "060/route/route.json"
+      "archivo": "060/route/route.geojson"
     },
     {
       "nombre": "Ruta 061",
       "color": "#1100FF",
-      "archivo": "061/route/route.json"
+      "archivo": "061/route/route.geojson"
     },
     {
       "nombre": "Ruta 062",
       "color": "#2200FF",
-      "archivo": "062/route/route.json"
+      "archivo": "062/route/route.geojson"
     },
     {
       "nombre": "Ruta 063",
       "color": "#3300FF",
-      "archivo": "063/route/route.json"
+      "archivo": "063/route/route.geojson"
     },
     {
       "nombre": "Ruta 064",
       "color": "#4400FF",
-      "archivo": "064/route/route.json"
+      "archivo": "064/route/route.geojson"
     },
     {
       "nombre": "Ruta 065",
       "color": "#5500FF",
-      "archivo": "065/route/route.json"
+      "archivo": "065/route/route.geojson"
     },
     {
       "nombre": "Ruta 066",
       "color": "#6600FF",
-      "archivo": "066/route/route.json"
+      "archivo": "066/route/route.geojson"
     },
     {
       "nombre": "Ruta 067",
       "color": "#7700FF",
-      "archivo": "067/route/route.json"
+      "archivo": "067/route/route.geojson"
     },
     {
       "nombre": "Ruta 068",
       "color": "#8800FF",
-      "archivo": "068/route/route.json"
+      "archivo": "068/route/route.geojson"
     },
     {
       "nombre": "Ruta 069",
       "color": "#9900FF",
-      "archivo": "069/route/route.json"
+      "archivo": "069/route/route.geojson"
     },
     {
       "nombre": "Ruta 070",
       "color": "#AA00FF",
-      "archivo": "070/route/route.json"
+      "archivo": "070/route/route.geojson"
     },
     {
       "nombre": "Ruta 071",
       "color": "#BB00FF",
-      "archivo": "071/route/route.json"
+      "archivo": "071/route/route.geojson"
     },
     {
       "nombre": "Ruta 072",
       "color": "#CC00FF",
-      "archivo": "072/route/route.json"
+      "archivo": "072/route/route.geojson"
     },
     {
       "nombre": "Ruta 073",
       "color": "#DD00FF",
-      "archivo": "073/route/route.json"
+      "archivo": "073/route/route.geojson"
     },
     {
       "nombre": "Ruta 074",
       "color": "#EE00FF",
-      "archivo": "074/route/route.json"
+      "archivo": "074/route/route.geojson"
     },
     {
       "nombre": "Ruta 075",
       "color": "#FF00FF",
-      "archivo": "075/route/route.json"
+      "archivo": "075/route/route.geojson"
     },
     {
       "nombre": "Ruta 076",
       "color": "#FF00EE",
-      "archivo": "076/route/route.json"
+      "archivo": "076/route/route.geojson"
     },
     {
       "nombre": "Ruta 077",
       "color": "#FF00DD",
-      "archivo": "077/route/route.json"
+      "archivo": "077/route/route.geojson"
     },
     {
       "nombre": "Ruta 078",
       "color": "#FF00CC",
-      "archivo": "078/route/route.json"
+      "archivo": "078/route/route.geojson"
     },
     {
       "nombre": "Ruta 079",
       "color": "#FF00BB",
-      "archivo": "079/route/route.json"
+      "archivo": "079/route/route.geojson"
     },
     {
       "nombre": "Ruta 080",
       "color": "#FF00AA",
-      "archivo": "080/route/route.json"
+      "archivo": "080/route/route.geojson"
     },
     {
       "nombre": "Ruta 081",
       "color": "#FF0099",
-      "archivo": "081/route/route.json"
+      "archivo": "081/route/route.geojson"
     },
     {
       "nombre": "Ruta 082",
       "color": "#FF0088",
-      "archivo": "082/route/route.json"
+      "archivo": "082/route/route.geojson"
     },
     {
       "nombre": "Ruta 083",
       "color": "#FF0077",
-      "archivo": "083/route/route.json"
+      "archivo": "083/route/route.geojson"
     },
     {
       "nombre": "Ruta 084",
       "color": "#FF0066",
-      "archivo": "084/route/route.json"
+      "archivo": "084/route/route.geojson"
     },
     {
       "nombre": "Ruta 085",
       "color": "#FF0055",
-      "archivo": "085/route/route.json"
+      "archivo": "085/route/route.geojson"
     },
     {
       "nombre": "Ruta 086",
       "color": "#FF0044",
-      "archivo": "086/route/route.json"
+      "archivo": "086/route/route.geojson"
     },
     {
       "nombre": "Ruta 087",
       "color": "#FF0033",
-      "archivo": "087/route/route.json"
+      "archivo": "087/route/route.geojson"
     },
     {
       "nombre": "Ruta 088",
       "color": "#FF0022",
-      "archivo": "088/route/route.json"
+      "archivo": "088/route/route.geojson"
     },
     {
       "nombre": "Ruta 089",
       "color": "#FF0011",
-      "archivo": "089/route/route.json"
+      "archivo": "089/route/route.geojson"
     },
     {
       "nombre": "Ruta 090",
       "color": "#FF0000",
-      "archivo": "090/route/route.json"
+      "archivo": "090/route/route.geojson"
     },
     {
       "nombre": "Ruta 091",
       "color": "#FF1100",
-      "archivo": "091/route/route.json"
+      "archivo": "091/route/route.geojson"
     },
     {
       "nombre": "Ruta 092",
       "color": "#FF2200",
-      "archivo": "092/route/route.json"
+      "archivo": "092/route/route.geojson"
     },
     {
       "nombre": "Ruta 093",
       "color": "#FF3300",
-      "archivo": "093/route/route.json"
+      "archivo": "093/route/route.geojson"
     },
     {
       "nombre": "Ruta 094",
       "color": "#FF4400",
-      "archivo": "094/route/route.json"
+      "archivo": "094/route/route.geojson"
     },
     {
       "nombre": "Ruta 095",
       "color": "#FF5500",
-      "archivo": "095/route/route.json"
+      "archivo": "095/route/route.geojson"
     },
     {
       "nombre": "Ruta 096",
       "color": "#FF6600",
-      "archivo": "096/route/route.json"
+      "archivo": "096/route/route.geojson"
     },
     {
       "nombre": "Ruta 097",
       "color": "#FF7700",
-      "archivo": "097/route/route.json"
+      "archivo": "097/route/route.geojson"
     },
     {
       "nombre": "Ruta 098",
       "color": "#FF8800",
-      "archivo": "098/route/route.json"
+      "archivo": "098/route/route.geojson"
     },
     {
       "nombre": "Ruta 099",
       "color": "#FF9900",
-      "archivo": "099/route/route.json"
+      "archivo": "099/route/route.geojson"
     },
     {
       "nombre": "Ruta 100",
       "color": "#FFAA00",
-      "archivo": "100/route/route.json"
+      "archivo": "100/route/route.geojson"
     },
     {
       "nombre": "Ruta 101",
       "color": "#FFBB00",
-      "archivo": "101/route/route.json"
+      "archivo": "101/route/route.geojson"
     },
     {
       "nombre": "Ruta 102",
       "color": "#FFCC00",
-      "archivo": "102/route/route.json"
+      "archivo": "102/route/route.geojson"
     },
     {
       "nombre": "Ruta 103",
       "color": "#FFDD00",
-      "archivo": "103/route/route.json"
+      "archivo": "103/route/route.geojson"
     },
     {
       "nombre": "Ruta 104",
       "color": "#FFEE00",
-      "archivo": "104/route/route.json"
+      "archivo": "104/route/route.geojson"
     },
     {
       "nombre": "Ruta 105",
       "color": "#FFFF00",
-      "archivo": "105/route/route.json"
+      "archivo": "105/route/route.geojson"
     },
     {
       "nombre": "Ruta 106",
       "color": "#EEFF00",
-      "archivo": "106/route/route.json"
+      "archivo": "106/route/route.geojson"
     },
     {
       "nombre": "Ruta 107",
       "color": "#DDFF00",
-      "archivo": "107/route/route.json"
+      "archivo": "107/route/route.geojson"
     },
     {
       "nombre": "Ruta 108",
       "color": "#CCFF00",
-      "archivo": "108/route/route.json"
+      "archivo": "108/route/route.geojson"
     },
     {
       "nombre": "Ruta 109",
       "color": "#BBFF00",
-      "archivo": "109/route/route.json"
+      "archivo": "109/route/route.geojson"
     },
     {
       "nombre": "Ruta 110",
       "color": "#AAFF00",
-      "archivo": "110/route/route.json"
+      "archivo": "110/route/route.geojson"
     },
     {
       "nombre": "Ruta 111",
       "color": "#99FF00",
-      "archivo": "111/route/route.json"
+      "archivo": "111/route/route.geojson"
     },
     {
       "nombre": "Ruta 112",
       "color": "#88FF00",
-      "archivo": "112/route/route.json"
+      "archivo": "112/route/route.geojson"
     },
     {
       "nombre": "Ruta 113",
       "color": "#77FF00",
-      "archivo": "113/route/route.json"
+      "archivo": "113/route/route.geojson"
     },
     {
       "nombre": "Ruta 114",
       "color": "#66FF00",
-      "archivo": "114/route/route.json"
+      "archivo": "114/route/route.geojson"
     },
     {
       "nombre": "Ruta 115",
       "color": "#55FF00",
-      "archivo": "115/route/route.json"
+      "archivo": "115/route/route.geojson"
     },
     {
       "nombre": "Ruta 116",
       "color": "#44FF00",
-      "archivo": "116/route/route.json"
+      "archivo": "116/route/route.geojson"
     },
     {
       "nombre": "Ruta 117",
       "color": "#33FF00",
-      "archivo": "117/route/route.json"
+      "archivo": "117/route/route.geojson"
     },
     {
       "nombre": "Ruta 118",
       "color": "#22FF00",
-      "archivo": "118/route/route.json"
+      "archivo": "118/route/route.geojson"
     },
     {
       "nombre": "Ruta 119",
       "color": "#11FF00",
-      "archivo": "119/route/route.json"
+      "archivo": "119/route/route.geojson"
     },
     {
       "nombre": "Ruta 120",
       "color": "#00FF00",
-      "archivo": "120/route/route.json"
+      "archivo": "120/route/route.geojson"
     }
   ]
 }
