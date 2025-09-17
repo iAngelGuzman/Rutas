@@ -1,9 +1,626 @@
 {
   "rutas": [
     {
-      "nombre": "Xocotla",
-      "color": "red",
-      "archivo": "Xocotla.json"
+      "nombre": "Ruta 001",
+      "color": "#FF1100",
+      "archivos": {
+        "imagen": "/rutas/001/imagen/bus.png",
+        "ruta": "/rutas/001/route/route.geojson",
+        "paradas": "/rutas/001/stops/route.geojson"
+      }
+    },
+    {
+      "nombre": "Ruta 002",
+      "color": "#FF2200",
+      "archivos": {
+        "imagen": "/rutas/002/imagen/bus.png",
+        "ruta": "/rutas/002/route/route.geojson",
+        "paradas": "/rutas/002/stops/route.geojson"
+      }
+    },
+    {
+      "nombre": "Ruta 003",
+      "color": "#FF3300",
+      "archivos": {
+        "imagen": "/rutas/003/imagen/bus.png",
+        "ida": "/rutas/003/ida/route/route.geojson",
+        "ida-paradas": "/rutas/003/ida/stops/route.geojson",
+        "vuelta": "/rutas/003/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/003/vuelta/stops/route.geojson"
+      }
+    },
+    {
+      "nombre": "Ruta 004",
+      "color": "#FF4400",
+      "archivos": {
+        "imagen": "/rutas/004/imagen/bus.png",
+        "ruta": "/rutas/004/route/route.geojson",
+        "paradas": "/rutas/004/stops/route.geojson"
+      }
+    },
+    {
+      "nombre": "Ruta 005",
+      "color": "#FF5500",
+      "archivos": {
+        "imagen": "/rutas/005/imagen/bus.png",
+        "ruta": "/rutas/005/route/route.geojson",
+        "paradas": "/rutas/005/stops/route.geojson"
+      }
+    },
+    {
+      "nombre": "Ruta 006",
+      "color": "#FF6600",
+      "archivos": "006/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 007",
+      "color": "#FF7700",
+      "archivos": "007/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 008",
+      "color": "#FF8800",
+      "archivos": "008/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 009",
+      "color": "#FF9900",
+      "archivos": "009/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 010",
+      "color": "#FFAA00",
+      "archivos": "010/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 011",
+      "color": "#FFBB00",
+      "archivos": "011/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 012",
+      "color": "#FFCC00",
+      "archivos": "012/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 013",
+      "color": "#FFDD00",
+      "archivos": "013/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 014",
+      "color": "#FFEE00",
+      "archivos": "014/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 015",
+      "color": "#FFFF00",
+      "archivos": "015/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 016",
+      "color": "#EEFF00",
+      "archivos": "016/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 017",
+      "color": "#DDFF00",
+      "archivos": "017/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 018",
+      "color": "#CCFF00",
+      "archivos": "018/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 019",
+      "color": "#BBFF00",
+      "archivos": "019/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 020",
+      "color": "#AAFF00",
+      "archivos": "020/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 021",
+      "color": "#99FF00",
+      "archivos": "021/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 022",
+      "color": "#88FF00",
+      "archivos": "022/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 023",
+      "color": "#77FF00",
+      "archivos": "023/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 024",
+      "color": "#66FF00",
+      "archivos": "024/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 025",
+      "color": "#55FF00",
+      "archivos": "025/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 026",
+      "color": "#44FF00",
+      "archivos": "026/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 027",
+      "color": "#33FF00",
+      "archivos": "027/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 028",
+      "color": "#22FF00",
+      "archivos": "028/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 029",
+      "color": "#11FF00",
+      "archivos": "029/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 030",
+      "color": "#00FF00",
+      "archivos": "030/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 031",
+      "color": "#00FF11",
+      "archivos": "031/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 032",
+      "color": "#00FF22",
+      "archivos": "032/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 033",
+      "color": "#00FF33",
+      "archivos": "033/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 034",
+      "color": "#00FF44",
+      "archivos": "034/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 035",
+      "color": "#00FF55",
+      "archivos": "035/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 036",
+      "color": "#00FF66",
+      "archivos": "036/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 037",
+      "color": "#00FF77",
+      "archivos": "037/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 038",
+      "color": "#00FF88",
+      "archivos": "038/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 039",
+      "color": "#00FF99",
+      "archivos": "039/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 040",
+      "color": "#00FFAA",
+      "archivos": "040/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 041",
+      "color": "#00FFBB",
+      "archivos": "041/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 042",
+      "color": "#00FFCC",
+      "archivos": "042/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 043",
+      "color": "#00FFDD",
+      "archivos": "043/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 044",
+      "color": "#00FFEE",
+      "archivos": "044/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 045",
+      "color": "#00FFFF",
+      "archivos": "045/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 046",
+      "color": "#00EEFF",
+      "archivos": "046/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 047",
+      "color": "#00DDFF",
+      "archivos": "047/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 048",
+      "color": "#00CCFF",
+      "archivos": "048/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 049",
+      "color": "#00BBFF",
+      "archivos": "049/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 050",
+      "color": "#00AAFF",
+      "archivos": "050/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 051",
+      "color": "#0099FF",
+      "archivos": "051/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 052",
+      "color": "#0088FF",
+      "archivos": "052/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 053",
+      "color": "#0077FF",
+      "archivos": "053/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 054",
+      "color": "#0066FF",
+      "archivos": "054/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 055",
+      "color": "#0055FF",
+      "archivos": "055/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 056",
+      "color": "#0044FF",
+      "archivos": "056/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 057",
+      "color": "#0033FF",
+      "archivos": "057/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 058",
+      "color": "#0022FF",
+      "archivos": "058/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 059",
+      "color": "#0011FF",
+      "archivos": "059/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 060",
+      "color": "#0000FF",
+      "archivos": "060/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 061",
+      "color": "#1100FF",
+      "archivos": "061/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 062",
+      "color": "#2200FF",
+      "archivos": "062/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 063",
+      "color": "#3300FF",
+      "archivos": "063/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 064",
+      "color": "#4400FF",
+      "archivos": "064/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 065",
+      "color": "#5500FF",
+      "archivos": "065/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 066",
+      "color": "#6600FF",
+      "archivos": "066/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 067",
+      "color": "#7700FF",
+      "archivos": "067/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 068",
+      "color": "#8800FF",
+      "archivos": "068/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 069",
+      "color": "#9900FF",
+      "archivos": "069/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 070",
+      "color": "#AA00FF",
+      "archivos": "070/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 071",
+      "color": "#BB00FF",
+      "archivos": "071/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 072",
+      "color": "#CC00FF",
+      "archivos": "072/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 073",
+      "color": "#DD00FF",
+      "archivos": "073/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 074",
+      "color": "#EE00FF",
+      "archivos": "074/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 075",
+      "color": "#FF00FF",
+      "archivos": "075/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 076",
+      "color": "#FF00EE",
+      "archivos": "076/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 077",
+      "color": "#FF00DD",
+      "archivos": "077/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 078",
+      "color": "#FF00CC",
+      "archivos": "078/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 079",
+      "color": "#FF00BB",
+      "archivos": "079/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 080",
+      "color": "#FF00AA",
+      "archivos": "080/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 081",
+      "color": "#FF0099",
+      "archivos": "081/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 082",
+      "color": "#FF0088",
+      "archivos": "082/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 083",
+      "color": "#FF0077",
+      "archivos": "083/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 084",
+      "color": "#FF0066",
+      "archivos": "084/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 085",
+      "color": "#FF0055",
+      "archivos": "085/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 086",
+      "color": "#FF0044",
+      "archivos": "086/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 087",
+      "color": "#FF0033",
+      "archivos": "087/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 088",
+      "color": "#FF0022",
+      "archivos": "088/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 089",
+      "color": "#FF0011",
+      "archivos": "089/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 090",
+      "color": "#FF0000",
+      "archivos": "090/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 091",
+      "color": "#FF1100",
+      "archivos": "091/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 092",
+      "color": "#FF2200",
+      "archivos": "092/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 093",
+      "color": "#FF3300",
+      "archivos": "093/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 094",
+      "color": "#FF4400",
+      "archivos": "094/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 095",
+      "color": "#FF5500",
+      "archivos": "095/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 096",
+      "color": "#FF6600",
+      "archivos": "096/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 097",
+      "color": "#FF7700",
+      "archivos": "097/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 098",
+      "color": "#FF8800",
+      "archivos": "098/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 099",
+      "color": "#FF9900",
+      "archivos": "099/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 100",
+      "color": "#FFAA00",
+      "archivos": "100/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 101",
+      "color": "#FFBB00",
+      "archivos": "101/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 102",
+      "color": "#FFCC00",
+      "archivos": "102/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 103",
+      "color": "#FFDD00",
+      "archivos": "103/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 104",
+      "color": "#FFEE00",
+      "archivos": "104/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 105",
+      "color": "#FFFF00",
+      "archivos": "105/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 106",
+      "color": "#EEFF00",
+      "archivos": "106/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 107",
+      "color": "#DDFF00",
+      "archivos": "107/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 108",
+      "color": "#CCFF00",
+      "archivos": "108/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 109",
+      "color": "#BBFF00",
+      "archivos": "109/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 110",
+      "color": "#AAFF00",
+      "archivos": "110/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 111",
+      "color": "#99FF00",
+      "archivos": "111/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 112",
+      "color": "#88FF00",
+      "archivos": "112/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 113",
+      "color": "#77FF00",
+      "archivos": "113/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 114",
+      "color": "#66FF00",
+      "archivos": "114/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 115",
+      "color": "#55FF00",
+      "archivos": "115/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 116",
+      "color": "#44FF00",
+      "archivos": "116/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 117",
+      "color": "#33FF00",
+      "archivos": "117/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 118",
+      "color": "#22FF00",
+      "archivos": "118/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 119",
+      "color": "#11FF00",
+      "archivos": "119/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 120",
+      "color": "#00FF00",
+      "archivos": "120/route/route.geojson"
     }
   ]
 }

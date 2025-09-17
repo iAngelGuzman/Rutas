@@ -1,0 +1,16 @@
+body {
+  background: #f8f9fa;
+}
+
+.card {
+  border-radius: 12px;
+}
+
+#lista-temas .tema {
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#lista-temas .tema:hover {
+  background: #f1f5f9;
+}
