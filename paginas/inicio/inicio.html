@@ -16,36 +16,92 @@
 </head>
 
 <body>
-  <div id="map" class="w-100 h-100"></div>
-
-  <header>
-    <div id="menu" class="position-absolute top-0 p-3 w-100" style="z-index: 1000;">
-    <div class="d-flex align-items-center gap-2 rounded h-100 bg-light shadow-sm" style="padding: .7rem .8rem .7rem .8rem;">
-      <button id="btn-menu" class="btn btn-primary" onclick="alternarMenuIzquierdo()" data-bs-toggle="tooltip" data-bs-title="Mostrar/Ocultar Rutas">
-        <i class="fa-solid fa-bars"></i>
-      </button>
-      <input type="text" id="buscar-ruta" class="form-control" placeholder="Buscar ruta..." oninput="filtrarRutas()">
-      <button class="btn btn-primary" data-bs-toggle="tooltip" data-bs-title="Ver mi ubicación" onclick="verMiUbicacion()">
-        <i class="fa-solid fa-crosshairs"></i>
-      </button>
-      <div class="dropdown">
-        <img src="/images/avatar-default.png" alt="Avatar" class="border rounded-circle"
-          style="min-width: 2.45rem; max-width: 2.4rem; min-height: 2.45rem; max-height: 2.45rem;" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <div class="dropdown-menu mt-2" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="/paginas/perfil/perfil.html">
-            <i class="fa-solid fa-user me-2"></i>
-            Perfil
-          </a>
-          <button class="dropdown-item" onclick="logout()">
-            <i class="fa-solid fa-right-from-bracket me-2"></i>
-            Cerrar sesion
+  <div class="w-100 h-100 d-flex flex-row">
+    <div class="d-flex flex-row">
+      <div class="d-flex flex-column border border-end-1">
+        <div class="d-flex flex-column p-3 gap-3">
+          <button
+            class="menu-item btn btn-outline-primary d-flex flex-column justify-content-center align-items-center p-0 border-0 bg-transparent text-primary"
+            onclick="window.location.href='/index.html'">
+            <i class="fa-solid fa-house fs-5 p-2 rounded d-flex justify-content-center align-items-center"
+              style="width: 2.4rem; height: 2.4rem;"></i>
+            <span class="text-primary" style="font-size: .9rem; margin-top: -.1rem;">Inicio</span>
+          </button>
+          <button
+            class="menu-item btn btn-outline-primary d-flex flex-column justify-content-center align-items-center p-0 border-0 bg-transparent text-primary"
+            onclick="mostrarRutas()">
+            <i class="fa-solid fa-bus-simple fs-5 p-2 rounded d-flex justify-content-center align-items-center"
+              style="width: 2.4rem; height: 2.4rem;"></i>
+            <span class="text-primary" style="font-size: .9rem; margin-top: -.1rem;">Rutas</span>
+          </button>
+          <button
+            class="menu-item btn btn-outline-primary d-flex flex-column justify-content-center align-items-center p-0 border-0 bg-transparent text-primary"
+            onclick="window.location.href='/paginas/foro/foro.html'">
+            <i class="fa-solid fa-comments fs-5 p-2 rounded d-flex justify-content-center align-items-center"
+              style="width: 2.4rem; height: 2.4rem;"></i>
+            <span class="text-primary" style="font-size: .9rem; margin-top: -.1rem;">Foro</span>
+          </button>
+          <button
+            class="menu-item btn btn-outline-primary d-flex flex-column justify-content-center align-items-center p-0 border-0 bg-transparent text-primary"
+            onclick="mostrarFavoritos()">
+            <i class="fa-solid fa-bookmark fs-5 rounded d-flex justify-content-center align-items-center"
+              style="width: 2.4rem; height: 2.4rem;"></i>
+            <span class="text-primary" style="font-size: .9rem; margin-top: -.1rem;">Favoritos</span>
+          </button>
+          <button
+            class="menu-item btn btn-outline-primary d-flex flex-column justify-content-center align-items-center p-0 border-0 bg-transparent text-primary"
+            onclick="alternarMenuDerecho()">
+            <i class="fa-solid fa-route fs-5 rounded d-flex justify-content-center align-items-center"
+              style="width: 2.4rem; height: 2.4rem;"></i>
+            <span class="text-primary" style="font-size: .9rem; margin-top: -.1rem;">Crear</span>
           </button>
         </div>
+        <div class="d-flex flex-column p-3 gap-3 mt-auto align-items-center">
+          <button class="menu-item btn btn-outline-primary d-flex flex-column p-0 border-0 bg-transparent text-primary"
+            onclick="window.location.href='/index.html'">
+            <i class="fa-solid fa-bell fs-4 p-2 rounded"></i>
+          </button>
+          <div class="dropdown">
+            <img src="/images/avatar-default.png" alt="Avatar" class="border rounded-circle"
+              style="min-width: 2rem; max-width: 2rem; min-height: 2rem; max-height: 2rem;" type="button"
+              id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="/paginas/perfil/perfil.html">
+                <i class="fa-solid fa-user me-2"></i>
+                Perfil
+              </a>
+              <button class="dropdown-item" onclick="logout()">
+                <i class="fa-solid fa-right-from-bracket me-2"></i>
+                Cerrar sesion
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-    </div> 
-  </header>
+      <div id="sidebar-content"></div>
+    </div>
+    <div id="map" class="w-100 h-100">
+      <header>
+        <div id="menu" class="position-absolute top-0 p-3 w-100" style="z-index: 1000;">
+          <div class="d-flex align-items-center gap-2 rounded h-100 bg-light shadow-sm"
+            style="padding: .7rem .8rem .7rem .8rem;">
+            <!-- <button id="btn-menu" class="btn btn-primary" onclick="alternarMenuIzquierdo()" data-bs-toggle="tooltip"
+              data-bs-title="Mostrar/Ocultar Rutas">
+              <i class="fa-solid fa-bars"></i>
+            </button> -->
+            <input type="text" id="buscar-ruta" class="form-control" placeholder="Buscar ruta..."
+              oninput="filtrarRutas()">
+            <button class="btn btn-primary" data-bs-toggle="tooltip" data-bs-title="Ver mi ubicación"
+              onclick="verMiUbicacion()">
+              <i class="fa-solid fa-crosshairs"></i>
+            </button>
+          </div>
+      </header>
+    </div>
+  </div>
 
-  <div id="sidebar-izquierdo" class="d-none position-absolute top-0 start-0 px-3 pb-3 h-100" style="z-index: 900; padding-top: 5.5rem;">
+  <div id="sidebar-izquierdo" class="d-none position-absolute top-0 start-0 px-3 pb-3 h-100"
+    style="z-index: 900; padding-top: 5.5rem;">
     <div class="d-flex flex-column p-3 rounded h-100 bg-light shadow-sm overflow-auto">
       <h4 class="fw-bold">Rutas</h4>
       <div id="lista-rutas" class="d-flex flex-column gap-2 mt-3"></div>
@@ -54,43 +110,36 @@
         <i class="fa-solid fa-comments me-1"></i>
         Foro / Comunidad
       </a>
-      
-      <a class="btn btn-warning mt-2 w-100 d-flex align-items-center justify-content-center" 
-        href="#" 
-        onclick="verFavoritos()" 
-        data-bs-toggle="collapse" 
-        data-bs-target="#lista-favoritos" 
-        aria-expanded="false" 
+
+      <!-- <a class="btn btn-warning mt-2 w-100 d-flex align-items-center justify-content-center" href="#"
+        onclick="verFavoritos()" data-bs-toggle="collapse" data-bs-target="#lista-favoritos" aria-expanded="false"
         aria-controls="lista-favoritos">
         <i class="fa-solid fa-bookmark me-2"></i>
         Favoritos
-      </a>
+      </a> -->
 
-      <div class="collapse mt-3" id="lista-favoritos">
-        <h5 class="fw-bold">Rutas Favoritas</h5>
-        <div id="favoritos" class="d-flex flex-column gap-2 mt-2"></div>
-      </div>
+      
 
-      <button class="btn btn-success mt-3" onclick="alternarMenuDerecho()">
+      <!-- <button class="btn btn-success mt-3" onclick="alternarMenuDerecho()">
         <i class="fa-solid fa-route me-1"></i>
         Crear ruta personalizada
-      </button>
+      </button> -->
     </div>
   </div>
 
-  <div id="sidebar-derecho" class="d-none position-absolute top-0 end-0 px-3 pb-3 h-100" style="z-index: 900; padding-top: 5.5rem;">
+  <div id="sidebar-derecho" class="d-none position-absolute top-0 end-0 px-3 pb-3 h-100"
+    style="z-index: 900; padding-top: 5.5rem;">
     <div class="d-flex flex-column p-3 rounded h-100 bg-light shadow-sm overflow-auto">
       <div class="d-flex align-items-center">
         <h5 class="fw-bold m-0">Crear rutas</h5>
-        <button class="btn btn-sm btn-danger ms-auto" onclick="alternarMenuDerecho()" data-bs-toggle="tooltip" data-bs-title="Cerrar">
+        <button class="btn btn-sm btn-danger ms-auto" onclick="alternarMenuDerecho()" data-bs-toggle="tooltip"
+          data-bs-title="Cerrar">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
       <!-- Instrucciones para modal -->
-      <button type="button" 
-        class="btn btn-secondary mt-2 w-100 d-flex align-items-center justify-content-center" 
-        data-bs-toggle="modal" 
-        data-bs-target="#instruccionesModal">
+      <button type="button" class="btn btn-secondary mt-2 w-100 d-flex align-items-center justify-content-center"
+        data-bs-toggle="modal" data-bs-target="#instruccionesModal">
         <i class="fa-solid fa-circle-info me-2"></i>
         Ver instrucciones
       </button>
@@ -126,7 +175,8 @@
   </div>
 
   <!-- Modal Bienvenida -->
-  <div class="modal fade" id="bienvenidaModal" tabindex="-1" aria-labelledby="bienvenidaModalLabel" aria-hidden="true" data-bs-backdrop="true">
+  <div class="modal fade" id="bienvenidaModal" tabindex="-1" aria-labelledby="bienvenidaModalLabel" aria-hidden="true"
+    data-bs-backdrop="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content shadow">
         <div class="modal-body text-center px-4 pb-0">
@@ -135,33 +185,41 @@
             personalizadas.</p>
           <p class="fw-bold">Disfruta de todo nuestro contenido:</p>
           <div class="d-flex justify-content-center gap-3 mb-3">
-            <div class="d-flex flex-column justify-content-center align-items-center bg-primary text-white p-3 rounded-circle gap-1 shadow-sm" style="width: 6rem; height: 6rem;">
+            <div
+              class="d-flex flex-column justify-content-center align-items-center bg-primary text-white p-3 rounded-circle gap-1 shadow-sm"
+              style="width: 6rem; height: 6rem;">
               <i class="fa-solid fa-bookmark fa-2x"></i>
               <p class="m-0 fw-semibold">Favoritos</p>
             </div>
-            <div class="d-flex flex-column justify-content-center align-items-center text-white p-3 rounded-circle gap-1 shadow-sm" style="width: 6rem; height: 6rem; background-color: rgb(255, 148, 8);">
+            <div
+              class="d-flex flex-column justify-content-center align-items-center text-white p-3 rounded-circle gap-1 shadow-sm"
+              style="width: 6rem; height: 6rem; background-color: rgb(255, 148, 8);">
               <i class="fa-solid fa-comments fa-2x"></i>
               <p class="m-0 fw-semibold">Foro</p>
             </div>
-            <div class="d-flex flex-column justify-content-center align-items-center bg-success text-white p-3 rounded-circle gap-1 shadow-sm" style="width: 6rem; height: 6rem;">
+            <div
+              class="d-flex flex-column justify-content-center align-items-center bg-success text-white p-3 rounded-circle gap-1 shadow-sm"
+              style="width: 6rem; height: 6rem;">
               <i class="fa-solid fa-bus-simple fa-2x"></i>
               <p class="m-0 fw-semibold">Rutas</p>
             </div>
           </div>
           <div class="form-check w-auto d-flex justify-content-center mt-4">
-            <input type="checkbox" id="no-mostrar-checkbox" class="form-check-input me-2">
-            <label for="no-mostrar-checkbox" class="form-check-label">No mostrar de nuevo</label>
+            <input type="checkbox" id="no-mostrar" class="form-check-input me-2">
+            <label for="no-mostrar" class="form-check-label">No mostrar de nuevo</label>
           </div>
         </div>
         <div class="modal-footer border-0 justify-content-center">
-          <button type="button" class="btn btn-primary flex-fill" data-bs-dismiss="modal">Comenzar</button>
+          <button type="button" id="btn-comenzar" class="btn btn-primary flex-fill"
+            data-bs-dismiss="modal">Comenzar</button>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Instrucciones -->
-  <div class="modal fade" id="instruccionesModal" tabindex="-1" aria-labelledby="instruccionesModalLabel" aria-hidden="true">
+  <div class="modal fade" id="instruccionesModal" tabindex="-1" aria-labelledby="instruccionesModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content modal-sm">
         <div class="modal-header">
@@ -172,7 +230,8 @@
           <ol class="list-group list-group-numbered">
             <li class="list-group-item">Haz clic en el mapa para agregar puntos a tu ruta personalizada.</li>
             <li class="list-group-item">Arrastra los marcadores para ajustar su posición.</li>
-            <li class="list-group-item">Usa el botón de la papelera o haz clic derecho en un marcador para eliminarlo.</li>
+            <li class="list-group-item">Usa el botón de la papelera o haz clic derecho en un marcador para eliminarlo.
+            </li>
             <li class="list-group-item">Arrastra y suelta los puntos en la lista para reordenarlos.</li>
             <li class="list-group-item">Completa el formulario y guarda tu ruta personalizada.</li>
           </ol>
