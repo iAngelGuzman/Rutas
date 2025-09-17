@@ -1,9 +1,14 @@
 {
   "rutas": [
     {
-      "nombre": "Xocotla",
-      "color": "red",
-      "archivo": "Xocotla.json"
+      "nombre": "Ruta 10001",
+      "color": "blue",
+      "archivo": "001/route/route.geojson"
+    },
+    {
+      "nombre": "Ruta 10003",
+      "color": "blue",
+      "archivo": "002/route/route.geojson"
     }
   ]
 }
