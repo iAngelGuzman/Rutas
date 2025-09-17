@@ -1,6 +1,93 @@
-html,
-body {
+html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    background: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Títulos */
+h1 {
+    color: #0d6efd;
+    letter-spacing: 0.5px;
+}
+
+h3 {
+    color: #495057;
+    font-weight: 500;
+}
+
+/* Inputs */
+.input-group {
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+}
+
+.input-group:focus-within {
+    border-color: #0d6efd;
+    box-shadow: 0 0 6px rgba(13, 110, 253, 0.3);
+}
+
+.input-group-text {
+    background: #fff;
+    border: none;
+    color: #6c757d;
+    font-size: 1.1rem;
+}
+
+/* Botón de mostrar contraseña */
+#togglePassword {
+    border: none;
+    background: #f8f9fa;
+    transition: 0.2s;
+}
+
+#togglePassword:hover {
+    background: #e9ecef;
+}
+
+/* Inputs generales */
+.form-control {
+    border: none;
+    padding: 12px;
+    font-size: 1rem;
+    box-shadow: none !important;
+}
+
+/* Botón principal */
+.btn-primary {
+    background: linear-gradient(135deg, #0d6efd, #6610f2);
+    border: none;
+    padding: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: transform 0.2s ease-in-out, opacity 0.2s;
+    box-shadow: none; /* sin sombra */
+}
+
+.btn-primary:hover {
+    transform: scale(1.02);
+    opacity: 0.95;
+}
+
+/* Texto de enlace */
+p a {
+    text-decoration: none;
+    font-weight: 600;
+    color: #0d6efd;
+    transition: color 0.2s;
+}
+
+p a:hover {
+    color: #6610f2;
+}
+
+/* Imagen lateral */
+.object-fit-cover {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
 }

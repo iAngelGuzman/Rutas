@@ -20,61 +20,56 @@
 
   <body class="bg-light">
     <div class="d-flex h-100">
+      <!-- Columna izquierda con imagen -->
       <div class="col-0 col-md-6 d-none d-md-block">
         <img src="/logo.jpg" alt="Logo" class="w-100 h-100 object-fit-cover">
       </div>
-      <div class="col-12 col-md-6 container-fluid my-auto">
+
+      <!-- Columna derecha con sombra -->
+      <div class="col-12 col-md-6 container-fluid my-auto p-4 bg-white">
         <h1 class="text-center fw-bold display-4">XalaBus</h1>
         <h3 class="text-center mt-3">Crear cuenta</h3>
+
         <form action="signup.html" method="get"
           class="d-flex flex-column align-items-center col-12 col-sm-9 col-md-7 mx-auto mt-3">
           <!-- Usuario -->
           <div class="input-group mb-3">
-            <span class="input-group-text"><i
-                class="fa-solid fa-user"></i></span>
-            <input type="text" class="form-control"
-              placeholder="Usuario" required>
+            <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+            <input type="text" class="form-control" placeholder="Usuario" required>
           </div>
+
           <!-- Contraseña -->
           <div class="input-group mb-3">
-            <span class="input-group-text"><i
-                class="fa-solid fa-lock"></i></span>
+            <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
             <input type="password" class="form-control"
-              placeholder="Contraseña" required
-              id="passwordInput">
-            <button
-              class="btn btn-outline-secondary toggle-password"
-              type="button"
-              onclick="togglePassword()">
+              placeholder="Contraseña" required id="passwordInput">
+            <button class="btn btn-outline-secondary toggle-password"
+              type="button" onclick="togglePassword()">
               <i class="fa-solid fa-eye"></i>
             </button>
           </div>
 
           <!-- Confirmar contraseña -->
           <div class="input-group mb-3">
-            <span class="input-group-text"><i
-                class="fa-solid fa-lock"></i></span>
+            <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
             <input type="password" class="form-control"
-              placeholder="Confirmar contraseña" required
-              id="confirmPasswordInput">
-            <button
-              class="btn btn-outline-secondary toggle-password"
-              type="button"
-              onclick="togglePassword()">
+              placeholder="Confirmar contraseña" required id="confirmPasswordInput">
+            <button class="btn btn-outline-secondary toggle-password"
+              type="button" onclick="togglePassword()">
               <i class="fa-solid fa-eye"></i>
             </button>
           </div>
 
           <!-- Botón -->
-          <button type="submit"
-            class="btn btn-primary w-100">Registrarse</button>
+          <button type="submit" class="btn btn-primary w-100">Registrarse</button>
         </form>
+
         <div class="col-12 col-md-7 mx-auto">
-          <p class="text-center mt-3">¿Ya tienes una cuenta?
+          <p class="text-center mt-3">
+            ¿Ya tienes una cuenta?
             <a href="/paginas/login/login.html">Inicia sesión aquí</a>
           </p>
         </div>
-        <br /><br /><br /><br />
       </div>
     </div>
 
