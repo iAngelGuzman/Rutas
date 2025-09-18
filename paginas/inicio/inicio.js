@@ -666,3 +666,39 @@ function mostrarFavoritos() {
     `;
     verFavoritos();
 }
+
+// Agrega esto en inicio.js
+const rutas = [
+  { nombre: "Ruta 1" },
+  { nombre: "Ruta 2" },
+  { nombre: "Centro" },
+  { nombre: "Universidad" }
+];
+
+function filtrarRutas() {
+  const input = document.getElementById('buscar-ruta');
+  const dropdown = document.getElementById('dropdown-rutas');
+  const valor = input.value.trim().toLowerCase();
+
+  if (!valor) {
+    dropdown.style.display = 'none';
+    dropdown.innerHTML = '';
+    return;
+  }
+
+  const filtradas = rutas.filter(r => r.nombre.toLowerCase().includes(valor));
+  if (filtradas.length === 0) {
+    dropdown.innerHTML = '<span class="dropdown-item disabled">Sin coincidencias</span>';
+  } else {
+    dropdown.innerHTML = filtradas.map(r =>
+      `<button class="dropdown-item" onclick="seleccionarRuta('${r.nombre}')">${r.nombre}</button>`
+    ).join('');
+  }
+  dropdown.style.display = 'block';
+}
+
+function seleccionarRuta(nombre) {
+  document.getElementById('buscar-ruta').value = nombre;
+  document.getElementById('dropdown-rutas').style.display = 'none';
+  // Aquí puedes agregar lógica para mostrar la ruta seleccionada en el mapa
+}
