@@ -34,6 +34,13 @@
               style="width: 2.4rem; height: 2.4rem;"></i>
             <span class="text-primary" style="font-size: .8rem; margin-top: -.1rem;">Rutas</span>
           </button>
+          <button
+            class="menu-item btn btn-outline-primary d-flex flex-column justify-content-center align-items-center p-0 border-0 bg-transparent text-primary"
+            onclick="mostrarFavoritos()">
+            <i class="fa-solid fa-bookmark fs-5 rounded d-flex justify-content-center align-items-center"
+              style="width: 2.4rem; height: 2.4rem;"></i>
+            <span class="text-primary" style="font-size: .8rem; margin-top: -.1rem;">Favoritos</span>
+          </button>
           <hr />
           <button
             class="menu-item btn btn-outline-primary d-flex flex-column justify-content-center align-items-center p-0 border-0 bg-transparent text-primary"
@@ -41,13 +48,6 @@
             <i class="fa-solid fa-comments fs-5 p-2 rounded d-flex justify-content-center align-items-center"
               style="width: 2.4rem; height: 2.4rem;"></i>
             <span class="text-primary" style="font-size: .8rem; margin-top: -.1rem;">Foro</span>
-          </button>
-          <button
-            class="menu-item btn btn-outline-primary d-flex flex-column justify-content-center align-items-center p-0 border-0 bg-transparent text-primary"
-            onclick="mostrarFavoritos()">
-            <i class="fa-solid fa-bookmark fs-5 rounded d-flex justify-content-center align-items-center"
-              style="width: 2.4rem; height: 2.4rem;"></i>
-            <span class="text-primary" style="font-size: .8rem; margin-top: -.1rem;">Favoritos</span>
           </button>
           <button
             class="menu-item btn btn-outline-primary d-flex flex-column justify-content-center align-items-center p-0 border-0 bg-transparent text-primary"
@@ -96,7 +96,7 @@
             <i class="fa-solid fa-filter fs-5 px-1 pe-2 pt-1"></i>
           </button>
         </div>
-        <div id="resultados-container" class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 d-none align-items-center gap-2 rounded-5 mx-auto bg-white shadow-sm border">
+        <div id="resultados-container" class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 d-flex align-items-center d-none gap-2 rounded-5 mx-auto bg-white shadow-sm border">
           <ul id="resultados-busqueda" class="list-group w-100">
             <li id="sin-resultados" class="list-group-item d-none">No se encontraron rutas.</li>
           </ul>
