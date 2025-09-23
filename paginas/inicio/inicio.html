@@ -17,43 +17,44 @@
 
 <body>
   <div class="w-100 h-100 d-flex flex-row">
-    <div class="d-flex flex-row">
-      <div class="d-flex flex-column" style="background: linear-gradient(135deg, #f2f7ff, #f7f3ff);">
+    <div class="d-flex flex-row bg-light shadow-sm">
+      <div class="d-flex flex-column border">
         <div class="d-flex flex-column px-2 py-3 gap-3">
           <button
             class="menu-item btn btn-outline-primary d-flex flex-column justify-content-center align-items-center p-0 border-0 bg-transparent text-primary"
             onclick="window.location.href='/index.html'">
             <i class="fa-solid fa-house fs-5 p-2 rounded d-flex justify-content-center align-items-center"
               style="width: 2.4rem; height: 2.4rem;"></i>
-            <span class="text-primary" style="font-size: .9rem; margin-top: -.1rem;">Inicio</span>
+            <span class="text-primary" style="font-size: .8rem; margin-top: -.1rem;">Inicio</span>
           </button>
           <button
             class="menu-item btn btn-outline-primary d-flex flex-column justify-content-center align-items-center p-0 border-0 bg-transparent text-primary"
             onclick="mostrarRutas()">
             <i class="fa-solid fa-bus-simple fs-5 p-2 rounded d-flex justify-content-center align-items-center"
               style="width: 2.4rem; height: 2.4rem;"></i>
-            <span class="text-primary" style="font-size: .9rem; margin-top: -.1rem;">Rutas</span>
+            <span class="text-primary" style="font-size: .8rem; margin-top: -.1rem;">Rutas</span>
           </button>
+          <hr />
           <button
             class="menu-item btn btn-outline-primary d-flex flex-column justify-content-center align-items-center p-0 border-0 bg-transparent text-primary"
             onclick="window.location.href='/paginas/foro/foro.html'">
             <i class="fa-solid fa-comments fs-5 p-2 rounded d-flex justify-content-center align-items-center"
               style="width: 2.4rem; height: 2.4rem;"></i>
-            <span class="text-primary" style="font-size: .9rem; margin-top: -.1rem;">Foro</span>
+            <span class="text-primary" style="font-size: .8rem; margin-top: -.1rem;">Foro</span>
           </button>
           <button
             class="menu-item btn btn-outline-primary d-flex flex-column justify-content-center align-items-center p-0 border-0 bg-transparent text-primary"
             onclick="mostrarFavoritos()">
             <i class="fa-solid fa-bookmark fs-5 rounded d-flex justify-content-center align-items-center"
               style="width: 2.4rem; height: 2.4rem;"></i>
-            <span class="text-primary" style="font-size: .9rem; margin-top: -.1rem;">Favoritos</span>
+            <span class="text-primary" style="font-size: .8rem; margin-top: -.1rem;">Favoritos</span>
           </button>
           <button
             class="menu-item btn btn-outline-primary d-flex flex-column justify-content-center align-items-center p-0 border-0 bg-transparent text-primary"
             onclick="alternarMenuDerecho()">
             <i class="fa-solid fa-route fs-5 rounded d-flex justify-content-center align-items-center"
               style="width: 2.4rem; height: 2.4rem;"></i>
-            <span class="text-primary" style="font-size: .9rem; margin-top: -.1rem;">Crear</span>
+            <span class="text-primary" style="font-size: .8rem; margin-top: -.1rem;">Crear</span>
           </button>
         </div>
         <div class="d-flex flex-column px-2 py-3 gap-3 mt-auto align-items-center">
@@ -81,25 +82,25 @@
       <div id="sidebar-content"></div>
     </div>
     <div id="map" class="w-100 h-100">
-      <header>
-        <div id="menu" class="position-absolute top-0 p-3 w-100" style="z-index: 1000;">
-          <div class="d-flex align-items-center gap-2 rounded h-100 bg-light shadow-sm"
-            style="padding: .7rem .8rem .7rem .8rem;">
-            <!-- <button id="btn-menu" class="btn btn-primary" onclick="alternarMenuIzquierdo()" data-bs-toggle="tooltip"
-              data-bs-title="Mostrar/Ocultar Rutas">
-              <i class="fa-solid fa-bars"></i>
-            </button> -->
-            <input type="text" id="buscar-ruta" class="form-control" placeholder="Buscar ruta..."
-              oninput="filtrarRutas()">
-            <div id="dropdown-rutas" class="dropdown-menu show w-100 mt-1" style="display:none; position: absolute;"></div>
-
-            </div>
-            <button class="btn btn-primary" data-bs-toggle="tooltip" data-bs-title="Ver mi ubicación"
-              onclick="verMiUbicacion()">
-              <i class="fa-solid fa-crosshairs"></i>
-            </button>
-          </div>
-      </header>
+      <div id="menu" class="position-absolute top-0 p-3 w-100" style="z-index: 1000;">
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 d-flex align-items-center gap-2 p-2 rounded-5 mx-auto bg-white shadow-sm border">
+          <!-- <button id="btn-menu" class="btn btn-primary" onclick="alternarMenuIzquierdo()" data-bs-toggle="tooltip"
+            data-bs-title="Mostrar/Ocultar Rutas">
+            <i class="fa-solid fa-bars"></i>
+          </button> -->
+          <input type="text" id="buscar-ruta" 
+                class="form-control form-control-sm border-0 w-100 rounded-5" 
+                placeholder="Buscar ruta..." 
+                oninput="filtrarRutas()">
+          <button id="btn-filtrar" class="btn p-0 border-0" onclick="filtrarRutas()">
+            <i class="fa-solid fa-filter fs-5 px-1 pe-2 pt-1"></i>
+          </button>
+        </div>
+        <div id="resultados-container" class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 d-none align-items-center gap-2 rounded-5 mx-auto bg-white shadow-sm border">
+          <ul id="resultados-busqueda" class="list-group w-100">
+            <li id="sin-resultados" class="list-group-item d-none">No se encontraron rutas.</li>
+          </ul>
+        </div>
     </div>
   </div>
 

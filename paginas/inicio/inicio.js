@@ -36,38 +36,38 @@ function limpiarMarcadores() {
 }
 
 function crearBotonRuta(ruta) {
-  const lista = document.getElementById("lista-rutas");
+    const lista = document.getElementById("lista-rutas");
 
-  // Contenedor
-  const contenedor = document.createElement("div");
-  contenedor.className = "d-flex align-items-center justify-content-between";
+    // Contenedor
+    const contenedor = document.createElement("div");
+    contenedor.className = "d-flex align-items-center justify-content-between";
 
-  // Botón de la ruta
-  const btn = document.createElement("button");
-  btn.className = "btn btn-secondary text-start flex-grow-1 me-2";
+    // Botón de la ruta
+    const btn = document.createElement("button");
+    btn.className = "btn btn-secondary text-start flex-grow-1 me-2";
 
-  const icono = document.createElement("i");
-  icono.className = "fa-solid fa-bus-simple me-2";
-  btn.appendChild(icono);
+    const icono = document.createElement("i");
+    icono.className = "fa-solid fa-bus-simple me-2";
+    btn.appendChild(icono);
 
-  btn.appendChild(document.createTextNode(ruta.nombre));
-  btn.onclick = () => crearRuta(ruta);
+    btn.appendChild(document.createTextNode(ruta.nombre));
+    btn.onclick = () => crearRuta(ruta);
 
-  // Botón de favoritos con ícono estilo "guardar"
-  const favBtn = document.createElement("button");
-  favBtn.className = "btn btn-outline-dark"; // bordeado tipo "guardar"
-  favBtn.innerHTML = '<i class="fa-solid fa-bookmark"></i>';
+    // Botón de favoritos con ícono estilo "guardar"
+    const favBtn = document.createElement("button");
+    favBtn.className = "btn btn-outline-dark"; // bordeado tipo "guardar"
+    favBtn.innerHTML = '<i class="fa-solid fa-bookmark"></i>';
 
-  favBtn.onclick = () => {
-    guardarFavorito(ruta); // 👉 Aquí llamas tu lógica para guardarlo
-  };
+    favBtn.onclick = () => {
+        guardarFavorito(ruta); // 👉 Aquí llamas tu lógica para guardarlo
+    };
 
-  // Agregar al contenedor
-  contenedor.appendChild(btn);
-  contenedor.appendChild(favBtn);
+    // Agregar al contenedor
+    contenedor.appendChild(btn);
+    contenedor.appendChild(favBtn);
 
-  // Agregar a la lista
-  lista.appendChild(contenedor);
+    // Agregar a la lista
+    lista.appendChild(contenedor);
 }
 
 function guardarFavorito(ruta) {
@@ -308,9 +308,9 @@ function verMiUbicacion() {
             closeOnClick: false,
             className: "popup-ubicacion"
         })
-        .setLatLng(e.latlng)
-        .setContent("¡Aquí estás!")
-        .openOn(map);
+            .setLatLng(e.latlng)
+            .setContent("¡Aquí estás!")
+            .openOn(map);
 
         const radioMax = 110;
 
@@ -582,24 +582,24 @@ function alternarMenuDerecho() {
 }
 
 function configurarBienvenida() {
-  // Inicializar solo la primera vez
-  if (localStorage.getItem("mostrarBienvenida") === null) {
-    localStorage.setItem("mostrarBienvenida", "true");
-  }
+    // Inicializar solo la primera vez
+    if (localStorage.getItem("mostrarBienvenida") === null) {
+        localStorage.setItem("mostrarBienvenida", "true");
+    }
 
-  // Mostrar modal si está en "true"
-  if (localStorage.getItem("mostrarBienvenida") === "true") {
-    const modalBienvenida = new bootstrap.Modal(document.getElementById("bienvenidaModal"));
-    modalBienvenida.show();
+    // Mostrar modal si está en "true"
+    if (localStorage.getItem("mostrarBienvenida") === "true") {
+        const modalBienvenida = new bootstrap.Modal(document.getElementById("bienvenidaModal"));
+        modalBienvenida.show();
 
-    // Botón "Comenzar"
-    document.getElementById("btn-comenzar").addEventListener("click", () => {
-      if (document.getElementById("no-mostrar").checked) {
-        localStorage.setItem("mostrarBienvenida", "false");
-      }
-      modalBienvenida.hide();
-    });
-  }
+        // Botón "Comenzar"
+        document.getElementById("btn-comenzar").addEventListener("click", () => {
+            if (document.getElementById("no-mostrar").checked) {
+                localStorage.setItem("mostrarBienvenida", "false");
+            }
+            modalBienvenida.hide();
+        });
+    }
 }
 
 
@@ -621,7 +621,7 @@ function mostrarRutas() {
     const sidebar = document.getElementById("sidebar-content");
     if (!sidebar) return;
     sidebar.innerHTML = `
-        <div class="d-flex flex-column p-3 h-100 bg-light border border-start overflow-auto">
+        <div class="d-flex flex-column p-3 h-100 border border-start overflow-auto">
           <h4 class="fw-bold">Rutas</h4>
           <div id="lista-rutas" class="d-flex flex-column gap-2 mt-3"></div>
 
@@ -669,36 +669,59 @@ function mostrarFavoritos() {
 
 // Agrega esto en inicio.js
 const rutas = [
-  { nombre: "Ruta 1" },
-  { nombre: "Ruta 2" },
-  { nombre: "Centro" },
-  { nombre: "Universidad" }
+    "Ruta 1 - Centro",
+    "Ruta 2 - Norte",
+    "Ruta 3 - Sur",
+    "Ruta 4 - Oriente",
+    "Ruta 5 - Poniente"
 ];
 
 function filtrarRutas() {
-  const input = document.getElementById('buscar-ruta');
-  const dropdown = document.getElementById('dropdown-rutas');
-  const valor = input.value.trim().toLowerCase();
+    const input = document.getElementById("buscar-ruta");
+    const query = input.value.toLowerCase();
+    const lista = document.getElementById("resultados-busqueda");
+    const noRes = document.getElementById("sin-resultados");
+    const restContainer = document.getElementById("resultados-container");
 
-  if (!valor) {
-    dropdown.style.display = 'none';
-    dropdown.innerHTML = '';
-    return;
-  }
+    // Mostrar u ocultar el contenedor de resultados
+    if (query.length > 0) {
+        restContainer.classList.remove("d-none");
+        restContainer.classList.add("d-flex");
+    } else {
+        restContainer.classList.add("d-none");
+        restContainer.classList.remove("d-flex");
+    }
 
-  const filtradas = rutas.filter(r => r.nombre.toLowerCase().includes(valor));
-  if (filtradas.length === 0) {
-    dropdown.innerHTML = '<span class="dropdown-item disabled">Sin coincidencias</span>';
-  } else {
-    dropdown.innerHTML = filtradas.map(r =>
-      `<button class="dropdown-item" onclick="seleccionarRuta('${r.nombre}')">${r.nombre}</button>`
-    ).join('');
-  }
-  dropdown.style.display = 'block';
-}
+    // Limpia resultados previos
+    lista.querySelectorAll(".resultado").forEach(el => el.remove());
 
-function seleccionarRuta(nombre) {
-  document.getElementById('buscar-ruta').value = nombre;
-  document.getElementById('dropdown-rutas').style.display = 'none';
-  // Aquí puedes agregar lógica para mostrar la ruta seleccionada en el mapa
+    if (query === "") {
+        noRes.classList.add("d-none");
+        return;
+    }
+
+    // Filtrar rutas
+    const resultados = rutas.filter(ruta =>
+        ruta.toLowerCase().includes(query)
+    );
+
+    if (resultados.length > 0) {
+        noRes.classList.add("d-none");
+
+        resultados.forEach(ruta => {
+            const li = document.createElement("li");
+            li.className = "list-group-item resultado";
+            li.textContent = ruta;
+
+            // Cuando el usuario hace clic en una ruta
+            li.addEventListener("click", () => {
+                input.value = ruta;
+                lista.querySelectorAll(".resultado").forEach(el => el.remove());
+            });
+
+            lista.appendChild(li);
+        });
+    } else {
+        noRes.classList.remove("d-none");
+    }
 }
