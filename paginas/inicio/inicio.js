@@ -188,8 +188,9 @@ function reactivarClicEnParadas() {
 function crearBotonRuta(ruta) {
     const lista = document.getElementById("lista-rutas");
     const contenedor = document.createElement("div");
-    contenedor.className = "d-flex align-items-center justify-content-between";
+    contenedor.className = "d-flex align-items-center justify-content-between mb-2";
 
+    // Botón principal de la ruta
     const btn = document.createElement("button");
     btn.className = "btn btn-secondary text-start flex-grow-1 me-2";
 
@@ -206,6 +207,42 @@ function crearBotonRuta(ruta) {
         mostrarMensajeTemporal(`✅ Ruta "${ruta.nombre}" cargada. Haz clic en una parada para seleccionar destino.`);
     };
 
+    // Botón de horario
+    const botonHorario = document.createElement("button");
+    botonHorario.className = "btn btn-outline-secondary me-2";
+    botonHorario.innerHTML = '<i class="fa-solid fa-clock"></i>';
+
+    botonHorario.onclick = () => {
+        // Si no hay horarios definidos, se muestra mensaje por defecto
+        const horario = ruta.horario || {
+            lunes: "6:00am - 10:00pm",
+            sabado: "7:00am - 9:00pm",
+            domingo: "8:00am - 8:00pm"
+        };
+
+        // Diseño atractivo para el modal
+        document.getElementById("horario-texto").innerHTML = `
+            <div class="text-center">
+                <h5 class="fw-bold mb-3"><i class="fa-solid fa-clock me-2"></i> Horario de la Ruta</h5>
+                <p class="mb-2 fs-6 text-muted">📍 <strong>Ruta:</strong> ${ruta.nombre}</p>
+                <div class="d-flex flex-column align-items-center">
+                    <div class="p-2 mb-2 w-75 bg-light rounded shadow-sm">
+                        <i class="fa-solid fa-sun me-2 text-warning"></i>
+                        <strong>Lunes a Viernes:</strong> ${horario.lunes}
+                    </div>
+                    <div class="p-2 w-75 bg-light rounded shadow-sm">
+                        <i class="fa-solid fa-sun-bright me-2 text-danger"></i>
+                        <strong>Sabado y Domingo:</strong> ${horario.domingo}
+                    </div>
+                </div>
+            </div>
+        `;
+
+        const horarioModal = new bootstrap.Modal(document.getElementById("horarioModal"));
+        horarioModal.show();
+    };
+
+    // Botón de favorito
     const favBtn = document.createElement("button");
     favBtn.className = "btn btn-outline-dark";
     favBtn.innerHTML = '<i class="fa-solid fa-bookmark"></i>';
@@ -213,10 +250,18 @@ function crearBotonRuta(ruta) {
         guardarFavorito(ruta);
     };
 
+    // Agregar botones al contenedor
     contenedor.appendChild(btn);
+    contenedor.appendChild(botonHorario);
     contenedor.appendChild(favBtn);
     lista.appendChild(contenedor);
 }
+
+// Función auxiliar (opcional) para mostrar horarios manualmente
+function mostrarHorario(horario) {
+    document.getElementById("horario-texto").innerHTML = horario;
+}
+
 
 function guardarFavorito(ruta) {
     let favoritos = JSON.parse(localStorage.getItem("rutasFavoritas")) || [];
