@@ -167,6 +167,16 @@ function crearBotonRuta(ruta) {
         mostrarMensajeTemporal(`✅ Ruta "${ruta.nombre}" cargada. Haz clic en una parada para seleccionar destino.`);
     };
 
+    const botonHorario = document.createElement("button");
+  botonHorario.className = "btn btn-outline-secondary";
+  botonHorario.innerHTML = '<i class="fa-solid fa-clock"></i>';
+  botonHorario.onclick = () => {
+    document.getElementById("horario-texto").textContent =
+      `El horario de la ruta "${nombreRuta}" es de 6:00 AM a 10:00 PM.`; 
+    const horarioModal = new bootstrap.Modal(document.getElementById("horarioModal"));
+    horarioModal.show();
+  };
+
     const favBtn = document.createElement("button");
     favBtn.className = "btn btn-outline-dark";
     favBtn.innerHTML = '<i class="fa-solid fa-bookmark"></i>';
@@ -177,6 +187,7 @@ function crearBotonRuta(ruta) {
     contenedor.appendChild(btn);
     contenedor.appendChild(favBtn);
     lista.appendChild(contenedor);
+    contenedor.appendChild(botonHorario);
 }
 
 function guardarFavorito(ruta) {
