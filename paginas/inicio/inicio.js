@@ -7,6 +7,45 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
+// Control combinado: Zoom + Mi Ubicación con FontAwesome
+const zoomLocateControl = L.Control.extend({
+    options: { position: "bottomright" },
+    onAdd: function () {
+        const container = L.DomUtil.create("div", "leaflet-bar");
+
+        // Botón de Zoom In
+        const zoomIn = L.DomUtil.create("a", "leaflet-control-zoom-in", container);
+        zoomIn.innerHTML = '<i class="fa-solid fa-magnifying-glass-plus"></i>';
+        zoomIn.href = "#";
+        zoomIn.title = "Acercar";
+        L.DomEvent.on(zoomIn, "click", L.DomEvent.stop)
+                  .on(zoomIn, "click", () => map.zoomIn());
+
+        // Botón de Zoom Out
+        const zoomOut = L.DomUtil.create("a", "leaflet-control-zoom-out", container);
+        zoomOut.innerHTML = '<i class="fa-solid fa-magnifying-glass-minus"></i>';
+        zoomOut.href = "#";
+        zoomOut.title = "Alejar";
+        L.DomEvent.on(zoomOut, "click", L.DomEvent.stop)
+                  .on(zoomOut, "click", () => map.zoomOut());
+
+        // Botón de Mi ubicación
+        const locateBtn = L.DomUtil.create("a", "leaflet-control-locate", container);
+        locateBtn.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i>';
+        locateBtn.href = "#";
+        locateBtn.title = "Ver mi ubicación";
+        L.DomEvent.on(locateBtn, "click", L.DomEvent.stop)
+                  .on(locateBtn, "click", () => verMiUbicacion());
+
+        return container;
+    }
+});
+
+// 🔹 Desactivar controles de zoom por defecto y agregar el nuevo
+map.removeControl(map.zoomControl);
+map.addControl(new zoomLocateControl());
+
+
 // ---------------- Variables globales ----------------
 let rutasDibujadas = [];
 let puntosRuta = [];
@@ -221,7 +260,7 @@ function limpiarDestino() {
     detenerMonitoreoProximidad();
     map.off('click.destino');
     reactivarClicEnParadas();
-    
+
     if (localStorage.getItem("admin") === "true") {
         map.off('click.admin');
         map.on("click.admin", (e) => {
@@ -234,27 +273,30 @@ function limpiarDestino() {
 
 function configurarSeleccionDestino() {
     map.off('click.destino');
+
+    // Mostrar mensaje indicando que se debe hacer clic en una parada
     mostrarMensajeTemporal('✅ Haz clic en una parada de la ruta para seleccionar tu destino');
 }
 
 function manejarClicEnParada(e) {
     const { lat, lng } = e.latlng;
-    
-    const esParada = paradasActuales.some(parada => 
-        Math.abs(parada.lat - lat) < 0.0001 && Math.abs(parada.lng - lng) < 0.0001
+
+    // Verificar si el clic fue en una parada existente
+    const esParada = paradasActuales.some(parada =>
+        parada.lat === lat && parada.lng === lng
     );
-    
-    if (!esParada) return;
-    
+
+    if (!esParada) return; // Solo procesar si es una parada
+
     if (marcadorDestino) {
         map.removeLayer(marcadorDestino);
     }
-    
-    marcadorDestino = L.marker([lat, lng], { 
-        icon: destinoIcon, 
-        zIndexOffset: 1000 
+
+    marcadorDestino = L.marker([lat, lng], {
+        icon: destinoIcon,
+        zIndexOffset: 1000
     }).addTo(map);
-    
+
     marcadorDestino.bindPopup(
         `<div class="text-center">
             <h6 class="fw-bold mb-1">🏁 Destino seleccionado</h6>
@@ -266,16 +308,15 @@ function manejarClicEnParada(e) {
             </button>
         </div>`
     ).openPopup();
-    
-    // Iniciar monitoreo cuando se selecciona un destino
-    iniciarMonitoreoProximidad();
-    
+
     console.log("Destino seleccionado en parada:", { lat, lng, ruta: rutaSeleccionada?.nombre });
 }
 
 function reactivarClicEnParadas() {
     map.off('click.paradaDestino');
-    map.on('click.paradaDestino', function(e) {
+
+    // Agregar evento para clic en paradas
+    map.on('click.paradaDestino', function (e) {
         manejarClicEnParada(e);
     });
 }
@@ -284,16 +325,17 @@ function reactivarClicEnParadas() {
 function crearBotonRuta(ruta) {
     const lista = document.getElementById("lista-rutas");
     const contenedor = document.createElement("div");
-    contenedor.className = "d-flex align-items-center justify-content-between";
-    
+    contenedor.className = "d-flex align-items-center justify-content-between mb-2";
+
+    // Botón principal de la ruta
     const btn = document.createElement("button");
     btn.className = "btn btn-secondary text-start flex-grow-1 me-2";
-    
+
     const icono = document.createElement("i");
     icono.className = "fa-solid fa-bus-simple me-2";
     btn.appendChild(icono);
     btn.appendChild(document.createTextNode(ruta.nombre));
-    
+
     btn.onclick = () => {
         limpiarDestino();
         crearRuta(ruta);
@@ -301,18 +343,62 @@ function crearBotonRuta(ruta) {
         configurarSeleccionDestino();
         mostrarMensajeTemporal(`✅ Ruta "${ruta.nombre}" cargada. Haz clic en una parada para seleccionar destino.`);
     };
-    
+
+    // Botón de horario
+    const botonHorario = document.createElement("button");
+    botonHorario.className = "btn btn-outline-secondary me-2";
+    botonHorario.innerHTML = '<i class="fa-solid fa-clock"></i>';
+
+    botonHorario.onclick = () => {
+        // Si no hay horarios definidos, se muestra mensaje por defecto
+        const horario = ruta.horario || {
+            lunes: "6:00am - 10:00pm",
+            sabado: "7:00am - 9:00pm",
+            domingo: "8:00am - 8:00pm"
+        };
+
+        // Diseño atractivo para el modal
+        document.getElementById("horario-texto").innerHTML = `
+            <div class="text-center">
+                <h5 class="fw-bold mb-3"><i class="fa-solid fa-clock me-2"></i> Horario de la Ruta</h5>
+                <p class="mb-2 fs-6 text-muted">📍 <strong>Ruta:</strong> ${ruta.nombre}</p>
+                <div class="d-flex flex-column align-items-center">
+                    <div class="p-2 mb-2 w-75 bg-light rounded shadow-sm">
+                        <i class="fa-solid fa-sun me-2 text-warning"></i>
+                        <strong>Lunes a Viernes:</strong> ${horario.lunes}
+                    </div>
+                    <div class="p-2 w-75 bg-light rounded shadow-sm">
+                        <i class="fa-solid fa-sun-bright me-2 text-danger"></i>
+                        <strong>Sabado y Domingo:</strong> ${horario.domingo}
+                    </div>
+                </div>
+            </div>
+        `;
+
+        const horarioModal = new bootstrap.Modal(document.getElementById("horarioModal"));
+        horarioModal.show();
+    };
+
+    // Botón de favorito
     const favBtn = document.createElement("button");
     favBtn.className = "btn btn-outline-dark";
     favBtn.innerHTML = '<i class="fa-solid fa-bookmark"></i>';
     favBtn.onclick = () => {
         guardarFavorito(ruta);
     };
-    
+
+    // Agregar botones al contenedor
     contenedor.appendChild(btn);
+    contenedor.appendChild(botonHorario);
     contenedor.appendChild(favBtn);
     lista.appendChild(contenedor);
 }
+
+// Función auxiliar (opcional) para mostrar horarios manualmente
+function mostrarHorario(horario) {
+    document.getElementById("horario-texto").innerHTML = horario;
+}
+
 
 function guardarFavorito(ruta) {
     let favoritos = JSON.parse(localStorage.getItem("rutasFavoritas")) || [];
@@ -329,7 +415,7 @@ function verFavoritos() {
     const favoritos = JSON.parse(localStorage.getItem("rutasFavoritas")) || [];
     const lista = document.getElementById("favoritos");
     lista.innerHTML = "";
-    
+
     if (favoritos.length === 0) {
         lista.innerHTML = '<p class="text-muted">No tienes rutas favoritas guardadas.</p>';
     } else {
@@ -356,16 +442,18 @@ function dibujarRuta(lineas, paradas = []) {
     });
     marcadores = marcadores.filter(m => m === marcadorDestino);
     puntosRuta = [];
-    
+
+    // Remover solo las rutas, no el marcador de destino
     rutasDibujadas.forEach((r) => {
         if (r !== marcadorDestino) {
             map.removeLayer(r);
         }
     });
     rutasDibujadas = rutasDibujadas.filter(r => r === marcadorDestino);
-    
+
     document.getElementById("lista-puntos").innerHTML = "";
-    
+
+    // Líneas
     lineas.forEach(l => {
         const polyline = L.polyline(l.coords, {
             color: l.color,
@@ -373,47 +461,52 @@ function dibujarRuta(lineas, paradas = []) {
             dashArray: l.estilo === "dashed" ? "8, 6" : null
         }).addTo(map);
         rutasDibujadas.push(polyline);
-        
+
         polyline.on("click", function () {
             map.removeLayer(polyline);
             rutasDibujadas = rutasDibujadas.filter(r => r !== polyline);
         });
     });
-    
+
+    // Limpiar paradas anteriores
     paradasActuales = [];
-    
+
+    // Paradas - CON LA MODIFICACIÓN PARA PERMITIR SELECCIÓN DE DESTINO
     paradas.forEach(p => {
-        const stop = L.marker(p, { 
-            icon: paradaIcon,
-            zIndexOffset: 500 
+        const stop = L.marker(p, {
+            icon: paradaIcon,  // Usar el icono de parada con bus azul
+            zIndexOffset: 500
         }).addTo(map);
-        
+
+        // Guardar información de la parada
         const paradaInfo = {
             lat: p[0],
             lng: p[1],
             marker: stop
         };
         paradasActuales.push(paradaInfo);
-        
+
         rutasDibujadas.push(stop);
-        
+
+        // Tooltip para la parada
         stop.bindTooltip('Parada - Haz clic para seleccionar destino', {
             direction: 'top',
             permanent: false
         });
-        
+
+        // Evento para seleccionar destino al hacer clic en la parada
         stop.on("click", function (e) {
             L.DomEvent.stopPropagation(e);
-            
+
             if (marcadorDestino) {
                 map.removeLayer(marcadorDestino);
             }
-            
-            marcadorDestino = L.marker(p, { 
-                icon: destinoIcon, 
-                zIndexOffset: 1000 
+
+            marcadorDestino = L.marker(p, {
+                icon: destinoIcon,
+                zIndexOffset: 1000
             }).addTo(map);
-            
+
             marcadorDestino.bindPopup(
                 `<div class="text-center">
                     <h6 class="fw-bold mb-1">🏁 Destino seleccionado</h6>
@@ -425,13 +518,11 @@ function dibujarRuta(lineas, paradas = []) {
                     </button>
                 </div>`
             ).openPopup();
-            
-            // Iniciar monitoreo cuando se selecciona un destino
-            iniciarMonitoreoProximidad();
-            
+
             console.log("Destino seleccionado en parada:", { lat: p[0], lng: p[1], ruta: rutaSeleccionada?.nombre });
         });
-        
+
+        // Eliminar parada (solo si no hay destino seleccionado)
         stop.on("contextmenu", function (e) {
             L.DomEvent.stopPropagation(e);
             if (!marcadorDestino || (marcadorDestino.getLatLng().lat !== p[0] && marcadorDestino.getLatLng().lng !== p[1])) {
@@ -441,9 +532,11 @@ function dibujarRuta(lineas, paradas = []) {
             }
         });
     });
-    
+
+    // Configurar evento para clic en paradas en el mapa
     reactivarClicEnParadas();
-    
+
+    // Ajustar vista (pero no si hay destino marcado)
     if (rutasDibujadas.length > 0 && !marcadorDestino) {
         const group = new L.featureGroup(rutasDibujadas);
         map.fitBounds(group.getBounds());
@@ -455,36 +548,36 @@ async function crearRuta(ruta) {
         const archivos = ruta.archivos;
         let lineas = [];
         let paradas = [];
-        
+
         if (archivos.ruta) {
             const coords = await cargarGeoJSON(archivos.ruta);
             lineas.push({ coords, color: ruta.color, estilo: "solid" });
-            
+
             if (archivos.paradas) {
                 paradas = await cargarParadas(archivos.paradas);
             }
         }
-        
+
         if (archivos.ida) {
             const ida = await cargarGeoJSON(archivos.ida);
             lineas.push({ coords: ida, color: ruta.color, estilo: "solid" });
-            
+
             if (archivos["ida-paradas"]) {
                 const p = await cargarParadas(archivos["ida-paradas"]);
                 paradas = paradas.concat(p);
             }
         }
-        
+
         if (archivos.vuelta) {
             const vuelta = await cargarGeoJSON(archivos.vuelta);
             lineas.push({ coords: vuelta, color: ruta.color, estilo: "dashed" });
-            
+
             if (archivos["vuelta-paradas"]) {
                 const p = await cargarParadas(archivos["vuelta-paradas"]);
                 paradas = paradas.concat(p);
             }
         }
-        
+
         dibujarRuta(lineas, paradas);
     } catch (err) {
         console.error("Error cargando ruta:", err);
@@ -513,7 +606,7 @@ function swap(arr, i, j) {
 function agregarPunto(lat, lng) {
     puntosRuta.push([lng, lat]);
     const index = puntosRuta.length;
-    
+
     const marker = L.marker([lat, lng], { draggable: true })
         .addTo(map)
         .bindTooltip(`${index}`, {
@@ -522,9 +615,9 @@ function agregarPunto(lat, lng) {
             className: "fw-bold text-white bg-danger border-0 shadow rounded px-2 opacity-100",
             offset: [-14.5, 14],
         });
-    
+
     marcadores.push(marker);
-    
+
     const li = document.createElement("li");
     li.className = "d-flex align-items-center mb-1";
     li.innerHTML = `
@@ -534,12 +627,12 @@ function agregarPunto(lat, lng) {
             <i class="fa-solid fa-trash"></i>
         </button>
     `;
-    
+
     document.getElementById("lista-puntos").appendChild(li);
-    
+
     const input = li.querySelector("input");
     const deleteBtn = li.querySelector(".btn-delete");
-    
+
     marker.on("dragend", (event) => {
         const newPos = event.target.getLatLng();
         const i = marcadores.indexOf(marker);
@@ -548,10 +641,10 @@ function agregarPunto(lat, lng) {
             input.value = `[${newPos.lat.toFixed(6)}, ${newPos.lng.toFixed(6)}]`;
         }
     });
-    
+
     marker.on("contextmenu", () => eliminarPunto());
     deleteBtn.addEventListener("click", eliminarPunto);
-    
+
     function eliminarPunto() {
         const i = marcadores.indexOf(marker);
         if (i !== -1) {
@@ -585,24 +678,24 @@ let popupUbicacion = null;
 
 function verMiUbicacion() {
     map.locate({ setView: true, maxZoom: 17, watch: true });
-    
+
     map.on("locationfound", (e) => {
         if (marcadorUbicacion) map.removeLayer(marcadorUbicacion);
         if (circuloPulsante) map.removeLayer(circuloPulsante);
         if (popupUbicacion) map.removeLayer(popupUbicacion);
-        
+
         marcadorUbicacion = L.marker(e.latlng).addTo(map);
-        
+
         popupUbicacion = L.popup({
             closeButton: false,
             autoClose: false,
             closeOnClick: false,
             className: "popup-ubicacion"
         })
-        .setLatLng(e.latlng)
-        .setContent("¡Aquí estás!")
-        .openOn(map);
-        
+            .setLatLng(e.latlng)
+            .setContent("¡Aquí estás!")
+            .openOn(map);
+
         const radioMax = 110;
         circuloUbicacion = L.circle(e.latlng, {
             radius: 110,
@@ -612,7 +705,7 @@ function verMiUbicacion() {
             fillColor: "rgba(0, 179, 255, 1)",
             fillOpacity: 0.2,
         }).addTo(map);
-        
+
         circuloPulsante = L.circle(e.latlng, {
             radius: 0,
             color: "blue",
@@ -620,31 +713,31 @@ function verMiUbicacion() {
             fillColor: "rgba(0, 179, 255, 1)",
             fillOpacity: 0.5,
         }).addTo(map);
-        
+
         let radio = 0;
         let opacity = 0.5;
-        
+
         function animarCirculo() {
             if (!circuloPulsante) return;
-            
+
             radio += 1;
             opacity = Math.max(0, 0.5 * (1 - radio / radioMax));
-            
+
             circuloPulsante.setRadius(radio);
             circuloPulsante.setStyle({
                 fillOpacity: opacity,
                 opacity: opacity
             });
-            
+
             if (radio >= radioMax) {
                 radio = 0;
                 opacity = 0.5;
             }
-            
+
             popupUbicacion.setLatLng(marcadorUbicacion.getLatLng());
             requestAnimationFrame(animarCirculo);
         }
-        
+
         animarCirculo();
         
         // Iniciar monitoreo si hay un destino seleccionado
@@ -687,15 +780,15 @@ function crearBotonGenerarRuta(ruta) {
     const lista = document.getElementById("generar-rutas");
     const contenedor = document.createElement("div");
     contenedor.className = "d-flex align-items-center gap-1";
-    
+
     const btn = document.createElement("button");
     btn.className = "btn btn-secondary text-start w-100";
-    
+
     const icono = document.createElement("i");
     icono.className = "fa-solid fa-bus-simple me-2";
     btn.appendChild(icono);
     btn.appendChild(document.createTextNode(ruta.nombre));
-    
+
     btn.onclick = (e) => {
         e.preventDefault();
         document.getElementById("nombre-ruta").value = ruta.nombre;
@@ -704,23 +797,23 @@ function crearBotonGenerarRuta(ruta) {
         puntosRuta = [];
         marcadores.forEach(m => map.removeLayer(m));
         marcadores = [];
-        
+
         ruta.puntos.forEach(([lng, lat]) => {
             agregarPunto(lat, lng);
         });
     };
-    
+
     const btnGen = document.createElement("button");
     btnGen.className = "btn btn-success";
     const iconoGen = document.createElement("i");
     iconoGen.className = "fa-solid fa-route";
     btnGen.appendChild(iconoGen);
-    
+
     btnGen.onclick = (e) => {
         e.preventDefault();
         crearGenerarRuta(ruta.nombre, ruta.puntos, ruta.color);
     };
-    
+
     contenedor.appendChild(btn);
     contenedor.appendChild(btnGen);
     lista.appendChild(contenedor);
@@ -730,7 +823,7 @@ function crearBotonGenerarRuta(ruta) {
 function cerrarBienvenida() {
     const checkbox = document.getElementById("no-mostrar-checkbox");
     const modalEl = document.getElementById("bienvenidaModal");
-    
+
     modalEl.addEventListener("hidden.bs.modal", () => {
         if (checkbox.checked) {
             localStorage.setItem("mostrarBienvenida", "false");
@@ -752,11 +845,11 @@ function configurarBienvenida() {
     if (localStorage.getItem("mostrarBienvenida") === null) {
         localStorage.setItem("mostrarBienvenida", "true");
     }
-    
+
     if (localStorage.getItem("mostrarBienvenida") === "true") {
         const modalBienvenida = new bootstrap.Modal(document.getElementById("bienvenidaModal"));
         modalBienvenida.show();
-        
+
         document.getElementById("btn-comenzar").addEventListener("click", () => {
             if (document.getElementById("no-mostrar").checked) {
                 localStorage.setItem("mostrarBienvenida", "false");
@@ -783,9 +876,15 @@ function logout() {
 function mostrarRutas() {
     const sidebar = document.getElementById("sidebar-content");
     if (!sidebar) return;
-    
+
+    if (sidebar.dataset.abierto === "rutas") {
+        sidebar.innerHTML = "";
+        sidebar.removeAttribute("data-abierto");
+        return;
+    }
+
     sidebar.innerHTML = `
-        <div class="d-flex flex-column p-3 h-100 bg-light border border-start overflow-auto">
+        <div class="d-flex flex-column p-3 h-100 bg-light overflow-auto">
             <h4 class="fw-bold">Rutas</h4>
             <div id="lista-rutas" class="d-flex flex-column gap-2 mt-3"></div>
             
@@ -811,14 +910,20 @@ function mostrarRutas() {
             </button>
         </div>
     `;
-    
+    sidebar.dataset.abierto = "rutas";
     cargarRutas();
 }
 
 function mostrarFavoritos() {
     const sidebar = document.getElementById("sidebar-content");
     if (!sidebar) return;
-    
+
+    if (sidebar.dataset.abierto === "favoritos") {
+        sidebar.innerHTML = "";
+        sidebar.removeAttribute("data-abierto");
+        return;
+    }
+
     sidebar.innerHTML = `
         <div class="mt-3 d-flex flex-column p-3" id="lista-favoritos">
             <h5 class="fw-bold">Rutas Favoritas</h5>
@@ -828,7 +933,7 @@ function mostrarFavoritos() {
             </button>
         </div>
     `;
-    
+    sidebar.dataset.abierto = "favoritos";
     verFavoritos();
 }
 
@@ -856,13 +961,13 @@ document.getElementById("form-ruta").addEventListener("submit", async (e) => {
 function guardarRuta() {
     const nombre = document.getElementById("nombre-ruta").value;
     const color = document.getElementById("color-ruta").value;
-    
+
     const ruta = {
         nombre: nombre,
         color: color,
         puntos: puntosRuta
     };
-    
+
     fetch("http://localhost:3000/guardar-ruta", {
         method: "POST",
         headers: {
@@ -870,11 +975,11 @@ function guardarRuta() {
         },
         body: JSON.stringify(ruta)
     })
-    .then(res => res.json())
-    .then(data => {
-        alert(data.message);
-    })
-    .catch(err => console.error(err));
+        .then(res => res.json())
+        .then(data => {
+            alert(data.message);
+        })
+        .catch(err => console.error(err));
 }
 
 async function crearGenerarRuta(nombre, puntos, color = "red") {
@@ -884,7 +989,7 @@ async function crearGenerarRuta(nombre, puntos, color = "red") {
             dibujarRuta2(JSON.parse(cache), color);
             return;
         }
-        
+
         const res = await fetch("http://localhost:3000/directions", {
             method: "POST",
             headers: {
@@ -892,13 +997,13 @@ async function crearGenerarRuta(nombre, puntos, color = "red") {
             },
             body: JSON.stringify({ nombre, puntos, color })
         });
-        
+
         if (!res.ok) throw new Error("Error al generar ruta");
-        
+
         const data = await res.json();
         const coords = data.features[0].geometry.coordinates;
         const latlngs = coords.map((c) => [c[1], c[0]]);
-        
+
         localStorage.setItem(nombre, JSON.stringify(latlngs));
         dibujarRuta2(latlngs, color);
     } catch (err) {
@@ -909,15 +1014,15 @@ async function crearGenerarRuta(nombre, puntos, color = "red") {
 function dibujarRuta2(latlngs, color = "red") {
     rutasDibujadas.forEach((r) => map.removeLayer(r));
     rutasDibujadas = [];
-    
+
     const polyline = L.polyline(latlngs, { color, weight: 5 }).addTo(map);
     rutasDibujadas.push(polyline);
-    
+
     polyline.on('click', function () {
         map.removeLayer(polyline);
         rutasDibujadas = rutasDibujadas.filter(l => l !== polyline);
     });
-    
+
     map.fitBounds(polyline.getBounds());
 }
 // Drag & Drop para lista de puntos
@@ -935,37 +1040,76 @@ Sortable.create(lista, {
 
 // Filtrado de rutas
 const rutas = [
-    { nombre: "Ruta 1" },
-    { nombre: "Ruta 2" },
-    { nombre: "Centro" },
-    { nombre: "Universidad" }
+    "Ruta 1 - Centro",
+    "Ruta 2 - Norte",
+    "Ruta 3 - Sur",
+    "Ruta 4 - Oriente",
+    "Ruta 5 - Poniente"
 ];
 
 function filtrarRutas() {
-    const input = document.getElementById('buscar-ruta');
-    const dropdown = document.getElementById('dropdown-rutas');
-    const valor = input.value.trim().toLowerCase();
-    
-    if (!valor) {
-        dropdown.style.display = 'none';
-        dropdown.innerHTML = '';
+    const input = document.getElementById("buscar-ruta");
+    const query = input.value.toLowerCase();
+    const lista = document.getElementById("resultados-busqueda");
+    const noRes = document.getElementById("sin-resultados");
+
+    // Limpia resultados previos
+    lista.querySelectorAll(".resultado").forEach(el => el.remove());
+
+    if (query === "") {
+        lista.classList.add("d-none");
+        noRes.classList.add("d-none");
         return;
     }
-    
-    const filtradas = rutas.filter(r => r.nombre.toLowerCase().includes(valor));
-    
-    if (filtradas.length === 0) {
-        dropdown.innerHTML = '<span class="dropdown-item disabled">Sin coincidencias</span>';
-    } else {
-        dropdown.innerHTML = filtradas.map(r => 
-            `<button class="dropdown-item" onclick="seleccionarRuta('${r.nombre}')">${r.nombre}</button>`
-        ).join('');
+
+    if (query !== "") {
+        lista.classList.remove("d-none");
     }
-    
-    dropdown.style.display = 'block';
+
+    // Filtrar rutas
+    const resultados = rutas.filter(ruta =>
+        ruta.toLowerCase().includes(query)
+    );
+
+    if (resultados.length > 0) {
+        noRes.classList.add("d-none");
+
+        resultados.forEach(ruta => {
+            const btn = document.createElement("button");
+            btn.className = "btn btn-sm btn-outline-secondary rounded-0 border-0 w-100 py-2 text-start resultado";
+            btn.textContent = ruta;
+
+            // Cuando el usuario hace clic en una ruta
+            btn.addEventListener("click", () => {
+                input.value = ruta;
+                lista.querySelectorAll(".resultado").forEach(el => el.remove());
+                lista.classList.add("d-none");
+                noRes.classList.add("d-none");
+            });
+
+            lista.appendChild(btn);
+        });
+    } else {
+        noRes.classList.remove("d-none");
+    }
 }
 
 function seleccionarRuta(nombre) {
     document.getElementById('buscar-ruta').value = nombre;
     document.getElementById('dropdown-rutas').style.display = 'none';
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const busqueda = document.getElementById("busqueda");
+  const resultados = document.getElementById("resultados-busqueda");
+
+  if (busqueda) {
+    L.DomEvent.disableClickPropagation(busqueda);
+    L.DomEvent.disableScrollPropagation(busqueda);
+  }
+
+  if (resultados) {
+    L.DomEvent.disableClickPropagation(resultados);
+    L.DomEvent.disableScrollPropagation(resultados);
+  }
+});
