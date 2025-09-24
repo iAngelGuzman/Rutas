@@ -3,6 +3,10 @@
     {
       "nombre": "Ruta 001",
       "color": "#FF1100",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/001/imagen/bus.png",
         "ruta": "/rutas/001/route/route.geojson",
@@ -12,6 +16,10 @@
     {
       "nombre": "Ruta 002",
       "color": "#FF2200",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/002/imagen/bus.png",
         "ruta": "/rutas/002/route/route.geojson",
@@ -21,6 +29,10 @@
     {
       "nombre": "Ruta 003",
       "color": "#FF3300",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/003/imagen/bus.png",
         "ida": "/rutas/003/ida/route/route.geojson",
@@ -32,6 +44,10 @@
     {
       "nombre": "Ruta 004",
       "color": "#FF4400",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/004/imagen/bus.png",
         "ruta": "/rutas/004/route/route.geojson",
@@ -41,6 +57,10 @@
     {
       "nombre": "Ruta 005",
       "color": "#FF5500",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/005/imagen/bus.png",
         "ruta": "/rutas/005/route/route.geojson",
