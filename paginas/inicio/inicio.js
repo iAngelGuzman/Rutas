@@ -7,6 +7,45 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
+// Control combinado: Zoom + Mi Ubicación con FontAwesome
+const zoomLocateControl = L.Control.extend({
+    options: { position: "bottomright" },
+    onAdd: function () {
+        const container = L.DomUtil.create("div", "leaflet-bar");
+
+        // Botón de Zoom In
+        const zoomIn = L.DomUtil.create("a", "leaflet-control-zoom-in", container);
+        zoomIn.innerHTML = '<i class="fa-solid fa-magnifying-glass-plus"></i>';
+        zoomIn.href = "#";
+        zoomIn.title = "Acercar";
+        L.DomEvent.on(zoomIn, "click", L.DomEvent.stop)
+                  .on(zoomIn, "click", () => map.zoomIn());
+
+        // Botón de Zoom Out
+        const zoomOut = L.DomUtil.create("a", "leaflet-control-zoom-out", container);
+        zoomOut.innerHTML = '<i class="fa-solid fa-magnifying-glass-minus"></i>';
+        zoomOut.href = "#";
+        zoomOut.title = "Alejar";
+        L.DomEvent.on(zoomOut, "click", L.DomEvent.stop)
+                  .on(zoomOut, "click", () => map.zoomOut());
+
+        // Botón de Mi ubicación
+        const locateBtn = L.DomUtil.create("a", "leaflet-control-locate", container);
+        locateBtn.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i>';
+        locateBtn.href = "#";
+        locateBtn.title = "Ver mi ubicación";
+        L.DomEvent.on(locateBtn, "click", L.DomEvent.stop)
+                  .on(locateBtn, "click", () => verMiUbicacion());
+
+        return container;
+    }
+});
+
+// 🔹 Desactivar controles de zoom por defecto y agregar el nuevo
+map.removeControl(map.zoomControl);
+map.addControl(new zoomLocateControl());
+
+
 // ---------------- Variables globales ----------------
 let rutasDibujadas = [];
 let puntosRuta = [];
@@ -830,18 +869,18 @@ function filtrarRutas() {
     const query = input.value.toLowerCase();
     const lista = document.getElementById("resultados-busqueda");
     const noRes = document.getElementById("sin-resultados");
-    const container = document.getElementById("resultados-container");
 
     // Limpia resultados previos
     lista.querySelectorAll(".resultado").forEach(el => el.remove());
 
-    if (query !== "") {
-        container.classList.remove("d-none");
-    }
-
     if (query === "") {
+        lista.classList.add("d-none");
         noRes.classList.add("d-none");
         return;
+    }
+
+    if (query !== "") {
+        lista.classList.remove("d-none");
     }
 
     // Filtrar rutas
@@ -853,17 +892,19 @@ function filtrarRutas() {
         noRes.classList.add("d-none");
 
         resultados.forEach(ruta => {
-            const li = document.createElement("li");
-            li.className = "list-group-item resultado";
-            li.textContent = ruta;
+            const btn = document.createElement("button");
+            btn.className = "btn btn-sm btn-outline-secondary rounded-0 border-0 w-100 py-2 text-start resultado";
+            btn.textContent = ruta;
 
             // Cuando el usuario hace clic en una ruta
-            li.addEventListener("click", () => {
+            btn.addEventListener("click", () => {
                 input.value = ruta;
                 lista.querySelectorAll(".resultado").forEach(el => el.remove());
+                lista.classList.add("d-none");
+                noRes.classList.add("d-none");
             });
 
-            lista.appendChild(li);
+            lista.appendChild(btn);
         });
     } else {
         noRes.classList.remove("d-none");
@@ -874,3 +915,18 @@ function seleccionarRuta(nombre) {
     document.getElementById('buscar-ruta').value = nombre;
     document.getElementById('dropdown-rutas').style.display = 'none';
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const busqueda = document.getElementById("busqueda");
+  const resultados = document.getElementById("resultados-busqueda");
+
+  if (busqueda) {
+    L.DomEvent.disableClickPropagation(busqueda);
+    L.DomEvent.disableScrollPropagation(busqueda);
+  }
+
+  if (resultados) {
+    L.DomEvent.disableClickPropagation(resultados);
+    L.DomEvent.disableScrollPropagation(resultados);
+  }
+});

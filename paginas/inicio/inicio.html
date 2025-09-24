@@ -82,179 +82,169 @@
       <div id="sidebar-content"></div>
     </div>
     <div id="map" class="w-100 h-100">
-      <div id="menu" class="position-absolute top-0 p-3 w-100" style="z-index: 1000;">
-        <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 d-flex align-items-center gap-2 p-2 rounded-5 mx-auto bg-white shadow-sm border">
-          <!-- <button id="btn-menu" class="btn btn-primary" onclick="alternarMenuIzquierdo()" data-bs-toggle="tooltip"
-            data-bs-title="Mostrar/Ocultar Rutas">
-            <i class="fa-solid fa-bars"></i>
-          </button> -->
-          <input type="text" id="buscar-ruta" 
-                class="form-control form-control-sm border-0 w-100 rounded-5" 
-                placeholder="Buscar ruta..." 
-                oninput="filtrarRutas()">
-          <button id="btn-filtrar" class="btn p-0 border-0" onclick="filtrarRutas()">
-            <i class="fa-solid fa-filter fs-5 px-1 pe-2 pt-1"></i>
-          </button>
+      <div id="menu" class="position-absolute top-0 p-3 w-100" style="z-index: 1000; cursor: default;">
+        <div id="busqueda" class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 p-2 rounded-5 mx-auto bg-white shadow-sm border">
+          <input type="text" id="buscar-ruta" class="form-control form-control-sm border-0 w-100 rounded-5"
+            style="padding-bottom: .1rem;" placeholder="Buscar ruta..." oninput="filtrarRutas()">
         </div>
-        <div id="resultados-container" class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 d-flex align-items-center d-none gap-2 rounded-5 mx-auto bg-white shadow-sm border">
-          <ul id="resultados-busqueda" class="list-group w-100">
-            <li id="sin-resultados" class="list-group-item d-none">No se encontraron rutas.</li>
-          </ul>
+        <div id="resultados-busqueda"
+          class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 d-flex flex-column align-items-center d-none rounded-3 mx-auto bg-white shadow-sm border overflow-hidden">
+          <button id="sin-resultados" class="list-group-item d-none">No se encontraron rutas.</button>
         </div>
+      </div>
     </div>
-  </div>
 
-  <div id="sidebar-izquierdo" class="d-none position-absolute top-0 start-0 px-3 pb-3 h-100"
-    style="z-index: 900; padding-top: 5.5rem;">
-    <div class="d-flex flex-column p-3 rounded h-100 bg-light shadow-sm overflow-auto">
-      <h4 class="fw-bold">Rutas</h4>
-      <div id="lista-rutas" class="d-flex flex-column gap-2 mt-3"></div>
+    <div id="sidebar-izquierdo" class="d-none position-absolute top-0 start-0 px-3 pb-3 h-100"
+      style="z-index: 900; padding-top: 5.5rem;">
+      <div class="d-flex flex-column p-3 rounded h-100 bg-light shadow-sm overflow-auto">
+        <h4 class="fw-bold">Rutas</h4>
+        <div id="lista-rutas" class="d-flex flex-column gap-2 mt-3"></div>
 
-      <a class="btn btn-primary mt-2" href="/paginas/foro/foro.html">
-        <i class="fa-solid fa-comments me-1"></i>
-        Foro / Comunidad
-      </a>
+        <a class="btn btn-primary mt-2" href="/paginas/foro/foro.html">
+          <i class="fa-solid fa-comments me-1"></i>
+          Foro / Comunidad
+        </a>
 
-      <!-- <a class="btn btn-warning mt-2 w-100 d-flex align-items-center justify-content-center" href="#"
+        <!-- <a class="btn btn-warning mt-2 w-100 d-flex align-items-center justify-content-center" href="#"
         onclick="verFavoritos()" data-bs-toggle="collapse" data-bs-target="#lista-favoritos" aria-expanded="false"
         aria-controls="lista-favoritos">
         <i class="fa-solid fa-bookmark me-2"></i>
         Favoritos
       </a> -->
 
-      
 
-      <!-- <button class="btn btn-success mt-3" onclick="alternarMenuDerecho()">
+
+        <!-- <button class="btn btn-success mt-3" onclick="alternarMenuDerecho()">
         <i class="fa-solid fa-route me-1"></i>
         Crear ruta personalizada
       </button> -->
+      </div>
     </div>
-  </div>
 
-  <div id="sidebar-derecho" class="d-none position-absolute top-0 end-0 px-3 pb-3 h-100"
-    style="z-index: 900; padding-top: 5.5rem;">
-    <div class="d-flex flex-column p-3 rounded h-100 bg-light shadow-sm overflow-auto">
-      <div class="d-flex align-items-center">
-        <h5 class="fw-bold m-0">Crear rutas</h5>
-        <button class="btn btn-sm btn-danger ms-auto" onclick="alternarMenuDerecho()" data-bs-toggle="tooltip"
-          data-bs-title="Cerrar">
-          <i class="fa-solid fa-xmark"></i>
+    <div id="sidebar-derecho" class="d-none position-absolute top-0 end-0 px-3 pb-3 h-100"
+      style="z-index: 900; padding-top: 5.5rem;">
+      <div class="d-flex flex-column p-3 rounded h-100 bg-light shadow-sm overflow-auto">
+        <div class="d-flex align-items-center">
+          <h5 class="fw-bold m-0">Crear rutas</h5>
+          <button class="btn btn-sm btn-danger ms-auto" onclick="alternarMenuDerecho()" data-bs-toggle="tooltip"
+            data-bs-title="Cerrar">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <!-- Instrucciones para modal -->
+        <button type="button" class="btn btn-secondary mt-2 w-100 d-flex align-items-center justify-content-center"
+          data-bs-toggle="modal" data-bs-target="#instruccionesModal">
+          <i class="fa-solid fa-circle-info me-2"></i>
+          Ver instrucciones
+        </button>
+
+        <div id="generar-rutas" class="d-flex flex-column gap-2 mt-2"></div>
+        <form id="form-ruta" class="mt-4">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" id="nombre-ruta" placeholder="Nombre de la ruta" required>
+            <input type="color" class="form-control form-control-color" id="color-ruta" value="#ff0000"
+              title="Color de la ruta">
+          </div>
+          <div id="lista-puntos"></div>
+          <div class="d-flex gap-1">
+            <button class="btn btn-danger w-100 mt-2" type="button" onclick="limpiarFormulario()">
+              <i class="fa-solid fa-floppy-disk me-1"></i>
+              Limpiar
+            </button>
+            <button class="btn btn-success w-100 mt-2" type="submit">
+              <i class="fa-solid fa-floppy-disk me-1"></i>
+              Guardar
+            </button>
+          </div>
+        </form>
+        <button class="btn btn-danger mt-3" onclick="limpiarMarcadores()">
+          <i class="fa-solid fa-trash me-1"></i>
+          Limpiar marcadores
+        </button>
+        <button class="btn btn-danger mt-2" onclick="borrarLocalStorage()">
+          <i class="fa-solid fa-trash me-1"></i>
+          Borrar cache de rutas
         </button>
       </div>
-      <!-- Instrucciones para modal -->
-      <button type="button" class="btn btn-secondary mt-2 w-100 d-flex align-items-center justify-content-center"
-        data-bs-toggle="modal" data-bs-target="#instruccionesModal">
-        <i class="fa-solid fa-circle-info me-2"></i>
-        Ver instrucciones
-      </button>
-
-      <div id="generar-rutas" class="d-flex flex-column gap-2 mt-2"></div>
-      <form id="form-ruta" class="mt-4">
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" id="nombre-ruta" placeholder="Nombre de la ruta" required>
-          <input type="color" class="form-control form-control-color" id="color-ruta" value="#ff0000"
-            title="Color de la ruta">
-        </div>
-        <div id="lista-puntos"></div>
-        <div class="d-flex gap-1">
-          <button class="btn btn-danger w-100 mt-2" type="button" onclick="limpiarFormulario()">
-            <i class="fa-solid fa-floppy-disk me-1"></i>
-            Limpiar
-          </button>
-          <button class="btn btn-success w-100 mt-2" type="submit">
-            <i class="fa-solid fa-floppy-disk me-1"></i>
-            Guardar
-          </button>
-        </div>
-      </form>
-      <button class="btn btn-danger mt-3" onclick="limpiarMarcadores()">
-        <i class="fa-solid fa-trash me-1"></i>
-        Limpiar marcadores
-      </button>
-      <button class="btn btn-danger mt-2" onclick="borrarLocalStorage()">
-        <i class="fa-solid fa-trash me-1"></i>
-        Borrar cache de rutas
-      </button>
     </div>
-  </div>
 
-  <!-- Modal Bienvenida -->
-  <div class="modal fade" id="bienvenidaModal" tabindex="-1" aria-labelledby="bienvenidaModalLabel" aria-hidden="true"
-    data-bs-backdrop="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content shadow">
-        <div class="modal-body text-center px-4 pb-0">
-          <h2 class="fw-bold mt-2 mb-3" id="bienvenidaModalLabel">¡Bienvenido a XalaBus!</h2>
-          <p>Esta aplicación te permite visualizar las rutas de autobús en Xalapa y crear tus propias rutas
-            personalizadas.</p>
-          <p class="fw-bold">Disfruta de todo nuestro contenido:</p>
-          <div class="d-flex justify-content-center gap-3 mb-3">
-            <div
-              class="d-flex flex-column justify-content-center align-items-center bg-primary text-white p-3 rounded-circle gap-1 shadow-sm"
-              style="width: 6rem; height: 6rem;">
-              <i class="fa-solid fa-bookmark fa-2x"></i>
-              <p class="m-0 fw-semibold">Favoritos</p>
+    <!-- Modal Bienvenida -->
+    <div class="modal fade" id="bienvenidaModal" tabindex="-1" aria-labelledby="bienvenidaModalLabel" aria-hidden="true"
+      data-bs-backdrop="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow">
+          <div class="modal-body text-center px-4 pb-0">
+            <h2 class="fw-bold mt-2 mb-3" id="bienvenidaModalLabel">¡Bienvenido a XalaBus!</h2>
+            <p>Esta aplicación te permite visualizar las rutas de autobús en Xalapa y crear tus propias rutas
+              personalizadas.</p>
+            <p class="fw-bold">Disfruta de todo nuestro contenido:</p>
+            <div class="d-flex justify-content-center gap-3 mb-3">
+              <div
+                class="d-flex flex-column justify-content-center align-items-center bg-primary text-white p-3 rounded-circle gap-1 shadow-sm"
+                style="width: 6rem; height: 6rem;">
+                <i class="fa-solid fa-bookmark fa-2x"></i>
+                <p class="m-0 fw-semibold">Favoritos</p>
+              </div>
+              <div
+                class="d-flex flex-column justify-content-center align-items-center text-white p-3 rounded-circle gap-1 shadow-sm"
+                style="width: 6rem; height: 6rem; background-color: rgb(255, 148, 8);">
+                <i class="fa-solid fa-comments fa-2x"></i>
+                <p class="m-0 fw-semibold">Foro</p>
+              </div>
+              <div
+                class="d-flex flex-column justify-content-center align-items-center bg-success text-white p-3 rounded-circle gap-1 shadow-sm"
+                style="width: 6rem; height: 6rem;">
+                <i class="fa-solid fa-bus-simple fa-2x"></i>
+                <p class="m-0 fw-semibold">Rutas</p>
+              </div>
             </div>
-            <div
-              class="d-flex flex-column justify-content-center align-items-center text-white p-3 rounded-circle gap-1 shadow-sm"
-              style="width: 6rem; height: 6rem; background-color: rgb(255, 148, 8);">
-              <i class="fa-solid fa-comments fa-2x"></i>
-              <p class="m-0 fw-semibold">Foro</p>
-            </div>
-            <div
-              class="d-flex flex-column justify-content-center align-items-center bg-success text-white p-3 rounded-circle gap-1 shadow-sm"
-              style="width: 6rem; height: 6rem;">
-              <i class="fa-solid fa-bus-simple fa-2x"></i>
-              <p class="m-0 fw-semibold">Rutas</p>
+            <div class="form-check w-auto d-flex justify-content-center mt-4">
+              <input type="checkbox" id="no-mostrar" class="form-check-input me-2">
+              <label for="no-mostrar" class="form-check-label">No mostrar de nuevo</label>
             </div>
           </div>
-          <div class="form-check w-auto d-flex justify-content-center mt-4">
-            <input type="checkbox" id="no-mostrar" class="form-check-input me-2">
-            <label for="no-mostrar" class="form-check-label">No mostrar de nuevo</label>
+          <div class="modal-footer border-0 justify-content-center">
+            <button type="button" id="btn-comenzar" class="btn btn-primary flex-fill"
+              data-bs-dismiss="modal">Comenzar</button>
           </div>
-        </div>
-        <div class="modal-footer border-0 justify-content-center">
-          <button type="button" id="btn-comenzar" class="btn btn-primary flex-fill"
-            data-bs-dismiss="modal">Comenzar</button>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Instrucciones -->
-  <div class="modal fade" id="instruccionesModal" tabindex="-1" aria-labelledby="instruccionesModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content modal-sm">
-        <div class="modal-header">
-          <h5 class="modal-title fw-bold" id="instruccionesModalLabel">Instrucciones</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <ol class="list-group list-group-numbered">
-            <li class="list-group-item">Haz clic en el mapa para agregar puntos a tu ruta personalizada.</li>
-            <li class="list-group-item">Arrastra los marcadores para ajustar su posición.</li>
-            <li class="list-group-item">Usa el botón de la papelera o haz clic derecho en un marcador para eliminarlo.
-            </li>
-            <li class="list-group-item">Arrastra y suelta los puntos en la lista para reordenarlos.</li>
-            <li class="list-group-item">Completa el formulario y guarda tu ruta personalizada.</li>
-          </ol>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success flex-fill" data-bs-dismiss="modal">Aceptar</button>
+    <!-- Instrucciones -->
+    <div class="modal fade" id="instruccionesModal" tabindex="-1" aria-labelledby="instruccionesModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content modal-sm">
+          <div class="modal-header">
+            <h5 class="modal-title fw-bold" id="instruccionesModalLabel">Instrucciones</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <ol class="list-group list-group-numbered">
+              <li class="list-group-item">Haz clic en el mapa para agregar puntos a tu ruta personalizada.</li>
+              <li class="list-group-item">Arrastra los marcadores para ajustar su posición.</li>
+              <li class="list-group-item">Usa el botón de la papelera o haz clic derecho en un marcador para eliminarlo.
+              </li>
+              <li class="list-group-item">Arrastra y suelta los puntos en la lista para reordenarlos.</li>
+              <li class="list-group-item">Completa el formulario y guarda tu ruta personalizada.</li>
+            </ol>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success flex-fill" data-bs-dismiss="modal">Aceptar</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
-    crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/pouchdb@9.0.0/dist/pouchdb.js"></script>
-  <script src="https://unpkg.com/leaflet.tilelayer.pouchdbcached@latest/L.TileLayer.PouchDBCached.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
-  <script src="inicio.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+      crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/pouchdb@9.0.0/dist/pouchdb.js"></script>
+    <script src="https://unpkg.com/leaflet.tilelayer.pouchdbcached@latest/L.TileLayer.PouchDBCached.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script src="inicio.js"></script>
 </body>
 
 </html>

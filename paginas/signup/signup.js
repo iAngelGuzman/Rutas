@@ -1,51 +1,50 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const form = document.querySelector("form");
-    const userInput = form.querySelector('input[placeholder="Usuario"]');
-    const passInput = form.querySelector('input[placeholder="Contraseña"]');
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-    form.addEventListener("submit", (e) => {
-        e.preventDefault();
+const SUPABASE_URL = "https://rxfqkbhymotlapterzpk.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ4ZnFrYmh5bW90bGFwdGVyenBrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg3MjU4MDgsImV4cCI6MjA3NDMwMTgwOH0.hymErnZfJFdGEpa9sn43Q_TOsj3rOmue6RRI6DrLv0A"; 
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        const usuario = userInput.value.trim();
-        const password = passInput.value.trim();
-
-        if (!usuario || !password) {
-            alert("Por favor llena todos los campos.");
-            return;
-        }
-
-        // Recuperamos usuarios ya guardados
-        let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-
-        // Verificar si el usuario ya existe
-        if (usuarios.find(u => u.usuario === usuario)) {
-            alert("El usuario ya existe, elige otro.");
-            return;
-        }
-
-        // Guardar nuevo usuario
-        usuarios.push({ usuario, password });
-        localStorage.setItem("usuarios", JSON.stringify(usuarios));
-
-        alert("Registro exitoso. Ahora inicia sesión.");
-
-        // Redirigir al login
-        window.location.href = "/paginas/login/login.html";
-    });
-});
-
-function togglePassword() {
-  const passInput = document.getElementById("passwordInput");
-  const confirmPassInput = document.getElementById("confirmPasswordInput");
-
-  // Alternar tipo
-  const type = passInput.type === "password" ? "text" : "password";
-  passInput.type = type;
-  confirmPassInput.type = type;
-
-  // Cambiar íconos
-  const icons = document.querySelectorAll(".toggle-password i");
-  icons.forEach(icon => {
-    icon.className = type === "password" ? "fa-solid fa-eye" : "fa-solid fa-eye-slash";
+async function registrarUsuario(email, password) {
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password
   });
+
+  if (error) {
+    console.error("Error registrando usuario:", error);
+  } else {
+    console.log("Usuario registrado correctamente:", data);
+  }
 }
+
+// Registro de usuario
+document.addEventListener("DOMContentLoaded", async () => {
+  const form = document.querySelector("form");
+  const emailInput = document.getElementById("emailInput");
+  const passwordInput = document.getElementById("passwordInput");
+  const confirmInput = document.getElementById("confirmPasswordInput");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = emailInput.value.trim();
+    const password = passwordInput.value.trim();
+    const confirm = confirmInput.value.trim();
+
+    if (!email || !password || !confirm) {
+      alert("Por favor llena todos los campos.");
+      return;
+    }
+
+    if (password !== confirm) {
+      alert("Las contraseñas no coinciden.");
+      return;
+    }
+
+    // Registrar usuario en Supabase
+    await registrarUsuario(email, password);
+
+    alert("Registro exitoso. Revisa tu correo para confirmar.");
+    form.reset(); // limpiar formulario
+  });
+});
