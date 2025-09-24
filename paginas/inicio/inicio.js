@@ -15,7 +15,10 @@ let marcadorUbicacion = null;
 let circuloUbicacion = null;
 let marcadorDestino = null;
 let rutaSeleccionada = null;
-let paradasActuales = []; // Nueva variable para almacenar las paradas actuales
+let paradasActuales = [];
+let monitoreoActivo = false;
+let notificacionEnviada = false;
+let intervaloMonitoreo = null;
 
 const busIcon = L.divIcon({
     html: `<div class="d-flex justify-content-center align-items-center rounded-circle border border-2 border-white bg-primary" style="width:26px; height:26px;">
@@ -35,7 +38,6 @@ const destinoIcon = L.divIcon({
     iconAnchor: [17, 17]
 });
 
-// Icono de parada modificado - MANTENIENDO EL BUS AZUL ORIGINAL
 const paradaIcon = L.divIcon({
     html: `<div class="d-flex justify-content-center align-items-center rounded-circle border border-3 border-white bg-primary shadow-lg" style="width:30px; height:30px; cursor: pointer;">
              <i class="fa-solid fa-bus-simple text-white"></i>
@@ -57,6 +59,144 @@ function mostrarMensajeTemporal(mensaje) {
     }, 2000);
 }
 
+// ---------------- FUNCIONES DE NOTIFICACIÓN COMPLETAS ----------------
+function iniciarMonitoreoProximidad() {
+    if (intervaloMonitoreo) {
+        clearInterval(intervaloMonitoreo);
+    }
+    
+    monitoreoActivo = true;
+    notificacionEnviada = false;
+    
+    intervaloMonitoreo = setInterval(() => {
+        if (!marcadorDestino || !marcadorUbicacion || !rutaSeleccionada) {
+            return;
+        }
+        
+        const ubicacionActual = marcadorUbicacion.getLatLng();
+        const destino = marcadorDestino.getLatLng();
+        
+        // Calcular distancia actual al destino
+        const distanciaAlDestino = map.distance(ubicacionActual, destino);
+        
+        // Verificar si está cerca (menos de 500 metros)
+        if (distanciaAlDestino < 500 && !notificacionEnviada) {
+            notificarProximidadDestino(distanciaAlDestino);
+            notificacionEnviada = true;
+        }
+        
+        // Verificar paradas cercanas (1-2 paradas antes)
+        verificarParadasCercanas(ubicacionActual);
+        
+    }, 3000); // Verificar cada 3 segundos
+}
+
+function detenerMonitoreoProximidad() {
+    if (intervaloMonitoreo) {
+        clearInterval(intervaloMonitoreo);
+        intervaloMonitoreo = null;
+    }
+    monitoreoActivo = false;
+    notificacionEnviada = false;
+    ocultarNotificacion();
+}
+
+function verificarParadasCercanas(ubicacionActual) {
+    if (!paradasActuales.length || !marcadorDestino) return;
+    
+    const destino = marcadorDestino.getLatLng();
+    
+    // Encontrar el índice de la parada destino
+    const indiceDestino = paradasActuales.findIndex(parada => 
+        Math.abs(parada.lat - destino.lat) < 0.0001 && Math.abs(parada.lng - destino.lng) < 0.0001
+    );
+    
+    if (indiceDestino === -1) return;
+    
+    // Verificar paradas 1 y 2 posiciones antes del destino
+    for (let i = 1; i <= 2; i++) {
+        const indiceParadaCercana = indiceDestino - i;
+        if (indiceParadaCercana >= 0 && indiceParadaCercana < paradasActuales.length) {
+            const parada = paradasActuales[indiceParadaCercana];
+            const distanciaAParada = map.distance(
+                ubicacionActual, 
+                L.latLng(parada.lat, parada.lng)
+            );
+            
+            // Si está a menos de 300 metros de una parada cercana al destino
+            if (distanciaAParada < 300 && !notificacionEnviada) {
+                notificarParadaCercana(i, distanciaAParada);
+                notificacionEnviada = true;
+                break;
+            }
+        }
+    }
+}
+
+function notificarProximidadDestino(distancia) {
+    const mensaje = `🎯 ¡Estás cerca de tu destino! (${Math.round(distancia)} metros)`;
+    mostrarNotificacionPermanente(mensaje);
+    
+    // Opcional: reproducir sonido o vibración si el navegador lo permite
+    if (navigator.vibrate) {
+        navigator.vibrate([200, 100, 200]);
+    }
+}
+
+function notificarParadaCercana(paradasAntes, distancia) {
+    const mensaje = `🔔 ¡Atención! Estás a ${Math.round(distancia)} metros de tu destino. 
+                    Te quedan aproximadamente ${paradasAntes} parada${paradasAntes > 1 ? 's' : ''}.`;
+    mostrarNotificacionPermanente(mensaje);
+}
+
+function mostrarNotificacionPermanente(mensaje) {
+    // Crear o actualizar notificación en la interfaz
+    let notificacion = document.getElementById('notificacion-proximidad');
+    
+    if (!notificacion) {
+        notificacion = document.createElement('div');
+        notificacion.id = 'notificacion-proximidad';
+        notificacion.className = 'alert alert-warning alert-dismissible fade show position-fixed';
+        notificacion.style.cssText = `
+            top: 80px;
+            right: 20px;
+            z-index: 1000;
+            max-width: 300px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        `;
+        
+        notificacion.innerHTML = `
+            <strong>📢 Notificación</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <hr>
+            <div id="texto-notificacion">${mensaje}</div>
+        `;
+        
+        document.body.appendChild(notificacion);
+        
+        // Agregar evento para cerrar la notificación
+        notificacion.querySelector('.btn-close').addEventListener('click', () => {
+            ocultarNotificacion();
+        });
+    } else {
+        document.getElementById('texto-notificacion').textContent = mensaje;
+        notificacion.style.display = 'block';
+    }
+    
+    // Auto-ocultar después de 10 segundos
+    setTimeout(() => {
+        ocultarNotificacion();
+    }, 10000);
+}
+
+function ocultarNotificacion() {
+    const notificacion = document.getElementById('notificacion-proximidad');
+    if (notificacion) {
+        notificacion.style.display = 'none';
+        notificacionEnviada = false;
+    }
+}
+
 // ---------------- Funciones de gestión de mapa ----------------
 function limpiarMarcadores() {
     marcadores.forEach((m) => map.removeLayer(m));
@@ -68,7 +208,8 @@ function limpiarMarcadores() {
     circuloUbicacion = null;
     marcadorDestino = null;
     rutaSeleccionada = null;
-    paradasActuales = []; // Limpiar paradas actuales
+    paradasActuales = [];
+    detenerMonitoreoProximidad();
     document.getElementById("lista-puntos").innerHTML = "";
 }
 
@@ -77,8 +218,8 @@ function limpiarDestino() {
         map.removeLayer(marcadorDestino);
         marcadorDestino = null;
     }
+    detenerMonitoreoProximidad();
     map.off('click.destino');
-    // Reactivar clic en paradas para seleccionar destino
     reactivarClicEnParadas();
     
     if (localStorage.getItem("admin") === "true") {
@@ -92,23 +233,18 @@ function limpiarDestino() {
 }
 
 function configurarSeleccionDestino() {
-    // Desactivar clic general en el mapa para destino
     map.off('click.destino');
-    
-    // Mostrar mensaje indicando que se debe hacer clic en una parada
     mostrarMensajeTemporal('✅ Haz clic en una parada de la ruta para seleccionar tu destino');
 }
 
-// Nueva función para manejar clic en paradas
 function manejarClicEnParada(e) {
     const { lat, lng } = e.latlng;
     
-    // Verificar si el clic fue en una parada existente
     const esParada = paradasActuales.some(parada => 
-        parada.lat === lat && parada.lng === lng
+        Math.abs(parada.lat - lat) < 0.0001 && Math.abs(parada.lng - lng) < 0.0001
     );
     
-    if (!esParada) return; // Solo procesar si es una parada
+    if (!esParada) return;
     
     if (marcadorDestino) {
         map.removeLayer(marcadorDestino);
@@ -131,15 +267,14 @@ function manejarClicEnParada(e) {
         </div>`
     ).openPopup();
     
+    // Iniciar monitoreo cuando se selecciona un destino
+    iniciarMonitoreoProximidad();
+    
     console.log("Destino seleccionado en parada:", { lat, lng, ruta: rutaSeleccionada?.nombre });
 }
 
-// Función para reactivar el clic en paradas
 function reactivarClicEnParadas() {
-    // Remover eventos anteriores
     map.off('click.paradaDestino');
-    
-    // Agregar evento para clic en paradas
     map.on('click.paradaDestino', function(e) {
         manejarClicEnParada(e);
     });
@@ -213,9 +348,7 @@ function verFavoritos() {
     }
 }
 
-// ---------------- Dibujar rutas (VERSIÓN CORREGIDA) ----------------
 function dibujarRuta(lineas, paradas = []) {
-    // Limpiar solo elementos de ruta, preservar destino
     marcadores.forEach((m) => {
         if (m !== marcadorDestino) {
             map.removeLayer(m);
@@ -224,7 +357,6 @@ function dibujarRuta(lineas, paradas = []) {
     marcadores = marcadores.filter(m => m === marcadorDestino);
     puntosRuta = [];
     
-    // Remover solo las rutas, no el marcador de destino
     rutasDibujadas.forEach((r) => {
         if (r !== marcadorDestino) {
             map.removeLayer(r);
@@ -234,7 +366,6 @@ function dibujarRuta(lineas, paradas = []) {
     
     document.getElementById("lista-puntos").innerHTML = "";
     
-    // Líneas
     lineas.forEach(l => {
         const polyline = L.polyline(l.coords, {
             color: l.color,
@@ -249,17 +380,14 @@ function dibujarRuta(lineas, paradas = []) {
         });
     });
     
-    // Limpiar paradas anteriores
     paradasActuales = [];
     
-    // Paradas - CON LA MODIFICACIÓN PARA PERMITIR SELECCIÓN DE DESTINO
     paradas.forEach(p => {
         const stop = L.marker(p, { 
-            icon: paradaIcon,  // Usar el icono de parada con bus azul
+            icon: paradaIcon,
             zIndexOffset: 500 
         }).addTo(map);
         
-        // Guardar información de la parada
         const paradaInfo = {
             lat: p[0],
             lng: p[1],
@@ -269,15 +397,12 @@ function dibujarRuta(lineas, paradas = []) {
         
         rutasDibujadas.push(stop);
         
-        // Tooltip para la parada
         stop.bindTooltip('Parada - Haz clic para seleccionar destino', {
             direction: 'top',
             permanent: false
         });
         
-        // Evento para seleccionar destino al hacer clic en la parada
         stop.on("click", function (e) {
-            // Prevenir la propagación del evento
             L.DomEvent.stopPropagation(e);
             
             if (marcadorDestino) {
@@ -301,10 +426,12 @@ function dibujarRuta(lineas, paradas = []) {
                 </div>`
             ).openPopup();
             
+            // Iniciar monitoreo cuando se selecciona un destino
+            iniciarMonitoreoProximidad();
+            
             console.log("Destino seleccionado en parada:", { lat: p[0], lng: p[1], ruta: rutaSeleccionada?.nombre });
         });
         
-        // Eliminar parada (solo si no hay destino seleccionado)
         stop.on("contextmenu", function (e) {
             L.DomEvent.stopPropagation(e);
             if (!marcadorDestino || (marcadorDestino.getLatLng().lat !== p[0] && marcadorDestino.getLatLng().lng !== p[1])) {
@@ -315,10 +442,8 @@ function dibujarRuta(lineas, paradas = []) {
         });
     });
     
-    // Configurar evento para clic en paradas en el mapa
     reactivarClicEnParadas();
     
-    // Ajustar vista (pero no si hay destino marcado)
     if (rutasDibujadas.length > 0 && !marcadorDestino) {
         const group = new L.featureGroup(rutasDibujadas);
         map.fitBounds(group.getBounds());
@@ -521,6 +646,11 @@ function verMiUbicacion() {
         }
         
         animarCirculo();
+        
+        // Iniciar monitoreo si hay un destino seleccionado
+        if (marcadorDestino) {
+            iniciarMonitoreoProximidad();
+        }
     });
 }
 
@@ -790,7 +920,6 @@ function dibujarRuta2(latlngs, color = "red") {
     
     map.fitBounds(polyline.getBounds());
 }
-
 // Drag & Drop para lista de puntos
 const lista = document.getElementById("lista-puntos");
 Sortable.create(lista, {
