@@ -1,20 +1,20 @@
 {
   "rutas": [
     {
-      "nombre": "Ruta 001",
+      "nombre": "A. Camacho / Zona UV / Xal 2 Mil / L. Verdes / IPE / Bugambilias",
       "color": "#FF1100",
       "horario": {
         "lunes": "6:00am - 10:00pm",
         "domingo": "8:00am - 8:00pm"
       },
       "archivos": {
-        "imagen": "/rutas/001/imagen/bus.png",
+        "imagen": "/rutas/001/imagen/bus.jpg",
         "ruta": "/rutas/001/route/route.geojson",
         "paradas": "/rutas/001/stops/route.geojson"
       }
     },
     {
-      "nombre": "Ruta 002",
+      "nombre": "Plaza Americas / CAXA / SEV / Trancas / Central de Abastos",
       "color": "#FF2200",
       "horario": {
         "lunes": "6:00am - 10:00pm",
@@ -70,577 +70,1099 @@
     {
       "nombre": "Ruta 006",
       "color": "#FF6600",
-      "archivos": "006/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/006/imagen/bus.png",
+        "ruta": "/rutas/006/route/route.geojson",
+        "paradas": "/rutas/006/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 007",
       "color": "#FF7700",
-      "archivos": "007/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/007/imagen/bus.png",
+        "ruta": "/rutas/007/route/route.geojson",
+        "paradas": "/rutas/007/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 008",
       "color": "#FF8800",
-      "archivos": "008/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/008/imagen/bus.png",
+        "ida": "/rutas/008/ida/route/route.geojson",
+        "ida-paradas": "/rutas/008/ida/stops/route.geojson",
+        "vuelta": "/rutas/008/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/008/vuelta/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 009",
       "color": "#FF9900",
-      "archivos": "009/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/009/imagen/bus.png",
+        "ida": "/rutas/009/ida/route/route.geojson",
+        "ida-paradas": "/rutas/009/ida/stops/route.geojson",
+        "vuelta": "/rutas/009/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/009/vuelta/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 010",
       "color": "#FFAA00",
-      "archivos": "010/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/010/imagen/bus.png",
+        "ida": "/rutas/010/ida/route/route.geojson",
+        "ida-paradas": "/rutas/010/ida/stops/route.geojson",
+        "vuelta": "/rutas/010/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/010/vuelta/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 011",
       "color": "#FFBB00",
-      "archivos": "011/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/011/imagen/bus.png",
+        "ruta": "/rutas/011/route/route.geojson",
+        "paradas": "/rutas/011/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 012",
       "color": "#FFCC00",
-      "archivos": "012/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/012/imagen/bus.png",
+        "ida": "/rutas/012/ida/route/route.geojson",
+        "ida-paradas": "/rutas/012/ida/stops/route.geojson",
+        "vuelta": "/rutas/012/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/012/vuelta/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 013",
       "color": "#FFDD00",
-      "archivos": "013/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/013/imagen/bus.png",
+        "ruta": "/rutas/013/route/route.geojson",
+        "paradas": "/rutas/013/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 014",
       "color": "#FFEE00",
-      "archivos": "014/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/014/imagen/bus.png",
+        "ruta": "/rutas/014/route/route.geojson",
+        "paradas": "/rutas/014/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 015",
       "color": "#FFFF00",
-      "archivos": "015/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/015/imagen/bus.png",
+        "ruta": "/rutas/015/route/route.geojson",
+        "paradas": "/rutas/015/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 016",
       "color": "#EEFF00",
-      "archivos": "016/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/016/imagen/bus.png",
+        "ruta": "/rutas/016/route/route.geojson",
+        "paradas": "/rutas/016/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 017",
       "color": "#DDFF00",
-      "archivos": "017/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/017/imagen/bus.png",
+        "ida": "/rutas/017/ida/route/route.geojson",
+        "ida-paradas": "/rutas/017/ida/stops/route.geojson",
+        "vuelta": "/rutas/017/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/017/vuelta/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 018",
       "color": "#CCFF00",
-      "archivos": "018/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/018/imagen/bus.png",
+        "ida": "/rutas/018/ida/route/route.geojson",
+        "ida-paradas": "/rutas/018/ida/stops/route.geojson",
+        "vuelta": "/rutas/018/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/018/vuelta/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 019",
       "color": "#BBFF00",
-      "archivos": "019/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/019/imagen/bus.png",
+        "ida": "/rutas/019/ida/route/route.geojson",
+        "ida-paradas": "/rutas/019/ida/stops/route.geojson",
+        "vuelta": "/rutas/019/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/019/vuelta/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 020",
       "color": "#AAFF00",
-      "archivos": "020/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/020/imagen/bus.png",
+        "ida": "/rutas/020/ida/route/route.geojson",
+        "ida-paradas": "/rutas/020/ida/stops/route.geojson",
+        "vuelta": "/rutas/020/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/020/vuelta/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 021",
       "color": "#99FF00",
-      "archivos": "021/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/021/imagen/bus.png",
+        "ida": "/rutas/021/ida/route/route.geojson",
+        "ida-paradas": "/rutas/021/ida/stops/route.geojson",
+        "vuelta": "/rutas/021/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/021/vuelta/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 022",
       "color": "#88FF00",
-      "archivos": "022/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/022/imagen/bus.png",
+        "ruta": "/rutas/022/route/route.geojson",
+        "paradas": "/rutas/022/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 023",
       "color": "#77FF00",
-      "archivos": "023/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/023/imagen/bus.png",
+        "ida": "/rutas/023/ida/route/route.geojson",
+        "ida-paradas": "/rutas/023/ida/stops/route.geojson",
+        "vuelta": "/rutas/023/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/023/vuelta/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 024",
       "color": "#66FF00",
-      "archivos": "024/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/024/imagen/bus.png",
+        "ida": "/rutas/024/ida/route/route.geojson",
+        "ida-paradas": "/rutas/024/ida/stops/route.geojson",
+        "vuelta": "/rutas/024/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/024/vuelta/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 025",
       "color": "#55FF00",
-      "archivos": "025/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/025/imagen/bus.png",
+        "ida": "/rutas/025/ida/route/route.geojson",
+        "ida-paradas": "/rutas/025/ida/stops/route.geojson",
+        "vuelta": "/rutas/025/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/025/vuelta/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 026",
       "color": "#44FF00",
-      "archivos": "026/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/026/imagen/bus.png",
+        "ida": "/rutas/026/ida/route/route.geojson",
+        "ida-paradas": "/rutas/026/ida/stops/route.geojson",
+        "vuelta": "/rutas/026/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/026/vuelta/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 027",
       "color": "#33FF00",
-      "archivos": "027/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/027/imagen/bus.png",
+        "ida": "/rutas/027/ida/route/route.geojson",
+        "ida-paradas": "/rutas/027/ida/stops/route.geojson",
+        "vuelta": "/rutas/027/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/027/vuelta/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 028",
       "color": "#22FF00",
-      "archivos": "028/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/028/imagen/bus.png",
+        "ida": "/rutas/028/ida/route/route.geojson",
+        "ida-paradas": "/rutas/028/ida/stops/route.geojson",
+        "vuelta": "/rutas/028/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/028/vuelta/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 029",
       "color": "#11FF00",
-      "archivos": "029/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/029/imagen/bus.png",
+        "ida": "/rutas/029/ida/route/route.geojson",
+        "ida-paradas": "/rutas/029/ida/stops/route.geojson",
+        "vuelta": "/rutas/029/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/029/vuelta/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 030",
       "color": "#00FF00",
-      "archivos": "030/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/030/imagen/bus.png",
+        "ida": "/rutas/030/ida/route/route.geojson",
+        "ida-paradas": "/rutas/030/ida/stops/route.geojson",
+        "vuelta": "/rutas/030/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/030/vuelta/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 031",
       "color": "#00FF11",
-      "archivos": "031/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/031/imagen/bus.png",
+        "ida": "/rutas/031/ida/route/route.geojson",
+        "ida-paradas": "/rutas/031/ida/stops/route.geojson",
+        "vuelta": "/rutas/031/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/031/vuelta/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 032",
       "color": "#00FF22",
-      "archivos": "032/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/032/imagen/bus.png",
+        "ida": "/rutas/032/ida/route/route.geojson",
+        "ida-paradas": "/rutas/032/ida/stops/route.geojson",
+        "vuelta": "/rutas/032/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/032/vuelta/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 033",
       "color": "#00FF33",
-      "archivos": "033/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/033/imagen/bus.png",
+        "ruta": "/rutas/033/route/route.geojson",
+        "paradas": "/rutas/033/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 034",
       "color": "#00FF44",
-      "archivos": "034/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/034/imagen/bus.png",
+        "ida": "/rutas/034/ida/route/route.geojson",
+        "ida-paradas": "/rutas/034/ida/stops/route.geojson",
+        "vuelta": "/rutas/034/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/034/vuelta/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 035",
       "color": "#00FF55",
-      "archivos": "035/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/035/imagen/bus.png",
+        "ida": "/rutas/035/ida/route/route.geojson",
+        "ida-paradas": "/rutas/035/ida/stops/route.geojson",
+        "vuelta": "/rutas/035/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/035/vuelta/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 036",
       "color": "#00FF66",
-      "archivos": "036/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/036/imagen/bus.png",
+        "ida": "/rutas/036/ida/route/route.geojson",
+        "ida-paradas": "/rutas/036/ida/stops/route.geojson",
+        "vuelta": "/rutas/036/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/036/vuelta/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 037",
       "color": "#00FF77",
-      "archivos": "037/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/037/imagen/bus.png",
+        "ida": "/rutas/037/ida/route/route.geojson",
+        "ida-paradas": "/rutas/037/ida/stops/route.geojson",
+        "vuelta": "/rutas/037/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/037/vuelta/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 038",
       "color": "#00FF88",
-      "archivos": "038/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/038/imagen/bus.png",
+        "ida": "/rutas/038/ida/route/route.geojson",
+        "ida-paradas": "/rutas/038/ida/stops/route.geojson",
+        "vuelta": "/rutas/038/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/038/vuelta/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 039",
       "color": "#00FF99",
-      "archivos": "039/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/039/imagen/bus.png",
+        "ida": "/rutas/039/ida/route/route.geojson",
+        "ida-paradas": "/rutas/039/ida/stops/route.geojson",
+        "vuelta": "/rutas/039/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/039/vuelta/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 040",
       "color": "#00FFAA",
-      "archivos": "040/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/040/imagen/bus.png",
+        "ida": "/rutas/040/ida/route/route.geojson",
+        "ida-paradas": "/rutas/040/ida/stops/route.geojson",
+        "vuelta": "/rutas/040/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/040/vuelta/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 041",
       "color": "#00FFBB",
-      "archivos": "041/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/041/imagen/bus.png",
+        "ida": "/rutas/041/ida/route/route.geojson",
+        "ida-paradas": "/rutas/041/ida/stops/route.geojson",
+        "vuelta": "/rutas/041/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/041/vuelta/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 042",
       "color": "#00FFCC",
-      "archivos": "042/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/042/imagen/bus.png",
+        "ida": "/rutas/042/ida/route/route.geojson",
+        "ida-paradas": "/rutas/042/ida/stops/route.geojson",
+        "vuelta": "/rutas/042/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/042/vuelta/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 043",
       "color": "#00FFDD",
-      "archivos": "043/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/043/imagen/bus.png",
+        "ida": "/rutas/043/ida/route/route.geojson",
+        "ida-paradas": "/rutas/043/ida/stops/route.geojson",
+        "vuelta": "/rutas/043/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/043/vuelta/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 044",
       "color": "#00FFEE",
-      "archivos": "044/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/044/imagen/bus.png",
+        "ida": "/rutas/044/ida/route/route.geojson",
+        "ida-paradas": "/rutas/044/ida/stops/route.geojson",
+        "vuelta": "/rutas/044/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/044/vuelta/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 045",
       "color": "#00FFFF",
-      "archivos": "045/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/045/imagen/bus.png",
+        "ruta": "/rutas/045/route/route.geojson",
+        "paradas": "/rutas/045/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 046",
       "color": "#00EEFF",
-      "archivos": "046/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/046/imagen/bus.png",
+        "ruta": "/rutas/046/route/route.geojson",
+        "paradas": "/rutas/046/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 047",
       "color": "#00DDFF",
-      "archivos": "047/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/047/imagen/bus.png",
+        "ruta": "/rutas/047/route/route.geojson",
+        "paradas": "/rutas/047/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 048",
       "color": "#00CCFF",
-      "archivos": "048/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/048/imagen/bus.png",
+        "ruta": "/rutas/048/route/route.geojson",
+        "paradas": "/rutas/048/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 049",
       "color": "#00BBFF",
-      "archivos": "049/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/049/imagen/bus.png",
+        "ruta": "/rutas/049/route/route.geojson",
+        "paradas": "/rutas/049/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 050",
       "color": "#00AAFF",
-      "archivos": "050/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/050/imagen/bus.png",
+        "ruta": "/rutas/050/route/route.geojson",
+        "paradas": "/rutas/050/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 051",
       "color": "#0099FF",
-      "archivos": "051/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/051/imagen/bus.png",
+        "ruta": "/rutas/051/route/route.geojson",
+        "paradas": "/rutas/051/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 052",
       "color": "#0088FF",
-      "archivos": "052/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/052/imagen/bus.png",
+        "ruta": "/rutas/052/route/route.geojson",
+        "paradas": "/rutas/052/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 053",
       "color": "#0077FF",
-      "archivos": "053/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/053/imagen/bus.png",
+        "ruta": "/rutas/053/route/route.geojson",
+        "paradas": "/rutas/053/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 054",
       "color": "#0066FF",
-      "archivos": "054/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/054/imagen/bus.png",
+        "ruta": "/rutas/054/route/route.geojson",
+        "paradas": "/rutas/054/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 055",
       "color": "#0055FF",
-      "archivos": "055/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/055/imagen/bus.png",
+        "ruta": "/rutas/055/route/route.geojson",
+        "paradas": "/rutas/055/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 056",
       "color": "#0044FF",
-      "archivos": "056/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/056/imagen/bus.png",
+        "ruta": "/rutas/056/route/route.geojson",
+        "paradas": "/rutas/056/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 057",
       "color": "#0033FF",
-      "archivos": "057/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/057/imagen/bus.png",
+        "ruta": "/rutas/057/route/route.geojson",
+        "paradas": "/rutas/057/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 058",
       "color": "#0022FF",
-      "archivos": "058/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/058/imagen/bus.png",
+        "ruta": "/rutas/058/route/route.geojson",
+        "paradas": "/rutas/058/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 059",
       "color": "#0011FF",
-      "archivos": "059/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/059/imagen/bus.png",
+        "ruta": "/rutas/059/route/route.geojson",
+        "paradas": "/rutas/059/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 060",
       "color": "#0000FF",
-      "archivos": "060/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/060/imagen/bus.png",
+        "ruta": "/rutas/060/route/route.geojson",
+        "paradas": "/rutas/060/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 061",
       "color": "#1100FF",
-      "archivos": "061/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/061/imagen/bus.png",
+        "ruta": "/rutas/061/route/route.geojson",
+        "paradas": "/rutas/061/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 062",
       "color": "#2200FF",
-      "archivos": "062/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/062/imagen/bus.png",
+        "ruta": "/rutas/062/route/route.geojson",
+        "paradas": "/rutas/062/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 063",
       "color": "#3300FF",
-      "archivos": "063/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/063/imagen/bus.png",
+        "ruta": "/rutas/063/route/route.geojson",
+        "paradas": "/rutas/063/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 064",
       "color": "#4400FF",
-      "archivos": "064/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/064/imagen/bus.png",
+        "ruta": "/rutas/064/route/route.geojson",
+        "paradas": "/rutas/064/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 065",
       "color": "#5500FF",
-      "archivos": "065/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/065/imagen/bus.png",
+        "ruta": "/rutas/065/route/route.geojson",
+        "paradas": "/rutas/065/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 066",
       "color": "#6600FF",
-      "archivos": "066/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/066/imagen/bus.png",
+        "ruta": "/rutas/066/route/route.geojson",
+        "paradas": "/rutas/066/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 067",
       "color": "#7700FF",
-      "archivos": "067/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/067/imagen/bus.png",
+        "ruta": "/rutas/067/route/route.geojson",
+        "paradas": "/rutas/067/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 068",
       "color": "#8800FF",
-      "archivos": "068/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/068/imagen/bus.png",
+        "ida": "/rutas/068/ida/route/route.geojson",
+        "ida-paradas": "/rutas/068/ida/stops/route.geojson",
+        "vuelta": "/rutas/068/vuelta/route/route.geojson",
+        "vuelta-paradas": "/rutas/068/vuelta/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 069",
       "color": "#9900FF",
-      "archivos": "069/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/069/imagen/bus.png",
+        "ruta": "/rutas/069/route/route.geojson",
+        "paradas": "/rutas/069/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 070",
       "color": "#AA00FF",
-      "archivos": "070/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/070/imagen/bus.png",
+        "ruta": "/rutas/070/route/route.geojson",
+        "paradas": "/rutas/070/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 071",
       "color": "#BB00FF",
-      "archivos": "071/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/071/imagen/bus.png",
+        "ruta": "/rutas/071/route/route.geojson",
+        "paradas": "/rutas/071/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 072",
       "color": "#CC00FF",
-      "archivos": "072/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/072/imagen/bus.png",
+        "ruta": "/rutas/072/route/route.geojson",
+        "paradas": "/rutas/072/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 073",
       "color": "#DD00FF",
-      "archivos": "073/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/073/imagen/bus.png",
+        "ruta": "/rutas/073/route/route.geojson",
+        "paradas": "/rutas/073/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 074",
       "color": "#EE00FF",
-      "archivos": "074/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/074/imagen/bus.png",
+        "ruta": "/rutas/074/route/route.geojson",
+        "paradas": "/rutas/074/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 075",
       "color": "#FF00FF",
-      "archivos": "075/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/075/imagen/bus.png",
+        "ruta": "/rutas/075/route/route.geojson",
+        "paradas": "/rutas/075/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 076",
       "color": "#FF00EE",
-      "archivos": "076/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/076/imagen/bus.png",
+        "ruta": "/rutas/076/route/route.geojson",
+        "paradas": "/rutas/076/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 077",
       "color": "#FF00DD",
-      "archivos": "077/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/077/imagen/bus.png",
+        "ruta": "/rutas/077/route/route.geojson",
+        "paradas": "/rutas/077/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 078",
       "color": "#FF00CC",
-      "archivos": "078/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/078/imagen/bus.png",
+        "ruta": "/rutas/078/route/route.geojson",
+        "paradas": "/rutas/078/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 079",
       "color": "#FF00BB",
-      "archivos": "079/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/079/imagen/bus.png",
+        "ruta": "/rutas/079/route/route.geojson",
+        "paradas": "/rutas/079/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 080",
       "color": "#FF00AA",
-      "archivos": "080/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/080/imagen/bus.png",
+        "ruta": "/rutas/080/route/route.geojson",
+        "paradas": "/rutas/080/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 081",
       "color": "#FF0099",
-      "archivos": "081/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/081/imagen/bus.png",
+        "ruta": "/rutas/081/route/route.geojson",
+        "paradas": "/rutas/081/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 082",
       "color": "#FF0088",
-      "archivos": "082/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/082/imagen/bus.png",
+        "ruta": "/rutas/082/route/route.geojson",
+        "paradas": "/rutas/082/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 083",
       "color": "#FF0077",
-      "archivos": "083/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/083/imagen/bus.png",
+        "ruta": "/rutas/083/route/route.geojson",
+        "paradas": "/rutas/083/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 084",
       "color": "#FF0066",
-      "archivos": "084/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/084/imagen/bus.png",
+        "ruta": "/rutas/084/route/route.geojson",
+        "paradas": "/rutas/084/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 085",
       "color": "#FF0055",
-      "archivos": "085/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/085/imagen/bus.png",
+        "ruta": "/rutas/085/route/route.geojson",
+        "paradas": "/rutas/085/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 086",
       "color": "#FF0044",
-      "archivos": "086/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/086/imagen/bus.png",
+        "ruta": "/rutas/086/route/route.geojson",
+        "paradas": "/rutas/086/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 087",
       "color": "#FF0033",
-      "archivos": "087/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/087/imagen/bus.png",
+        "ruta": "/rutas/087/route/route.geojson",
+        "paradas": "/rutas/087/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 088",
       "color": "#FF0022",
-      "archivos": "088/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/088/imagen/bus.png",
+        "ruta": "/rutas/088/route/route.geojson",
+        "paradas": "/rutas/088/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 089",
       "color": "#FF0011",
-      "archivos": "089/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/089/imagen/bus.png",
+        "ruta": "/rutas/089/route/route.geojson",
+        "paradas": "/rutas/089/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 090",
       "color": "#FF0000",
-      "archivos": "090/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/090/imagen/bus.png",
+        "ruta": "/rutas/090/route/route.geojson",
+        "paradas": "/rutas/090/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 091",
       "color": "#FF1100",
-      "archivos": "091/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/091/imagen/bus.png",
+        "ruta": "/rutas/091/route/route.geojson",
+        "paradas": "/rutas/091/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 092",
       "color": "#FF2200",
-      "archivos": "092/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/092/imagen/bus.png",
+        "ruta": "/rutas/092/route/route.geojson",
+        "paradas": "/rutas/092/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 093",
       "color": "#FF3300",
-      "archivos": "093/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/093/imagen/bus.png",
+        "ruta": "/rutas/093/route/route.geojson",
+        "paradas": "/rutas/093/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 094",
       "color": "#FF4400",
-      "archivos": "094/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/094/imagen/bus.png",
+        "ruta": "/rutas/094/route/route.geojson",
+        "paradas": "/rutas/094/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 095",
       "color": "#FF5500",
-      "archivos": "095/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/095/imagen/bus.png",
+        "ruta": "/rutas/095/route/route.geojson",
+        "paradas": "/rutas/095/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 096",
       "color": "#FF6600",
-      "archivos": "096/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/096/imagen/bus.png",
+        "ruta": "/rutas/096/route/route.geojson",
+        "paradas": "/rutas/096/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 097",
       "color": "#FF7700",
-      "archivos": "097/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/097/imagen/bus.png",
+        "ruta": "/rutas/097/route/route.geojson",
+        "paradas": "/rutas/097/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 098",
       "color": "#FF8800",
-      "archivos": "098/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/098/imagen/bus.png",
+        "ruta": "/rutas/098/route/route.geojson",
+        "paradas": "/rutas/098/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 099",
       "color": "#FF9900",
-      "archivos": "099/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/099/imagen/bus.png",
+        "ruta": "/rutas/099/route/route.geojson",
+        "paradas": "/rutas/099/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 100",
       "color": "#FFAA00",
-      "archivos": "100/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/100/imagen/bus.png",
+        "ruta": "/rutas/100/route/route.geojson",
+        "paradas": "/rutas/100/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 101",
       "color": "#FFBB00",
-      "archivos": "101/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/101/imagen/bus.png",
+        "ruta": "/rutas/101/route/route.geojson",
+        "paradas": "/rutas/101/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 102",
       "color": "#FFCC00",
-      "archivos": "102/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/102/imagen/bus.png",
+        "ruta": "/rutas/102/route/route.geojson",
+        "paradas": "/rutas/102/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 103",
       "color": "#FFDD00",
-      "archivos": "103/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/103/imagen/bus.png",
+        "ruta": "/rutas/103/route/route.geojson",
+        "paradas": "/rutas/103/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 104",
       "color": "#FFEE00",
-      "archivos": "104/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/104/imagen/bus.png",
+        "ruta": "/rutas/104/route/route.geojson",
+        "paradas": "/rutas/104/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 105",
       "color": "#FFFF00",
-      "archivos": "105/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/105/imagen/bus.png",
+        "ruta": "/rutas/105/route/route.geojson",
+        "paradas": "/rutas/105/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 106",
       "color": "#EEFF00",
-      "archivos": "106/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/106/imagen/bus.png",
+        "ruta": "/rutas/106/route/route.geojson",
+        "paradas": "/rutas/106/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 107",
       "color": "#DDFF00",
-      "archivos": "107/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/107/imagen/bus.png",
+        "ruta": "/rutas/107/route/route.geojson",
+        "paradas": "/rutas/107/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 108",
       "color": "#CCFF00",
-      "archivos": "108/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/108/imagen/bus.png",
+        "ruta": "/rutas/108/route/route.geojson",
+        "paradas": "/rutas/108/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 109",
       "color": "#BBFF00",
-      "archivos": "109/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/109/imagen/bus.png",
+        "ruta": "/rutas/109/route/route.geojson",
+        "paradas": "/rutas/109/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 110",
       "color": "#AAFF00",
-      "archivos": "110/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/110/imagen/bus.png",
+        "ruta": "/rutas/110/route/route.geojson",
+        "paradas": "/rutas/110/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 111",
       "color": "#99FF00",
-      "archivos": "111/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/111/imagen/bus.png",
+        "ruta": "/rutas/111/route/route.geojson",
+        "paradas": "/rutas/111/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 112",
       "color": "#88FF00",
-      "archivos": "112/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/112/imagen/bus.png",
+        "ruta": "/rutas/112/route/route.geojson",
+        "paradas": "/rutas/112/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 113",
       "color": "#77FF00",
-      "archivos": "113/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/113/imagen/bus.png",
+        "ruta": "/rutas/113/route/route.geojson",
+        "paradas": "/rutas/113/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 114",
       "color": "#66FF00",
-      "archivos": "114/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/114/imagen/bus.png",
+        "ruta": "/rutas/114/route/route.geojson",
+        "paradas": "/rutas/114/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 115",
       "color": "#55FF00",
-      "archivos": "115/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/115/imagen/bus.png",
+        "ruta": "/rutas/115/route/route.geojson",
+        "paradas": "/rutas/115/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 116",
       "color": "#44FF00",
-      "archivos": "116/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/116/imagen/bus.png",
+        "ruta": "/rutas/116/route/route.geojson",
+        "paradas": "/rutas/116/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 117",
       "color": "#33FF00",
-      "archivos": "117/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/117/imagen/bus.png",
+        "ruta": "/rutas/117/route/route.geojson",
+        "paradas": "/rutas/117/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 118",
       "color": "#22FF00",
-      "archivos": "118/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/118/imagen/bus.png",
+        "ruta": "/rutas/118/route/route.geojson",
+        "paradas": "/rutas/118/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 119",
       "color": "#11FF00",
-      "archivos": "119/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/119/imagen/bus.png",
+        "ruta": "/rutas/119/route/route.geojson",
+        "paradas": "/rutas/119/stops/route.geojson"
+      }
     },
     {
       "nombre": "Ruta 120",
       "color": "#00FF00",
-      "archivos": "120/route/route.geojson"
+      "archivos": {
+        "imagen": "/rutas/120/imagen/bus.png",
+        "ruta": "/rutas/120/route/route.geojson",
+        "paradas": "/rutas/120/stops/route.geojson"
+      }
     }
   ]
 }
