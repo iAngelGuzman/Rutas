@@ -173,7 +173,7 @@ function verificarParadasCercanas(ubicacionActual) {
 }
 
 function notificarProximidadDestino(distancia) {
-    const mensaje = `🎯 ¡Estás cerca de tu destino! (${Math.round(distancia)} metros)`;
+    const mensaje = `¡Estás cerca de tu destino! (${Math.round(distancia)} metros)`;
     mostrarNotificacionPermanente(mensaje);
     
     // Opcional: reproducir sonido o vibración si el navegador lo permite
@@ -183,7 +183,7 @@ function notificarProximidadDestino(distancia) {
 }
 
 function notificarParadaCercana(paradasAntes, distancia) {
-    const mensaje = `🔔 ¡Atención! Estás a ${Math.round(distancia)} metros de tu destino. 
+    const mensaje = `¡Atención! Estás a ${Math.round(distancia)} metros de tu destino. 
                     Te quedan aproximadamente ${paradasAntes} parada${paradasAntes > 1 ? 's' : ''}.`;
     mostrarNotificacionPermanente(mensaje);
 }
@@ -205,7 +205,7 @@ function mostrarNotificacionPermanente(mensaje) {
         `;
         
         notificacion.innerHTML = `
-            <strong>📢 Notificación</strong>
+            <strong> Notificación</strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             <hr>
             <div id="texto-notificacion">${mensaje}</div>
@@ -275,7 +275,7 @@ function configurarSeleccionDestino() {
     map.off('click.destino');
 
     // Mostrar mensaje indicando que se debe hacer clic en una parada
-    mostrarMensajeTemporal('✅ Haz clic en una parada de la ruta para seleccionar tu destino');
+    mostrarMensajeTemporal('Haz clic en una parada de la ruta para seleccionar tu destino');
 }
 
 function manejarClicEnParada(e) {
@@ -299,7 +299,7 @@ function manejarClicEnParada(e) {
 
     marcadorDestino.bindPopup(
         `<div class="text-center">
-            <h6 class="fw-bold mb-1">🏁 Destino seleccionado</h6>
+            <h6 class="fw-bold mb-1"> Destino seleccionado</h6>
             <p class="mb-1">Lat: ${lat.toFixed(6)}</p>
             <p class="mb-1">Lng: ${lng.toFixed(6)}</p>
             ${rutaSeleccionada ? `<p class="mb-0">Ruta: ${rutaSeleccionada.nombre}</p>` : ''}
@@ -509,7 +509,7 @@ function dibujarRuta(lineas, paradas = []) {
 
             marcadorDestino.bindPopup(
                 `<div class="text-center">
-                    <h6 class="fw-bold mb-1">🏁 Destino seleccionado</h6>
+                    <h6 class="fw-bold mb-1"> Destino seleccionado</h6>
                     <p class="mb-1">Lat: ${p[0].toFixed(6)}</p>
                     <p class="mb-1">Lng: ${p[1].toFixed(6)}</p>
                     ${rutaSeleccionada ? `<p class="mb-0">Ruta: ${rutaSeleccionada.nombre}</p>` : ''}
