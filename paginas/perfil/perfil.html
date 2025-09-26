@@ -12,7 +12,6 @@
 <body>
     <div class="d-flex h-100 align-items-center justify-content-center">
         <div class="col-10 col-md-6 container-fluid p-4 bg-white rounded-3 shadow-sm position-relative">
-            
             <div class="position-absolute top-0 end-0 p-3">
                 <button type="button" class="btn btn-secondary btn-sm" id="volverBtn" aria-label="Volver al mapa">
                     <i class="fa-solid fa-map"></i>
@@ -24,12 +23,15 @@
             
             <h1 class="text-center fw-bold display-4">XalaBus</h1>
             <div class="d-flex flex-column align-items-center mt-3">
-                <img src="/images/avatar-default.png" alt="Avatar" class="rounded-circle avatar-perfil">
+                <label for="fileInput" style="cursor: pointer;">
+                    <img src="/images/avatar-default.png" alt="Avatar" class="rounded-circle avatar-perfil" id="avatarImage">
+                </label>
+                <input type="file" id="fileInput" style="display: none;" accept="image/*">
                 <h3 class="text-center mt-2" id="nombreUsuario"></h3>
                 <p class="text-center" id="emailUsuario"></p>
             </div>
 
-            <form id="formPerfil" class="d-flex flex-column align-items-center mx-auto mt-4">
+            <form id="formPerfil" class="d-flex flex-column align-items-center col-12 col-sm-9 col-md-8 mx-auto mt-4">
                 <div class="input-group mb-3">
                     <span class="input-group-text"><i class="fa-solid fa-address-card"></i></span>
                     <input type="text" class="form-control" placeholder="Nombre completo" id="nombreCompleto">
