@@ -14,21 +14,8 @@
       }
     },
     {
-      "nombre": "Plaza Americas / CAXA / SEV / Trancas / Central de Abastos",
-      "color": "#FF2200",
-      "horario": {
-        "lunes": "6:00am - 10:00pm",
-        "domingo": "8:00am - 8:00pm"
-      },
-      "archivos": {
-        "imagen": "/rutas/002/imagen/bus.png",
-        "ruta": "/rutas/002/route/route.geojson",
-        "paradas": "/rutas/002/stops/route.geojson"
-      }
-    },
-    {
-      "nombre": "Ruta 003",
-      "color": "#FF3300",
+      "nombre": "Av.Xalapa(Economía) / 20 noviembre / lazaro cardenas",
+      "color": "#308446",
       "horario": {
         "lunes": "6:00am - 10:00pm",
         "domingo": "8:00am - 8:00pm"
@@ -42,7 +29,7 @@
       }
     },
     {
-      "nombre": "Ruta 004",
+      "nombre": "CAMPO DE TIRO / HDEZ.CASTILLO / SAYAGO",
       "color": "#FF4400",
       "horario": {
         "lunes": "6:00am - 10:00pm",
@@ -55,7 +42,7 @@
       }
     },
     {
-      "nombre": "Ruta 005",
+      "nombre": "Miradores / Banderilla / Trancas / Tesoreria",
       "color": "#FF5500",
       "horario": {
         "lunes": "6:00am - 10:00pm",
@@ -68,7 +55,7 @@
       }
     },
     {
-      "nombre": "Ruta 006",
+      "nombre": "Mercado / Pipila / Jardines / Carolino Anaya",
       "color": "#FF6600",
       "archivos": {
         "imagen": "/rutas/006/imagen/bus.png",
@@ -77,7 +64,7 @@
       }
     },
     {
-      "nombre": "Ruta 007",
+      "nombre": "Buena vista / Sauces / Berros / Caxa / Trancas / Pradera / Central abastos",
       "color": "#FF7700",
       "archivos": {
         "imagen": "/rutas/007/imagen/bus.png",
@@ -86,7 +73,7 @@
       }
     },
     {
-      "nombre": "Ruta 008",
+      "nombre": "20 de noviembre / Economia / Avenida Xalapa / Clavijero / Reserva Territorial",
       "color": "#FF8800",
       "archivos": {
         "imagen": "/rutas/008/imagen/bus.png",
@@ -97,7 +84,7 @@
       }
     },
     {
-      "nombre": "Ruta 009",
+      "nombre": "Sayago / Clavijero / Calle Nuevo Leon / Villa Hermosa / Sumidero",
       "color": "#FF9900",
       "archivos": {
         "imagen": "/rutas/009/imagen/bus.png",
@@ -108,7 +95,7 @@
       }
     },
     {
-      "nombre": "Ruta 010",
+      "nombre": "Sayago / Av. Xalapa / Hernandez Castillo / campo de tiro",
       "color": "#FFAA00",
       "archivos": {
         "imagen": "/rutas/010/imagen/bus.png",
@@ -119,7 +106,7 @@
       }
     },
     {
-      "nombre": "Ruta 011",
+      "nombre": "Chedrahui Caram / Ejidal",
       "color": "#FFBB00",
       "archivos": {
         "imagen": "/rutas/011/imagen/bus.png",
@@ -128,7 +115,7 @@
       }
     },
     {
-      "nombre": "Ruta 012",
+      "nombre": "USISVER / Miguel Aleman / Martires 28 de Agosto",
       "color": "#FFCC00",
       "archivos": {
         "imagen": "/rutas/012/imagen/bus.png",
@@ -139,7 +126,7 @@
       }
     },
     {
-      "nombre": "Ruta 013",
+      "nombre": "Ruta Macuiltepetl / Miguel Aleman / Cerro de Macuiltepetl / Centro",
       "color": "#FFDD00",
       "archivos": {
         "imagen": "/rutas/013/imagen/bus.png",
@@ -148,7 +135,7 @@
       }
     },
     {
-      "nombre": "Ruta 014",
+      "nombre": "Calvario / Panteon / Tecnica 72",
       "color": "#FFEE00",
       "archivos": {
         "imagen": "/rutas/014/imagen/bus.png",
@@ -157,7 +144,7 @@
       }
     },
     {
-      "nombre": "Ruta 015",
+      "nombre": "CAXA / Plaza Americas / Torre Animas /Sev / Coapexpan-Terminal",
       "color": "#FFFF00",
       "archivos": {
         "imagen": "/rutas/015/imagen/bus.png",
@@ -166,7 +153,7 @@
       }
     },
     {
-      "nombre": "Ruta 016",
+      "nombre": "EL OLMO / TORRE ANIMAS / M. VIDAL / COAPEXPAN",
       "color": "#EEFF00",
       "archivos": {
         "imagen": "/rutas/016/imagen/bus.png",
@@ -175,7 +162,7 @@
       }
     },
     {
-      "nombre": "Ruta 017",
+      "nombre": "El Haya / Zona UV / Bugambilia",
       "color": "#DDFF00",
       "archivos": {
         "imagen": "/rutas/017/imagen/bus.png",
@@ -186,7 +173,7 @@
       }
     },
     {
-      "nombre": "Ruta 018",
+      "nombre": "El Haya / Centro / Ojo de Agua",
       "color": "#CCFF00",
       "archivos": {
         "imagen": "/rutas/018/imagen/bus.png",
@@ -197,7 +184,7 @@
       }
     },
     {
-      "nombre": "Ruta 019",
+      "nombre": "Col. Veracruz / 20 de Noviembre / Central de Abastos",
       "color": "#BBFF00",
       "archivos": {
         "imagen": "/rutas/019/imagen/bus.png",
@@ -208,7 +195,7 @@
       }
     },
     {
-      "nombre": "Ruta 020",
+      "nombre": "Artculo 3ro / Avila Camacho/ Haciendas / Centro",
       "color": "#AAFF00",
       "archivos": {
         "imagen": "/rutas/020/imagen/bus.png",
@@ -219,7 +206,7 @@
       }
     },
     {
-      "nombre": "Ruta 021",
+      "nombre": "Marina Nacional / Pipila /Santa Rosa 1ra Parte",
       "color": "#99FF00",
       "archivos": {
         "imagen": "/rutas/021/imagen/bus.png",
@@ -230,7 +217,7 @@
       }
     },
     {
-      "nombre": "Ruta 022",
+      "nombre": "San Andres Tlalnehuayocan / Luz del Barrio / Central de Abastos",
       "color": "#88FF00",
       "archivos": {
         "imagen": "/rutas/022/imagen/bus.png",
@@ -239,7 +226,7 @@
       }
     },
     {
-      "nombre": "Ruta 023",
+      "nombre": "San Andres Tlalnehuayocan / Luz del Barrio / Clavijero / Zipor",
       "color": "#77FF00",
       "archivos": {
         "imagen": "/rutas/023/imagen/bus.png",
@@ -250,7 +237,7 @@
       }
     },
     {
-      "nombre": "Ruta 024",
+      "nombre": "La haciendita / Caxa / Central de Abastos",
       "color": "#66FF00",
       "archivos": {
         "imagen": "/rutas/024/imagen/bus.png",
@@ -261,7 +248,7 @@
       }
     },
     {
-      "nombre": "Ruta 025",
+      "nombre": "Experimental / Cristal / Central de Abastos",
       "color": "#55FF00",
       "archivos": {
         "imagen": "/rutas/025/imagen/bus.png",
@@ -272,7 +259,7 @@
       }
     },
     {
-      "nombre": "Ruta 026",
+      "nombre": "Central de Abastos-Caxa-La Haciendita",
       "color": "#44FF00",
       "archivos": {
         "imagen": "/rutas/026/imagen/bus.png",
@@ -283,7 +270,7 @@
       }
     },
     {
-      "nombre": "Ruta 027",
+      "nombre": "Central de Abastos / Plaza Cristal / Experimental",
       "color": "#33FF00",
       "archivos": {
         "imagen": "/rutas/027/imagen/bus.png",
@@ -294,7 +281,7 @@
       }
     },
     {
-      "nombre": "Ruta 028",
+      "nombre": "Homex / Vasconcelos / Av. Xalapa / Centro",
       "color": "#22FF00",
       "archivos": {
         "imagen": "/rutas/028/imagen/bus.png",
@@ -305,7 +292,7 @@
       }
     },
     {
-      "nombre": "Ruta 029",
+      "nombre": "Centro / Av. Xalapa / Lucas Martín / Col. México",
       "color": "#11FF00",
       "archivos": {
         "imagen": "/rutas/029/imagen/bus.png",
@@ -316,7 +303,7 @@
       }
     },
     {
-      "nombre": "Ruta 030",
+      "nombre": "Clavijero / Revolucion / Campo de Tiro",
       "color": "#00FF00",
       "archivos": {
         "imagen": "/rutas/030/imagen/bus.png",
@@ -327,7 +314,7 @@
       }
     },
     {
-      "nombre": "Ruta 031",
+      "nombre": "El Moral / Revolucion / Clavijero",
       "color": "#00FF11",
       "archivos": {
         "imagen": "/rutas/031/imagen/bus.png",
@@ -338,7 +325,7 @@
       }
     },
     {
-      "nombre": "Ruta 032",
+      "nombre": "Col Higueras / Lazaro Cardenas / Centro / Zona UV",
       "color": "#00FF22",
       "archivos": {
         "imagen": "/rutas/032/imagen/bus.png",
@@ -349,7 +336,7 @@
       }
     },
     {
-      "nombre": "Ruta 033",
+      "nombre": "Sefiplan / Lazaro Cardenas / Cto.Presidentes / Ruiz Cortinez",
       "color": "#00FF33",
       "archivos": {
         "imagen": "/rutas/033/imagen/bus.png",
@@ -358,7 +345,7 @@
       }
     },
     {
-      "nombre": "Ruta 034",
+      "nombre": "SUMIDERO / MERCADO / REFORMA",
       "color": "#00FF44",
       "archivos": {
         "imagen": "/rutas/034/imagen/bus.png",
@@ -369,7 +356,7 @@
       }
     },
     {
-      "nombre": "Ruta 035",
+      "nombre": "Campo de tiro / Av xalapa / Av Mexico / Francisco Javier Clavijero",
       "color": "#00FF55",
       "archivos": {
         "imagen": "/rutas/035/imagen/bus.png",
@@ -380,7 +367,7 @@
       }
     },
     {
-      "nombre": "Ruta 036",
+      "nombre": "Bugambilias / Lázaro Cárdenas / Avila Camacho / Sauces",
       "color": "#00FF66",
       "archivos": {
         "imagen": "/rutas/036/imagen/bus.png",
@@ -391,7 +378,7 @@
       }
     },
     {
-      "nombre": "Ruta 037",
+      "nombre": "Col. Revolucion / Av. Xalapa / Sayago",
       "color": "#00FF77",
       "archivos": {
         "imagen": "/rutas/037/imagen/bus.png",
@@ -402,7 +389,7 @@
       }
     },
     {
-      "nombre": "Ruta 038",
+      "nombre": "Col. Higueras / Av. Américas / Av. Xalapa",
       "color": "#00FF88",
       "archivos": {
         "imagen": "/rutas/038/imagen/bus.png",
@@ -413,7 +400,7 @@
       }
     },
     {
-      "nombre": "Ruta 039",
+      "nombre": "San Andres / Av. Lazaro Cardenas / Trancas",
       "color": "#00FF99",
       "archivos": {
         "imagen": "/rutas/039/imagen/bus.png",
@@ -424,7 +411,7 @@
       }
     },
     {
-      "nombre": "Ruta 040",
+      "nombre": "Col. Marina Nacional / Av. 20 de Noviembre / Poeta Jesus Diaz",
       "color": "#00FFAA",
       "archivos": {
         "imagen": "/rutas/040/imagen/bus.png",
@@ -435,7 +422,7 @@
       }
     },
     {
-      "nombre": "Ruta 041",
+      "nombre": "Trancas / 20 de Nov. / Arteaga",
       "color": "#00FFBB",
       "archivos": {
         "imagen": "/rutas/041/imagen/bus.png",
@@ -446,7 +433,7 @@
       }
     },
     {
-      "nombre": "Ruta 042",
+      "nombre": "Trancas / Lázaro Cárdenas / 20 de Noviembre / Plaza Crystal / Jardines de Xalapa / Sumidero / Campo de Tiro",
       "color": "#00FFCC",
       "archivos": {
         "imagen": "/rutas/042/imagen/bus.png",
@@ -457,7 +444,7 @@
       }
     },
     {
-      "nombre": "Ruta 043",
+      "nombre": "San Andres / M. 28 de Agosto / Mercado",
       "color": "#00FFDD",
       "archivos": {
         "imagen": "/rutas/043/imagen/bus.png",
@@ -468,7 +455,7 @@
       }
     },
     {
-      "nombre": "Ruta 044",
+      "nombre": "zona centro / los berros / rebsamen / xalapa 2000 / lomas.verdes / arco sur / tecnologico",
       "color": "#00FFEE",
       "archivos": {
         "imagen": "/rutas/044/imagen/bus.png",
@@ -479,7 +466,7 @@
       }
     },
     {
-      "nombre": "Ruta 045",
+      "nombre": "av. Americas / pipila- Lazaro Car. / Mtros Veracruzanos / Murillo Vidal / Berros-Rebsamen / tecnologico",
       "color": "#00FFFF",
       "archivos": {
         "imagen": "/rutas/045/imagen/bus.png",
@@ -488,7 +475,7 @@
       }
     },
     {
-      "nombre": "Ruta 046",
+      "nombre": "Plaza Crystal / Diamante / Ruiz Cortinez",
       "color": "#00EEFF",
       "archivos": {
         "imagen": "/rutas/046/imagen/bus.png",
@@ -497,7 +484,7 @@
       }
     },
     {
-      "nombre": "Ruta 047",
+      "nombre": "Luz Del Barrio / Diamante / Primero de Mayo",
       "color": "#00DDFF",
       "archivos": {
         "imagen": "/rutas/047/imagen/bus.png",
@@ -506,7 +493,7 @@
       }
     },
     {
-      "nombre": "Ruta 048",
+      "nombre": "Coatepec Porthos-Xalapa Rotonda",
       "color": "#00CCFF",
       "archivos": {
         "imagen": "/rutas/048/imagen/bus.png",
@@ -515,7 +502,7 @@
       }
     },
     {
-      "nombre": "Ruta 049",
+      "nombre": "Xalapa-Encinos",
       "color": "#00BBFF",
       "archivos": {
         "imagen": "/rutas/049/imagen/bus.png",
@@ -524,7 +511,7 @@
       }
     },
     {
-      "nombre": "Ruta 050",
+      "nombre": "Mercado, centro / cristal / peñascal / sumidero / campo de tiro",
       "color": "#00AAFF",
       "archivos": {
         "imagen": "/rutas/050/imagen/bus.png",
@@ -533,48 +520,12 @@
       }
     },
     {
-      "nombre": "Ruta 051",
+      "nombre": "Artculo 3ro / Lazaro Cardenas / Praderas",
       "color": "#0099FF",
       "archivos": {
         "imagen": "/rutas/051/imagen/bus.png",
         "ruta": "/rutas/051/route/route.geojson",
         "paradas": "/rutas/051/stops/route.geojson"
-      }
-    },
-    {
-      "nombre": "Ruta 052",
-      "color": "#0088FF",
-      "archivos": {
-        "imagen": "/rutas/052/imagen/bus.png",
-        "ruta": "/rutas/052/route/route.geojson",
-        "paradas": "/rutas/052/stops/route.geojson"
-      }
-    },
-    {
-      "nombre": "Ruta 053",
-      "color": "#0077FF",
-      "archivos": {
-        "imagen": "/rutas/053/imagen/bus.png",
-        "ruta": "/rutas/053/route/route.geojson",
-        "paradas": "/rutas/053/stops/route.geojson"
-      }
-    },
-    {
-      "nombre": "Ruta 054",
-      "color": "#0066FF",
-      "archivos": {
-        "imagen": "/rutas/054/imagen/bus.png",
-        "ruta": "/rutas/054/route/route.geojson",
-        "paradas": "/rutas/054/stops/route.geojson"
-      }
-    },
-    {
-      "nombre": "Ruta 055",
-      "color": "#0055FF",
-      "archivos": {
-        "imagen": "/rutas/055/imagen/bus.png",
-        "ruta": "/rutas/055/route/route.geojson",
-        "paradas": "/rutas/055/stops/route.geojson"
       }
     },
     {
@@ -1151,8 +1102,7 @@
       "color": "#11FF00",
       "archivos": {
         "imagen": "/rutas/119/imagen/bus.png",
-        "ruta": "/rutas/119/route/route.geojson",
-        "paradas": "/rutas/119/stops/route.geojson"
+        "ruta": "/rutas/119/route/route.geojson"
       }
     },
     {
