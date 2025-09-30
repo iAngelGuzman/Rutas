@@ -587,8 +587,7 @@
       "color": "#2200FF",
       "archivos": {
         "imagen": "/rutas/062/imagen/bus.png",
-        "ruta": "/rutas/062/route/route.geojson",
-        "paradas": "/rutas/062/stops/route.geojson"
+        "ruta": "/rutas/062/route/route.geojson"
       }
     },
     {
@@ -596,8 +595,7 @@
       "color": "#3300FF",
       "archivos": {
         "imagen": "/rutas/063/imagen/bus.png",
-        "ruta": "/rutas/063/route/route.geojson",
-        "paradas": "/rutas/063/stops/route.geojson"
+        "ruta": "/rutas/063/route/route.geojson"
       }
     },
     {
@@ -623,8 +621,7 @@
       "color": "#6600FF",
       "archivos": {
         "imagen": "/rutas/066/imagen/bus.png",
-        "ruta": "/rutas/066/route/route.geojson",
-        "paradas": "/rutas/066/stops/route.geojson"
+        "ruta": "/rutas/066/route/route.geojson"
       }
     },
     {
@@ -641,10 +638,10 @@
       "color": "#8800FF",
       "archivos": {
         "imagen": "/rutas/068/imagen/bus.png",
-        "ida": "/rutas/068/ida/route/route.geojson",
-        "ida-paradas": "/rutas/068/ida/stops/route.geojson",
-        "vuelta": "/rutas/068/vuelta/route/route.geojson",
-        "vuelta-paradas": "/rutas/068/vuelta/stops/route.geojson"
+        "ida": "/rutas/068/routes/ida/route.geojson",
+        "ida-paradas": "/rutas/068/stops/ida/route.geojson",
+        "vuelta": "/rutas/068/routes/vuelta/route.geojson",
+        "vuelta-paradas": "/rutas/068/stops/vuelta/route.geojson"
       }
     },
     {
@@ -706,8 +703,7 @@
       "color": "#FF00FF",
       "archivos": {
         "imagen": "/rutas/075/imagen/bus.png",
-        "ruta": "/rutas/075/route/route.geojson",
-        "paradas": "/rutas/075/stops/route.geojson"
+        "ruta": "/rutas/075/route/route.geojson"
       }
     },
     {
@@ -715,8 +711,7 @@
       "color": "#FF00EE",
       "archivos": {
         "imagen": "/rutas/076/imagen/bus.png",
-        "ruta": "/rutas/076/route/route.geojson",
-        "paradas": "/rutas/076/stops/route.geojson"
+        "ruta": "/rutas/076/route/route.geojson"
       }
     },
     {
@@ -769,8 +764,7 @@
       "color": "#FF0088",
       "archivos": {
         "imagen": "/rutas/082/imagen/bus.png",
-        "ruta": "/rutas/082/route/route.geojson",
-        "paradas": "/rutas/082/stops/route.geojson"
+        "ruta": "/rutas/082/route/route.geojson"
       }
     },
     {
@@ -778,8 +772,7 @@
       "color": "#FF0077",
       "archivos": {
         "imagen": "/rutas/083/imagen/bus.png",
-        "ruta": "/rutas/083/route/route.geojson",
-        "paradas": "/rutas/083/stops/route.geojson"
+        "ruta": "/rutas/083/route/route.geojson"
       }
     },
     {
@@ -787,8 +780,7 @@
       "color": "#FF0066",
       "archivos": {
         "imagen": "/rutas/084/imagen/bus.png",
-        "ruta": "/rutas/084/route/route.geojson",
-        "paradas": "/rutas/084/stops/route.geojson"
+        "ruta": "/rutas/084/route/route.geojson"
       }
     },
     {
@@ -796,8 +788,7 @@
       "color": "#FF0055",
       "archivos": {
         "imagen": "/rutas/085/imagen/bus.png",
-        "ruta": "/rutas/085/route/route.geojson",
-        "paradas": "/rutas/085/stops/route.geojson"
+        "ruta": "/rutas/085/route/route.geojson"
       }
     },
     {
@@ -805,8 +796,7 @@
       "color": "#FF0044",
       "archivos": {
         "imagen": "/rutas/086/imagen/bus.png",
-        "ruta": "/rutas/086/route/route.geojson",
-        "paradas": "/rutas/086/stops/route.geojson"
+        "ruta": "/rutas/086/route/route.geojson"
       }
     },
     {
@@ -814,8 +804,7 @@
       "color": "#FF0033",
       "archivos": {
         "imagen": "/rutas/087/imagen/bus.png",
-        "ruta": "/rutas/087/route/route.geojson",
-        "paradas": "/rutas/087/stops/route.geojson"
+        "ruta": "/rutas/087/route/route.geojson"
       }
     },
     {
@@ -823,8 +812,7 @@
       "color": "#FF0022",
       "archivos": {
         "imagen": "/rutas/088/imagen/bus.png",
-        "ruta": "/rutas/088/route/route.geojson",
-        "paradas": "/rutas/088/stops/route.geojson"
+        "ruta": "/rutas/088/route/route.geojson"
       }
     },
     {
@@ -832,8 +820,7 @@
       "color": "#FF0011",
       "archivos": {
         "imagen": "/rutas/089/imagen/bus.png",
-        "ruta": "/rutas/089/route/route.geojson",
-        "paradas": "/rutas/089/stops/route.geojson"
+        "ruta": "/rutas/089/route/route.geojson"
       }
     },
     {
@@ -841,8 +828,7 @@
       "color": "#FF0000",
       "archivos": {
         "imagen": "/rutas/090/imagen/bus.png",
-        "ruta": "/rutas/090/route/route.geojson",
-        "paradas": "/rutas/090/stops/route.geojson"
+        "ruta": "/rutas/090/route/route.geojson"
       }
     },
     {
@@ -850,8 +836,7 @@
       "color": "#FF1100",
       "archivos": {
         "imagen": "/rutas/091/imagen/bus.png",
-        "ruta": "/rutas/091/route/route.geojson",
-        "paradas": "/rutas/091/stops/route.geojson"
+        "ruta": "/rutas/091/route/route.geojson"
       }
     },
     {
@@ -859,8 +844,7 @@
       "color": "#FF2200",
       "archivos": {
         "imagen": "/rutas/092/imagen/bus.png",
-        "ruta": "/rutas/092/route/route.geojson",
-        "paradas": "/rutas/092/stops/route.geojson"
+        "ruta": "/rutas/092/route/route.geojson"
       }
     },
     {
@@ -868,8 +852,7 @@
       "color": "#FF3300",
       "archivos": {
         "imagen": "/rutas/093/imagen/bus.png",
-        "ruta": "/rutas/093/route/route.geojson",
-        "paradas": "/rutas/093/stops/route.geojson"
+        "ruta": "/rutas/093/route/route.geojson"
       }
     },
     {
@@ -877,8 +860,7 @@
       "color": "#FF4400",
       "archivos": {
         "imagen": "/rutas/094/imagen/bus.png",
-        "ruta": "/rutas/094/route/route.geojson",
-        "paradas": "/rutas/094/stops/route.geojson"
+        "ruta": "/rutas/094/route/route.geojson"
       }
     },
     {
@@ -886,8 +868,7 @@
       "color": "#FF5500",
       "archivos": {
         "imagen": "/rutas/095/imagen/bus.png",
-        "ruta": "/rutas/095/route/route.geojson",
-        "paradas": "/rutas/095/stops/route.geojson"
+        "ruta": "/rutas/095/route/route.geojson"
       }
     },
     {
@@ -895,8 +876,7 @@
       "color": "#FF6600",
       "archivos": {
         "imagen": "/rutas/096/imagen/bus.png",
-        "ruta": "/rutas/096/route/route.geojson",
-        "paradas": "/rutas/096/stops/route.geojson"
+        "ruta": "/rutas/096/route/route.geojson"
       }
     },
     {
@@ -904,8 +884,7 @@
       "color": "#FF7700",
       "archivos": {
         "imagen": "/rutas/097/imagen/bus.png",
-        "ruta": "/rutas/097/route/route.geojson",
-        "paradas": "/rutas/097/stops/route.geojson"
+        "ruta": "/rutas/097/route/route.geojson"
       }
     },
     {
@@ -913,8 +892,7 @@
       "color": "#FF8800",
       "archivos": {
         "imagen": "/rutas/098/imagen/bus.png",
-        "ruta": "/rutas/098/route/route.geojson",
-        "paradas": "/rutas/098/stops/route.geojson"
+        "ruta": "/rutas/098/route/route.geojson"
       }
     },
     {
@@ -922,8 +900,7 @@
       "color": "#FF9900",
       "archivos": {
         "imagen": "/rutas/099/imagen/bus.png",
-        "ruta": "/rutas/099/route/route.geojson",
-        "paradas": "/rutas/099/stops/route.geojson"
+        "ruta": "/rutas/099/route/route.geojson"
       }
     },
     {
@@ -931,8 +908,7 @@
       "color": "#FFAA00",
       "archivos": {
         "imagen": "/rutas/100/imagen/bus.png",
-        "ruta": "/rutas/100/route/route.geojson",
-        "paradas": "/rutas/100/stops/route.geojson"
+        "ruta": "/rutas/100/route/route.geojson"
       }
     },
     {
@@ -940,8 +916,7 @@
       "color": "#FFBB00",
       "archivos": {
         "imagen": "/rutas/101/imagen/bus.png",
-        "ruta": "/rutas/101/route/route.geojson",
-        "paradas": "/rutas/101/stops/route.geojson"
+        "ruta": "/rutas/101/route/route.geojson"
       }
     },
     {
@@ -949,8 +924,7 @@
       "color": "#FFCC00",
       "archivos": {
         "imagen": "/rutas/102/imagen/bus.png",
-        "ruta": "/rutas/102/route/route.geojson",
-        "paradas": "/rutas/102/stops/route.geojson"
+        "ruta": "/rutas/102/route/route.geojson"
       }
     },
     {
@@ -958,8 +932,7 @@
       "color": "#FFDD00",
       "archivos": {
         "imagen": "/rutas/103/imagen/bus.png",
-        "ruta": "/rutas/103/route/route.geojson",
-        "paradas": "/rutas/103/stops/route.geojson"
+        "ruta": "/rutas/103/route/route.geojson"
       }
     },
     {
@@ -967,8 +940,7 @@
       "color": "#FFEE00",
       "archivos": {
         "imagen": "/rutas/104/imagen/bus.png",
-        "ruta": "/rutas/104/route/route.geojson",
-        "paradas": "/rutas/104/stops/route.geojson"
+        "ruta": "/rutas/104/route/route.geojson"
       }
     },
     {
@@ -976,8 +948,7 @@
       "color": "#FFFF00",
       "archivos": {
         "imagen": "/rutas/105/imagen/bus.png",
-        "ruta": "/rutas/105/route/route.geojson",
-        "paradas": "/rutas/105/stops/route.geojson"
+        "ruta": "/rutas/105/route/route.geojson"
       }
     },
     {
@@ -985,8 +956,7 @@
       "color": "#EEFF00",
       "archivos": {
         "imagen": "/rutas/106/imagen/bus.png",
-        "ruta": "/rutas/106/route/route.geojson",
-        "paradas": "/rutas/106/stops/route.geojson"
+        "ruta": "/rutas/106/route/route.geojson"
       }
     },
     {
@@ -994,8 +964,7 @@
       "color": "#DDFF00",
       "archivos": {
         "imagen": "/rutas/107/imagen/bus.png",
-        "ruta": "/rutas/107/route/route.geojson",
-        "paradas": "/rutas/107/stops/route.geojson"
+        "ruta": "/rutas/107/route/route.geojson"
       }
     },
     {
@@ -1003,8 +972,7 @@
       "color": "#CCFF00",
       "archivos": {
         "imagen": "/rutas/108/imagen/bus.png",
-        "ruta": "/rutas/108/route/route.geojson",
-        "paradas": "/rutas/108/stops/route.geojson"
+        "ruta": "/rutas/108/route/route.geojson"
       }
     },
     {
@@ -1012,8 +980,7 @@
       "color": "#BBFF00",
       "archivos": {
         "imagen": "/rutas/109/imagen/bus.png",
-        "ruta": "/rutas/109/route/route.geojson",
-        "paradas": "/rutas/109/stops/route.geojson"
+        "ruta": "/rutas/109/route/route.geojson"
       }
     },
     {
@@ -1021,8 +988,7 @@
       "color": "#AAFF00",
       "archivos": {
         "imagen": "/rutas/110/imagen/bus.png",
-        "ruta": "/rutas/110/route/route.geojson",
-        "paradas": "/rutas/110/stops/route.geojson"
+        "ruta": "/rutas/110/route/route.geojson"
       }
     },
     {
@@ -1030,8 +996,7 @@
       "color": "#99FF00",
       "archivos": {
         "imagen": "/rutas/111/imagen/bus.png",
-        "ruta": "/rutas/111/route/route.geojson",
-        "paradas": "/rutas/111/stops/route.geojson"
+        "ruta": "/rutas/111/route/route.geojson"
       }
     },
     {
@@ -1039,8 +1004,7 @@
       "color": "#88FF00",
       "archivos": {
         "imagen": "/rutas/112/imagen/bus.png",
-        "ruta": "/rutas/112/route/route.geojson",
-        "paradas": "/rutas/112/stops/route.geojson"
+        "ruta": "/rutas/112/route/route.geojson"
       }
     },
     {
@@ -1048,8 +1012,7 @@
       "color": "#77FF00",
       "archivos": {
         "imagen": "/rutas/113/imagen/bus.png",
-        "ruta": "/rutas/113/route/route.geojson",
-        "paradas": "/rutas/113/stops/route.geojson"
+        "ruta": "/rutas/113/route/route.geojson"
       }
     },
     {
@@ -1057,8 +1020,7 @@
       "color": "#66FF00",
       "archivos": {
         "imagen": "/rutas/114/imagen/bus.png",
-        "ruta": "/rutas/114/route/route.geojson",
-        "paradas": "/rutas/114/stops/route.geojson"
+        "ruta": "/rutas/114/route/route.geojson"
       }
     },
     {
@@ -1066,8 +1028,7 @@
       "color": "#55FF00",
       "archivos": {
         "imagen": "/rutas/115/imagen/bus.png",
-        "ruta": "/rutas/115/route/route.geojson",
-        "paradas": "/rutas/115/stops/route.geojson"
+        "ruta": "/rutas/115/route/route.geojson"
       }
     },
     {
@@ -1075,8 +1036,7 @@
       "color": "#44FF00",
       "archivos": {
         "imagen": "/rutas/116/imagen/bus.png",
-        "ruta": "/rutas/116/route/route.geojson",
-        "paradas": "/rutas/116/stops/route.geojson"
+        "ruta": "/rutas/116/route/route.geojson"
       }
     },
     {
@@ -1084,8 +1044,7 @@
       "color": "#33FF00",
       "archivos": {
         "imagen": "/rutas/117/imagen/bus.png",
-        "ruta": "/rutas/117/route/route.geojson",
-        "paradas": "/rutas/117/stops/route.geojson"
+        "ruta": "/rutas/117/route/route.geojson"
       }
     },
     {
@@ -1093,8 +1052,7 @@
       "color": "#22FF00",
       "archivos": {
         "imagen": "/rutas/118/imagen/bus.png",
-        "ruta": "/rutas/118/route/route.geojson",
-        "paradas": "/rutas/118/stops/route.geojson"
+        "ruta": "/rutas/118/route/route.geojson"
       }
     },
     {
@@ -1110,8 +1068,7 @@
       "color": "#00FF00",
       "archivos": {
         "imagen": "/rutas/120/imagen/bus.png",
-        "ruta": "/rutas/120/route/route.geojson",
-        "paradas": "/rutas/120/stops/route.geojson"
+        "ruta": "/rutas/120/route/route.geojson"
       }
     }
   ]
