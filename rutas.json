@@ -1,6 +1,20 @@
 {
   "rutas": [
     {
+      "nombre": "Mujer Segura",
+      "color": "#FF1100",
+      "mujer segura": "true",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
+      "archivos": {
+        "imagen": "/rutas/001/imagen/bus.jpg",
+        "ruta": "/rutas/001/route/route.geojson",
+        "paradas": "/rutas/001/stops/route.geojson"
+      }
+    },
+    {
       "nombre": "A. Camacho / Zona UV / Xal 2 Mil / L. Verdes / IPE / Bugambilias",
       "color": "#FF1100",
       "horario": {
