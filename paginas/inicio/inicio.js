@@ -1,29 +1,46 @@
-// paginas/inicio/inicio.js
+// ---------------- Inicialización ----------------
+(async function init() {
+    configurarBienvenida();
+    configurarTooltip();
+    configurarItemsMenu();
+    configurarAdmin();
+})();
 
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-
-const SUPABASE_URL = "https://rxfqkbhymotlapterzpk.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ4ZnFrYmh5bW90bGFwdGVyenBrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg3MjU4MDgsImV4cCI6MjA3NDMwMTgwOH0.hymErnZfJFdGEpa9sn43Q_TOsj3rOmue6RRI6DrLv0A";
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+function configurarAdmin() {
+    localStorage.setItem("admin", "false");
+}
 
 // ---------------- Inicialización del mapa ----------------
-let map = L.map("map").setView([19.529825, -96.923362], 16);
-map.zoomControl.setPosition('bottomright');
+const lightTiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/">OSM</a>'
+});
 
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 19,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
+const darkTiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>'
+});
+
+const map = L.map('map', {
+  center: [19.529825, -96.923362],
+  zoom: 16,
+  layers: [lightTiles]
+});
+
+// L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+//     maxZoom: 19,
+//     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+// }).addTo(map);
 
 // Control combinado: Zoom + Mi Ubicación con FontAwesome
 const zoomLocateControl = L.Control.extend({
     options: { position: "bottomright" },
     onAdd: function () {
         const container = L.DomUtil.create("div", "leaflet-bar");
+        container.classList.add("rounded-3", "overflow-hidden");
 
         // Botón de Zoom In
         const zoomIn = L.DomUtil.create("a", "leaflet-control-zoom-in", container);
-        zoomIn.innerHTML = '<i class="fa-solid fa-magnifying-glass-plus"></i>';
+        zoomIn.classList.add("d-flex", "justify-content-center", "align-items-center");
+        zoomIn.innerHTML = '<i class="fa-solid fa-plus fs-6"></i>';
         zoomIn.href = "#";
         zoomIn.title = "Acercar";
         L.DomEvent.on(zoomIn, "click", L.DomEvent.stop)
@@ -31,15 +48,28 @@ const zoomLocateControl = L.Control.extend({
 
         // Botón de Zoom Out
         const zoomOut = L.DomUtil.create("a", "leaflet-control-zoom-out", container);
-        zoomOut.innerHTML = '<i class="fa-solid fa-magnifying-glass-minus"></i>';
+        zoomOut.classList.add("d-flex", "justify-content-center", "align-items-center");
+        zoomOut.innerHTML = '<i class="fa-solid fa-minus fs-6"></i>';
         zoomOut.href = "#";
         zoomOut.title = "Alejar";
         L.DomEvent.on(zoomOut, "click", L.DomEvent.stop)
                   .on(zoomOut, "click", () => map.zoomOut());
 
+        return container;
+    }
+});
+
+// Control de Mi Ubicación
+const ubicacion = L.Control.extend({
+    options: { position: "bottomright" },
+    onAdd: function () {
+        const container = L.DomUtil.create("div", "leaflet-bar");
+        container.classList.add("rounded-3", "overflow-hidden");
+
         // Botón de Mi ubicación
         const locateBtn = L.DomUtil.create("a", "leaflet-control-locate", container);
-        locateBtn.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i>';
+        locateBtn.classList.add("d-flex", "justify-content-center", "align-items-center");
+        locateBtn.innerHTML = '<i class="fa-solid fa-location-crosshairs fs-6"></i>';
         locateBtn.href = "#";
         locateBtn.title = "Ver mi ubicación";
         L.DomEvent.on(locateBtn, "click", L.DomEvent.stop)
@@ -49,9 +79,52 @@ const zoomLocateControl = L.Control.extend({
     }
 });
 
-// 🔹 Desactivar controles de zoom por defecto y agregar el nuevo
+// Control modo claro / oscuro
+const modo = L.Control.extend({
+    options: { position: "bottomright" },
+    onAdd: function () {
+        const container = L.DomUtil.create("div", "leaflet-bar");
+        container.classList.add("rounded-3", "overflow-hidden");
+
+        const modoBtn = L.DomUtil.create("a", "leaflet-control-modo", container);
+        modoBtn.classList.add("d-flex", "justify-content-center", "align-items-center");
+
+        modoBtn.innerHTML = '<i class="fa-solid fa-sun fs-6"></i>';
+        modoBtn.href = "#";
+        modoBtn.title = "Cambiar modo claro/oscuro";
+
+        L.DomEvent.on(modoBtn, "click", L.DomEvent.stop).on(modoBtn, "click", () => {
+        document.body.classList.toggle("dark-mode");
+
+        if (document.body.classList.contains("dark-mode")) {
+            // Modo oscuro
+            map.removeLayer(lightTiles);
+            map.addLayer(darkTiles);
+
+            modoBtn.classList.remove("btn-light");
+            modoBtn.classList.add("btn-dark");
+            modoBtn.innerHTML = '<i class="fa-solid fa-moon fs-6"></i>';
+        } else {
+            // Modo claro
+            map.removeLayer(darkTiles);
+            map.addLayer(lightTiles);
+
+            modoBtn.classList.remove("btn-dark");
+            modoBtn.classList.add("btn-light");
+            modoBtn.innerHTML = '<i class="fa-solid fa-sun fs-6"></i>';
+        }
+        });
+
+        return container;
+    }
+});
+
+
+// Agregar controles al mapa
 map.removeControl(map.zoomControl);
 map.addControl(new zoomLocateControl());
+map.addControl(new ubicacion());
+map.addControl(new modo());
 
 
 // ---------------- Variables globales ----------------
@@ -104,28 +177,6 @@ function mostrarMensajeTemporal(mensaje) {
     setTimeout(() => {
         map.closePopup(popup);
     }, 2000);
-}
-
-// NUEVA FUNCIÓN PARA CARGAR EL AVATAR
-async function cargarAvatarUsuario() {
-    const { data: { session } } = await supabase.auth.getSession();
-
-    if (session) {
-        const { data: perfil, error } = await supabase
-            .from('perfiles')
-            .select('avatar_url')
-            .eq('id', session.user.id)
-            .single();
-
-        if (perfil && perfil.avatar_url) {
-            const { data: publicUrlData } = supabase.storage.from('avatars').getPublicUrl(perfil.avatar_url);
-            
-            const avatarImg = document.getElementById('dropdownMenuButton');
-            if (avatarImg) {
-                avatarImg.src = publicUrlData.publicUrl;
-            }
-        }
-    }
 }
 
 // ---------------- FUNCIONES DE NOTIFICACIÓN COMPLETAS ----------------
@@ -699,8 +750,68 @@ map.on("click", (e) => {
     if (localStorage.getItem("admin") === "true") {
         const { lat, lng } = e.latlng;
         agregarPunto(lat, lng);
+    } else {
+        const { lat, lng } = e.latlng;
+        establecerDestino(lat, lng);
     }
 });
+
+// Icono de destino
+const iconoDestino = new L.Icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+    shadowUrl: 'https://unpkg.com/leaflet/dist/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [0, -35],
+    shadowSize: [41, 41]
+});
+
+function establecerDestino(lat, lng) {
+    if (marcadorDestino) {
+        map.removeLayer(marcadorDestino);
+    }
+
+    marcadorDestino = L.marker([lat, lng], {
+        icon: iconoDestino,
+        draggable: true
+    }).addTo(map);
+
+    // Popup con menú de opciones
+    marcadorDestino.bindPopup(`
+        <div class="list-group rounded-4 shadow">
+          <button class="list-group-item list-group-item-action" onclick="verDetalles()"> 
+            <i class="fa-solid fa-circle-info me-2"></i> Ver detalles 
+          </button>
+          <button class="list-group-item list-group-item-action" onclick="establecerRuta()"> 
+            <i class="fa-solid fa-route me-2"></i> Establecer ruta 
+          </button>
+          <button class="list-group-item list-group-item-action text-danger" onclick="eliminarDestino()"> 
+            <i class="fa-solid fa-trash me-2"></i> Eliminar 
+          </button>
+        </div>
+    `);
+
+    marcadorDestino.on("dragend", function (e) {
+        const { lat, lng } = e.target.getLatLng();
+        console.log("Nuevo destino:", lat, lng);
+    });
+}
+
+// --- Funciones de ejemplo para el menú ---
+function verDetalles() {
+    alert("Detalles del destino");
+}
+
+function establecerRuta() {
+    alert("Se estableció la ruta al destino");
+}
+
+function eliminarDestino() {
+    if (marcadorDestino) {
+        map.removeLayer(marcadorDestino);
+        marcadorDestino = null;
+    }
+}
 
 // ---------------- Ubicación del usuario ----------------
 let circuloPulsante = null;
@@ -776,15 +887,6 @@ function verMiUbicacion() {
         }
     });
 }
-
-// ---------------- Inicialización ----------------
-(async function init() {
-    await cargarRutas();
-    await cargarGenerarRutas();
-    configurarBienvenida();
-    configurarTooltip();
-    cargarAvatarUsuario(); 
-})();
 
 // ---------------- Funciones de carga ----------------
 async function cargarRutas() {
@@ -968,6 +1070,26 @@ function mostrarFavoritos() {
     verFavoritos();
 }
 
+async function mostrarCrearRutas() {
+    const sidebar = document.getElementById("sidebar-content");
+    const crear = document.getElementById("crear-rutas");
+    if (!sidebar) return;
+
+    if (sidebar.dataset.abierto === "crear") {
+        sidebar.innerHTML = "";
+        sidebar.removeAttribute("data-abierto");
+        localStorage.removeItem("admin");
+        return;
+    }
+
+    sidebar.innerHTML = crear.innerHTML;
+    sidebar.dataset.abierto = "crear";
+
+    await cargarGenerarRutas();
+
+    localStorage.setItem("admin", "true");
+}
+
 // ---------------- Funciones adicionales ----------------
 function borrarLocalStorage() {
     if (confirm("¿Seguro que quieres borrar todas las rutas en cache?")) {
@@ -1107,21 +1229,25 @@ function filtrarRutas() {
 
         resultados.forEach(ruta => {
             const btn = document.createElement("button");
-            btn.className = "btn btn-sm btn-outline-secondary rounded-0 border-0 w-100 py-2 text-start resultado";
+            btn.className = "btn btn-sm btn-outline-secondary rounded-0 border-0 w-100 py-2 text-start";
+            btn.style.fontSize = "0.875rem";
             btn.textContent = ruta;
 
             // Cuando el usuario hace clic en una ruta
             btn.addEventListener("click", () => {
                 input.value = ruta;
-                lista.querySelectorAll(".resultado").forEach(el => el.remove());
+                lista.innerHTML = "";
                 lista.classList.add("d-none");
-                noRes.classList.add("d-none");
             });
-
             lista.appendChild(btn);
         });
     } else {
-        noRes.classList.remove("d-none");
+        const noRes = document.createElement("div");
+        noRes.className = "text-muted text-center py-2";
+        noRes.style.fontSize = "0.875rem";
+        noRes.textContent = "No se encontraron rutas.";
+        lista.appendChild(noRes);
+        console.log("No se encontraron rutas.");
     }
 }
 
@@ -1144,3 +1270,22 @@ document.addEventListener("DOMContentLoaded", () => {
     L.DomEvent.disableScrollPropagation(resultados);
   }
 });
+
+
+function actualizarBotonLimpiar() {
+    const buscarRuta = document.getElementById("buscar-ruta");
+    const btnLimpiar = document.getElementById("btn-limpiar");
+    btnLimpiar.classList.toggle("d-none", !buscarRuta.value);
+    btnLimpiar.classList.toggle("d-flex", !!buscarRuta.value);
+}
+
+function configurarItemsMenu() {
+    const items = document.querySelectorAll('.menu-item');
+    items.forEach(item => {
+        item.addEventListener('click', () => {
+            items.forEach(i => i.classList.remove('active'));
+            item.classList.add('active');
+        });
+    });
+    // items[0].classList.add('active'); // Activar el primer ítem por defecto
+}
