@@ -511,7 +511,7 @@
       }
     },
     {
-      "nombre": "Mercado, centro / cristal / peñascal / sumidero / campo de tiro",
+      "nombre": "Mercado / centro / cristal / peñascal / sumidero / campo de tiro",
       "color": "#00AAFF",
       "archivos": {
         "imagen": "/rutas/050/imagen/bus.png",
@@ -1048,7 +1048,7 @@
       }
     },
     {
-      "nombre": "Plaza Americas / Torre Animas /Sev / Enriquez / San Jose/ Sauces Coapexpan / ",
+      "nombre": "Plaza Americas / Torre Animas /Sev / Enriquez / San Jose/ Sauces / Coapexpan / ",
       "color": "#22FF00",
       "archivos": {
         "imagen": "/rutas/118/imagen/bus.png",
@@ -1064,7 +1064,7 @@
       }
     },
     {
-      "nombre": "Circuito Precidentes / Rebsamen /  Xalapa 2000 - Arco Sur / Trancas / Lazaro Cardenas / Ruiz Cortinez / Sauces / Velodromo",
+      "nombre": "Circuito Presidentes / Rebsamen /  Xalapa 2000 - Arco Sur / Trancas / Lazaro Cardenas / Ruiz Cortinez / Sauces / Velodromo",
       "color": "#00FF00",
       "archivos": {
         "imagen": "/rutas/120/imagen/bus.png",
