@@ -14,7 +14,7 @@
       }
     },
     {
-      "nombre": "Av.Xalapa(Economía) / 20 noviembre / lazaro cardenas",
+      "nombre": "Av.Xalapa / Economía / 20 noviembre / lazaro cardenas",
       "color": "#308446",
       "horario": {
         "lunes": "6:00am - 10:00pm",
@@ -29,7 +29,7 @@
       }
     },
     {
-      "nombre": "CAMPO DE TIRO / HDEZ.CASTILLO / SAYAGO",
+      "nombre": "Campo de Tiro / Hernandez Castillo / Sayago",
       "color": "#FF4400",
       "horario": {
         "lunes": "6:00am - 10:00pm",
@@ -153,7 +153,7 @@
       }
     },
     {
-      "nombre": "EL OLMO / TORRE ANIMAS / M. VIDAL / COAPEXPAN",
+      "nombre": "El Olmo / Torre Animas / M. Vidal / Coapexpan",
       "color": "#EEFF00",
       "archivos": {
         "imagen": "/rutas/016/imagen/bus.png",
@@ -345,7 +345,7 @@
       }
     },
     {
-      "nombre": "SUMIDERO / MERCADO / REFORMA",
+      "nombre": "Sumidero / Mercado / Reforma",
       "color": "#00FF44",
       "archivos": {
         "imagen": "/rutas/034/imagen/bus.png",
@@ -455,7 +455,7 @@
       }
     },
     {
-      "nombre": "zona centro / los berros / rebsamen / xalapa 2000 / lomas.verdes / arco sur / tecnologico",
+      "nombre": "Zona Centro / Los Berros / Rebsamen / Xalapa 2000 / Lomas Verdes / Arco Sur / Tecnológico",
       "color": "#00FFEE",
       "archivos": {
         "imagen": "/rutas/044/imagen/bus.png",
@@ -466,7 +466,7 @@
       }
     },
     {
-      "nombre": "av. Americas / pipila- Lazaro Car. / Mtros Veracruzanos / Murillo Vidal / Berros-Rebsamen / tecnologico",
+      "nombre": "Av. Americas / Pipila / Lazaro Cardenas / Murillo Vidal / Berros / Rebsamen / Tecnológico",
       "color": "#00FFFF",
       "archivos": {
         "imagen": "/rutas/045/imagen/bus.png",
@@ -529,7 +529,7 @@
       }
     },
     {
-      "nombre": "centro /Clavijero",
+      "nombre": "Centro /Clavijero",
       "color": "#0044FF",
       "archivos": {
         "imagen": "/rutas/056/imagen/bus.png",
@@ -538,7 +538,7 @@
       }
     },
     {
-      "nombre": "casa blanca / plaza crystal",
+      "nombre": "Calvario / Panteon / Tecnica 72",
       "color": "#0033FF",
       "archivos": {
         "imagen": "/rutas/057/imagen/bus.png",
@@ -547,7 +547,7 @@
       }
     },
     {
-      "nombre": "poeta jesus dias / sumidero",
+      "nombre": "Poeta Jesus Dias / Sumidero",
       "color": "#0022FF",
       "archivos": {
         "imagen": "/rutas/058/imagen/bus.png",
@@ -556,7 +556,7 @@
       }
     },
     {
-      "nombre": "casa blanca / pipila /clavijero",
+      "nombre": "Casa Blanca / Pipila / Clavijero",
       "color": "#0011FF",
       "archivos": {
         "imagen": "/rutas/059/imagen/bus.png",
@@ -583,7 +583,7 @@
       }
     },
     {
-      "nombre": "sumidero / jardines",
+      "nombre": "Sumidero / Jardines",
       "color": "#2200FF",
       "archivos": {
         "imagen": "/rutas/062/imagen/bus.png",
@@ -591,7 +591,7 @@
       }
     },
     {
-      "nombre": "sumidero / centro / plaza crystal / calvario",
+      "nombre": "Sumidero / Centro / Plaza Crystal / Calvario",
       "color": "#3300FF",
       "archivos": {
         "imagen": "/rutas/063/imagen/bus.png",
@@ -699,7 +699,7 @@
       }
     },
     {
-      "nombre": "centro/ central de abastos ",
+      "nombre": "Centro / Central de Abastos",
       "color": "#FF00FF",
       "archivos": {
         "imagen": "/rutas/075/imagen/bus.png",
@@ -707,7 +707,7 @@
       }
     },
     {
-      "nombre": "buena vista / centro",
+      "nombre": "Buena Vista / Central de Abasto",
       "color": "#FF00EE",
       "archivos": {
         "imagen": "/rutas/076/imagen/bus.png",
@@ -715,7 +715,7 @@
       }
     },
     {
-      "nombre": "COAPEXPAN / M. VIDAL / TORRE ANIMAS / ARAUCARIAS",
+      "nombre": "Coapexpan / M. Vidal / Torre Animas / Araucarias",
       "color": "#FF00DD",
       "archivos": {
         "imagen": "/rutas/077/imagen/bus.png",
@@ -724,7 +724,7 @@
       }
     },
     {
-      "nombre": "FOVISSTE / CALVARIO / IMSS",
+      "nombre": "FOVISSTE / Calvario / IMSS",
       "color": "#FF00CC",
       "archivos": {
         "imagen": "/rutas/078/imagen/bus.png",
@@ -733,7 +733,7 @@
       }
     },
     {
-      "nombre": "fovisste / calvario",
+      "nombre": "FOVISSTE / Calvario",
       "color": "#FF00BB",
       "archivos": {
         "imagen": "/rutas/079/imagen/bus.png",
@@ -742,7 +742,7 @@
       }
     },
     {
-      "nombre": "ruiz cortines / fovisste / lazaro cardenas",
+      "nombre": "Ruiz Cortines / FOVISSTE / Lázaro Cárdenas",
       "color": "#FF00AA",
       "archivos": {
         "imagen": "/rutas/080/imagen/bus.png",
@@ -840,7 +840,7 @@
       }
     },
     {
-      "nombre": "CAMPO DE TIRO / CRYSTAL / MERCADO",
+      "nombre": "Campo De Tiro / CRYSTAL / MercadO",
       "color": "#FF2200",
       "archivos": {
         "imagen": "/rutas/092/imagen/bus.png",
