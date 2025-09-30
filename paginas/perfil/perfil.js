@@ -1,3 +1,5 @@
+// paginas/perfil/perfil.js
+
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const SUPABASE_URL = "https://rxfqkbhymotlapterzpk.supabase.co";
@@ -54,7 +56,7 @@ async function cargarDatosUsuario(user) {
         }
     } catch (err) {
         console.error('Error al cargar datos del usuario:', err.message);
-        alert('No se pudo cargar el perfil. Por favor, inténtalo de nuevo.');
+        Swal.fire('Error', 'No se pudo cargar el perfil. Por favor, inténtalo de nuevo.', 'error'); 
     }
 }
 
@@ -84,10 +86,10 @@ async function subirImagen(e) {
             .update({ avatar_url: filePath })
             .eq('id', userId);
 
-        alert('Imagen de perfil actualizada correctamente.');
+        Swal.fire('¡Éxito!', 'Imagen de perfil actualizada correctamente.', 'success'); 
     } catch (error) {
         console.error('Error al subir la imagen:', error.message);
-        alert('No se pudo actualizar la imagen de perfil.');
+        Swal.fire('Error', 'No se pudo actualizar la imagen de perfil.', 'error'); 
     }
 }
 
@@ -96,7 +98,7 @@ async function guardarPerfil(e) {
     
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
-        alert('No estás autenticado. Por favor, inicia sesión.');
+        Swal.fire('¡Atención!', 'No estás autenticado. Por favor, inicia sesión.', 'warning'); 
         return;
     }
 
@@ -117,11 +119,11 @@ async function guardarPerfil(e) {
             throw error;
         }
 
-        alert('Perfil actualizado correctamente');
+        Swal.fire('¡Guardado!', 'Perfil actualizado correctamente.', 'success'); 
         document.getElementById('nombreUsuario').textContent = datosActualizados.username;
     } catch (error) {
         console.error('Error al actualizar el perfil:', error.message);
-        alert('No se pudo actualizar el perfil. Por favor, inténtalo de nuevo.');
+        Swal.fire('Error', 'No se pudo actualizar el perfil. Por favor, inténtalo de nuevo.', 'error'); 
     }
 }
 
@@ -130,13 +132,24 @@ function volverAlMapa() {
 }
 
 async function cerrarSesion() {
-    if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
-        const { error } = await supabase.auth.signOut();
-        if (error) {
-            console.error('Error al cerrar sesión:', error.message);
-            alert('No se pudo cerrar la sesión.');
-        } else {
-            window.location.href = '/paginas/login/login.html';
+    Swal.fire({
+        title: '¿Cerrar sesión?',
+        text: "¿Estás seguro de que quieres cerrar tu sesión?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, cerrar sesión',
+        cancelButtonText: 'Cancelar'
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            const { error } = await supabase.auth.signOut();
+            if (error) {
+                console.error('Error al cerrar sesión:', error.message);
+                Swal.fire('Error', 'No se pudo cerrar la sesión.', 'error'); 
+            } else {
+                window.location.href = '/paginas/login/login.html';
+            }
         }
-    }
+    });
 }

@@ -1144,3 +1144,8 @@ document.addEventListener("DOMContentLoaded", () => {
     L.DomEvent.disableScrollPropagation(resultados);
   }
 });
+
+window.verFavoritos = verFavoritos;
+window.mostrarRutas = mostrarRutas;
+window.mostrarFavoritos = mostrarFavoritos;
+window.alternarMenuIzquierdo = alternarMenuIzquierdo;

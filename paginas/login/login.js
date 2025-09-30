@@ -9,7 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const form = document.querySelector("form");
     const emailInput = document.getElementById("emailInput");
     const passwordInput = document.getElementById("passwordInput");
-    const errorMessage = document.getElementById("error-message");
+    // Ya no necesitas la variable errorMessage
+    // const errorMessage = document.getElementById("error-message"); 
     const toggleButtons = document.querySelectorAll(".toggle-password");
 
     // Función para alternar la visibilidad de la contraseña
@@ -30,7 +31,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const email = emailInput.value.trim();
         const password = passwordInput.value.trim();
 
-        errorMessage.textContent = "";
+        // Ya no necesitas limpiar el mensaje de error
+        // errorMessage.textContent = ""; 
 
         const { data, error } = await supabase.auth.signInWithPassword({
             email: email,
@@ -38,7 +40,13 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         if (error) {
-            errorMessage.textContent = error.message;
+            // 💡 REEMPLAZO CON SWEETALERT
+            Swal.fire({
+                icon: 'error',
+                title: 'Error de Autenticación',
+                text: error.message,
+                confirmButtonColor: '#3085d6'
+            });
         } else {
             console.log("Sesión iniciada con éxito:", data);
             window.location.href = "/paginas/inicio/inicio.html";
