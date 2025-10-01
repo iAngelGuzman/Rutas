@@ -1,8 +1,8 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 // 🔑 Configura con tu URL y API Key de Supabase
-const SUPABASE_URL = "https://kwticdibydhutiaxxyuw.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt3dGljZGlieWRodXRpYXh4eXV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY5MTcyNTQsImV4cCI6MjA3MjQ5MzI1NH0.psT5kSJHRFA3T_8jCY81DHHGgT4T2_W4XiY_yLDQ-tw";
+const SUPABASE_URL = "https://rxfqkbhymotlapterzpk.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ4ZnFrYmh5bW90bGFwdGVyenBrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg3MjU4MDgsImV4cCI6MjA3NDMwMTgwOH0.hymErnZfJFdGEpa9sn43Q_TOsj3rOmue6RRI6DrLv0A";
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const formTema = document.getElementById("form-tema");
@@ -18,10 +18,13 @@ let temaActual = null;
 
 //  Cargar temas
 async function cargarTemas() {
-  const { data, error } = await supabase.from("temas").select("id, titulo, autor, contenido, created_at").order("created_at", { ascending: false });
+  const { data, error } = await supabase
+    .from("temas")
+    .select("id, titulo, contenido, created_at, autor")  // 👈 aquí va "autor"
+    .order("created_at", { ascending: false });
+
   if (error) {
     console.error(error);
-    // 💡 ALERTA DE ERROR
     Swal.fire({
         icon: 'error',
         title: 'Error al cargar temas',
@@ -29,6 +32,7 @@ async function cargarTemas() {
     });
     return;
   }
+
   listaTemas.innerHTML = "";
   data.forEach(t => {
     const div = document.createElement("div");
@@ -41,6 +45,7 @@ async function cargarTemas() {
     listaTemas.appendChild(div);
   });
 }
+
 
 // Crear tema
 formTema.addEventListener("submit", async e => {

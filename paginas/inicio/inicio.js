@@ -4,7 +4,11 @@
     configurarTooltip();
     configurarItemsMenu();
     configurarAdmin();
+    await cargarRutas();
 })();
+
+// Variables globales
+let rutas = [];
 
 function configurarAdmin() {
     localStorage.setItem("admin", "false");
@@ -25,12 +29,7 @@ const map = L.map('map', {
   layers: [lightTiles]
 });
 
-// L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-//     maxZoom: 19,
-//     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-// }).addTo(map);
-
-// Control combinado: Zoom + Mi Ubicación con FontAwesome
+// Control combinado: Zoom
 const zoomLocateControl = L.Control.extend({
     options: { position: "bottomright" },
     onAdd: function () {
@@ -73,7 +72,7 @@ const ubicacion = L.Control.extend({
         locateBtn.href = "#";
         locateBtn.title = "Ver mi ubicación";
         L.DomEvent.on(locateBtn, "click", L.DomEvent.stop)
-                  .on(locateBtn, "click", () => verMiUbicacion());
+                  .on(locateBtn, "click", () => verMiUbicacion(locateBtn));
 
         return container;
     }
@@ -131,8 +130,6 @@ map.addControl(new modo());
 let rutasDibujadas = [];
 let puntosRuta = [];
 let marcadores = [];
-let marcadorUbicacion = null;
-let circuloUbicacion = null;
 let marcadorDestino = null;
 let rutaSeleccionada = null;
 let paradasActuales = [];
@@ -402,6 +399,14 @@ function reactivarClicEnParadas() {
     });
 }
 
+function cargarRuta(ruta) {
+    limpiarDestino();
+    crearRuta(ruta);
+    rutaSeleccionada = ruta;
+    configurarSeleccionDestino();
+    mostrarMensajeTemporal(`✅ Ruta "${ruta.nombre}" cargada. Haz clic en una parada para seleccionar destino.`);
+}
+
 // ---------------- Funciones de rutas ----------------
 function crearBotonRuta(ruta) {
     const lista = document.getElementById("lista-rutas");
@@ -434,12 +439,14 @@ function crearBotonRuta(ruta) {
     btn.appendChild(document.createTextNode(ruta.nombre));
 
     btn.onclick = () => {
-        limpiarDestino();
-        crearRuta(ruta);
-        rutaSeleccionada = ruta;
-        configurarSeleccionDestino();
-        mostrarMensajeTemporal(`✅ Ruta "${ruta.nombre}" cargada. Haz clic en una parada para seleccionar destino.`);
+        cargarRuta(ruta);
     };
+
+    // Boton alerta
+    // Botón de horario
+    const alerta = document.createElement("div");
+    alerta.className = "btn btn-outline-secondary me-2";
+    alerta.innerHTML = '<i class="fa-solid fa-clock"></i>';
 
     // Botón de horario
     const botonHorario = document.createElement("button");
@@ -496,6 +503,7 @@ function crearBotonRuta(ruta) {
 
     // Agregar botones al contenedor
     contenedor.appendChild(btn);
+    contenedor.appendChild(alerta);
     contenedor.appendChild(botonHorario);
     contenedor.appendChild(favBtn);
     lista.appendChild(contenedor);
@@ -802,6 +810,8 @@ function establecerDestino(lat, lng) {
         draggable: true
     }).addTo(map);
 
+    marcadorDestino.setZIndexOffset(1200);
+
     // Popup con menú de opciones
     marcadorDestino.bindPopup(`
         <div class="list-group rounded-4 shadow">
@@ -816,6 +826,24 @@ function establecerDestino(lat, lng) {
           </button>
         </div>
     `);
+
+    marcadorDestino.on("popupopen", (e) => {
+        // Contenido del popup
+        const content = e.popup._contentNode;
+        content.classList.add("popup-destino-content");
+
+        // Wrapper principal
+        const wrapper = content.closest(".leaflet-popup-content-wrapper");
+        if (wrapper) wrapper.classList.add("popup-destino-wrapper");
+
+        // Botón de cerrar (no está dentro de content, está al mismo nivel del wrapper)
+        const popupEl = wrapper?.parentElement; // .leaflet-popup
+        if (popupEl) {
+            const close = popupEl.querySelector(".leaflet-popup-close-button");
+            if (close) close.classList.add("popup-destino-close");
+        }
+        e.popup.update();
+    });
 
     marcadorDestino.on("dragend", function (e) {
         const { lat, lng } = e.target.getLatLng();
@@ -840,78 +868,127 @@ function eliminarDestino() {
 }
 
 // ---------------- Ubicación del usuario ----------------
-let circuloPulsante = null;
 let popupUbicacion = null;
+let marcadorUbicacion = null;
+let circuloUbicacion = null;
+let circuloPulsante = null;
+let animando = false;
 
-function verMiUbicacion() {
+function verMiUbicacion(btn) {
+    const locateBtn = btn;
+    locateBtn.classList.add("gradiente");
     map.locate({ setView: true, maxZoom: 17, watch: true });
 
-    map.on("locationfound", (e) => {
-        if (marcadorUbicacion) map.removeLayer(marcadorUbicacion);
-        if (circuloPulsante) map.removeLayer(circuloPulsante);
-        if (popupUbicacion) map.removeLayer(popupUbicacion);
+    // Solo enganchamos UNA vez el evento
+    if (!map._locationHandler) {
+        map._locationHandler = true;
 
-        marcadorUbicacion = L.marker(e.latlng).addTo(map);
+        map.on("locationfound", (e) => {
+            const { latlng } = e;
 
-        popupUbicacion = L.popup({
-            closeButton: false,
-            autoClose: false,
-            closeOnClick: false,
-            className: "popup-ubicacion"
-        })
-            .setLatLng(e.latlng)
-            .setContent("¡Aquí estás!")
-            .openOn(map);
+            locateBtn.classList.remove("gradiente");
 
-        const radioMax = 110;
-        circuloUbicacion = L.circle(e.latlng, {
-            radius: 110,
-            color: "blue",
-            opacity: 0.4,
-            weight: 1,
-            fillColor: "rgba(0, 179, 255, 1)",
-            fillOpacity: 0.2,
-        }).addTo(map);
+            if (!popupUbicacion) {
+                popupUbicacion = L.popup({
+                    closeButton: false,
+                    autoClose: true,
+                    closeOnClick: true,
+                    className: "popup-ubicacion"
+                })
+                    .setLatLng(latlng)
+                    .setContent("¡Aquí estás!")
+                    .openOn(map);
 
-        circuloPulsante = L.circle(e.latlng, {
-            radius: 0,
-            color: "blue",
-            weight: 2,
-            fillColor: "rgba(0, 179, 255, 1)",
-            fillOpacity: 0.5,
-        }).addTo(map);
+                // Cerrar automáticamente después de 2 segundos
+                setTimeout(() => {
+                    map.closePopup(popupUbicacion);
+                    popupUbicacion = null; // opcional, para que pueda crearse de nuevo
+                }, 2000);
 
-        let radio = 0;
-        let opacity = 0.5;
-
-        function animarCirculo() {
-            if (!circuloPulsante) return;
-
-            radio += 1;
-            opacity = Math.max(0, 0.5 * (1 - radio / radioMax));
-
-            circuloPulsante.setRadius(radio);
-            circuloPulsante.setStyle({
-                fillOpacity: opacity,
-                opacity: opacity
-            });
-
-            if (radio >= radioMax) {
-                radio = 0;
-                opacity = 0.5;
+            } else {
+                popupUbicacion.setLatLng(latlng);
             }
 
-            popupUbicacion.setLatLng(marcadorUbicacion.getLatLng());
-            requestAnimationFrame(animarCirculo);
+            if (!marcadorUbicacion) {
+                marcadorUbicacion = L.circle(latlng, {
+                    radius: 14,
+                    color: "blue",
+                    opacity: 1,
+                    weight: 1,
+                    fillColor: "rgba(0, 0, 200, 1)",
+                    fillOpacity: 1,
+                }).addTo(map);
+            } else {
+                marcadorUbicacion.setLatLng(latlng);
+            }
+
+            if (!circuloUbicacion) {
+                circuloUbicacion = L.circle(latlng, {
+                    radius: 110,
+                    color: "blue",
+                    opacity: 0.4,
+                    weight: 1,
+                    fillColor: "rgba(0, 179, 255, 1)",
+                    fillOpacity: 0.2,
+                }).addTo(map);
+            } else {
+                circuloUbicacion.setLatLng(latlng);
+            }
+
+            if (!circuloPulsante) {
+                circuloPulsante = L.circle(latlng, {
+                    radius: 0,
+                    color: "blue",
+                    weight: 2,
+                    fillColor: "rgba(0, 179, 255, 1)",
+                    fillOpacity: 0.5,
+                }).addTo(map);
+
+                // Animación solo una vez
+                if (!animando) {
+                    animando = true;
+                    animarCirculo();
+                }
+            } else {
+                circuloPulsante.setLatLng(latlng);
+            }
+
+            // // Si hay un destino, iniciar monitoreo
+            // if (marcadorDestino) {
+            //     iniciarMonitoreoProximidad();
+            // }
+        });
+    }
+}
+
+function animarCirculo() {
+    if (!circuloPulsante) return;
+
+    const radioMax = 110;
+    let radio = 0;
+    let opacity = 0.5;
+
+    function frame() {
+        if (!circuloPulsante) return;
+
+        radio += 1;
+        opacity = Math.max(0, 0.5 * (1 - radio / radioMax));
+
+        circuloPulsante.setRadius(radio);
+        circuloPulsante.setStyle({
+            fillOpacity: opacity,
+            opacity: opacity
+        });
+
+        if (radio >= radioMax) {
+            radio = 0;
+            opacity = 0.5;
         }
 
-        animarCirculo();
-        
-        // Iniciar monitoreo si hay un destino seleccionado
-        if (marcadorDestino) {
-            iniciarMonitoreoProximidad();
-        }
-    });
+        requestAnimationFrame(frame);
+    }
+
+    frame();
 }
 
 // ---------------- Funciones de carga ----------------
@@ -919,7 +996,7 @@ async function cargarRutas() {
     try {
         const res = await fetch("/rutas.json");
         const data = await res.json();
-        data.rutas.forEach((ruta) => crearBotonRuta(ruta));
+        rutas = data.rutas;
     } catch (err) {
         console.error("Error cargando rutas:", err);
     }
@@ -1025,12 +1102,7 @@ function configurarTooltip() {
     })
 }
 
-function logout() {
-    if (confirm("¿Seguro que quieres cerrar sesión?")) {
-        localStorage.removeItem("usuarioActivo");
-        window.location.href = "/paginas/login/login.html";
-    }
-}
+// ---------------- Funciones de sidebar ----------------
 
 function mostrarRutas() {
     const sidebar = document.getElementById("sidebar-content");
@@ -1070,7 +1142,7 @@ function mostrarRutas() {
         </div>
     `;
     sidebar.dataset.abierto = "rutas";
-    cargarRutas();
+    rutas.forEach((ruta) => crearBotonRuta(ruta));
 }
 
 function mostrarFavoritos() {
@@ -1217,27 +1289,18 @@ Sortable.create(lista, {
     }
 });
 
-// Filtrado de rutas
-const rutas = [
-    "Ruta 1 - Centro",
-    "Ruta 2 - Norte",
-    "Ruta 3 - Sur",
-    "Ruta 4 - Oriente",
-    "Ruta 5 - Poniente"
-];
-
 function filtrarRutas() {
     const input = document.getElementById("buscar-ruta");
     const query = input.value.toLowerCase();
     const lista = document.getElementById("resultados-busqueda");
-    const noRes = document.getElementById("sin-resultados");
+
+    lista.innerHTML = "";
 
     // Limpia resultados previos
     lista.querySelectorAll(".resultado").forEach(el => el.remove());
 
     if (query === "") {
         lista.classList.add("d-none");
-        noRes.classList.add("d-none");
         return;
     }
 
@@ -1247,23 +1310,23 @@ function filtrarRutas() {
 
     // Filtrar rutas
     const resultados = rutas.filter(ruta =>
-        ruta.toLowerCase().includes(query)
+        ruta.nombre.toLowerCase().includes(query)
     );
 
     if (resultados.length > 0) {
-        noRes.classList.add("d-none");
-
         resultados.forEach(ruta => {
             const btn = document.createElement("button");
             btn.className = "btn btn-sm btn-outline-secondary rounded-0 border-0 w-100 py-2 text-start";
             btn.style.fontSize = "0.875rem";
-            btn.textContent = ruta;
+            btn.textContent = ruta.nombre;
 
             // Cuando el usuario hace clic en una ruta
             btn.addEventListener("click", () => {
-                input.value = ruta;
+                input.value = ruta.nombre;
                 lista.innerHTML = "";
                 lista.classList.add("d-none");
+
+                cargarRuta(ruta);
             });
             lista.appendChild(btn);
         });

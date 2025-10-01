@@ -26,15 +26,16 @@ body {
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2) !important;
 }
 
-.leaflet-popup-content { margin: 0; }
-.leaflet-popup-close-button { display: none; }
-.leaflet-popup-content-wrapper { padding: 0; background: none; border: none; box-shadow: none; }
+.popup-destino-content { margin: 0 !important; }
+.popup-destino-close { display: none !important; }
+.popup-destino-wrapper { padding: 0 !important; background: none !important; border: none !important; box-shadow: none !important; }
+
 
 .leaflet-control a { background-color: #ffffff; color: #343a40; }
 .leaflet-control a:hover { background-color: #eaeaea; }
 
 .gradiente {
-    background: #bcbcbc;
+    background: #acacac;
     /* Base oscura */
     position: relative;
     overflow: hidden;
@@ -52,9 +53,9 @@ body {
     background: linear-gradient(
         90deg,
         rgba(159,159,159,0) 0%,   /* transparente al inicio */
-        rgba(199,199,199,0.3) 30%, /* brillo suave */
-        rgba(255,255,255,0.4) 50%, /* punto más claro (glow fuerte) */
-        rgba(199,199,199,0.3) 70%, /* se va apagando */
+        rgba(199,199,199,0.4) 30%, /* brillo suave */
+        rgba(255,255,255,0.5) 50%, /* punto más claro (glow fuerte) */
+        rgba(199,199,199,0.4) 70%, /* se va apagando */
         rgba(159,159,159,0) 100%   /* vuelve a transparente */
     );
 
@@ -106,3 +107,16 @@ body.dark-mode .text-muted { color: #6c757d !important; }
 body.dark-mode .leaflet-control a, body.dark-mode .leaflet-control-attribution { background-color: #272727; color: #9ea7b0; }
 body.dark-mode .leaflet-control-zoom-in { border-bottom: 1px solid #696969; }
 body.dark-mode .leaflet-control a:hover { background-color: #383838; }
+body.dark-mode .leaflet-popup-content-wrapper { box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6) !important; }
+body.dark-mode .leaflet-popup-tip { background: #363b40 !important; }
+
+
+html.swal2-shown,
+body.swal2-shown {
+    overflow: hidden !important; /* Mantiene tu estilo original sin scroll */
+    height: 100% !important;     /* ANULA el height: auto de SweetAlert */
+}
+
+body.swal2-shown {
+  padding-right: 0 !important; /* Evita el padding extra */
+}
