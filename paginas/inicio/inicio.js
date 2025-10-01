@@ -408,12 +408,28 @@ function crearBotonRuta(ruta) {
     const contenedor = document.createElement("div");
     contenedor.className = "d-flex align-items-center justify-content-between mb-2";
 
-    // Botón principal de la ruta
+    // Botón principal de la ruta - CON COLOR MORADO PARA MUJER SEGURA
     const btn = document.createElement("button");
-    btn.className = "btn btn-secondary text-start flex-grow-1 me-2";
+    
+    // Verificar si es la ruta Mujer Segura
+    if (ruta["mujer segura"] === "true") {
+        btn.className = "btn text-white text-start flex-grow-1 me-2";
+        btn.style.backgroundColor = "#683475"; // Morado
+        btn.style.borderColor = "#683475";
+        btn.style.fontWeight = "bold";
+    } else {
+        btn.className = "btn btn-secondary text-start flex-grow-1 me-2";
+    }
 
     const icono = document.createElement("i");
-    icono.className = "fa-solid fa-bus-simple me-2";
+    
+    // Icono especial para Mujer Segura
+    if (ruta["mujer segura"] === "true") {
+        icono.className = "fa-solid fa-shield-heart me-2"; // Icono de escudo con corazón
+    } else {
+        icono.className = "fa-solid fa-bus-simple me-2";
+    }
+    
     btn.appendChild(icono);
     btn.appendChild(document.createTextNode(ruta.nombre));
 
@@ -427,18 +443,22 @@ function crearBotonRuta(ruta) {
 
     // Botón de horario
     const botonHorario = document.createElement("button");
-    botonHorario.className = "btn btn-outline-secondary me-2";
+    if (ruta["mujer segura"] === "true") {
+        botonHorario.className = "btn btn-outline-light me-2";
+        botonHorario.style.borderColor = "#683475";
+        botonHorario.style.color = "#683475";
+    } else {
+        botonHorario.className = "btn btn-outline-secondary me-2";
+    }
     botonHorario.innerHTML = '<i class="fa-solid fa-clock"></i>';
 
     botonHorario.onclick = () => {
-        // Si no hay horarios definidos, se muestra mensaje por defecto
         const horario = ruta.horario || {
             lunes: "6:00am - 10:00pm",
             sabado: "7:00am - 9:00pm",
             domingo: "8:00am - 8:00pm"
         };
 
-        // Diseño atractivo para el modal
         document.getElementById("horario-texto").innerHTML = `
             <div class="text-center">
                 <h5 class="fw-bold mb-3"><i class="fa-solid fa-clock me-2"></i> Horario de la Ruta</h5>
@@ -462,7 +482,13 @@ function crearBotonRuta(ruta) {
 
     // Botón de favorito
     const favBtn = document.createElement("button");
-    favBtn.className = "btn btn-outline-dark";
+    if (ruta["mujer segura"] === "true") {
+        favBtn.className = "btn btn-outline-light";
+        favBtn.style.borderColor = "#683475";
+        favBtn.style.color = "#683475";
+    } else {
+        favBtn.className = "btn btn-outline-dark";
+    }
     favBtn.innerHTML = '<i class="fa-solid fa-bookmark"></i>';
     favBtn.onclick = () => {
         guardarFavorito(ruta);

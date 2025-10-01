@@ -1,7 +1,7 @@
 {
   "rutas": [
     {
-      "nombre": "Mujer Segura",
+      "nombre": "Ruta Mujer Segura",
       "color": "#683475",
       "mujer segura": "true",
       "horario": {
