@@ -426,6 +426,12 @@ function crearBotonRuta(ruta) {
         cargarRuta(ruta);
     };
 
+    // Boton alerta
+    // Botón de horario
+    const alerta = document.createElement("div");
+    alerta.className = "btn btn-outline-secondary me-2";
+    alerta.innerHTML = '<i class="fa-solid fa-clock"></i>';
+
     // Botón de horario
     const botonHorario = document.createElement("button");
     botonHorario.className = "btn btn-outline-secondary me-2";
@@ -471,6 +477,7 @@ function crearBotonRuta(ruta) {
 
     // Agregar botones al contenedor
     contenedor.appendChild(btn);
+    contenedor.appendChild(alerta);
     contenedor.appendChild(botonHorario);
     contenedor.appendChild(favBtn);
     lista.appendChild(contenedor);
@@ -777,6 +784,8 @@ function establecerDestino(lat, lng) {
         draggable: true
     }).addTo(map);
 
+    marcadorDestino.setZIndexOffset(1200);
+
     // Popup con menú de opciones
     marcadorDestino.bindPopup(`
         <div class="list-group rounded-4 shadow">
@@ -961,10 +970,7 @@ async function cargarRutas() {
     try {
         const res = await fetch("/rutas.json");
         const data = await res.json();
-
         rutas = data.rutas;
-
-        console.log("Rutas cargadas:", rutas);
     } catch (err) {
         console.error("Error cargando rutas:", err);
     }
