@@ -999,12 +999,7 @@ function configurarTooltip() {
     })
 }
 
-function logout() {
-    if (confirm("¿Seguro que quieres cerrar sesión?")) {
-        localStorage.removeItem("usuarioActivo");
-        window.location.href = "/paginas/login/login.html";
-    }
-}
+// ---------------- Funciones de sidebar ----------------
 
 function mostrarRutas() {
     const sidebar = document.getElementById("sidebar-content");
