@@ -17,7 +17,7 @@
 
 <body>
   <div class="w-100 h-100 d-flex flex-row">
-    <div class="d-flex flex-row bg-light shadow-sm">
+    <div class="d-flex flex-row bg-white shadow-sm">
       <div class="d-flex flex-column border">
         <div class="d-flex flex-column px-2 py-3 gap-3">
           <button
@@ -83,9 +83,9 @@
     </div>
     <div id="map" class="w-100 h-100">
       <!-- Menu de busqueda -->
-      <div id="menu" class="position-absolute top-0 p-3 w-100" style="z-index: 1000; cursor: default;">
+      <div id="menu" class="position-absolute top-0 p-3 w-100 h-100" style="z-index: 1000; cursor: default;">
         <div id="busqueda"
-          class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 d-flex flex-column mx-auto mx-auto bg-white shadow-sm border border-dark-subtle"
+          class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 d-flex flex-column mx-auto mx-auto bg-white shadow-sm border"
           style="border-radius: 1.3rem;">
           <div class="d-flex justify-content-center align-items-center gap-1 p-1 px-2">
             <i class="fa-solid fa-magnifying-glass fs-6 ps-2 text-muted" style="padding-top: .1rem;"></i>
@@ -97,8 +97,7 @@
               <i class="fa-solid fa-xmark pe-2" style="font-size: 1.1rem;"></i>
             </button>
           </div>
-          <div id="resultados-busqueda"
-            class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 d-flex flex-column d-none rounded-3 mx-auto bg-white shadow-sm border overflow-hidden">
+          <div id="resultados-busqueda" class="d-flex flex-column d-none mx-auto overflow-auto">
           </div>
         </div>
       </div>
