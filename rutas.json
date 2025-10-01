@@ -2,7 +2,7 @@
   "rutas": [
     {
       "nombre": "Mujer Segura",
-      "color": "#FF1100",
+      "color": "#683475",
       "mujer segura": "true",
       "horario": {
         "lunes": "6:00am - 10:00pm",
