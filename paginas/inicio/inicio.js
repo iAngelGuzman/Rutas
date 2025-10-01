@@ -136,6 +136,13 @@ let paradasActuales = [];
 let monitoreoActivo = false;
 let notificacionEnviada = false;
 let intervaloMonitoreo = null;
+let retrasoBusqueda = null;
+let tiempoBusqueda = 1000;
+let ultimoResultado = [];
+let historialBusquedas = JSON.parse(localStorage.getItem("historialBusquedas")) || [];
+
+const limiteHistorial = 5;
+const areaXalapa = "-96.9667,19.4833,-96.8000,19.6000";
 
 const busIcon = L.divIcon({
     html: `<div class="d-flex justify-content-center align-items-center rounded-circle border border-2 border-white bg-primary" style="width:26px; height:26px;">
@@ -411,17 +418,17 @@ function cargarRuta(ruta) {
 function crearBotonRuta(ruta) {
     const lista = document.getElementById("lista-rutas");
     const contenedor = document.createElement("div");
-    contenedor.className = "d-flex align-items-center justify-content-between mb-2";
+    contenedor.className = "d-flex align-items-center justify-content-between";
 
     // Botón principal de la ruta - CON COLOR MORADO PARA MUJER SEGURA
     const btn = document.createElement("button");
+    btn.style.fontSize = ".875rem";
     
     // Verificar si es la ruta Mujer Segura
     if (ruta["mujer segura"] === "true") {
         btn.className = "btn text-white text-start flex-grow-1 me-2";
         btn.style.backgroundColor = "#683475"; // Morado
         btn.style.borderColor = "#683475";
-        btn.style.fontWeight = "bold";
     } else {
         btn.className = "btn btn-secondary text-start flex-grow-1 me-2";
     }
@@ -440,6 +447,7 @@ function crearBotonRuta(ruta) {
 
     btn.onclick = () => {
         cargarRuta(ruta);
+        mostrarDetallesRuta(ruta);
     };
 
     // Boton alerta
@@ -886,8 +894,6 @@ function verMiUbicacion(btn) {
         map.on("locationfound", (e) => {
             const { latlng } = e;
 
-            locateBtn.classList.remove("gradiente");
-
             if (!popupUbicacion) {
                 popupUbicacion = L.popup({
                     closeButton: false,
@@ -959,6 +965,7 @@ function verMiUbicacion(btn) {
             // }
         });
     }
+    locateBtn.classList.remove("gradiente");
 }
 
 function animarCirculo() {
@@ -1115,7 +1122,7 @@ function mostrarRutas() {
     }
 
     sidebar.innerHTML = `
-        <div class="d-flex flex-column p-3 h-100 bg-light overflow-auto">
+        <div class="d-flex flex-column p-3 h-100 overflow-auto">
             <h4 class="fw-bold">Rutas</h4>
             <div id="lista-rutas" class="d-flex flex-column gap-2 mt-3"></div>
             
@@ -1143,6 +1150,30 @@ function mostrarRutas() {
     `;
     sidebar.dataset.abierto = "rutas";
     rutas.forEach((ruta) => crearBotonRuta(ruta));
+}
+
+function mostrarDetallesRuta(ruta) {
+    const sidebar = document.getElementById("sidebar-content");
+    if (!sidebar) return;
+    if (sidebar.dataset.abierto === "detalles") {
+        sidebar.innerHTML = "";
+        sidebar.removeAttribute("data-abierto");
+        return;
+    }
+
+    sidebar.innerHTML = `
+        <div class="d-flex flex-column h-100 overflow-auto">
+            <div class="d-grid bg-dark" style="width: 20rem; height: 12rem;">
+                <img src="${ruta.archivos.imagen}" alt="Logo" class="img-fluid" style="width: 20rem; height: 12rem; object-fit: cover; grid-area: 1 / 1; filter: blur(2px) brightness(0.5);">
+                <img src="${ruta.archivos.imagen}" alt="Logo" class="img-fluid" style="width: 20rem; height: 12rem; object-fit: contain; grid-area: 1 / 1; z-index: 1;">
+                <button class="btn btn-dark bg-transparent border-0 position-absolute m-2 p-0" style="z-index: 2;" onclick="mostrarRutas()">
+                    <i class="fa-solid fa-circle-chevron-left" style="text-shadow: 0 0 5px black; font-size: 1.8rem;"></i>
+                </button>
+            </div>
+            <div id="detalles-ruta" class="d-flex flex-column gap-2 mt-3"></div>
+        </div>
+    `;
+    sidebar.dataset.abierto = "detalles";
 }
 
 function mostrarFavoritos() {
@@ -1293,51 +1324,186 @@ function filtrarRutas() {
     const input = document.getElementById("buscar-ruta");
     const query = input.value.toLowerCase();
     const lista = document.getElementById("resultados-busqueda");
+    const limpiar = document.getElementById("btn-limpiar");
 
     lista.innerHTML = "";
+    limpiar.classList.add("d-none");
 
-    // Limpia resultados previos
-    lista.querySelectorAll(".resultado").forEach(el => el.remove());
-
-    if (query === "") {
-        lista.classList.add("d-none");
+    if (input.value === "" || input === null || query === null || query === "") {
         return;
     }
 
-    if (query !== "") {
+    // Mostrar todas calles que contengan el texto ingresado
+    buscarDireccion(input, query, lista, limpiar);
+
+    // // Filtrar rutas
+    // const resultados = rutas.filter(ruta =>
+    //     ruta.nombre.toLowerCase().includes(query)
+    // );
+
+    // if (resultados.length > 0) {
+    //     resultados.forEach(ruta => {
+    //         const btn = document.createElement("button");
+    //         btn.className = "btn btn-sm btn-outline-secondary rounded-0 border-secondary-subtle border-start-0 border-end-0 border-bottom-0 w-100 py-2 text-start";
+    //         btn.style.fontSize = "0.875rem";
+    //         btn.textContent = ruta.nombre;
+
+    //         // Cuando el usuario hace clic en una ruta
+    //         btn.addEventListener("click", () => {
+    //             input.value = ruta.nombre;
+    //             lista.classList.add("d-none");
+    //             cargarRuta(ruta);
+    //         });
+    //         lista.appendChild(btn);
+    //     });
+    // } else {
+    //     buscarDireccion(query);
+    //     // Mostrar mensaje de no resultados
+    //     const noRes = document.createElement("div");
+    //     noRes.className = "text-muted text-center py-2 border border-secondary-subtle border-bottom-0 border-start-0 border-end-0 w-100";
+    //     noRes.style.fontSize = "0.875rem";
+    //     noRes.textContent = "No se encontraron rutas.";
+    //     lista.appendChild(noRes);
+    //     console.log("No se encontraron rutas.");
+    // }
+}
+
+function buscarDireccion(input, query, lista, limpiar) {
+    if (retrasoBusqueda) clearTimeout(retrasoBusqueda);
+
+    retrasoBusqueda = setTimeout(() => {
         lista.classList.remove("d-none");
-    }
+        limpiar.classList.remove("d-none");
 
-    // Filtrar rutas
-    const resultados = rutas.filter(ruta =>
-        ruta.nombre.toLowerCase().includes(query)
-    );
-
-    if (resultados.length > 0) {
-        resultados.forEach(ruta => {
-            const btn = document.createElement("button");
-            btn.className = "btn btn-sm btn-outline-secondary rounded-0 border-0 w-100 py-2 text-start";
-            btn.style.fontSize = "0.875rem";
-            btn.textContent = ruta.nombre;
-
-            // Cuando el usuario hace clic en una ruta
-            btn.addEventListener("click", () => {
-                input.value = ruta.nombre;
-                lista.innerHTML = "";
-                lista.classList.add("d-none");
-
-                cargarRuta(ruta);
-            });
-            lista.appendChild(btn);
-        });
-    } else {
         const noRes = document.createElement("div");
-        noRes.className = "text-muted text-center py-2";
-        noRes.style.fontSize = "0.875rem";
-        noRes.textContent = "No se encontraron rutas.";
+        noRes.className = "text-muted text-center py-3 border border-secondary-subtle border-bottom-0 border-start-0 border-end-0 w-100 gradiente-inverso";
         lista.appendChild(noRes);
-        console.log("No se encontraron rutas.");
+
+        console.log("Buscando dirección.");
+
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&addressdetails=1&limit=5&viewbox=${areaXalapa}&bounded=1`)
+            .then(res => res.json())
+            .then(data => {
+                lista.innerHTML = "";
+
+                if (data.length === 0) {
+                    const noResultados = document.createElement("div");
+                    noResultados.className = "text-muted text-center py-2 border border-secondary-subtle border-bottom-0 border-start-0 border-end-0 w-100";
+                    noResultados.style.fontSize = "0.875rem";
+                    noResultados.textContent = "No se encontró la dirección.";
+                    lista.appendChild(noResultados);
+                    return;
+                }
+
+                lista.classList.remove("d-none");
+                limpiar.classList.remove("d-none");
+
+                // guardamos los resultados actuales
+                ultimoResultado = data;
+
+                data.forEach(item => {
+                    const btn = document.createElement("button");
+                    btn.className = "btn btn-sm btn-outline-secondary rounded-0 border-secondary-subtle border-start-0 border-end-0 border-bottom-0 w-100 py-2 text-start";
+                    btn.style.fontSize = "0.875rem";
+                    btn.innerHTML = `<i class="fa-solid fa-location-dot me-1"></i> ${item.display_name}`;
+
+                    btn.addEventListener("click", () => {
+                        map.setView([item.lat, item.lon], 16);
+                        L.marker([item.lat, item.lon])
+                          .addTo(map)
+                          .bindPopup(`<b>${item.display_name}</b>`)
+                          .openPopup();
+
+                        lista.classList.add("d-none");
+                        input.value = item.display_name;
+                        guardarEnHistorial(item);
+                    });
+
+                    lista.appendChild(btn);
+                });
+
+                // mostrar historial si existe
+                mostrarHistorial(lista);
+            })
+            .catch(err => console.error("Error en búsqueda:", err));
+    }, tiempoBusqueda);
+}
+
+function guardarEnHistorial(item) {
+    // Evita duplicados (mismo nombre)
+    historialBusquedas = historialBusquedas.filter(h => h.display_name !== item.display_name);
+
+    // Agrega al inicio
+    historialBusquedas.unshift(item);
+
+    // Limita a máximo
+    if (historialBusquedas.length > limiteHistorial) {
+        historialBusquedas.pop();
     }
+
+    // Guarda en localStorage
+    localStorage.setItem("historialBusquedas", JSON.stringify(historialBusquedas));
+}
+
+function mostrarHistorial(lista) {
+    if (historialBusquedas.length === 0) return;
+
+    const titulo = document.createElement("div");
+    titulo.className = "fw-bold text-secondary p-2 border border-secondary-subtle border-start-0 border-end-0 border-bottom-0 w-100";
+    titulo.style.fontSize = "0.8rem";
+    titulo.textContent = "Últimas búsquedas:";
+    lista.appendChild(titulo);
+
+    historialBusquedas.forEach(item => {
+        const btn = document.createElement("button");
+        btn.className = "btn btn-sm btn-outline-secondary rounded-0 border-secondary-subtle border-start-0 border-end-0 border-bottom-0 w-100 py-2 text-start";
+        btn.style.fontSize = "0.875rem";
+        btn.innerHTML = `<i class="fa-solid fa-clock me-1"></i> ${item.display_name}`;
+
+        btn.addEventListener("click", () => {
+            map.setView([item.lat, item.lon], 16);
+            L.marker([item.lat, item.lon])
+              .addTo(map)
+              .bindPopup(`<b>${item.display_name}</b>`)
+              .openPopup();
+
+            lista.classList.add("d-none");
+            input.value = item.display_name;
+            guardarEnHistorial(item);
+        });
+
+        lista.appendChild(btn);
+    });
+}
+
+function reMostrarResultados() {
+    const input = document.getElementById("buscar-ruta");
+    const lista = document.getElementById("resultados-busqueda");
+    const limpiar = document.getElementById("btn-limpiar");
+
+    input.addEventListener("focus", () => {
+        // si no hay historial no se muestra nada
+        if (historialBusquedas.length === 0) return;
+
+        lista.innerHTML = "";
+        lista.classList.remove("d-none");
+        limpiar.classList.remove("d-none");
+
+        mostrarHistorial(lista);
+    });
+
+    document.addEventListener("click", (e) => {
+        if (!lista.contains(e.target) && e.target !== input) {
+            lista.classList.add("d-none");
+        }
+    });
+}
+
+function limpiarBusqueda() {
+    document.getElementById('buscar-ruta').value = '';
+    document.getElementById('resultados-busqueda').innerHTML = '';
+    document.getElementById('resultados-busqueda').classList.add('d-none');
+    document.getElementById('btn-limpiar').classList.add('d-none');
 }
 
 function seleccionarRuta(nombre) {

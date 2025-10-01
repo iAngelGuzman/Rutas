@@ -9,7 +9,7 @@
         "domingo": "8:00am - 8:00pm"
       },
       "archivos": {
-        "imagen": "/rutas/068/imagen/bus.png",
+        "imagen": "/rutas/068/imagen/bus.jpg",
         "ida": "/rutas/068/routes/ida/route.geojson",
         "ida-paradas": "/rutas/068/stops/ida/route.geojson",
         "vuelta": "/rutas/068/routes/vuelta/route.geojson",

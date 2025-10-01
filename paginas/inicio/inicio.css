@@ -62,6 +62,34 @@ body {
     animation: brillo 1.6s linear infinite;
 }
 
+.gradiente-inverso {
+    background: #f0f0f0;
+    /* Base oscura */
+    position: relative;
+    overflow: hidden;
+}
+
+.gradiente-inverso::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -200%;
+    width: 200%;
+    height: 100%;
+
+    /* El "brillo" que cruza */
+    background: linear-gradient(
+        90deg,
+        rgba(150,150,150,0) 0%,   /* transparente al inicio */
+        rgba(150,150,150,0.2) 30%, /* brillo suave */
+        rgba(150,150,150,0.5) 50%, /* punto más claro (glow fuerte) */
+        rgba(150,150,150,0.2) 70%, /* se va apagando */
+        rgba(150,150,150,0) 100%   /* vuelve a transparente */
+    );
+
+    animation: brillo 1.6s linear infinite;
+}
+
 @keyframes brillo {
     0% {
         left: -200%;
@@ -97,7 +125,7 @@ body.dark-mode #menu .bg-white, body.dark-mode .form-control {
 body.dark-mode #menu .form-control::placeholder { color: #6c757d !important; }
 body.dark-mode #menu #busqueda:focus-within { box-shadow: 0 0.07rem 0.5rem #63a1ff60 !important; }
 
-body.dark-mode .form-control { border: 1px solid #3a3f44 !important; }
+body.dark-mode .form-control { border: 1px solid #3a3f44 !important; color: #e1e1e1 !important; }
 body.dark-mode #busqueda .form-control { border: none !important; }
 
 body.dark-mode .text-muted { color: #6c757d !important; }

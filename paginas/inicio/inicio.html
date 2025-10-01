@@ -83,28 +83,28 @@
     </div>
     <div id="map" class="w-100 h-100 position-relative">
       <!-- Menu de busqueda -->
-      <div id="menu" class="position-absolute col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 top-0 start-50 translate-middle-x p-3" style="z-index: 1000;">
-        <div id="busqueda"
-          class="d-flex flex-column mx-auto bg-white shadow-sm border"
-          style="border-radius: 1.3rem;">
+      <div id="menu" class="position-absolute col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 top-0 start-50 translate-middle-x p-3 h-100"
+          style="z-index: 1000; pointer-events: none;">
+        <div id="busqueda" class="d-flex flex-column mx-auto bg-white shadow-sm border overflow-hidden"
+          style="border-radius: 1.3rem; height: fit-content; min-height: 0; max-height: 100%; pointer-events: auto;">
           <div class="d-flex justify-content-center align-items-center gap-1 p-1 px-2">
             <i class="fa-solid fa-magnifying-glass fs-6 ps-2 text-muted" style="padding-top: .1rem;"></i>
-            <input type="text" id="buscar-ruta"
+            <input type="text" id="buscar-ruta" style="padding: .3rem .5rem .2rem .5rem;"
               class="form-control form-control-sm border-0 w-100 rounded-5 shadow-none"
-              placeholder="Buscar ruta..." oninput="filtrarRutas()">
-            <button id="btn-limpiar" class="btn btn-sm btn-outline-secondary bg-transparent border-0 p-0 d-none"
+              placeholder="Escribe una calle o lugar..." oninput="filtrarRutas()" onfocus="reMostrarResultados()">
+            <button id="btn-limpiar" class="btn btn-sm btn-outline-secondary bg-transparent border-0 p-0 d-none d-flex"
               onclick="limpiarBusqueda()">
               <i class="fa-solid fa-xmark pe-2" style="font-size: 1.1rem;"></i>
             </button>
           </div>
-          <div id="resultados-busqueda" class="d-flex flex-column d-none mx-auto overflow-auto"></div>
+          <div id="resultados-busqueda" class="d-flex flex-column d-none overflow-auto"></div>
         </div>
       </div>
     </div>
 
     <div id="sidebar-izquierdo" class="d-none position-absolute top-0 start-0 px-3 pb-3 h-100"
       style="z-index: 900; padding-top: 5.5rem;">
-      <div class="d-flex flex-column p-3 rounded h-100 bg-light shadow-sm overflow-auto">
+      <div class="d-flex flex-column p-3 rounded h-100 shadow-sm overflow-auto">
         <h4 class="fw-bold">Rutas</h4>
         <div id="lista-rutas" class="d-flex flex-column gap-2 mt-3"></div>
 
