@@ -34,6 +34,18 @@ body {
 .leaflet-control a { background-color: #ffffff; color: #343a40; }
 .leaflet-control a:hover { background-color: #eaeaea; }
 
+body.swal2-height-auto {
+    height: 100% !important;
+}
+
+#sidebar-content {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+}
+#sidebar-content.show {
+    transform: translateX(0);
+}
+
 .gradiente {
     background: #acacac;
     /* Base oscura */

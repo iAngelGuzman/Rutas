@@ -4,8 +4,19 @@
     configurarTooltip();
     configurarItemsMenu();
     configurarAdmin();
+    configurarSidebar();
     await cargarRutas();
 })();
+
+function configurarSidebar() {
+    const sidebar = document.getElementById('sidebar-content');
+
+    ['mousedown', 'mousemove', 'mouseup', 'click', 'dblclick', 'touchstart', 'touchmove', 'touchend'].forEach(evt => {
+        sidebar.addEventListener(evt, function(e) {
+            e.stopPropagation();  // evita que el evento llegue al mapa
+        });
+    });
+}
 
 // Variables globales
 let rutas = [];
@@ -407,7 +418,7 @@ function reactivarClicEnParadas() {
 }
 
 function cargarRuta(ruta) {
-    limpiarDestino();
+    // limpiarDestino();
     crearRuta(ruta);
     rutaSeleccionada = ruta;
     configurarSeleccionDestino();
@@ -558,6 +569,9 @@ function verFavoritos() {
 }
 
 function dibujarRuta(lineas, paradas = []) {
+    let elementosRuta = [];
+
+    // Limpiar marcadores excepto el destino
     marcadores.forEach((m) => {
         if (m !== marcadorDestino) {
             map.removeLayer(m);
@@ -566,7 +580,7 @@ function dibujarRuta(lineas, paradas = []) {
     marcadores = marcadores.filter(m => m === marcadorDestino);
     puntosRuta = [];
 
-    // Remover solo las rutas, no el marcador de destino
+    // Limpiar rutas dibujadas excepto el destino
     rutasDibujadas.forEach((r) => {
         if (r !== marcadorDestino) {
             map.removeLayer(r);
@@ -576,7 +590,7 @@ function dibujarRuta(lineas, paradas = []) {
 
     document.getElementById("lista-puntos").innerHTML = "";
 
-    // Líneas
+    // Dibujar líneas
     lineas.forEach(l => {
         const polyline = L.polyline(l.coords, {
             color: l.color,
@@ -594,30 +608,19 @@ function dibujarRuta(lineas, paradas = []) {
     // Limpiar paradas anteriores
     paradasActuales = [];
 
-    // Paradas - CON LA MODIFICACIÓN PARA PERMITIR SELECCIÓN DE DESTINO
+    // Dibujar paradas
     paradas.forEach(p => {
         const stop = L.marker(p, {
-            icon: paradaIcon,  // Usar el icono de parada con bus azul
+            icon: paradaIcon,
             zIndexOffset: 500
         }).addTo(map);
 
-        // Guardar información de la parada
-        const paradaInfo = {
-            lat: p[0],
-            lng: p[1],
-            marker: stop
-        };
+        const paradaInfo = { lat: p[0], lng: p[1], marker: stop };
         paradasActuales.push(paradaInfo);
-
         rutasDibujadas.push(stop);
 
-        // Tooltip para la parada
-        stop.bindTooltip('Parada - Haz clic para seleccionar destino', {
-            direction: 'top',
-            permanent: false
-        });
+        stop.bindTooltip('Parada - Haz clic para seleccionar destino', { direction: 'top', permanent: false });
 
-        // Evento para seleccionar destino al hacer clic en la parada
         stop.on("click", function (e) {
             L.DomEvent.stopPropagation(e);
 
@@ -625,14 +628,10 @@ function dibujarRuta(lineas, paradas = []) {
                 map.removeLayer(marcadorDestino);
             }
 
-            marcadorDestino = L.marker(p, {
-                icon: destinoIcon,
-                zIndexOffset: 1000
-            }).addTo(map);
-
+            marcadorDestino = L.marker(p, { icon: destinoIcon, zIndexOffset: 1000 }).addTo(map);
             marcadorDestino.bindPopup(
                 `<div class="text-center">
-                    <h6 class="fw-bold mb-1"> Destino seleccionado</h6>
+                    <h6 class="fw-bold mb-1">Destino seleccionado</h6>
                     <p class="mb-1">Lat: ${p[0].toFixed(6)}</p>
                     <p class="mb-1">Lng: ${p[1].toFixed(6)}</p>
                     ${rutaSeleccionada ? `<p class="mb-0">Ruta: ${rutaSeleccionada.nombre}</p>` : ''}
@@ -642,10 +641,9 @@ function dibujarRuta(lineas, paradas = []) {
                 </div>`
             ).openPopup();
 
-            console.log("Destino seleccionado en parada:", { lat: p[0], lng: p[1], ruta: rutaSeleccionada?.nombre });
+            console.log("Destino seleccionado:", { lat: p[0], lng: p[1], ruta: rutaSeleccionada?.nombre });
         });
 
-        // Eliminar parada (solo si no hay destino seleccionado)
         stop.on("contextmenu", function (e) {
             L.DomEvent.stopPropagation(e);
             if (!marcadorDestino || (marcadorDestino.getLatLng().lat !== p[0] && marcadorDestino.getLatLng().lng !== p[1])) {
@@ -656,15 +654,22 @@ function dibujarRuta(lineas, paradas = []) {
         });
     });
 
-    // Configurar evento para clic en paradas en el mapa
+    // Reactivar clic en paradas si tienes esa función
     reactivarClicEnParadas();
 
-    // Ajustar vista (pero no si hay destino marcado)
-    if (rutasDibujadas.length > 0 && !marcadorDestino) {
-        const group = new L.featureGroup(rutasDibujadas);
-        map.fitBounds(group.getBounds());
+    // ✅ Centrar mapa en la ruta y destino (si existe)
+    elementosRuta = [...rutasDibujadas];
+    if (marcadorDestino) elementosRuta.push(marcadorDestino);
+
+    if (elementosRuta.length > 0) {
+        const group = new L.featureGroup(elementosRuta);
+        map.fitBounds(group.getBounds(), {
+            padding: [50, 50],
+            maxZoom: 17
+        });
     }
 }
+
 
 async function crearRuta(ruta) {
     try {
@@ -1062,42 +1067,20 @@ function crearBotonGenerarRuta(ruta) {
     lista.appendChild(contenedor);
 }
 
-// ---------------- Funciones de UI ----------------
-function cerrarBienvenida() {
-    const checkbox = document.getElementById("no-mostrar-checkbox");
-    const modalEl = document.getElementById("bienvenidaModal");
-
-    modalEl.addEventListener("hidden.bs.modal", () => {
-        if (checkbox.checked) {
-            localStorage.setItem("mostrarBienvenida", "false");
-        }
-    });
-}
-
-function alternarMenuIzquierdo() {
-    const sidebar = document.getElementById("sidebar-izquierdo");
-    sidebar.classList.toggle("d-none");
-}
-
-function alternarMenuDerecho() {
-    const sidebar = document.getElementById("sidebar-derecho");
-    sidebar.classList.toggle("d-none");
-}
-
 function configurarBienvenida() {
     if (localStorage.getItem("mostrarBienvenida") === null) {
         localStorage.setItem("mostrarBienvenida", "true");
     }
 
     if (localStorage.getItem("mostrarBienvenida") === "true") {
-        const modalBienvenida = new bootstrap.Modal(document.getElementById("bienvenidaModal"));
-        modalBienvenida.show();
-
-        document.getElementById("btn-comenzar").addEventListener("click", () => {
-            if (document.getElementById("no-mostrar").checked) {
+        const modalEl = document.getElementById("bienvenidaModal");
+        const modal = new bootstrap.Modal(modalEl);
+        modal.show();
+        modalEl.addEventListener("hidden.bs.modal", () => {
+            const noMostrar = document.getElementById("no-mostrar").checked;
+            if (noMostrar) {
                 localStorage.setItem("mostrarBienvenida", "false");
             }
-            modalBienvenida.hide();
         });
     }
 }
@@ -1110,53 +1093,55 @@ function configurarTooltip() {
 }
 
 // ---------------- Funciones de sidebar ----------------
-
-function mostrarRutas() {
+function actualizarSidebar(clave) {
     const sidebar = document.getElementById("sidebar-content");
     if (!sidebar) return;
 
-    if (sidebar.dataset.abierto === "rutas") {
-        sidebar.innerHTML = "";
+    if (sidebar.dataset.abierto === clave) {
+        sidebar.classList.remove("show");
         sidebar.removeAttribute("data-abierto");
+        if (clave === "crear") {
+            localStorage.removeItem("admin");
+        }
         return;
     }
+    sidebar.dataset.abierto = clave;
 
+    switch (clave) {
+        case "rutas":
+            mostrarRutas(sidebar);
+            break;
+        case "favoritos":
+            mostrarFavoritos(sidebar);
+            break;
+        case "crear":
+            mostrarCrearRutas(sidebar);
+            break;
+        default:
+            sidebar.innerHTML = "";
+            sidebar.removeAttribute("data-abierto");
+            break;
+    }
+
+    sidebar.classList.add("show");
+}
+
+function mostrarRutas(sidebar) {
     sidebar.innerHTML = `
         <div class="d-flex flex-column p-3 h-100 overflow-auto">
             <h4 class="fw-bold">Rutas</h4>
             <div id="lista-rutas" class="d-flex flex-column gap-2 mt-3"></div>
-            
-            <a class="btn btn-primary mt-2" href="/paginas/foro/foro.html">
-                <i class="fa-solid fa-comments me-1"></i> Foro / Comunidad
-            </a>
-            
-            <a class="btn btn-warning mt-2 w-100 d-flex align-items-center justify-content-center" href="#" onclick="verFavoritos()" data-bs-toggle="collapse" data-bs-target="#lista-favoritos" aria-expanded="false" aria-controls="lista-favoritos">
-                <i class="fa-solid fa-bookmark me-2"></i> Favoritos
-            </a>
-            
-            <div class="collapse mt-3" id="lista-favoritos">
-                <h5 class="fw-bold">Rutas Favoritas</h5>
-                <div id="favoritos" class="d-flex flex-column gap-2 mt-2"></div>
-            </div>
-            
-            <button class="btn btn-success mt-3" onclick="alternarMenuDerecho()">
-                <i class="fa-solid fa-route me-1"></i> Crear ruta personalizada
-            </button>
-            
-            <button class="btn btn-warning mt-2" onclick="limpiarDestino()">
-                <i class="fa-solid fa-flag"></i> Limpiar destino
-            </button>
         </div>
     `;
-    sidebar.dataset.abierto = "rutas";
     rutas.forEach((ruta) => crearBotonRuta(ruta));
 }
 
 function mostrarDetallesRuta(ruta) {
     const sidebar = document.getElementById("sidebar-content");
     if (!sidebar) return;
+
     if (sidebar.dataset.abierto === "detalles") {
-        sidebar.innerHTML = "";
+        sidebar.classList.remove("show");
         sidebar.removeAttribute("data-abierto");
         return;
     }
@@ -1166,26 +1151,21 @@ function mostrarDetallesRuta(ruta) {
             <div class="d-grid bg-dark" style="width: 20rem; height: 12rem;">
                 <img src="${ruta.archivos.imagen}" alt="Logo" class="img-fluid" style="width: 20rem; height: 12rem; object-fit: cover; grid-area: 1 / 1; filter: blur(2px) brightness(0.5);">
                 <img src="${ruta.archivos.imagen}" alt="Logo" class="img-fluid" style="width: 20rem; height: 12rem; object-fit: contain; grid-area: 1 / 1; z-index: 1;">
-                <button class="btn btn-dark bg-transparent border-0 position-absolute m-2 p-0" style="z-index: 2;" onclick="mostrarRutas()">
-                    <i class="fa-solid fa-circle-chevron-left" style="text-shadow: 0 0 5px black; font-size: 1.8rem;"></i>
+                <button class="btn btn-dark bg-transparent border-0 position-absolute p-0" style="z-index: 2; margin-left: .65rem; margin-top: .65rem;" onclick="actualizarSidebar('rutas')">
+                    <i class="fa-solid fa-circle-arrow-left" style="text-shadow: 0 0 5px black; font-size: 1.6rem;"></i>
                 </button>
             </div>
             <div id="detalles-ruta" class="d-flex flex-column gap-2 mt-3"></div>
         </div>
     `;
     sidebar.dataset.abierto = "detalles";
+
+    sidebar.dataset.ruta = ruta.nombre;
+
+    sidebar.classList.add("show");
 }
 
-function mostrarFavoritos() {
-    const sidebar = document.getElementById("sidebar-content");
-    if (!sidebar) return;
-
-    if (sidebar.dataset.abierto === "favoritos") {
-        sidebar.innerHTML = "";
-        sidebar.removeAttribute("data-abierto");
-        return;
-    }
-
+function mostrarFavoritos(sidebar) {
     sidebar.innerHTML = `
         <div class="mt-3 d-flex flex-column p-3" id="lista-favoritos">
             <h5 class="fw-bold">Rutas Favoritas</h5>
@@ -1195,27 +1175,13 @@ function mostrarFavoritos() {
             </button>
         </div>
     `;
-    sidebar.dataset.abierto = "favoritos";
     verFavoritos();
 }
 
-async function mostrarCrearRutas() {
-    const sidebar = document.getElementById("sidebar-content");
+async function mostrarCrearRutas(sidebar) {
     const crear = document.getElementById("crear-rutas");
-    if (!sidebar) return;
-
-    if (sidebar.dataset.abierto === "crear") {
-        sidebar.innerHTML = "";
-        sidebar.removeAttribute("data-abierto");
-        localStorage.removeItem("admin");
-        return;
-    }
-
     sidebar.innerHTML = crear.innerHTML;
-    sidebar.dataset.abierto = "crear";
-
     await cargarGenerarRutas();
-
     localStorage.setItem("admin", "true");
 }
 
@@ -1372,6 +1338,9 @@ function buscarDireccion(input, query, lista, limpiar) {
     if (retrasoBusqueda) clearTimeout(retrasoBusqueda);
 
     retrasoBusqueda = setTimeout(() => {
+        if (input.value === "" || input === null || query === null || query === "") {
+            return;
+        }
         lista.classList.remove("d-none");
         limpiar.classList.remove("d-none");
 
@@ -1514,15 +1483,20 @@ function seleccionarRuta(nombre) {
 document.addEventListener("DOMContentLoaded", () => {
   const busqueda = document.getElementById("busqueda");
   const resultados = document.getElementById("resultados-busqueda");
+  const sidebarContent = document.getElementById("sidebar-content");
 
+  // Evitar que los clics y scrolls se propaguen al mapa
   if (busqueda) {
     L.DomEvent.disableClickPropagation(busqueda);
     L.DomEvent.disableScrollPropagation(busqueda);
   }
-
   if (resultados) {
     L.DomEvent.disableClickPropagation(resultados);
     L.DomEvent.disableScrollPropagation(resultados);
+  }
+  if (sidebarContent) {
+    L.DomEvent.disableClickPropagation(sidebarContent);
+    L.DomEvent.disableScrollPropagation(sidebarContent);
   }
 });
 
