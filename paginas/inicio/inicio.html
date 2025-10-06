@@ -18,7 +18,7 @@
 
 <body>
   <div class="w-100 h-100 d-flex flex-row">
-    <div class="d-flex flex-row bg-white shadow-sm">
+    <div class="d-none d-md-flex flex-row bg-white shadow-sm">
       <div class="d-flex flex-column border">
         <div class="d-flex flex-column px-2 py-3 gap-3">
           <button
@@ -94,8 +94,21 @@
       <div id="sidebar-content" class="position-absolute overflow-auto bg-white h-100" style="z-index: 1010; pointer-events: auto;"></div>
 
       <!-- Menu de busqueda -->
-      <div id="menu" class="position-absolute col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 top-0 start-50 translate-middle-x p-3 h-100"
+      <div id="menu" class="position-absolute col-12 col-md-8 col-lg-6 col-xl-5 top-0 start-50 translate-middle-x p-0 p-md-3 h-100"
           style="z-index: 1000; pointer-events: none;">
+        <div class="d-flex d-md-none gap-2 p-2 px-3 border-bottom bg-white mb-1 shadow-sm"
+            style="pointer-events: auto;">
+          <button class="btn btn-primary" onclick="abrirMenu()">
+            <i class="fa-solid fa-hamburger"></i>
+          </button>
+          <h2 class="text-primary fw-bold my-auto p-0 me-auto">XalaBus</h2>
+          <button class="btn btn-primary" onclick="abrirBusqueda()">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+          <button class="btn btn-primary" onclick="abrirPerfil()">
+            <i class="fa-solid fa-user"></i>
+          </button>
+        </div>
         <div id="busqueda" class="d-flex flex-column mx-auto bg-white shadow-sm border overflow-hidden"
           style="border-radius: 1.3rem; height: fit-content; min-height: 0; max-height: 100%; pointer-events: auto;">
           <div class="d-flex justify-content-center align-items-center gap-1 p-1 px-2">

@@ -423,6 +423,7 @@ function cargarRuta(ruta) {
     rutaSeleccionada = ruta;
     configurarSeleccionDestino();
     mostrarMensajeTemporal(`✅ Ruta "${ruta.nombre}" cargada. Haz clic en una parada para seleccionar destino.`);
+    mostrarDetallesRuta(ruta);
 }
 
 // ---------------- Funciones de rutas ----------------
@@ -456,10 +457,7 @@ function crearBotonRuta(ruta) {
     btn.appendChild(icono);
     btn.appendChild(document.createTextNode(ruta.nombre));
 
-    btn.onclick = () => {
-        cargarRuta(ruta);
-        mostrarDetallesRuta(ruta);
-    };
+    btn.onclick = () => { cargarRuta(ruta); };
 
     // Boton alerta
     // Botón de horario
@@ -568,7 +566,7 @@ function verFavoritos() {
     }
 }
 
-function dibujarRuta(lineas, paradas = []) {
+function dibujarRuta(ruta, lineas, paradas = []) {
     let elementosRuta = [];
 
     // Limpiar marcadores excepto el destino
@@ -599,9 +597,9 @@ function dibujarRuta(lineas, paradas = []) {
         }).addTo(map);
         rutasDibujadas.push(polyline);
 
-        polyline.on("click", function () {
-            map.removeLayer(polyline);
-            rutasDibujadas = rutasDibujadas.filter(r => r !== polyline);
+        polyline.on("click", function (e) {
+            L.DomEvent.stopPropagation(e);
+            mostrarDetallesRuta(ruta);
         });
     });
 
@@ -706,7 +704,7 @@ async function crearRuta(ruta) {
             }
         }
 
-        dibujarRuta(lineas, paradas);
+        dibujarRuta(ruta, lineas, paradas);
     } catch (err) {
         console.error("Error cargando ruta:", err);
     }
@@ -1136,31 +1134,28 @@ function mostrarRutas(sidebar) {
     rutas.forEach((ruta) => crearBotonRuta(ruta));
 }
 
+function cerrarDetallesRuta() {
+    const sidebar = document.getElementById("sidebar-content");
+    sidebar.classList.remove("show");
+    sidebar.removeAttribute("data-abierto");
+}
+
 function mostrarDetallesRuta(ruta) {
     const sidebar = document.getElementById("sidebar-content");
     if (!sidebar) return;
-
-    if (sidebar.dataset.abierto === "detalles") {
-        sidebar.classList.remove("show");
-        sidebar.removeAttribute("data-abierto");
-        return;
-    }
 
     sidebar.innerHTML = `
         <div class="d-flex flex-column h-100 overflow-auto">
             <div class="d-grid bg-dark" style="width: 20rem; height: 12rem;">
                 <img src="${ruta.archivos.imagen}" alt="Logo" class="img-fluid" style="width: 20rem; height: 12rem; object-fit: cover; grid-area: 1 / 1; filter: blur(2px) brightness(0.5);">
                 <img src="${ruta.archivos.imagen}" alt="Logo" class="img-fluid" style="width: 20rem; height: 12rem; object-fit: contain; grid-area: 1 / 1; z-index: 1;">
-                <button class="btn btn-dark bg-transparent border-0 position-absolute p-0" style="z-index: 2; margin-left: .65rem; margin-top: .65rem;" onclick="actualizarSidebar('rutas')">
-                    <i class="fa-solid fa-circle-arrow-left" style="text-shadow: 0 0 5px black; font-size: 1.6rem;"></i>
+                <button class="btn btn-dark bg-transparent border-0 position-absolute p-0 end-0" style="z-index: 2; margin-right: .84rem; margin-top: .6rem;" onclick="cerrarDetallesRuta()">
+                    <i class="fa-solid fa-xmark" style="text-shadow: 0 0 10px black; font-size: 1.6rem;"></i>
                 </button>
             </div>
             <div id="detalles-ruta" class="d-flex flex-column gap-2 mt-3"></div>
         </div>
     `;
-    sidebar.dataset.abierto = "detalles";
-
-    sidebar.dataset.ruta = ruta.nombre;
 
     sidebar.classList.add("show");
 }
