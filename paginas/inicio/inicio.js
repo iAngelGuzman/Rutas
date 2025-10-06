@@ -1479,6 +1479,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const busqueda = document.getElementById("busqueda");
   const resultados = document.getElementById("resultados-busqueda");
   const sidebarContent = document.getElementById("sidebar-content");
+  const menuMovil = document.getElementById("menu-movil");
 
   // Evitar que los clics y scrolls se propaguen al mapa
   if (busqueda) {
@@ -1492,6 +1493,10 @@ document.addEventListener("DOMContentLoaded", () => {
   if (sidebarContent) {
     L.DomEvent.disableClickPropagation(sidebarContent);
     L.DomEvent.disableScrollPropagation(sidebarContent);
+  }
+  if (menuMovil) {
+    L.DomEvent.disableClickPropagation(menuMovil);
+    L.DomEvent.disableScrollPropagation(menuMovil);
   }
 });
 

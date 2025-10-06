@@ -96,18 +96,35 @@
       <!-- Menu de busqueda -->
       <div id="menu" class="position-absolute col-12 col-md-8 col-lg-6 col-xl-5 top-0 start-50 translate-middle-x p-0 p-md-3 h-100"
           style="z-index: 1000; pointer-events: none;">
-        <div class="d-flex d-md-none gap-2 p-2 px-3 border-bottom bg-white mb-1 shadow-sm"
+        <div id="menu-movil" class="d-flex d-md-none gap-2 p-2 px-3 border-bottom bg-white mb-1 shadow-sm"
             style="pointer-events: auto;">
-          <button class="btn btn-primary" onclick="abrirMenu()">
-            <i class="fa-solid fa-hamburger"></i>
+          <button class="btn btn-primary d-flex p-0" style="width: 2rem; height: 2rem;" onclick="abrirMenu()">
+            <i class="fa-solid fa-bars"></i>
           </button>
-          <h2 class="text-primary fw-bold my-auto p-0 me-auto">XalaBus</h2>
-          <button class="btn btn-primary" onclick="abrirBusqueda()">
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </button>
-          <button class="btn btn-primary" onclick="abrirPerfil()">
-            <i class="fa-solid fa-user"></i>
-          </button>
+          <h3 class="text-primary fw-bold my-auto p-0 mx-auto">XalaBus</h3>
+          <div class="dropdown">
+            <img src="/images/avatar-default.png" alt="Avatar" class="w-100 h-100 rounded-circle border shadow-sm my-auto" type="button"
+              style="width: 2rem; height: 2rem; max-width: 2rem; max-height: 2rem; min-width: 2rem; min-height: 2rem; object-fit: cover;"
+              id="dropdownMenuButtonMovil" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonMovil">
+              <a class="dropdown-item d-none" href="/paginas/perfil/perfil.html" id="perfil-user-movil">
+                <i class="fa-solid fa-user me-2"></i>
+                Perfil
+              </a>
+              <button class="dropdown-item d-none" onclick="cerrarSesion()" id="perfil-logout-movil">
+                <i class="fa-solid fa-right-from-bracket me-2"></i>
+                Cerrar sesión
+              </button>
+              <a class="dropdown-item d-none" href="/paginas/login/login.html" id="perfil-login-movil">
+                <i class="fa-solid fa-right-to-bracket me-2"></i>
+                Iniciar sesión
+              </a>
+              <a class="dropdown-item d-none" href="/paginas/registro/registro.html" id="perfil-signup-movil">
+                <i class="fa-solid fa-user-plus me-2"></i>
+                Registrarse
+              </a>
+            </div>
+          </div>
         </div>
         <div id="busqueda" class="d-flex flex-column mx-auto bg-white shadow-sm border overflow-hidden"
           style="border-radius: 1.3rem; height: fit-content; min-height: 0; max-height: 100%; pointer-events: auto;">

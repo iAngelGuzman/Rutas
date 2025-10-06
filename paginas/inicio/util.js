@@ -24,12 +24,21 @@ async function modificarPerfil() {
     const login = document.getElementById('perfil-login');
     const signup = document.getElementById('perfil-signup');
 
+    const perfilMovil = document.getElementById('perfil-user-movil');
+    const logoutMovil = document.getElementById('perfil-logout-movil');
+    const loginMovil = document.getElementById('perfil-login-movil');
+    const signupMovil = document.getElementById('perfil-signup-movil');
+
     if (session) {
         perfil.classList.remove('d-none');
         logout.classList.remove('d-none');
+        perfilMovil.classList.remove('d-none');
+        logoutMovil.classList.remove('d-none');
     } else {
         login.classList.remove('d-none');
         signup.classList.remove('d-none');
+        loginMovil.classList.remove('d-none');
+        signupMovil.classList.remove('d-none');
     }
 }
 
