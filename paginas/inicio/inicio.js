@@ -1211,39 +1211,52 @@ function mostrarDetallesRuta(ruta) {
   const sidebar = document.getElementById("sidebar-content");
   if (!sidebar) return;
 
-  // 🧠 Validar imagen, si no existe usar una genérica
-  const imagen = ruta.archivos && ruta.archivos.imagen 
-    ? ruta.archivos.imagen 
-    : "/images/default.jpg"; // cambia esta ruta si tienes una imagen de respaldo
+  // Imagen con respaldo
+  const imagen = ruta.archivos?.imagen || "/images/default.jpg";
 
-  // 🧠 Validar horario (por si no tiene)
+  // Horarios con valores por defecto
   const horarioLunes = ruta.horario?.lunes || "No disponible";
   const horarioSabado = ruta.horario?.sabado || ruta.horario?.domingo || "No disponible";
 
-  // 🧠 Validar nombre
+  // Nombre
   const nombre = ruta.nombre || "Ruta sin nombre";
 
-  // 🧠 Mostrar información
+  // Color fijo azul
+  const colorFijo = "#0d2e52";
+  const colorFondo = "#f9f9fb";
+  const sombra = "0 4px 20px rgba(0, 0, 0, 0.1)";
+
   sidebar.innerHTML = `
-    <div class="d-flex flex-column h-100 overflow-auto" style="max-width: 20rem;">
-      <div class="d-grid bg-dark" style="width: 20rem; height: 12rem; position: relative;">
-        <img src="${imagen}" alt="Logo" class="img-fluid" 
-             style="width: 20rem; height: 12rem; object-fit: cover; grid-area: 1 / 1; filter: blur(2px) brightness(0.5);">
-        <img src="${imagen}" alt="Logo" class="img-fluid" 
-             style="width: 20rem; height: 12rem; object-fit: contain; grid-area: 1 / 1; z-index: 1;">
-        <button class="btn btn-dark bg-transparent border-0 position-absolute p-0 end-0" 
-                style="z-index: 2; margin-right: .84rem; margin-top: .6rem;" 
+    <div class="d-flex flex-column h-100 overflow-auto" 
+         style="max-width: 22rem; background: ${colorFondo}; border-left: 1px solid #ddd; box-shadow: ${sombra}; border-radius: 12px 0 0 12px;">
+      
+      <!-- Imagen de cabecera -->
+      <div class="position-relative" style="height: 12rem; overflow: hidden; border-radius: 12px 12px 0 0;">
+        <img src="${imagen}" alt="${nombre}" 
+             style="width: 100%; height: 100%; object-fit: cover; filter: brightness(0.6);">
+        <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;">
+          <h5 style="color: white; font-weight: bold; text-align: center; text-shadow: 0 2px 8px rgba(0,0,0,0.6); padding: 0 10px;">${nombre}</h5>
+        </div>
+        <button class="btn bg-transparent border-0 position-absolute p-0" 
+                style="top: 0.6rem; right: 0.8rem; color: white;" 
                 onclick="cerrarDetallesRuta()">
-          <i class="fa-solid fa-xmark" style="text-shadow: 0 0 10px black; font-size: 1.6rem;"></i>
+          <i class="fa-solid fa-xmark" style="font-size: 1.6rem; text-shadow: 0 0 8px black;"></i>
         </button>
       </div>
-      <div id="detalles-ruta" class="d-flex flex-column gap-2 p-3">
-        <h5 class="fw-bold">${nombre}</h5>
-        <hr />
-        <h6 class="fw-bold mb-1"><i class="fa-solid fa-clock me-2"></i> Horario:</h6>
-        <div>
-          <p class="mb-1"><strong>Lunes a Viernes:</strong> ${horarioLunes}</p>
-          <p class="mb-1"><strong>Sábado y Domingo:</strong> ${horarioSabado}</p>
+
+      <!-- Contenido -->
+      <div id="detalles-ruta" class="p-3" style="flex-grow: 1;">
+        <div class="mb-3">
+          <h6 class="fw-bold mb-2" style="color: ${colorFijo};"><i class="fa-solid fa-clock me-2"></i>Horario</h6>
+          <div class="p-2 rounded" style="background: white; border: 1px solid #eee; box-shadow: ${sombra}; color: ${colorFijo};">
+            <p class="mb-1"><strong>Lunes a Viernes:</strong> ${horarioLunes}</p>
+            <p class="mb-0"><strong>Sábado y Domingo:</strong> ${horarioSabado}</p>
+          </div>
+        </div>
+
+        <div class="mt-auto text-center">
+          <span style="display:inline-block; background:${colorFijo}; width:60%; height:5px; border-radius:4px;"></span>
+          <p class="text-muted mt-2" style="font-size:0.85rem; color:${colorFijo}">Ruta destacada de Xalapa</p>
         </div>
       </div>
     </div>
@@ -1251,6 +1264,7 @@ function mostrarDetallesRuta(ruta) {
 
   sidebar.classList.add("show");
 }
+
 
 
 function mostrarFavoritos(sidebar) {
