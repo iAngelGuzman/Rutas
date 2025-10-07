@@ -235,7 +235,7 @@
           <form id="form-ruta" class="mt-3">
             <div class="d-grid bg-dark position-relative" style="width: 20rem; height: 12rem;">
               <!-- Imagen de fondo -->
-              <img id="fondo-imagen" src="${imagen}" alt="Logo" class="img-fluid"
+              <img id="fondo-imagen" src="" alt="Logo" class="img-fluid"
                 style="width: 20rem; height: 12rem; object-fit: cover; grid-area: 1 / 1; filter: blur(2px) brightness(0.5);">
 
               <!-- Imagen principal (frontal) -->
@@ -284,7 +284,7 @@
                 <i class="fa-solid fa-trash me-1"></i>
                 Limpiar
               </button>
-              <button class="btn btn-success w-100" type="submit">
+              <button class="btn btn-success w-100" type="button" onclick="guardarRuta()">
                 <i class="fa-solid fa-floppy-disk me-1"></i>
                 Guardar
               </button>
@@ -455,6 +455,15 @@
               style="width: 2.4rem; height: 2.4rem;"></i>
             <span class="text-primary pe-2"
               style="font-size: .9rem; margin-top: -.1rem;">Crear</span>
+          </button>
+          <button
+            class="menu-item-movil btn btn-outline-primary d-flex flex-row justify-content-start align-items-center p-0 border-0 bg-transparent text-primary"
+            onclick="actualizarSidebar('mis-rutas')">
+            <i
+              class="fa-solid fa-route fs-5 rounded d-flex justify-content-center align-items-center"
+              style="width: 2.4rem; height: 2.4rem;"></i>
+            <span class="text-primary pe-2"
+              style="font-size: .9rem; margin-top: -.1rem;">Creadas</span>
           </button>
         </div>
       </div>

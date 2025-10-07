@@ -3,6 +3,7 @@ import cors from "cors";
 import fetch from "node-fetch";
 import fs from "fs";
 import path from "path";
+import multer from "multer";
 
 const app = express();
 app.use(cors());
@@ -16,15 +17,52 @@ const RUTAS_FILE = path.join(process.cwd(), "..", "rutasGenerar.json");
 // Crear carpeta si no existe
 if (!fs.existsSync(RUTAS_DIR)) fs.mkdirSync(RUTAS_DIR, { recursive: true });
 
-// Endpoint para generar una ruta desde varios puntos
+// Carpeta base
+const RUTAS_BASE = path.join(process.cwd(), "..", "rutasCreadas");
+const RUTAS_JSON = path.join(process.cwd(), "..", "rutasCreadas.json");
+
+// Crear carpeta principal si no existe
+if (!fs.existsSync(RUTAS_BASE)) {
+    fs.mkdirSync(RUTAS_BASE, { recursive: true });
+}
+
+// Crear archivo JSON si no existe
+if (!fs.existsSync(RUTAS_JSON)) {
+    fs.writeFileSync(RUTAS_JSON, JSON.stringify({ rutas: [] }, null, 2));
+}
+
+// Configurar multer
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        const safeName = req.body.nombre.replace(/[^a-z0-9]/gi, "_").toLowerCase();
+        const uploadPath = path.join(RUTAS_BASE, safeName, "imagen");
+        fs.mkdirSync(uploadPath, { recursive: true });
+        cb(null, uploadPath);
+    },
+    filename: (req, file, cb) => {
+        cb(null, "segura.jpeg"); // nombre fijo (puedes hacerlo dinámico)
+    }
+});
+
+const upload = multer({ storage });
+
+// Endpoint para subir imagen
+app.post("/subir-imagen", upload.single("imagen"), (req, res) => {
+    if (!req.file) return res.status(400).json({ error: "No se subió ninguna imagen" });
+
+    const filePath = `/rutasCreadas/${req.body.nombre.replace(/[^a-z0-9]/gi, "_").toLowerCase()}/imagen/${req.file.filename}`;
+    res.json({ message: "Imagen subida correctamente", path: filePath });
+});
+
 app.post("/directions", async (req, res) => {
-    const { nombre, puntos } = req.body;
+    const { nombre, color, mujerSegura, horario, puntos } = req.body;
+
     if (!nombre || !puntos || puntos.length < 2) {
         return res.status(400).json({ error: "Se requieren al menos 2 puntos y un nombre" });
     }
 
     try {
-        // Llamada a ORS
+        // Llamada a OpenRouteService
         const response = await fetch(ORS_URL, {
             method: "POST",
             headers: {
@@ -36,17 +74,57 @@ app.post("/directions", async (req, res) => {
 
         const data = await response.json();
 
-        // Guardar en archivo JSON en la carpeta rutas/
-        const safeName = nombre.replace(/[^a-z0-9]/gi, "_");
-        const filePath = path.join(RUTAS_DIR, `${safeName}.json`);
-        fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+        // Crear nombre seguro de carpeta
+        const safeName = nombre.replace(/[^a-z0-9]/gi, "_").toLowerCase();
+        const rutaDir = path.join(RUTAS_BASE, safeName);
 
-        res.json(data);
+        // Crear subcarpetas
+        const imagenDir = path.join(rutaDir, "imagen");
+        const routeDir = path.join(rutaDir, "route");
+        const stopsDir = path.join(rutaDir, "stops");
+
+        [rutaDir, imagenDir, routeDir, stopsDir].forEach(dir => {
+            if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+        });
+
+        // Guardar archivo GeoJSON
+        const routeFile = path.join(routeDir, "route.geojson");
+        fs.writeFileSync(routeFile, JSON.stringify(data, null, 2));
+
+        // Crear la entrada de la ruta
+        const nuevaRuta = {
+            nombre,
+            color,
+            "mujer segura": mujerSegura ? "true" : "false",
+            horario: horario || {},
+            archivos: {
+                imagen: `/rutasCreadas/${safeName}/imagen/segura.jpeg`,
+                ruta: `/rutasCreadas/${safeName}/route/route.geojson`,
+                paradas: `/rutasCreadas/${safeName}/stops/stops.geojson`
+            }
+        };
+
+        // Leer rutas existentes
+        const jsonData = JSON.parse(fs.readFileSync(RUTAS_JSON, "utf8"));
+
+        // Evitar duplicados
+        const yaExiste = jsonData.rutas.some(r => r.nombre === nombre);
+        if (!yaExiste) {
+            jsonData.rutas.push(nuevaRuta);
+            fs.writeFileSync(RUTAS_JSON, JSON.stringify(jsonData, null, 2));
+        }
+
+        res.json({
+            message: "Ruta creada y registrada correctamente",
+            ruta: nuevaRuta
+        });
+
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "Error consultando ORS" });
+        console.error("Error al generar la ruta:", err);
+        res.status(500).json({ error: "Error consultando ORS o guardando archivos" });
     }
 });
+
 
 // Endpoint para listar rutas guardadas
 app.get("/rutas", (req, res) => {
@@ -63,24 +141,43 @@ app.get("/rutas", (req, res) => {
 });
 
 app.post("/guardar-ruta", (req, res) => {
-    const nuevaRuta = req.body;
+    const { nombre, color, mujerSegura, horario, archivos } = req.body;
 
-    // Leer contenido actual del archivo
-    let data = { rutas: [] };
-    if (fs.existsSync(RUTAS_FILE)) {
-        const fileContent = fs.readFileSync(RUTAS_FILE, "utf-8");
-        if (fileContent.trim()) {
-            data = JSON.parse(fileContent);
-        }
+    if (!nombre || !color || !archivos) {
+        return res.status(400).json({ error: "Faltan datos obligatorios de la ruta" });
     }
 
-    // Insertar la nueva ruta
-    data.rutas.push(nuevaRuta);
+    // Crear carpeta de la ruta si no existe
+    const safeName = nombre.replace(/[^a-z0-9]/gi, "_").toLowerCase();
+    const rutaDir = path.join(RUTAS_BASE, safeName);
+    if (!fs.existsSync(rutaDir)) fs.mkdirSync(rutaDir, { recursive: true });
 
-    // Guardar nuevamente el JSON
-    fs.writeFileSync(RUTAS_FILE, JSON.stringify(data, null, 2));
+    // Leer JSON existente
+    let rutasJson = { rutas: [] };
+    if (fs.existsSync(RUTAS_JSON)) {
+        rutasJson = JSON.parse(fs.readFileSync(RUTAS_JSON, "utf-8"));
+    }
 
-    res.json({ message: "Ruta guardada correctamente 🚍" });
+    // Construir objeto de la nueva ruta
+    const nuevaRuta = {
+        nombre,
+        color,
+        "mujer segura": mujerSegura ? "true" : "false",
+        horario: horario || { lunes: "6:00am - 10:00pm", domingo: "8:00am - 8:00pm" },
+        archivos: {
+            imagen: archivos.imagen || null,
+            ruta: archivos.ruta || null,
+            paradas: archivos.paradas || null
+        }
+    };
+
+    // Agregar al array
+    rutasJson.rutas.push(nuevaRuta);
+
+    // Guardar JSON actualizado
+    fs.writeFileSync(RUTAS_JSON, JSON.stringify(rutasJson, null, 2), "utf-8");
+
+    res.json({ message: "Ruta guardada correctamente", ruta: nuevaRuta });
 });
 
 app.listen(3000, () => console.log("Servidor corriendo en http://localhost:3000"));
