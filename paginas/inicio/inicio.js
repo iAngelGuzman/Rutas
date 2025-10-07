@@ -1208,32 +1208,50 @@ function cerrarDetallesRuta() {
 }
 
 function mostrarDetallesRuta(ruta) {
-    const sidebar = document.getElementById("sidebar-content");
-    if (!sidebar) return;
+  const sidebar = document.getElementById("sidebar-content");
+  if (!sidebar) return;
 
-    sidebar.innerHTML = `
-        <div class="d-flex flex-column h-100 overflow-auto" style="max-width: 20rem;">
-            <div class="d-grid bg-dark" style="width: 20rem; height: 12rem;">
-                <img src="${ruta.archivos.imagen}" alt="Logo" class="img-fluid" style="width: 20rem; height: 12rem; object-fit: cover; grid-area: 1 / 1; filter: blur(2px) brightness(0.5);">
-                <img src="${ruta.archivos.imagen}" alt="Logo" class="img-fluid" style="width: 20rem; height: 12rem; object-fit: contain; grid-area: 1 / 1; z-index: 1;">
-                <button class="btn btn-dark bg-transparent border-0 position-absolute p-0 end-0" style="z-index: 2; margin-right: .84rem; margin-top: .6rem;" onclick="cerrarDetallesRuta()">
-                    <i class="fa-solid fa-xmark" style="text-shadow: 0 0 10px black; font-size: 1.6rem;"></i>
-                </button>
-            </div>
-            <div id="detalles-ruta" class="d-flex flex-column gap-2 p-3">
-                <h5 class="fw-bold">${ruta.nombre}</h5>
-                <hr />
-                <h6 class="fw-bold mb-1"><i class="fa-solid fa-clock me-2"></i> Horario:</h6>
-                <div>
-                    <p class="mb-1"><strong>Lunes a Viernes:</strong> ${ruta.horario.lunes}</p>
-                    <p class="mb-1"><strong>Sábado y Domingo:</strong> ${ruta.horario.sabado}</p>
-                </div>
-            </div>
+  // 🧠 Validar imagen, si no existe usar una genérica
+  const imagen = ruta.archivos && ruta.archivos.imagen 
+    ? ruta.archivos.imagen 
+    : "/images/default.jpg"; // cambia esta ruta si tienes una imagen de respaldo
+
+  // 🧠 Validar horario (por si no tiene)
+  const horarioLunes = ruta.horario?.lunes || "No disponible";
+  const horarioSabado = ruta.horario?.sabado || ruta.horario?.domingo || "No disponible";
+
+  // 🧠 Validar nombre
+  const nombre = ruta.nombre || "Ruta sin nombre";
+
+  // 🧠 Mostrar información
+  sidebar.innerHTML = `
+    <div class="d-flex flex-column h-100 overflow-auto" style="max-width: 20rem;">
+      <div class="d-grid bg-dark" style="width: 20rem; height: 12rem; position: relative;">
+        <img src="${imagen}" alt="Logo" class="img-fluid" 
+             style="width: 20rem; height: 12rem; object-fit: cover; grid-area: 1 / 1; filter: blur(2px) brightness(0.5);">
+        <img src="${imagen}" alt="Logo" class="img-fluid" 
+             style="width: 20rem; height: 12rem; object-fit: contain; grid-area: 1 / 1; z-index: 1;">
+        <button class="btn btn-dark bg-transparent border-0 position-absolute p-0 end-0" 
+                style="z-index: 2; margin-right: .84rem; margin-top: .6rem;" 
+                onclick="cerrarDetallesRuta()">
+          <i class="fa-solid fa-xmark" style="text-shadow: 0 0 10px black; font-size: 1.6rem;"></i>
+        </button>
+      </div>
+      <div id="detalles-ruta" class="d-flex flex-column gap-2 p-3">
+        <h5 class="fw-bold">${nombre}</h5>
+        <hr />
+        <h6 class="fw-bold mb-1"><i class="fa-solid fa-clock me-2"></i> Horario:</h6>
+        <div>
+          <p class="mb-1"><strong>Lunes a Viernes:</strong> ${horarioLunes}</p>
+          <p class="mb-1"><strong>Sábado y Domingo:</strong> ${horarioSabado}</p>
         </div>
-    `;
+      </div>
+    </div>
+  `;
 
-    sidebar.classList.add("show");
+  sidebar.classList.add("show");
 }
+
 
 function mostrarFavoritos(sidebar) {
     sidebar.innerHTML = `
