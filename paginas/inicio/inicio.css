@@ -195,3 +195,15 @@ body.swal2-shown {
 body.swal2-shown {
   padding-right: 0 !important; /* Evita el padding extra */
 }
+#menu-movil {
+    position: relative;
+    z-index: 99999 !important;
+  }
+  
+  #menu {
+    z-index: 99999 !important;
+  }
+  
+  .dropdown-menu {
+    z-index: 100000 !important;
+  }

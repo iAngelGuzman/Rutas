@@ -40,28 +40,24 @@ const map = L.map('map', {
   layers: [lightTiles]
 });
 
-// Control combinado: Zoom
+// ---------------- Control Zoom ----------------
 const zoomLocateControl = L.Control.extend({
     options: { position: "bottomright" },
     onAdd: function () {
         const container = L.DomUtil.create("div", "leaflet-bar");
         container.classList.add("rounded-3", "overflow-hidden");
 
-        // Botón de Zoom In
         const zoomIn = L.DomUtil.create("a", "leaflet-control-zoom-in", container);
         zoomIn.classList.add("d-flex", "justify-content-center", "align-items-center");
         zoomIn.innerHTML = '<i class="fa-solid fa-plus fs-6"></i>';
         zoomIn.href = "#";
-        zoomIn.title = "Acercar";
         L.DomEvent.on(zoomIn, "click", L.DomEvent.stop)
                   .on(zoomIn, "click", () => map.zoomIn());
 
-        // Botón de Zoom Out
         const zoomOut = L.DomUtil.create("a", "leaflet-control-zoom-out", container);
         zoomOut.classList.add("d-flex", "justify-content-center", "align-items-center");
         zoomOut.innerHTML = '<i class="fa-solid fa-minus fs-6"></i>';
         zoomOut.href = "#";
-        zoomOut.title = "Alejar";
         L.DomEvent.on(zoomOut, "click", L.DomEvent.stop)
                   .on(zoomOut, "click", () => map.zoomOut());
 
@@ -69,73 +65,146 @@ const zoomLocateControl = L.Control.extend({
     }
 });
 
-// Control de Mi Ubicación
+// ---------------- Control Ubicación ----------------
 const ubicacion = L.Control.extend({
     options: { position: "bottomright" },
     onAdd: function () {
-        const container = L.DomUtil.create("div", "leaflet-bar");
-        container.classList.add("rounded-3", "overflow-hidden");
+        const container = L.DomUtil.create("div", "leaflet-bar rounded-3 overflow-hidden");
 
-        // Botón de Mi ubicación
-        const locateBtn = L.DomUtil.create("a", "leaflet-control-locate", container);
+        const locateBtn = L.DomUtil.create("a", "", container);
         locateBtn.classList.add("d-flex", "justify-content-center", "align-items-center");
         locateBtn.innerHTML = '<i class="fa-solid fa-location-crosshairs fs-6"></i>';
         locateBtn.href = "#";
         locateBtn.title = "Ver mi ubicación";
         L.DomEvent.on(locateBtn, "click", L.DomEvent.stop)
                   .on(locateBtn, "click", () => verMiUbicacion(locateBtn));
-
         return container;
     }
 });
 
-// Control modo claro / oscuro
+// ---------------- CONTROL DE ALERTAS ----------------
+const alertasControl = L.Control.extend({
+    options: { position: "bottomright" },
+    onAdd: function () {
+      const container = L.DomUtil.create("div", "leaflet-bar position-relative");
+      container.classList.add("rounded-3", "overflow-hidden");
+  
+      const alertaBtn = L.DomUtil.create("a", "leaflet-control-alertas", container);
+      alertaBtn.classList.add("d-flex", "justify-content-center", "align-items-center", "bg-warning", "text-dark");
+      alertaBtn.innerHTML = '<i class="fa-solid fa-triangle-exclamation fs-6"></i>';
+      alertaBtn.href = "#";
+      alertaBtn.title = "Mostrar alertas";
+  
+      // Menú visible siempre sobre el mapa
+      const menu = L.DomUtil.create("div", "menu-alertas bg-white border rounded shadow position-fixed");
+      menu.style.cssText = `
+        bottom: 80px;
+        right: 20px;
+        display: none;
+        min-width: 200px;
+        z-index: 999999 !important;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      `;
+  
+      const opciones = [
+        { tipo: "Tráfico", icono: "fa-car", color: "text-danger" },
+        { tipo: "Accidente", icono: "fa-car-burst", color: "text-warning" },
+        { tipo: "Construcción", icono: "fa-person-digging", color: "text-primary" }
+      ];
+  
+      opciones.forEach(op => {
+        const btn = L.DomUtil.create("button", "btn btn-light w-100 text-start d-flex align-items-center gap-2 px-3 py-2 border-0", menu);
+        btn.innerHTML = `<i class="fa-solid ${op.icono} ${op.color}"></i> ${op.tipo}`;
+        btn.onclick = (e) => {
+          L.DomEvent.stop(e);
+          mostrarAlertaMapa(op.tipo);
+          menu.style.display = "none";
+        };
+      });
+  
+      document.body.appendChild(menu); // asegura que esté por encima del mapa
+  
+      L.DomEvent.on(alertaBtn, "click", L.DomEvent.stop)
+                .on(alertaBtn, "click", () => abrirMenu(menu));
+  
+      document.addEventListener("click", (e) => {
+        if (!container.contains(e.target) && !menu.contains(e.target)) {
+          menu.style.display = "none";
+        }
+      });
+  
+      return container;
+    }
+});
+
+// ---------------- FUNCIÓN PARA ABRIR MENÚ ----------------
+function abrirMenu(menu) {
+    const visible = menu.style.display === "block";
+    document.querySelectorAll(".menu-alertas").forEach(m => m.style.display = "none");
+    menu.style.display = visible ? "none" : "block";
+}
+
+// ---------------- Mostrar alerta ----------------
+function mostrarAlertaMapa(tipo) {
+    const ahora = new Date();
+    const fecha = ahora.toLocaleDateString();
+    const hora = ahora.toLocaleTimeString();
+  
+    const colores = {
+      "Tráfico": "text-danger",
+      "Accidente": "text-warning",
+      "Construcción": "text-primary"
+    };
+  
+    const mensaje = `
+      <div class="text-center">
+        <h5 class="fw-bold mb-2"><i class="fa-solid fa-triangle-exclamation ${colores[tipo]}"></i> ${tipo}</h5>
+        <p class="mb-1">Fecha: ${fecha}</p>
+        <p class="mb-2">Hora: ${hora}</p>
+      </div>
+    `;
+  
+    const centro = map.getCenter();
+    L.popup({ closeButton: true, autoClose: true, className: "popup-alerta" })
+      .setLatLng(centro)
+      .setContent(mensaje)
+      .openOn(map);
+}
+
+// ---------------- Control modo claro / oscuro ----------------
 const modo = L.Control.extend({
     options: { position: "bottomright" },
     onAdd: function () {
-        const container = L.DomUtil.create("div", "leaflet-bar");
-        container.classList.add("rounded-3", "overflow-hidden");
+        const container = L.DomUtil.create("div", "leaflet-bar rounded-3 overflow-hidden");
 
-        const modoBtn = L.DomUtil.create("a", "leaflet-control-modo", container);
-        modoBtn.classList.add("d-flex", "justify-content-center", "align-items-center");
-
+        const modoBtn = L.DomUtil.create("a", "leaflet-control-modo d-flex justify-content-center align-items-center", container);
         modoBtn.innerHTML = '<i class="fa-solid fa-sun fs-6"></i>';
         modoBtn.href = "#";
         modoBtn.title = "Cambiar modo claro/oscuro";
 
         L.DomEvent.on(modoBtn, "click", L.DomEvent.stop).on(modoBtn, "click", () => {
-        document.body.classList.toggle("dark-mode");
-
-        if (document.body.classList.contains("dark-mode")) {
-            // Modo oscuro
-            map.removeLayer(lightTiles);
-            map.addLayer(darkTiles);
-
-            modoBtn.classList.remove("btn-light");
-            modoBtn.classList.add("btn-dark");
-            modoBtn.innerHTML = '<i class="fa-solid fa-moon fs-6"></i>';
-        } else {
-            // Modo claro
-            map.removeLayer(darkTiles);
-            map.addLayer(lightTiles);
-
-            modoBtn.classList.remove("btn-dark");
-            modoBtn.classList.add("btn-light");
-            modoBtn.innerHTML = '<i class="fa-solid fa-sun fs-6"></i>';
-        }
+            document.body.classList.toggle("dark-mode");
+            if (document.body.classList.contains("dark-mode")) {
+                map.removeLayer(lightTiles);
+                map.addLayer(darkTiles);
+                modoBtn.innerHTML = '<i class="fa-solid fa-moon fs-6"></i>';
+            } else {
+                map.removeLayer(darkTiles);
+                map.addLayer(lightTiles);
+                modoBtn.innerHTML = '<i class="fa-solid fa-sun fs-6"></i>';
+            }
         });
 
         return container;
     }
 });
 
-
-// Agregar controles al mapa
+// ---------------- Agregar controles ----------------
 map.removeControl(map.zoomControl);
 map.addControl(new zoomLocateControl());
 map.addControl(new ubicacion());
 map.addControl(new modo());
-
+map.addControl(new alertasControl());
 
 // ---------------- Variables globales ----------------
 let rutasDibujadas = [];
