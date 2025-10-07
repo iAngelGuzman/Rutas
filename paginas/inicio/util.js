@@ -72,6 +72,9 @@ async function cargarAvatarUsuario() {
 
         const avatarImg = document.getElementById('dropdownMenuButton');
         if (avatarImg) avatarImg.src = publicUrlData.publicUrl;
+
+        const avatarImgMovil = document.getElementById('dropdownMenuButtonMovil');
+        if (avatarImgMovil) avatarImgMovil.src = publicUrlData.publicUrl;
     }
 }
 
