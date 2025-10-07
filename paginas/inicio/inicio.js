@@ -459,12 +459,6 @@ function crearBotonRuta(ruta) {
 
     btn.onclick = () => { cargarRuta(ruta); };
 
-    // Boton alerta
-    // Botón de horario
-    const alerta = document.createElement("div");
-    alerta.className = "btn btn-outline-secondary me-2";
-    alerta.innerHTML = '<i class="fa-solid fa-clock"></i>';
-
     // Botón de horario
     const botonHorario = document.createElement("button");
     if (ruta["mujer segura"] === "true") {
@@ -520,7 +514,6 @@ function crearBotonRuta(ruta) {
 
     // Agregar botones al contenedor
     contenedor.appendChild(btn);
-    contenedor.appendChild(alerta);
     contenedor.appendChild(botonHorario);
     contenedor.appendChild(favBtn);
     lista.appendChild(contenedor);
@@ -1127,7 +1120,12 @@ function actualizarSidebar(clave) {
 function mostrarRutas(sidebar) {
     sidebar.innerHTML = `
         <div class="d-flex flex-column p-3 h-100 overflow-auto">
-            <h4 class="fw-bold">Rutas</h4>
+            <div class="d-flex justify-content-start align-items-center gap-2">
+                <button class="close-btn btn btn-outline-secondary bg-transparent border-0 fs-3 p-0 d-flex d-md-none" onclick="abrirMenuMovil()">
+                    <i class="fa-solid fa-circle-arrow-left"></i>
+                </button>
+                <h4 class="fw-bold m-0">Rutas</h4>
+            </div>
             <div id="lista-rutas" class="d-flex flex-column gap-2 mt-3"></div>
         </div>
     `;
@@ -1145,7 +1143,7 @@ function mostrarDetallesRuta(ruta) {
     if (!sidebar) return;
 
     sidebar.innerHTML = `
-        <div class="d-flex flex-column h-100 overflow-auto">
+        <div class="d-flex flex-column h-100 overflow-auto" style="max-width: 20rem;">
             <div class="d-grid bg-dark" style="width: 20rem; height: 12rem;">
                 <img src="${ruta.archivos.imagen}" alt="Logo" class="img-fluid" style="width: 20rem; height: 12rem; object-fit: cover; grid-area: 1 / 1; filter: blur(2px) brightness(0.5);">
                 <img src="${ruta.archivos.imagen}" alt="Logo" class="img-fluid" style="width: 20rem; height: 12rem; object-fit: contain; grid-area: 1 / 1; z-index: 1;">
@@ -1153,7 +1151,15 @@ function mostrarDetallesRuta(ruta) {
                     <i class="fa-solid fa-xmark" style="text-shadow: 0 0 10px black; font-size: 1.6rem;"></i>
                 </button>
             </div>
-            <div id="detalles-ruta" class="d-flex flex-column gap-2 mt-3"></div>
+            <div id="detalles-ruta" class="d-flex flex-column gap-2 p-3">
+                <h5 class="fw-bold">${ruta.nombre}</h5>
+                <hr />
+                <h6 class="fw-bold mb-1"><i class="fa-solid fa-clock me-2"></i> Horario:</h6>
+                <div>
+                    <p class="mb-1"><strong>Lunes a Viernes:</strong> ${ruta.horario.lunes}</p>
+                    <p class="mb-1"><strong>Sábado y Domingo:</strong> ${ruta.horario.sabado}</p>
+                </div>
+            </div>
         </div>
     `;
 
@@ -1162,8 +1168,13 @@ function mostrarDetallesRuta(ruta) {
 
 function mostrarFavoritos(sidebar) {
     sidebar.innerHTML = `
-        <div class="mt-3 d-flex flex-column p-3" id="lista-favoritos">
-            <h5 class="fw-bold">Rutas Favoritas</h5>
+        <div class="d-flex flex-column p-3" id="lista-favoritos">
+            <div class="d-flex justify-content-start align-items-center gap-2">
+                <button class="close-btn btn btn-outline-secondary bg-transparent border-0 fs-3 p-0 d-flex d-md-none" onclick="abrirMenuMovil()">
+                    <i class="fa-solid fa-circle-arrow-left"></i>
+                </button>
+                <h4 class="fw-bold m-0">Rutas Favoritas</h4>
+            </div>
             <div id="favoritos" class="d-flex flex-column gap-2 mt-2"></div>
             <button class="btn btn-warning mt-2" onclick="limpiarDestino()">
                 <i class="fa-solid fa-flag"></i> Limpiar destino
@@ -1516,5 +1527,26 @@ function configurarItemsMenu() {
             item.classList.add('active');
         });
     });
-    // items[0].classList.add('active'); // Activar el primer ítem por defecto
+    const itemsMovil = document.querySelectorAll('.menu-item-movil');
+    itemsMovil.forEach(item => {
+        item.addEventListener('click', () => {
+            itemsMovil.forEach(i => i.classList.remove('active'));
+            item.classList.add('active');
+            cerrarMenuMovil();
+        });
+    });
+    items[0].classList.add('active');
+    itemsMovil[0].classList.add('active');
+}
+
+function abrirMenuMovil() {
+    cerrarDetallesRuta();
+
+    const contenedor = document.getElementById("contenedor-movil");
+    contenedor.classList.add("active");
+}
+
+function cerrarMenuMovil() {
+    const contenedor = document.getElementById("contenedor-movil");
+    contenedor.classList.remove("active");
 }
