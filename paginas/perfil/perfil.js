@@ -18,9 +18,10 @@ document.addEventListener('DOMContentLoaded', async function() {
     
     document.getElementById('formPerfil').addEventListener('submit', guardarPerfil);
     document.getElementById('volverBtn').addEventListener('click', volverAlMapa);
-    document.getElementById('cerrarSesionBtn').addEventListener('click', cerrarSesion);
     document.getElementById('fileInput').addEventListener('change', subirImagen);
+    document.getElementById('cerrarSesionBtn').addEventListener('click', cerrarSesion);
 });
+
 
 async function cargarDatosUsuario(user) {
     try {
