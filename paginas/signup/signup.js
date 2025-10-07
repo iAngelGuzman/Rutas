@@ -10,96 +10,80 @@ async function registrarUsuario(email, password, username) {
     email,
     password,
     options: {
-        data: {
-            username: username
-        }
+      data: {
+        username: username // El trigger usará este dato para el perfil
+      }
     }
   });
-  
-  // Si no hay error en el registro, crea el perfil
-  if (!error && data.user) {
-      const { error: profileError } = await supabase
-          .from('perfiles')
-          .insert([{ id: data.user.id, username: username, email: email }]);
-      
-      if (profileError) {
-          // Devuelve el error del perfil si falla la inserción
-          return { data: null, error: profileError };
-      }
-  }
 
   return { data, error };
 }
 
+// ✅ SE HA AÑADIDO ESTE CONTENEDOR PARA ESPERAR A QUE CARGUE EL HTML
 document.addEventListener("DOMContentLoaded", () => {
-  const form = document.querySelector("form");
-  const usernameInput = document.getElementById("usernameInput"); // Asumiendo que tienes un input para el nombre
-  const emailInput = document.getElementById("emailInput");
-  const passwordInput = document.getElementById("passwordInput");
-  const confirmInput = document.getElementById("confirmPasswordInput");
-  const toggleButtons = document.querySelectorAll(".toggle-password");
+    const form = document.querySelector("form");
+    const usernameInput = document.getElementById("usernameInput");
+    const emailInput = document.getElementById("emailInput");
+    const passwordInput = document.getElementById("passwordInput");
+    const confirmInput = document.getElementById("confirmPasswordInput");
+    const toggleButtons = document.querySelectorAll(".toggle-password");
 
-  // Función para alternar la visibilidad de la contraseña
-  function togglePassword(e) {
-      const targetInput = e.currentTarget.previousElementSibling;
-      const type = targetInput.type === "password" ? "text" : "password";
-      targetInput.type = type;
-      e.currentTarget.querySelector('i').className = type === "password" ? "fa-solid fa-eye" : "fa-solid fa-eye-slash";
-  }
-
-  toggleButtons.forEach(button => {
-      button.addEventListener('click', togglePassword);
-  });
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const username = usernameInput.value.trim();
-    const email = emailInput.value.trim();
-    const password = passwordInput.value.trim();
-    const confirm = confirmInput.value.trim();
-
-    if (!username || !email || !password || !confirm) {
-        // 💡 ALERTA DE VALIDACIÓN
-        Swal.fire({
-            icon: 'warning',
-            title: 'Campos incompletos',
-            text: 'Por favor, llena todos los campos.',
-        });
-        return;
+    // Función para alternar la visibilidad de la contraseña
+    function togglePassword(e) {
+        const targetInput = e.currentTarget.previousElementSibling;
+        const type = targetInput.type === "password" ? "text" : "password";
+        targetInput.type = type;
+        e.currentTarget.querySelector('i').className = type === "password" ? "fa-solid fa-eye" : "fa-solid fa-eye-slash";
     }
 
-    if (password !== confirm) {
-        // 💡 ALERTA DE VALIDACIÓN
-        Swal.fire({
-            icon: 'error',
-            title: 'Contraseñas no coinciden',
-            text: 'Asegúrate de que ambas contraseñas sean iguales.',
-        });
-        return;
-    }
+    toggleButtons.forEach(button => {
+        button.addEventListener('click', togglePassword);
+    });
 
-    // Registrar usuario en Supabase
-    const { data, error } = await registrarUsuario(email, password, username);
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-    if (error) {
-        // 💡 ALERTA DE ERROR DE SUPABASE
-        Swal.fire({
-            icon: 'error',
-            title: 'Error en el registro',
-            text: error.message,
-        });
-    } else {
-        // ✅ ALERTA DE ÉXITO
-        Swal.fire({
-            icon: 'success',
-            title: '¡Registro Exitoso!',
-            text: 'Revisa tu bandeja de entrada para confirmar tu correo electrónico.',
-        }).then(() => {
-            // Redirige al login después de que el usuario cierre la alerta
-            window.location.href = '/paginas/login/login.html';
-        });
-        form.reset(); // Limpiar formulario
-    }
-  });
+        // Esta línea ya no fallará si el HTML tiene el ID correcto
+        const username = usernameInput.value.trim();
+        const email = emailInput.value.trim();
+        const password = passwordInput.value.trim();
+        const confirm = confirmInput.value.trim();
+
+        if (!username || !email || !password || !confirm) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Campos incompletos',
+                text: 'Por favor, llena todos los campos.',
+            });
+            return;
+        }
+
+        if (password !== confirm) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Contraseñas no coinciden',
+                text: 'Asegúrate de que ambas contraseñas sean iguales.',
+            });
+            return;
+        }
+
+        const { data, error } = await registrarUsuario(email, password, username);
+
+        if (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error en el registro',
+                text: error.message,
+            });
+        } else {
+            Swal.fire({
+                icon: 'success',
+                title: '¡Registro Exitoso!',
+                text: 'Revisa tu bandeja de entrada para confirmar tu correo electrónico.',
+            }).then(() => {
+                window.location.href = '/paginas/login/login.html';
+            });
+            form.reset();
+        }
+    });
 });
