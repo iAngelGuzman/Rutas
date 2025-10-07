@@ -73,6 +73,10 @@
     {
       "nombre": "Mercado / Pipila / Jardines / Carolino Anaya",
       "color": "#FF6600",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/006/imagen/bus.jpg",
         "ruta": "/rutas/006/route/route.geojson",
@@ -82,6 +86,10 @@
     {
       "nombre": "Buena vista / Sauces / Berros / Caxa / Trancas / Pradera / Central abastos",
       "color": "#FF7700",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },      
       "archivos": {
         "imagen": "/rutas/007/imagen/bus.jpg",
         "ruta": "/rutas/007/route/route.geojson",
@@ -91,6 +99,10 @@
     {
       "nombre": "20 de noviembre / Economia / Avenida Xalapa / Clavijero / Reserva Territorial",
       "color": "#FF8800",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/008/imagen/bus.jpg",
         "ida": "/rutas/008/ida/route/route.geojson",
@@ -102,6 +114,10 @@
     {
       "nombre": "Sayago / Clavijero / Calle Nuevo Leon / Villa Hermosa / Sumidero",
       "color": "#FF9900",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/009/imagen/bus.jpg",
         "ida": "/rutas/009/ida/route/route.geojson",
@@ -113,6 +129,10 @@
     {
       "nombre": "Sayago / Av. Xalapa / Hernandez Castillo / campo de tiro",
       "color": "#FFAA00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/010/imagen/bus.jpg",
         "ida": "/rutas/010/ida/route/route.geojson",
@@ -124,6 +144,10 @@
     {
       "nombre": "Chedrahui Caram / Ejidal",
       "color": "#FFBB00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/011/imagen/bus.jpg",
         "ruta": "/rutas/011/route/route.geojson",
@@ -133,6 +157,10 @@
     {
       "nombre": "USISVER / Miguel Aleman / Martires 28 de Agosto",
       "color": "#FFCC00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/012/imagen/bus.jpg",
         "ida": "/rutas/012/ida/route/route.geojson",
@@ -144,6 +172,10 @@
     {
       "nombre": "Ruta Macuiltepetl / Miguel Aleman / Cerro de Macuiltepetl / Centro",
       "color": "#FFDD00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/013/imagen/bus.jpg",
         "ruta": "/rutas/013/route/route.geojson",
@@ -153,6 +185,10 @@
     {
       "nombre": "Calvario / Panteon / Tecnica 72",
       "color": "#FFEE00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/014/imagen/bus.jpg",
         "ruta": "/rutas/014/route/route.geojson",
@@ -162,6 +198,10 @@
     {
       "nombre": "CAXA / Plaza Americas / Torre Animas /Sev / Coapexpan-Terminal",
       "color": "#FFFF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/015/imagen/bus.jpg",
         "ruta": "/rutas/015/route/route.geojson",
@@ -171,6 +211,10 @@
     {
       "nombre": "El Olmo / Torre Animas / M. Vidal / Coapexpan",
       "color": "#EEFF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/016/imagen/bus.jpg",
         "ruta": "/rutas/016/route/route.geojson",
@@ -180,6 +224,10 @@
     {
       "nombre": "El Haya / Zona UV / Bugambilia",
       "color": "#DDFF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/017/imagen/bus.jpg",
         "ida": "/rutas/017/ida/route/route.geojson",
@@ -191,6 +239,10 @@
     {
       "nombre": "El Haya / Centro / Ojo de Agua",
       "color": "#CCFF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/018/imagen/bus.jpg",
         "ida": "/rutas/018/ida/route/route.geojson",
@@ -202,6 +254,10 @@
     {
       "nombre": "Col. Veracruz / 20 de Noviembre / Central de Abastos",
       "color": "#BBFF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/019/imagen/bus.jpg",
         "ida": "/rutas/019/ida/route/route.geojson",
@@ -213,6 +269,10 @@
     {
       "nombre": "Artculo 3ro / Avila Camacho/ Haciendas / Centro",
       "color": "#AAFF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/020/imagen/bus.jpg",
         "ida": "/rutas/020/ida/route/route.geojson",
@@ -224,6 +284,10 @@
     {
       "nombre": "Marina Nacional / Pipila /Santa Rosa 1ra Parte",
       "color": "#99FF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/021/imagen/bus.jpg",
         "ida": "/rutas/021/ida/route/route.geojson",
@@ -235,6 +299,10 @@
     {
       "nombre": "San Andres Tlalnehuayocan / Luz del Barrio / Central de Abastos",
       "color": "#88FF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/022/imagen/bus.jpg",
         "ruta": "/rutas/022/route/route.geojson",
@@ -244,6 +312,10 @@
     {
       "nombre": "San Andres Tlalnehuayocan / Luz del Barrio / Clavijero / Zipor",
       "color": "#77FF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/023/imagen/bus.jpg",
         "ida": "/rutas/023/ida/route/route.geojson",
@@ -255,6 +327,10 @@
     {
       "nombre": "La haciendita / Caxa / Central de Abastos",
       "color": "#66FF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/024/imagen/bus.jpg",
         "ida": "/rutas/024/ida/route/route.geojson",
@@ -266,6 +342,10 @@
     {
       "nombre": "Experimental / Cristal / Central de Abastos",
       "color": "#55FF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/025/imagen/bus.jpg",
         "ida": "/rutas/025/ida/route/route.geojson",
@@ -277,6 +357,10 @@
     {
       "nombre": "Central de Abastos-Caxa-La Haciendita",
       "color": "#44FF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/026/imagen/bus.jpg",
         "ida": "/rutas/026/ida/route/route.geojson",
@@ -288,6 +372,10 @@
     {
       "nombre": "Central de Abastos / Plaza Cristal / Experimental",
       "color": "#33FF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/027/imagen/bus.jpg",
         "ida": "/rutas/027/ida/route/route.geojson",
@@ -299,6 +387,10 @@
     {
       "nombre": "Homex / Vasconcelos / Av. Xalapa / Centro",
       "color": "#22FF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/028/imagen/bus.jpg",
         "ida": "/rutas/028/ida/route/route.geojson",
@@ -310,6 +402,10 @@
     {
       "nombre": "Centro / Av. Xalapa / Lucas Martín / Col. México",
       "color": "#11FF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/029/imagen/bus.jpg",
         "ida": "/rutas/029/ida/route/route.geojson",
@@ -321,6 +417,10 @@
     {
       "nombre": "Clavijero / Revolucion / Campo de Tiro",
       "color": "#00FF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/030/imagen/bus.jpg",
         "ida": "/rutas/030/ida/route/route.geojson",
@@ -332,6 +432,10 @@
     {
       "nombre": "El Moral / Revolucion / Clavijero",
       "color": "#00FF11",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/031/imagen/bus.jpg",
         "ida": "/rutas/031/ida/route/route.geojson",
@@ -343,6 +447,10 @@
     {
       "nombre": "Col Higueras / Lazaro Cardenas / Centro / Zona UV",
       "color": "#00FF22",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/032/imagen/bus.jpg",
         "ida": "/rutas/032/ida/route/route.geojson",
@@ -354,6 +462,10 @@
     {
       "nombre": "Sefiplan / Lazaro Cardenas / Cto.Presidentes / Ruiz Cortinez",
       "color": "#00FF33",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/033/imagen/bus.jpg",
         "ruta": "/rutas/033/route/route.geojson",
@@ -363,6 +475,10 @@
     {
       "nombre": "Sumidero / Mercado / Reforma",
       "color": "#00FF44",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/034/imagen/bus.jpg",
         "ida": "/rutas/034/ida/route/route.geojson",
@@ -374,6 +490,10 @@
     {
       "nombre": "Campo de tiro / Av xalapa / Av Mexico / Francisco Javier Clavijero",
       "color": "#00FF55",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/035/imagen/bus.jpg",
         "ida": "/rutas/035/ida/route/route.geojson",
@@ -385,6 +505,10 @@
     {
       "nombre": "Bugambilias / Lázaro Cárdenas / Avila Camacho / Sauces",
       "color": "#00FF66",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/036/imagen/bus.jpg",
         "ida": "/rutas/036/ida/route/route.geojson",
@@ -396,6 +520,10 @@
     {
       "nombre": "Col. Revolucion / Av. Xalapa / Sayago",
       "color": "#00FF77",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/037/imagen/bus.jpg",
         "ida": "/rutas/037/ida/route/route.geojson",
@@ -407,6 +535,10 @@
     {
       "nombre": "Col. Higueras / Av. Américas / Av. Xalapa",
       "color": "#00FF88",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/038/imagen/bus.jpg",
         "ida": "/rutas/038/ida/route/route.geojson",
@@ -418,6 +550,10 @@
     {
       "nombre": "San Andres / Av. Lazaro Cardenas / Trancas",
       "color": "#00FF99",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/039/imagen/bus.jpg",
         "ida": "/rutas/039/ida/route/route.geojson",
@@ -429,6 +565,10 @@
     {
       "nombre": "Col. Marina Nacional / Av. 20 de Noviembre / Poeta Jesus Diaz",
       "color": "#00FFAA",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/040/imagen/bus.jpg",
         "ida": "/rutas/040/ida/route/route.geojson",
@@ -440,6 +580,10 @@
     {
       "nombre": "Trancas / 20 de Nov. / Arteaga",
       "color": "#00FFBB",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/041/imagen/bus.jpg",
         "ida": "/rutas/041/ida/route/route.geojson",
@@ -451,6 +595,10 @@
     {
       "nombre": "Trancas / Lázaro Cárdenas / 20 de Noviembre / Plaza Crystal / Jardines de Xalapa / Sumidero / Campo de Tiro",
       "color": "#00FFCC",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/042/imagen/bus.jpg",
         "ida": "/rutas/042/ida/route/route.geojson",
@@ -462,6 +610,10 @@
     {
       "nombre": "San Andres / M. 28 de Agosto / Mercado",
       "color": "#00FFDD",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/043/imagen/bus.jpg",
         "ida": "/rutas/043/ida/route/route.geojson",
@@ -473,6 +625,10 @@
     {
       "nombre": "Zona Centro / Los Berros / Rebsamen / Xalapa 2000 / Lomas Verdes / Arco Sur / Tecnológico",
       "color": "#00FFEE",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/044/imagen/bus.jpg",
         "ida": "/rutas/044/ida/route/route.geojson",
@@ -484,6 +640,10 @@
     {
       "nombre": "Av. Americas / Pipila / Lazaro Cardenas / Murillo Vidal / Berros / Rebsamen / Tecnológico",
       "color": "#00FFFF",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/045/imagen/bus.jpg",
         "ruta": "/rutas/045/route/route.geojson",
@@ -493,6 +653,10 @@
     {
       "nombre": "Plaza Crystal / Diamante / Ruiz Cortinez",
       "color": "#00EEFF",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/046/imagen/bus.jpg",
         "ruta": "/rutas/046/route/route.geojson",
@@ -502,6 +666,10 @@
     {
       "nombre": "Luz Del Barrio / Diamante / Primero de Mayo",
       "color": "#00DDFF",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/047/imagen/bus.jpg",
         "ruta": "/rutas/047/route/route.geojson",
@@ -511,6 +679,10 @@
     {
       "nombre": "Coatepec / Porthos / Xalapa / Rotonda",
       "color": "#00CCFF",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/048/imagen/bus.jpg",
         "ruta": "/rutas/048/route/route.geojson",
@@ -520,6 +692,10 @@
     {
       "nombre": "Xalapa / Encinos",
       "color": "#00BBFF",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/049/imagen/bus.jpg",
         "ruta": "/rutas/049/route/route.geojson",
@@ -529,6 +705,10 @@
     {
       "nombre": "Mercado / centro / cristal / peñascal / sumidero / campo de tiro",
       "color": "#00AAFF",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/050/imagen/bus.jpg",
         "ruta": "/rutas/050/route/route.geojson",
@@ -538,6 +718,10 @@
     {
       "nombre": "Artculo 3ro / Lazaro Cardenas / Praderas",
       "color": "#0099FF",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/051/imagen/bus.jpg",
         "ruta": "/rutas/051/route/route.geojson",
@@ -547,6 +731,10 @@
     {
       "nombre": "Centro /Clavijero",
       "color": "#0044FF",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/056/imagen/bus.jpg",
         "ruta": "/rutas/056/route/route.geojson",
@@ -556,6 +744,10 @@
     {
       "nombre": "Calvario / Panteon / Tecnica 72",
       "color": "#0033FF",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/057/imagen/bus.jpg",
         "ruta": "/rutas/057/route/route.geojson",
@@ -565,6 +757,10 @@
     {
       "nombre": "Poeta Jesus Dias / Sumidero",
       "color": "#0022FF",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/058/imagen/bus.jpg",
         "ruta": "/rutas/058/route/route.geojson",
@@ -574,6 +770,10 @@
     {
       "nombre": "Casa Blanca / Pipila / Clavijero",
       "color": "#0011FF",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/059/imagen/bus.jpg",
         "ruta": "/rutas/059/route/route.geojson",
@@ -583,6 +783,10 @@
     {
       "nombre": "Sumidero / Manzano / Pipila",
       "color": "#0000FF",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/060/imagen/bus.jpg",
         "ruta": "/rutas/060/route/route.geojson",
@@ -592,6 +796,10 @@
     {
       "nombre": "Sumidero / Pipila / 20 de Noviembre / Lucio / Zaragoza",
       "color": "#1100FF",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/061/imagen/bus.jpg",
         "ruta": "/rutas/061/route/route.geojson",
@@ -601,6 +809,10 @@
     {
       "nombre": "Sumidero / Jardines",
       "color": "#2200FF",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/062/imagen/bus.jpg",
         "ruta": "/rutas/062/route/route.geojson"
@@ -609,6 +821,10 @@
     {
       "nombre": "Sumidero / Centro / Plaza Crystal / Calvario",
       "color": "#3300FF",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/063/imagen/bus.jpg",
         "ruta": "/rutas/063/route/route.geojson"
@@ -617,6 +833,10 @@
     {
       "nombre": "Ruta 2 / Mercado / Martires 28 de agosto / San Antonio",
       "color": "#4400FF",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/064/imagen/bus.jpg",
         "ruta": "/rutas/064/route/route.geojson",
@@ -626,6 +846,10 @@
     {
       "nombre": "Martires 28 de Agosto / San Antonio / Sayago / Mercado",
       "color": "#5500FF",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/065/imagen/bus.jpg",
         "ruta": "/rutas/065/route/route.geojson",
@@ -635,6 +859,10 @@
     {
       "nombre": "Xocotla / Otilpan / Sayago / Revolucion / Centro",
       "color": "#6600FF",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/066/imagen/bus.jpg",
         "ruta": "/rutas/066/route/route.geojson"
@@ -643,6 +871,10 @@
     {
       "nombre": "Avila Camacho / Ignacio de la Llave / Sauces / Zona UV",
       "color": "#7700FF",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/067/imagen/bus.jpg",
         "ruta": "/rutas/067/route/route.geojson",
@@ -652,6 +884,10 @@
     {
       "nombre": "Avenida Xalapa / Finanzas / Ruiz Cortinez / Zona UV",
       "color": "#8800FF",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/068/imagen/bus.jpg",
         "ida": "/rutas/068/routes/ida/route.geojson",
@@ -663,6 +899,10 @@
     {
       "nombre": "Coapexpan / Araucarias / Torreanimas / Caxa / Enriquez / Sauces",
       "color": "#9900FF",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/069/imagen/bus.jpg",
         "ruta": "/rutas/069/route/route.geojson",
@@ -672,6 +912,10 @@
     {
       "nombre": "Coapexpan / Ignacio de la Llave / Enriquez / Sauces",
       "color": "#AA00FF",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/070/imagen/bus.jpg",
         "ruta": "/rutas/070/route/route.geojson",
@@ -681,6 +925,10 @@
     {
       "nombre": "Miguel Aleaman / Justino Sarmiento / Revolucion ",
       "color": "#BB00FF",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/071/imagen/bus.jpg",
         "ruta": "/rutas/071/route/route.geojson",
@@ -690,6 +938,10 @@
     {
       "nombre": "Lazaro Cardenas / Pipila / Americas / Avila Camacho / Zona UV / Rebsamen / Bugambilias",
       "color": "#CC00FF",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/072/imagen/bus.jpg",
         "ruta": "/rutas/072/route/route.geojson",
@@ -699,6 +951,10 @@
     {
       "nombre": "Estacion / Zona UV",
       "color": "#DD00FF",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/073/imagen/bus.jpg",
         "ruta": "/rutas/073/route/route.geojson",
@@ -708,6 +964,10 @@
     {
       "nombre": "Jardines / Estación / Centro",
       "color": "#EE00FF",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/074/imagen/bus.jpg",
         "ruta": "/rutas/074/route/route.geojson",
@@ -717,6 +977,10 @@
     {
       "nombre": "Centro / Central de Abastos",
       "color": "#FF00FF",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/075/imagen/bus.jpg",
         "ruta": "/rutas/075/route/route.geojson"
@@ -725,6 +989,10 @@
     {
       "nombre": "Buena Vista / Central de Abasto",
       "color": "#FF00EE",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/076/imagen/bus.jpg",
         "ruta": "/rutas/076/route/route.geojson"
@@ -733,6 +1001,10 @@
     {
       "nombre": "Coapexpan / M. Vidal / Torre Animas / Araucarias",
       "color": "#FF00DD",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/077/imagen/bus.jpg",
         "ruta": "/rutas/077/route/route.geojson",
@@ -742,6 +1014,10 @@
     {
       "nombre": "FOVISSTE / Calvario / IMSS",
       "color": "#FF00CC",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/078/imagen/bus.jpg",
         "ruta": "/rutas/078/route/route.geojson",
@@ -751,6 +1027,10 @@
     {
       "nombre": "FOVISSTE / Calvario",
       "color": "#FF00BB",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/079/imagen/bus.jpg",
         "ruta": "/rutas/079/route/route.geojson",
@@ -760,6 +1040,10 @@
     {
       "nombre": "Ruiz Cortines / FOVISSTE / Lázaro Cárdenas",
       "color": "#FF00AA",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/080/imagen/bus.jpg",
         "ruta": "/rutas/080/route/route.geojson",
@@ -769,6 +1053,10 @@
     {
       "nombre": "Ruiz Cortinez / Zona UV",
       "color": "#FF0099",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/081/imagen/bus.jpg",
         "ruta": "/rutas/081/route/route.geojson",
@@ -778,6 +1066,10 @@
     {
       "nombre": "Ruta 7 / Circuito Lomas Verdes / Medicina",
       "color": "#FF0088",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/082/imagen/bus.jpg",
         "ruta": "/rutas/082/route/route.geojson"
@@ -786,6 +1078,10 @@
     {
       "nombre": "Ruta 7 Estación / Villa Hermosa / Ruiz Cortinez / Sauces",
       "color": "#FF0077",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/083/imagen/bus.jpg",
         "ruta": "/rutas/083/route/route.geojson"
@@ -794,6 +1090,10 @@
     {
       "nombre": "Escuela Normal / Juarez / Centro / Berros / Rebsamen / Ojo de agua",
       "color": "#FF0066",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/084/imagen/bus.jpg",
         "ruta": "/rutas/084/route/route.geojson"
@@ -802,6 +1102,10 @@
     {
       "nombre": "Bugambilias / Trancas / Lázaro Cárdenas / SEFIPLAN / Av. Xalapa / Ignacio de la Llave / IMSS / Carranza / Zona UV / Rebsamen / Xalapa 2000 / Arco Sur",
       "color": "#FF0055",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/085/imagen/bus.jpg",
         "ruta": "/rutas/085/route/route.geojson"
@@ -810,6 +1114,10 @@
     {
       "nombre": "Articulo 3ro / Ruiz Cortinez / SEFIPLAN / Lázaro Cárdenas / Chedraui Caram / Plaza Americas / Trancas / Arco Sur / Tecnologico",
       "color": "#FF0044",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/086/imagen/bus.jpg",
         "ruta": "/rutas/086/route/route.geojson"
@@ -818,6 +1126,10 @@
     {
       "nombre": "Ruta Torres / Centro",
       "color": "#FF0033",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/087/imagen/bus.jpg",
         "ruta": "/rutas/087/route/route.geojson"
@@ -826,6 +1138,10 @@
     {
       "nombre": "Xocotla / Martires 28 de Agosto / Sayago",
       "color": "#FF0022",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/088/imagen/bus.jpg",
         "ruta": "/rutas/088/route/route.geojson"
@@ -834,6 +1150,10 @@
     {
       "nombre": "Buena Vista / Central de Abasto",
       "color": "#FF0011",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/089/imagen/bus.jpg",
         "ruta": "/rutas/089/route/route.geojson"
@@ -842,6 +1162,10 @@
     {
       "nombre": "PASTORESA / MURILLO VIDAL / CENTRO",
       "color": "#FF0000",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/090/imagen/bus.jpg",
         "ruta": "/rutas/090/route/route.geojson"
@@ -850,6 +1174,10 @@
     {
       "nombre": "Sauces - Ojo de agua",
       "color": "#FF1100",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/091/imagen/bus.jpg",
         "ruta": "/rutas/091/route/route.geojson"
@@ -858,6 +1186,10 @@
     {
       "nombre": "Campo De Tiro / CRYSTAL / MercadO",
       "color": "#FF2200",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/092/imagen/bus.jpg",
         "ruta": "/rutas/092/route/route.geojson"
@@ -866,6 +1198,10 @@
     {
       "nombre": "Estación / Calvario",
       "color": "#FF3300",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/093/imagen/bus.jpg",
         "ruta": "/rutas/093/route/route.geojson"
@@ -874,6 +1210,10 @@
     {
       "nombre": "Arco Sur / Rebsamen / Tecnológico / Trancas / Lázaro Cárdenas / Pipila / Américas / Avila Camacho / Ignacio de la llave",
       "color": "#FF4400",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/094/imagen/bus.jpg",
         "ruta": "/rutas/094/route/route.geojson"
@@ -882,6 +1222,10 @@
     {
       "nombre": "Circuito Presidentes / Lomas Verdes / Medicina",
       "color": "#FF5500",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/095/imagen/bus.jpg",
         "ruta": "/rutas/095/route/route.geojson"
@@ -890,6 +1234,10 @@
     {
       "nombre": "Ruta 8 / Estacion / Terminal Bolivia",
       "color": "#FF6600",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/096/imagen/bus.png",
         "ruta": "/rutas/096/route/route.geojson"
@@ -898,6 +1246,10 @@
     {
       "nombre": "Estación / Ignacio de la llave",
       "color": "#FF7700",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/097/imagen/bus.jpg",
         "ruta": "/rutas/097/route/route.geojson"
@@ -906,6 +1258,10 @@
     {
       "nombre": "Ruta 11 / Calvario Terminal",
       "color": "#FF8800",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/098/imagen/bus.jpg",
         "ruta": "/rutas/098/route/route.geojson"
@@ -914,6 +1270,10 @@
     {
       "nombre": "Articulo 3ro / Zona UV / Berros / 20 de Noviembre / Av. Xalapa / Avila Camacho / Ruiz Cortinez",
       "color": "#FF9900",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/099/imagen/bus.jpg",
         "ruta": "/rutas/099/route/route.geojson"
@@ -922,6 +1282,10 @@
     {
       "nombre": "Lazaro Cardenas / Ruiz Cortinez",
       "color": "#FFAA00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/100/imagen/bus.jpg",
         "ruta": "/rutas/100/route/route.geojson"
@@ -930,6 +1294,10 @@
     {
       "nombre": "Sefiplan / Lazaro Cardenas",
       "color": "#FFBB00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/101/imagen/bus.jpg",
         "ruta": "/rutas/101/route/route.geojson"
@@ -938,6 +1306,10 @@
     {
       "nombre": " Sefiplan - Avila Camacho",
       "color": "#FFCC00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/102/imagen/bus.jpg",
         "ruta": "/rutas/102/route/route.geojson"
@@ -946,6 +1318,10 @@
     {
       "nombre": "Ruta 16 / Tecnica 72 / Circunvalacion",
       "color": "#FFDD00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/103/imagen/bus.jpg",
         "ruta": "/rutas/103/route/route.geojson"
@@ -954,6 +1330,10 @@
     {
       "nombre": "Coapexpan / Tecnica 72 / Sauces",
       "color": "#FFEE00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/104/imagen/bus.jpg",
         "ruta": "/rutas/104/route/route.geojson"
@@ -962,6 +1342,10 @@
     {
       "nombre": "Tecnica 72 / Aguascalientes",
       "color": "#FFFF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/105/imagen/bus.jpg",
         "ruta": "/rutas/105/route/route.geojson"
@@ -970,6 +1354,10 @@
     {
       "nombre": "Fovisste / Lerdo de Tejada",
       "color": "#EEFF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/106/imagen/bus.jpg",
         "ruta": "/rutas/106/route/route.geojson"
@@ -978,6 +1366,10 @@
     {
       "nombre": "Fovissste / IMSS",
       "color": "#DDFF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/107/imagen/bus.jpg",
         "ruta": "/rutas/107/route/route.geojson"
@@ -986,6 +1378,10 @@
     {
       "nombre": " Fovisste / San Bruno / Trancas",
       "color": "#CCFF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/108/imagen/bus.jpg",
         "ruta": "/rutas/108/route/route.geojson"
@@ -994,6 +1390,10 @@
     {
       "nombre": "Martires 28 de Agosto / San Antonio / Sayago / Mercado / 20 de Noviembre / Lazaro Cardenas / Trancas",
       "color": "#BBFF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/109/imagen/bus.jpg",
         "ruta": "/rutas/109/route/route.geojson"
@@ -1002,6 +1402,10 @@
     {
       "nombre": "Luz del Barrio / Diamante / Plaza Crystal",
       "color": "#AAFF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/110/imagen/bus.jpg",
         "ruta": "/rutas/110/route/route.geojson"
@@ -1010,6 +1414,10 @@
     {
       "nombre": "Rancho Viejo / Xalapa",
       "color": "#99FF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/111/imagen/bus.jpg",
         "ruta": "/rutas/111/route/route.geojson"
@@ -1018,6 +1426,10 @@
     {
       "nombre": "Mercado / Poeta / 20 de Noviembre / Sumidero",
       "color": "#88FF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/112/imagen/bus.jpg",
         "ruta": "/rutas/112/route/route.geojson"
@@ -1026,6 +1438,10 @@
     {
       "nombre": " Carolino Anaya / IMSS",
       "color": "#77FF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/113/imagen/bus.jpg",
         "ruta": "/rutas/113/route/route.geojson"
@@ -1034,6 +1450,10 @@
     {
       "nombre": "Santa Rosa / Estacion",
       "color": "#66FF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/114/imagen/bus.jpg",
         "ruta": "/rutas/114/route/route.geojson"
@@ -1042,6 +1462,10 @@
     {
       "nombre": "Martires de Chicago / Mercado",
       "color": "#55FF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/115/imagen/bus.jpg",
         "ruta": "/rutas/115/route/route.geojson"
@@ -1050,6 +1474,10 @@
     {
       "nombre": "CAXA / Plaza Americas / Torre Animas /Sev / Arroyo Blanco / Coapexpan-Terminal",
       "color": "#44FF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/116/imagen/bus.jpg",
         "ruta": "/rutas/116/route/route.geojson"
@@ -1058,6 +1486,10 @@
     {
       "nombre": " Calle Porvenir / Arroyo Blanco / Coapexpan-Terminal / Araucarias / Torre Animas / Caxa / Enriquez / Sauces",
       "color": "#33FF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/117/imagen/bus.jpg",
         "ruta": "/rutas/117/route/route.geojson"
@@ -1066,6 +1498,10 @@
     {
       "nombre": "Plaza Americas / Torre Animas /Sev / Enriquez / San Jose/ Sauces / Coapexpan / ",
       "color": "#22FF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/118/imagen/bus.jpg",
         "ruta": "/rutas/118/route/route.geojson"
@@ -1074,6 +1510,10 @@
     {
       "nombre": "Higueras / Mercado",
       "color": "#11FF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/119/imagen/bus.jpg",
         "ruta": "/rutas/119/route/route.geojson"
@@ -1082,6 +1522,10 @@
     {
       "nombre": "Circuito Presidentes / Rebsamen /  Xalapa 2000 - Arco Sur / Trancas / Lazaro Cardenas / Ruiz Cortinez / Sauces / Velodromo",
       "color": "#00FF00",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
       "archivos": {
         "imagen": "/rutas/120/imagen/bus.jpg",
         "ruta": "/rutas/120/route/route.geojson"
