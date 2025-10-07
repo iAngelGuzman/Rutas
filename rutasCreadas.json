@@ -1,0 +1,31 @@
+{
+  "rutas": [
+    {
+      "nombre": "Ruta Mujer Segura",
+      "color": "#683475",
+      "mujer segura": "true",
+      "horario": {
+        "lunes": "6:00am - 10:00pm",
+        "domingo": "8:00am - 8:00pm"
+      },
+      "archivos": {
+        "imagen": "/rutas/mujersegura/imagen/segura.jpeg",
+        "ruta": "/rutas/001/route/route.geojson",
+        "paradas": "/rutas/001/stops/route.geojson"
+      }
+    },
+    {
+      "nombre": "test",
+      "color": "#ff0000",
+      "mujer segura": "false",
+      "horario": {
+        "general": ""
+      },
+      "archivos": {
+        "imagen": "/rutasCreadas/test/imagen/segura.jpeg",
+        "ruta": "/rutasCreadas/test/route/route.geojson",
+        "paradas": "/rutasCreadas/test/stops/stops.geojson"
+      }
+    }
+  ]
+}

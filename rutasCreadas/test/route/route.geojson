@@ -1,0 +1,476 @@
+{
+  "type": "FeatureCollection",
+  "bbox": [
+    -96.925251,
+    19.527295,
+    -96.919408,
+    19.532865
+  ],
+  "features": [
+    {
+      "bbox": [
+        -96.925251,
+        19.527295,
+        -96.919408,
+        19.532865
+      ],
+      "type": "Feature",
+      "properties": {
+        "segments": [
+          {
+            "distance": 963.6,
+            "duration": 231.3,
+            "steps": [
+              {
+                "distance": 65.4,
+                "duration": 15.7,
+                "type": 11,
+                "instruction": "Head north on Calle Revolución",
+                "name": "Calle Revolución",
+                "way_points": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "distance": 105.4,
+                "duration": 25.3,
+                "type": 1,
+                "instruction": "Turn right onto Calle Poeta Jesús Díaz",
+                "name": "Calle Poeta Jesús Díaz",
+                "way_points": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "distance": 272.6,
+                "duration": 65.4,
+                "type": 1,
+                "instruction": "Turn right onto Calle Doctor Rafaél Lucio",
+                "name": "Calle Doctor Rafaél Lucio",
+                "way_points": [
+                  2,
+                  7
+                ]
+              },
+              {
+                "distance": 83.7,
+                "duration": 20.1,
+                "type": 0,
+                "instruction": "Turn left onto Calle Milán",
+                "name": "Calle Milán",
+                "way_points": [
+                  7,
+                  8
+                ]
+              },
+              {
+                "distance": 168.3,
+                "duration": 40.4,
+                "type": 0,
+                "instruction": "Turn left onto Calle Francisco I. Madero",
+                "name": "Calle Francisco I. Madero",
+                "way_points": [
+                  8,
+                  11
+                ]
+              },
+              {
+                "distance": 251.8,
+                "duration": 60.4,
+                "type": 1,
+                "instruction": "Turn right onto Calle Juan Álvarez",
+                "name": "Calle Juan Álvarez",
+                "way_points": [
+                  11,
+                  18
+                ]
+              },
+              {
+                "distance": 16.4,
+                "duration": 3.9,
+                "type": 0,
+                "instruction": "Turn left onto Calle Salonio",
+                "name": "Calle Salonio",
+                "way_points": [
+                  18,
+                  19
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Calle Salonio, on the right",
+                "name": "-",
+                "way_points": [
+                  19,
+                  19
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 1067,
+            "duration": 189.8,
+            "steps": [
+              {
+                "distance": 70.6,
+                "duration": 17,
+                "type": 11,
+                "instruction": "Head east on Calle Salonio",
+                "name": "Calle Salonio",
+                "way_points": [
+                  19,
+                  22
+                ]
+              },
+              {
+                "distance": 64.1,
+                "duration": 15.4,
+                "type": 0,
+                "instruction": "Turn left onto Calle Alfaro",
+                "name": "Calle Alfaro",
+                "way_points": [
+                  22,
+                  23
+                ]
+              },
+              {
+                "distance": 124.7,
+                "duration": 29.9,
+                "type": 1,
+                "instruction": "Turn right onto Calle Ignacio Aldama",
+                "name": "Calle Ignacio Aldama",
+                "way_points": [
+                  23,
+                  25
+                ]
+              },
+              {
+                "distance": 159.2,
+                "duration": 38.2,
+                "type": 1,
+                "instruction": "Turn right onto Calle Insurgentes",
+                "name": "Calle Insurgentes",
+                "way_points": [
+                  25,
+                  29
+                ]
+              },
+              {
+                "distance": 51.4,
+                "duration": 12.3,
+                "type": 0,
+                "instruction": "Turn left onto Calle Insurgentes",
+                "name": "Calle Insurgentes",
+                "way_points": [
+                  29,
+                  31
+                ]
+              },
+              {
+                "distance": 422.4,
+                "duration": 35.1,
+                "type": 1,
+                "instruction": "Turn right onto Calle Xalapeños Ilustres",
+                "name": "Calle Xalapeños Ilustres",
+                "way_points": [
+                  31,
+                  36
+                ]
+              },
+              {
+                "distance": 174.5,
+                "duration": 41.9,
+                "type": 1,
+                "instruction": "Turn right onto Calle Revolución",
+                "name": "Calle Revolución",
+                "way_points": [
+                  36,
+                  40
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Calle Revolución, on the left",
+                "name": "-",
+                "way_points": [
+                  40,
+                  40
+                ]
+              }
+            ]
+          },
+          {
+            "distance": 211.9,
+            "duration": 50.9,
+            "steps": [
+              {
+                "distance": 31.7,
+                "duration": 7.6,
+                "type": 11,
+                "instruction": "Head north on Calle Revolución",
+                "name": "Calle Revolución",
+                "way_points": [
+                  40,
+                  41
+                ]
+              },
+              {
+                "distance": 180.3,
+                "duration": 43.3,
+                "type": 0,
+                "instruction": "Turn left onto Calle Benito Juárez",
+                "name": "Calle Benito Juárez",
+                "way_points": [
+                  41,
+                  43
+                ]
+              },
+              {
+                "distance": 0,
+                "duration": 0,
+                "type": 10,
+                "instruction": "Arrive at Calle Benito Juárez, on the right",
+                "name": "-",
+                "way_points": [
+                  43,
+                  43
+                ]
+              }
+            ]
+          }
+        ],
+        "way_points": [
+          0,
+          19,
+          40,
+          43
+        ],
+        "summary": {
+          "distance": 2242.5,
+          "duration": 472
+        }
+      },
+      "geometry": {
+        "coordinates": [
+          [
+            -96.923519,
+            19.53225
+          ],
+          [
+            -96.923514,
+            19.532838
+          ],
+          [
+            -96.922508,
+            19.532865
+          ],
+          [
+            -96.922504,
+            19.532342
+          ],
+          [
+            -96.922502,
+            19.531851
+          ],
+          [
+            -96.922501,
+            19.531221
+          ],
+          [
+            -96.922507,
+            19.530775
+          ],
+          [
+            -96.92252,
+            19.530414
+          ],
+          [
+            -96.921729,
+            19.530515
+          ],
+          [
+            -96.92184,
+            19.530888
+          ],
+          [
+            -96.921585,
+            19.531727
+          ],
+          [
+            -96.921554,
+            19.531978
+          ],
+          [
+            -96.921415,
+            19.531965
+          ],
+          [
+            -96.921307,
+            19.531923
+          ],
+          [
+            -96.921263,
+            19.531855
+          ],
+          [
+            -96.921245,
+            19.53169
+          ],
+          [
+            -96.921246,
+            19.531525
+          ],
+          [
+            -96.921315,
+            19.530946
+          ],
+          [
+            -96.921398,
+            19.52992
+          ],
+          [
+            -96.921243,
+            19.529909
+          ],
+          [
+            -96.920829,
+            19.529879
+          ],
+          [
+            -96.920698,
+            19.529819
+          ],
+          [
+            -96.920588,
+            19.529816
+          ],
+          [
+            -96.920596,
+            19.530392
+          ],
+          [
+            -96.919788,
+            19.530294
+          ],
+          [
+            -96.919412,
+            19.53029
+          ],
+          [
+            -96.919408,
+            19.529909
+          ],
+          [
+            -96.919441,
+            19.52946
+          ],
+          [
+            -96.919459,
+            19.529356
+          ],
+          [
+            -96.919664,
+            19.528901
+          ],
+          [
+            -96.919435,
+            19.52863
+          ],
+          [
+            -96.919409,
+            19.528516
+          ],
+          [
+            -96.920422,
+            19.527735
+          ],
+          [
+            -96.92074,
+            19.527615
+          ],
+          [
+            -96.922194,
+            19.527416
+          ],
+          [
+            -96.922291,
+            19.527406
+          ],
+          [
+            -96.923095,
+            19.527295
+          ],
+          [
+            -96.923229,
+            19.52784
+          ],
+          [
+            -96.923497,
+            19.528587
+          ],
+          [
+            -96.92352,
+            19.528754
+          ],
+          [
+            -96.923522,
+            19.528807
+          ],
+          [
+            -96.923532,
+            19.529092
+          ],
+          [
+            -96.924554,
+            19.52906
+          ],
+          [
+            -96.925251,
+            19.529056
+          ]
+        ],
+        "type": "LineString"
+      }
+    }
+  ],
+  "metadata": {
+    "attribution": "openrouteservice.org | OpenStreetMap contributors",
+    "service": "routing",
+    "timestamp": 1759840317631,
+    "query": {
+      "coordinates": [
+        [
+          -96.92360105111004,
+          19.53225031520863
+        ],
+        [
+          -96.92126139440899,
+          19.529682694477483
+        ],
+        [
+          -96.92332200948516,
+          19.528813333327303
+        ],
+        [
+          -96.92525383611907,
+          19.529480517883343
+        ]
+      ],
+      "profile": "driving-car",
+      "profileName": "driving-car",
+      "format": "geojson"
+    },
+    "engine": {
+      "version": "9.3.0",
+      "build_date": "2025-06-06T15:39:25Z",
+      "graph_date": "2025-10-05T11:13:35Z",
+      "osm_date": "2025-09-29T00:00:01Z"
+    }
+  }
+}

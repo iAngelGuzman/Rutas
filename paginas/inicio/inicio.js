@@ -1346,7 +1346,7 @@ function mostrarDetallesRuta(ruta) {
   if (!sidebar) return;
 
   // Imagen con respaldo
-  const imagen = ruta.archivos?.imagen || "/images/default.jpg";
+  const imagen = ruta.archivos?.imagen || "/icon.png";
 
   // Horarios
   const horarioLunes = ruta.horario?.lunes || "No disponible";
@@ -1531,34 +1531,82 @@ function limpiarFormulario() {
     marcadores = [];
 }
 
-document.getElementById("form-ruta").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    guardarRuta();
-});
+async function guardarRuta() {
 
-function guardarRuta() {
-    const nombre = document.getElementById("nombre-ruta").value;
+    const nombre = document.getElementById("nombre-ruta").value.trim();
     const color = document.getElementById("color-ruta").value;
+    const horario = document.getElementById("horario-ruta").value.trim();
+    const mujerSegura = document.getElementById("mujer-segura").checked;
+    const imagenInput = document.getElementById("input-imagen");
+    const puntos = puntosRuta; // <-- asumimos que ya lo tienes en tu script
 
+    if (!nombre || puntos.length < 2) {
+        Swal.fire({
+            icon: "warning",
+            title: "Faltan datos",
+            text: "Debes colocar un nombre y al menos 2 puntos en el mapa.",
+        });
+        return;
+    }
+
+    // 1️⃣ Subir imagen (si el usuario seleccionó una)
+    let imagenPath = null;
+    if (imagenInput.files.length > 0) {
+        const formData = new FormData();
+        formData.append("imagen", imagenInput.files[0]);
+        formData.append("nombre", nombre);
+
+        try {
+            const resImg = await fetch("http://localhost:3000/subir-imagen", {
+                method: "POST",
+                body: formData,
+            });
+            const imgData = await resImg.json();
+            imagenPath = imgData.path; // El servidor devuelve el path final
+        } catch (error) {
+            console.error("Error al subir imagen:", error);
+        }
+    }
+
+    // 2️⃣ Preparar objeto de la ruta
     const ruta = {
-        nombre: nombre,
-        color: color,
-        puntos: puntosRuta
+        nombre,
+        color,
+        mujerSegura,
+        horario: {
+            general: horario // puedes personalizarlo para lunes/domingo si deseas
+        },
+        puntos,
+        imagen: imagenPath || null
     };
 
-    fetch("http://localhost:3000/guardar-ruta", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(ruta)
-    })
-        .then(res => res.json())
-        .then(data => {
-            alert(data.message);
-        })
-        .catch(err => console.error(err));
+    // 3️⃣ Enviar datos de la ruta al backend
+    try {
+        const res = await fetch("http://localhost:3000/directions", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(ruta),
+        });
+
+        const data = await res.json();
+
+        Swal.fire({
+            icon: "success",
+            title: "Ruta guardada",
+            text: data.message || "Se ha creado la ruta correctamente.",
+        });
+
+        // limpiarFormulario(); // si tienes esta función
+    } catch (err) {
+        console.error(err);
+        Swal.fire({
+            icon: "error",
+            title: "Error al guardar",
+            text: "No se pudo guardar la ruta.",
+        });
+    }
 }
+
 
 async function crearGenerarRuta(nombre, puntos, color = "red") {
     try {
