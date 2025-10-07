@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- Configuración básica y enlaces a estilos -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil - Rutas de Autobús Xalapa</title>
+    
+    <!-- Librerías externas: Bootstrap, iconos, alertas y estilos propios -->
     <link rel="icon" type="image/png" href="/icon.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -11,28 +14,40 @@
     <link rel="stylesheet" href="perfil.css" />
 </head>
 <body>
+    <!-- Contenedor principal centrado -->
     <div class="d-flex h-100 align-items-center justify-content-center">
+        
+        <!-- Tarjeta del perfil -->
         <div class="col-10 col-md-6 container-fluid p-4 bg-white rounded-3 shadow-sm position-relative">
+            
+            <!-- Botones superiores: Volver al mapa y Cerrar sesión -->
             <div class="position-absolute top-0 end-0 p-3">
-                <button type="button" class="btn btn-secondary btn-sm" id="volverBtn" aria-label="Volver al mapa">
+                <button type="button" class="btn btn-secondary btn-sm" id="volverBtn">
                     <i class="fa-solid fa-map"></i>
                 </button>
-                <button type="button" class="btn btn-danger btn-sm" id="cerrarSesionBtn" aria-label="Cerrar sesión">
+                <button type="button" class="btn btn-danger btn-sm" id="cerrarSesionBtn">
                     <i class="fa-solid fa-door-open"></i>
                 </button>
             </div>
             
+            <!-- Título de la app -->
             <h1 class="text-center fw-bold display-4">XalaBus</h1>
+            
             <div class="d-flex flex-column align-items-center mt-3">
+                <!-- Avatar clickeable para cambiar foto -->
                 <label for="fileInput" style="cursor: pointer;">
                     <img src="/images/avatar-default.png" alt="Avatar" class="rounded-circle avatar-perfil" id="avatarImage" width="150" height="150">
                 </label>
                 <input type="file" id="fileInput" style="display: none;" accept="image/*">
+                
+                <!-- Datos del usuario -->
                 <h3 class="text-center mt-2" id="nombreUsuario"></h3>
                 <p class="text-center" id="emailUsuario"></p>
             </div>
 
+            <!-- Formulario para editar perfil -->
             <form id="formPerfil" class="d-flex flex-column align-items-center col-12 col-sm-9 col-md-8 mx-auto mt-4">
+                <!-- Campos editables del perfil -->
                 <div class="input-group mb-3">
                     <span class="input-group-text"><i class="fa-solid fa-address-card"></i></span>
                     <input type="text" class="form-control" placeholder="Nombre completo" id="nombreCompleto">
@@ -50,11 +65,13 @@
                     <input type="text" class="form-control" placeholder="Dirección" id="direccion">
                 </div>
 
+                <!-- Botón para guardar cambios -->
                 <button type="submit" class="btn btn-success w-100 mt-2">Guardar Cambios</button>
             </form>
         </div>
     </div>
 
+    <!-- Scripts de Bootstrap, SweetAlert y lógica del perfil -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
     <script type="module" src="perfil.js"></script>

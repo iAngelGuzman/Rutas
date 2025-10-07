@@ -1,6 +1,6 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
-// 🔑 Configura con tu URL y API Key de Supabase
+// Configura con tu URL y API Key de Supabase
 const SUPABASE_URL = "https://rxfqkbhymotlapterzpk.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ4ZnFrYmh5bW90bGFwdGVyenBrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg3MjU4MDgsImV4cCI6MjA3NDMwMTgwOH0.hymErnZfJFdGEpa9sn43Q_TOsj3rOmue6RRI6DrLv0A";
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -58,14 +58,14 @@ formTema.addEventListener("submit", async e => {
   const { error } = await supabase.from("temas").insert([nuevoTema]);
   if (error) {
     console.error(error);
-    // 💡 ALERTA DE ERROR
+    // ALERTA DE ERROR
     Swal.fire({
         icon: 'error',
         title: 'No se pudo crear el tema',
         text: error.message
     });
   } else {
-    // ✅ ALERTA DE ÉXITO
+    // ALERTA DE ÉXITO
     Swal.fire({
         icon: 'success',
         title: '¡Tema creado!',
@@ -131,7 +131,7 @@ formRespuesta.addEventListener("submit", async e => {
         text: error.message
     });
   } else {
-    // ✅ ALERTA DE ÉXITO
+    // ALERTA DE ÉXITO
      Swal.fire({
         icon: 'success',
         title: '¡Respuesta enviada!',
