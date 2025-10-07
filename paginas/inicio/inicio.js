@@ -1950,3 +1950,13 @@ function ocultarTodasLasRutas() {
     paradas = [];
     cerrarDetallesRuta();
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const logoutButton = document.querySelector('.dropdown-item[onclick="logout()"]');
+    if (logoutButton) {
+        logoutButton.addEventListener('click', (e) => {
+            e.preventDefault(); // Previene cualquier comportamiento por defecto
+            logout(); // Llama a tu función logout que ya existe
+        });
+    }
+});
