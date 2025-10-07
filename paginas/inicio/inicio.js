@@ -6,6 +6,7 @@
     configurarAdmin();
     configurarSidebar();
     await cargarRutas();
+    await cargarMisRutas();
 })();
 
 function configurarSidebar() {
@@ -20,6 +21,7 @@ function configurarSidebar() {
 
 // Variables globales
 let rutas = [];
+let rutasCreadas = [];
 
 function configurarAdmin() {
     localStorage.setItem("admin", "false");
@@ -208,6 +210,8 @@ map.addControl(new alertasControl());
 
 // ---------------- Variables globales ----------------
 let rutasDibujadas = [];
+let lineas = [];
+let paradas = [];
 let puntosRuta = [];
 let marcadores = [];
 let marcadorDestino = null;
@@ -488,6 +492,8 @@ function reactivarClicEnParadas() {
 
 function cargarRuta(ruta) {
     // limpiarDestino();
+    lineas = [];
+    paradas = [];
     crearRuta(ruta);
     rutaSeleccionada = ruta;
     configurarSeleccionDestino();
@@ -504,6 +510,102 @@ function crearBotonRuta(ruta) {
     // Botón principal de la ruta - CON COLOR MORADO PARA MUJER SEGURA
     const btn = document.createElement("button");
     btn.style.fontSize = ".875rem";
+    btn.style.maxWidth = "20rem";
+    btn.style.minWidth = "0";
+    
+    // Verificar si es la ruta Mujer Segura
+    if (ruta["mujer segura"] === "true") {
+        btn.className = "btn text-white text-start flex-grow-1 me-2";
+        btn.style.backgroundColor = "#683475"; // Morado
+        btn.style.borderColor = "#683475";
+    } else {
+        btn.className = "btn btn-secondary text-start flex-grow-1 me-2";
+    }
+
+    const icono = document.createElement("i");
+    
+    // Icono especial para Mujer Segura
+    if (ruta["mujer segura"] === "true") {
+        icono.className = "fa-solid fa-shield-heart me-2"; // Icono de escudo con corazón
+    } else {
+        icono.className = "fa-solid fa-bus-simple me-2";
+    }
+    
+    btn.appendChild(icono);
+    btn.appendChild(document.createTextNode(ruta.nombre));
+
+    btn.onclick = () => { cargarRuta(ruta); };
+
+    // Botón de horario
+    const botonHorario = document.createElement("button");
+    if (ruta["mujer segura"] === "true") {
+        botonHorario.className = "btn btn-outline-light me-2";
+        botonHorario.style.borderColor = "#683475";
+        botonHorario.style.color = "#683475";
+    } else {
+        botonHorario.className = "btn btn-outline-secondary me-2";
+    }
+    botonHorario.innerHTML = '<i class="fa-solid fa-clock"></i>';
+
+    botonHorario.onclick = () => {
+        const horario = ruta.horario || {
+            lunes: "6:00am - 10:00pm",
+            sabado: "7:00am - 9:00pm",
+            domingo: "8:00am - 8:00pm"
+        };
+
+        document.getElementById("horario-texto").innerHTML = `
+            <div class="text-center">
+                <h5 class="fw-bold mb-3"><i class="fa-solid fa-clock me-2"></i> Horario de la Ruta</h5>
+                <p class="mb-2 fs-6 text-muted">📍 <strong>Ruta:</strong> ${ruta.nombre}</p>
+                <div class="d-flex flex-column align-items-center">
+                    <div class="p-2 mb-2 w-75 bg-light rounded shadow-sm">
+                        <i class="fa-solid fa-sun me-2 text-warning"></i>
+                        <strong>Lunes a Viernes:</strong> ${horario.lunes}
+                    </div>
+                    <div class="p-2 w-75 bg-light rounded shadow-sm">
+                        <i class="fa-solid fa-sun-bright me-2 text-danger"></i>
+                        <strong>Sabado y Domingo:</strong> ${horario.domingo}
+                    </div>
+                </div>
+            </div>
+        `;
+
+        const horarioModal = new bootstrap.Modal(document.getElementById("horarioModal"));
+        horarioModal.show();
+    };
+
+    // Botón de favorito
+    const favBtn = document.createElement("button");
+    if (ruta["mujer segura"] === "true") {
+        favBtn.className = "btn btn-outline-light";
+        favBtn.style.borderColor = "#683475";
+        favBtn.style.color = "#683475";
+    } else {
+        favBtn.className = "btn btn-outline-dark";
+    }
+    favBtn.innerHTML = '<i class="fa-solid fa-bookmark"></i>';
+    favBtn.onclick = () => {
+        guardarFavorito(ruta);
+    };
+
+    // Agregar botones al contenedor
+    contenedor.appendChild(btn);
+    contenedor.appendChild(botonHorario);
+    contenedor.appendChild(favBtn);
+    lista.appendChild(contenedor);
+}
+
+function crearBotonMiRuta(ruta) {
+    const lista = document.getElementById("lista-mis-rutas");
+    const contenedor = document.createElement("div");
+    contenedor.className = "d-flex align-items-center justify-content-between";
+
+    // Botón principal de la ruta - CON COLOR MORADO PARA MUJER SEGURA
+    const btn = document.createElement("button");
+    btn.style.fontSize = ".875rem";
+    btn.style.maxWidth = "20rem";
+    btn.style.minWidth = "0";
     
     // Verificar si es la ruta Mujer Segura
     if (ruta["mujer segura"] === "true") {
@@ -638,7 +740,7 @@ function dibujarRuta(ruta, lineas, paradas = []) {
         }
     });
     marcadores = marcadores.filter(m => m === marcadorDestino);
-    puntosRuta = [];
+    // puntosRuta = [];
 
     // Limpiar rutas dibujadas excepto el destino
     rutasDibujadas.forEach((r) => {
@@ -717,7 +819,7 @@ function dibujarRuta(ruta, lineas, paradas = []) {
     // Reactivar clic en paradas si tienes esa función
     reactivarClicEnParadas();
 
-    // ✅ Centrar mapa en la ruta y destino (si existe)
+    // Centrar mapa en la ruta y destino (si existe)
     elementosRuta = [...rutasDibujadas];
     if (marcadorDestino) elementosRuta.push(marcadorDestino);
 
@@ -734,9 +836,7 @@ function dibujarRuta(ruta, lineas, paradas = []) {
 async function crearRuta(ruta) {
     try {
         const archivos = ruta.archivos;
-        let lineas = [];
-        let paradas = [];
-
+        
         if (archivos.ruta) {
             const coords = await cargarGeoJSON(archivos.ruta);
             lineas.push({ coords, color: ruta.color, estilo: "solid" });
@@ -1074,11 +1174,11 @@ async function cargarRutas() {
     }
 }
 
-async function cargarGenerarRutas() {
+async function cargarMisRutas() {
     try {
         const res = await fetch("/rutasGenerar.json");
         const data = await res.json();
-        data.rutas.forEach((ruta) => crearBotonGenerarRuta(ruta));
+        rutasCreadas = data.rutas;
     } catch (err) {
         console.error("Error cargando rutas.json:", err);
     }
@@ -1177,6 +1277,9 @@ function actualizarSidebar(clave) {
         case "crear":
             mostrarCrearRutas(sidebar);
             break;
+        case "mis-rutas":
+            mostrarMisRutas(sidebar);
+            break;
         default:
             sidebar.innerHTML = "";
             sidebar.removeAttribute("data-abierto");
@@ -1186,14 +1289,45 @@ function actualizarSidebar(clave) {
     sidebar.classList.add("show");
 }
 
+function mostrarMisRutas(sidebar) {
+    sidebar.innerHTML = `
+        <div class="d-flex flex-column p-3 h-100 overflow-auto bg-white">
+            <div class="d-flex justify-content-start align-items-center gap-2">
+                <button class="close-btn btn btn-outline-secondary bg-transparent border-0 fs-3 p-0 d-flex d-md-none" onclick="abrirMenuMovil()">
+                    <i class="fa-solid fa-circle-arrow-left"></i>
+                </button>
+                <h4 class="fw-bold m-0">Mis Rutas</h4>
+            </div>
+            <div class="btn-group mt-3">
+                <button class="btn btn-success" onclick="mostrarTodasLasRutas()">
+                    <i class="fa-solid fa-bus-simple me-2"></i> Mostrar todas las rutas
+                </button>
+                <button class="btn btn-danger" onclick="ocultarTodasLasRutas()">
+                    <i class="fa-solid fa-ban me-2"></i> Ocultar todas las rutas
+                </button>
+            </div>
+            <div id="lista-mis-rutas" class="d-flex flex-column gap-2 mt-3"></div>
+        </div>
+    `;
+    rutasCreadas.forEach((ruta) => crearBotonMiRuta(ruta));
+}
+
 function mostrarRutas(sidebar) {
     sidebar.innerHTML = `
-        <div class="d-flex flex-column p-3 h-100 overflow-auto">
+        <div class="d-flex flex-column p-3 h-100 overflow-auto bg-white">
             <div class="d-flex justify-content-start align-items-center gap-2">
                 <button class="close-btn btn btn-outline-secondary bg-transparent border-0 fs-3 p-0 d-flex d-md-none" onclick="abrirMenuMovil()">
                     <i class="fa-solid fa-circle-arrow-left"></i>
                 </button>
                 <h4 class="fw-bold m-0">Rutas</h4>
+            </div>
+            <div class="btn-group mt-3">
+                <button class="btn btn-success" onclick="mostrarTodasLasRutas()">
+                    <i class="fa-solid fa-bus-simple me-2"></i> Mostrar todas las rutas
+                </button>
+                <button class="btn btn-danger" onclick="ocultarTodasLasRutas()">
+                    <i class="fa-solid fa-ban me-2"></i> Ocultar todas las rutas
+                </button>
             </div>
             <div id="lista-rutas" class="d-flex flex-column gap-2 mt-3"></div>
         </div>
@@ -1225,7 +1359,7 @@ function mostrarDetallesRuta(ruta) {
 
   // 🧠 Mostrar información
   sidebar.innerHTML = `
-    <div class="d-flex flex-column h-100 overflow-auto" style="max-width: 20rem;">
+    <div class="d-flex flex-column h-100 overflow-auto bg-white" style="max-width: 20rem;">
       <div class="d-grid bg-dark" style="width: 20rem; height: 12rem; position: relative;">
         <img src="${imagen}" alt="Logo" class="img-fluid" 
              style="width: 20rem; height: 12rem; object-fit: cover; grid-area: 1 / 1; filter: blur(2px) brightness(0.5);">
@@ -1237,8 +1371,8 @@ function mostrarDetallesRuta(ruta) {
           <i class="fa-solid fa-xmark" style="text-shadow: 0 0 10px black; font-size: 1.6rem;"></i>
         </button>
       </div>
-      <div id="detalles-ruta" class="d-flex flex-column gap-2 p-3">
-        <h5 class="fw-bold">${nombre}</h5>
+      <div id="detalles-ruta" class="d-flex flex-column p-3">
+        <h5 class="fw-bold m-0">${nombre}</h5>
         <hr />
         <h6 class="fw-bold mb-1"><i class="fa-solid fa-clock me-2"></i> Horario:</h6>
         <div>
@@ -1252,10 +1386,9 @@ function mostrarDetallesRuta(ruta) {
   sidebar.classList.add("show");
 }
 
-
 function mostrarFavoritos(sidebar) {
     sidebar.innerHTML = `
-        <div class="d-flex flex-column p-3" id="lista-favoritos">
+        <div class="d-flex flex-column p-3 bg-white" id="lista-favoritos">
             <div class="d-flex justify-content-start align-items-center gap-2">
                 <button class="close-btn btn btn-outline-secondary bg-transparent border-0 fs-3 p-0 d-flex d-md-none" onclick="abrirMenuMovil()">
                     <i class="fa-solid fa-circle-arrow-left"></i>
@@ -1274,7 +1407,6 @@ function mostrarFavoritos(sidebar) {
 async function mostrarCrearRutas(sidebar) {
     const crear = document.getElementById("crear-rutas");
     sidebar.innerHTML = crear.innerHTML;
-    await cargarGenerarRutas();
     localStorage.setItem("admin", "true");
 }
 
@@ -1636,4 +1768,32 @@ function abrirMenuMovil() {
 function cerrarMenuMovil() {
     const contenedor = document.getElementById("contenedor-movil");
     contenedor.classList.remove("active");
+}
+
+function cargarNuevaImagen(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const nuevaImagen = e.target.result;
+        document.getElementById("imagen-principal").src = nuevaImagen;
+        document.getElementById("fondo-imagen").src = nuevaImagen;
+    };
+    reader.readAsDataURL(file);
+}
+
+function mostrarTodasLasRutas() {
+    rutasDibujadas.forEach((r) => map.removeLayer(r));
+    rutasDibujadas = [];
+    rutas.forEach((ruta) => crearRuta(ruta));
+    cerrarDetallesRuta();
+}
+
+function ocultarTodasLasRutas() {
+    rutasDibujadas.forEach((r) => map.removeLayer(r));
+    rutasDibujadas = [];
+    lineas = [];
+    paradas = [];
+    cerrarDetallesRuta();
 }
