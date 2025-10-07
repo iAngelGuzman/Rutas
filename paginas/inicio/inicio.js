@@ -1214,7 +1214,7 @@ function mostrarDetallesRuta(ruta) {
   // Imagen con respaldo
   const imagen = ruta.archivos?.imagen || "/images/default.jpg";
 
-  // Horarios con valores por defecto
+  // Horarios
   const horarioLunes = ruta.horario?.lunes || "No disponible";
   const horarioSabado = ruta.horario?.sabado || ruta.horario?.domingo || "No disponible";
 
@@ -1226,6 +1226,10 @@ function mostrarDetallesRuta(ruta) {
   const colorFondo = "#f9f9fb";
   const sombra = "0 4px 20px rgba(0, 0, 0, 0.1)";
 
+  // Inicializa alertas si no existen
+  if (!ruta.alertas) ruta.alertas = [];
+
+  // Crea el sidebar
   sidebar.innerHTML = `
     <div class="d-flex flex-column h-100 overflow-auto" 
          style="max-width: 22rem; background: ${colorFondo}; border-left: 1px solid #ddd; box-shadow: ${sombra}; border-radius: 12px 0 0 12px;">
@@ -1245,8 +1249,10 @@ function mostrarDetallesRuta(ruta) {
       </div>
 
       <!-- Contenido -->
-      <div id="detalles-ruta" class="p-3" style="flex-grow: 1;">
-        <div class="mb-3">
+      <div id="detalles-ruta" class="p-3" style="flex-grow: 1; display: flex; flex-direction: column; gap: 1rem;">
+        
+        <!-- Horario -->
+        <div>
           <h6 class="fw-bold mb-2" style="color: ${colorFijo};"><i class="fa-solid fa-clock me-2"></i>Horario</h6>
           <div class="p-2 rounded" style="background: white; border: 1px solid #eee; box-shadow: ${sombra}; color: ${colorFijo};">
             <p class="mb-1"><strong>Lunes a Viernes:</strong> ${horarioLunes}</p>
@@ -1254,17 +1260,101 @@ function mostrarDetallesRuta(ruta) {
           </div>
         </div>
 
+        <!-- Alertas -->
+        <div>
+          <h6 class="fw-bold mb-2" style="color: ${colorFijo};"><i class="fa-solid fa-triangle-exclamation me-2"></i>Alertas</h6>
+          
+          <!-- Contenedor de alertas existentes -->
+          <div id="alertaContainer" class="d-flex flex-column gap-2 mb-2"></div>
+          
+          <!-- Botón para agregar alerta -->
+          <button id="btnAgregarAlerta" class="btn btn-primary w-100">Agregar alerta</button>
+        </div>
+
         <div class="mt-auto text-center">
           <span style="display:inline-block; background:${colorFijo}; width:60%; height:5px; border-radius:4px;"></span>
           <p class="text-muted mt-2" style="font-size:0.85rem; color:${colorFijo}">Ruta destacada de Xalapa</p>
         </div>
+
       </div>
     </div>
   `;
 
   sidebar.classList.add("show");
-}
 
+  // ======= ALERTAS =======
+  const alertaContainer = document.getElementById("alertaContainer");
+
+  // Función para renderizar alertas
+  function renderAlertas() {
+    alertaContainer.innerHTML = "";
+    ruta.alertas.forEach((tipo, index) => {
+      const div = document.createElement("div");
+      div.className = "d-flex align-items-center justify-content-between gap-2 p-2 rounded border";
+      div.style.background = "#fff5f5";
+      div.style.border = "1px solid #f0dede";
+
+      const icono = tipo === "Tráfico" ? "fa-car" :
+                    tipo === "Accidente" ? "fa-car-burst" : "fa-person-digging";
+      const colorIcono = tipo === "Tráfico" ? "text-danger" :
+                         tipo === "Accidente" ? "text-warning" : "text-primary";
+
+      div.innerHTML = `
+        <div class="d-flex align-items-center gap-2">
+          <i class="fa-solid ${icono} ${colorIcono}"></i> ${tipo}
+        </div>
+        <button class="btn btn-sm btn-outline-secondary"><i class="fa-solid fa-trash"></i></button>
+      `;
+
+      // Quitar alerta al hacer click en el basurero
+      div.querySelector("button").onclick = () => {
+        ruta.alertas.splice(index, 1);
+        renderAlertas();
+      };
+
+      alertaContainer.appendChild(div);
+    });
+  }
+
+  renderAlertas();
+
+  // Botón agregar alerta
+  const btnAgregarAlerta = document.getElementById("btnAgregarAlerta");
+  btnAgregarAlerta.onclick = () => {
+    // Evitar que se duplique el menú
+    if (document.getElementById("miniMenuAlertas")) return;
+
+    // Crear mini menú dentro del sidebar
+    const menu = document.createElement("div");
+    menu.id = "miniMenuAlertas";
+    menu.style.background = "#ffffff";
+    menu.style.border = "1px solid #ddd";
+    menu.style.borderRadius = "10px";
+    menu.style.padding = "8px";
+    menu.style.marginTop = "5px";
+    menu.style.boxShadow = sombra;
+
+    const opciones = [
+      { tipo: "Tráfico", icono: "fa-car", color: "text-danger" },
+      { tipo: "Accidente", icono: "fa-car-burst", color: "text-warning" },
+      { tipo: "Construcción", icono: "fa-person-digging", color: "text-primary" }
+    ];
+
+    opciones.forEach(op => {
+      const boton = document.createElement("button");
+      boton.className = `btn btn-light w-100 text-start d-flex align-items-center gap-2 mb-1`;
+      boton.innerHTML = `<i class="fa-solid ${op.icono} ${op.color}"></i> ${op.tipo}`;
+      boton.onclick = () => {
+        if (!ruta.alertas.includes(op.tipo)) ruta.alertas.push(op.tipo);
+        renderAlertas();
+        menu.remove();
+      };
+      menu.appendChild(boton);
+    });
+
+    btnAgregarAlerta.insertAdjacentElement("afterend", menu);
+  };
+}
 
 
 function mostrarFavoritos(sidebar) {
