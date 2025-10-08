@@ -43,6 +43,15 @@ body {
 .leaflet-control a { background-color: #ffffff; color: #343a40; }
 .leaflet-control a:hover { background-color: #eaeaea; }
 
+.nav-link {
+    color: #212529 !important;
+    background-color: #dbdbdb !important;
+}
+.nav-link:hover, .nav-link.active {
+    color: #ffffff !important;
+    background-color: #0c5aeb !important;
+}
+
 body.swal2-height-auto {
     height: 100% !important;
 }

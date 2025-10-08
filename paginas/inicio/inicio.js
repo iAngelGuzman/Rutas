@@ -25,6 +25,7 @@ let rutasCreadas = [];
 
 function configurarAdmin() {
     localStorage.setItem("admin", "false");
+    localStorage.setItem("modoCreacion", "ruta");
 }
 
 // ---------------- Inicialización del mapa ----------------
@@ -954,14 +955,40 @@ function reindexar() {
 
 // ---------------- Eventos del mapa ----------------
 map.on("click", (e) => {
+    const { lat, lng } = e.latlng;
+
+    // Verifica si es admin
     if (localStorage.getItem("admin") === "true") {
-        const { lat, lng } = e.latlng;
-        agregarPunto(lat, lng);
+        const modo = localStorage.getItem("modoCreacion");
+
+        if (modo === "ruta") {
+            // Si el modo actual es "ruta"
+            agregarPuntoRuta(lat, lng);
+        } else if (modo === "parada") {
+            // Si el modo actual es "parada"
+            agregarPuntoParada(lat, lng);
+        } else {
+            console.warn("Selecciona un modo de creación (ruta o parada)");
+        }
+
     } else {
-        const { lat, lng } = e.latlng;
+        // Si no es admin, el click sirve para establecer destino
         establecerDestino(lat, lng);
     }
 });
+
+function agregarPuntoRuta(lat, lng) {
+  // Ejemplo: agregar marcador azul para ruta
+  L.marker([lat, lng], { icon: destinoIcon }).addTo(map);
+  console.log(`Punto de ruta agregado: ${lat}, ${lng}`);
+}
+
+function agregarPuntoParada(lat, lng) {
+  // Ejemplo: agregar marcador verde para parada
+  L.marker([lat, lng], { icon: paradaIcon }).addTo(map);
+  console.log(`Punto de parada agregado: ${lat}, ${lng}`);
+}
+
 
 // Icono de destino
 const iconoDestino = new L.Icon({
@@ -1960,3 +1987,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+function adminModoRuta() {
+    localStorage.setItem("modoCreacion", "ruta");
+}
+
+function adminModoParadas() {
+    localStorage.setItem("modoCreacion", "parada");
+}
