@@ -213,8 +213,12 @@ map.addControl(new alertasControl());
 let rutasDibujadas = [];
 let lineas = [];
 let paradas = [];
+let paradasCrearRuta = [];
 let puntosRuta = [];
+let puntosCrearRuta = [];
 let marcadores = [];
+let marcadoresCrearRuta = [];
+let lineaPrevisualizacion = null;
 let marcadorDestino = null;
 let rutaSeleccionada = null;
 let paradasActuales = [];
@@ -229,17 +233,8 @@ let historialBusquedas = JSON.parse(localStorage.getItem("historialBusquedas")) 
 const limiteHistorial = 5;
 const areaXalapa = "-96.9667,19.4833,-96.8000,19.6000";
 
-const busIcon = L.divIcon({
-    html: `<div class="d-flex justify-content-center align-items-center rounded-circle border border-2 border-white bg-primary" style="width:26px; height:26px;">
-             <i class="fa-solid fa-bus-simple text-white"></i>
-           </div>`,
-    className: '',
-    iconSize: [28, 28],
-    iconAnchor: [14, 14]
-});
-
 const destinoIcon = L.divIcon({
-    html: `<div class="d-flex justify-content-center align-items-center rounded-circle border border-3 border-white bg-success shadow-lg" style="width:32px; height:32px;">
+    html: `<div class="d-flex justify-content-center align-items-center rounded-circle border border-3 border-white bg-success shadow-sm" style="width:34px; height:34px;">
              <i class="fa-solid fa-flag text-white"></i>
            </div>`,
     className: 'marcador-destino',
@@ -248,7 +243,7 @@ const destinoIcon = L.divIcon({
 });
 
 const paradaIcon = L.divIcon({
-    html: `<div class="d-flex justify-content-center align-items-center rounded-circle border border-3 border-white bg-primary shadow-lg" style="width:30px; height:30px; cursor: pointer;">
+    html: `<div class="d-flex justify-content-center align-items-center rounded-circle border border-3 border-white bg-primary shadow-sm" style="width:32px; height:32px; cursor: pointer;">
              <i class="fa-solid fa-bus-simple text-white"></i>
            </div>`,
     className: 'marcador-parada',
@@ -888,25 +883,27 @@ async function cargarParadas(url) {
 }
 
 // ---------------- Funciones de administración ----------------
-function swap(arr, i, j) {
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-}
+// util
+function swap(arr, i, j) { [arr[i], arr[j]] = [arr[j], arr[i]]; }
 
-function agregarPunto(lat, lng) {
-    puntosRuta.push([lng, lat]);
-    const index = puntosRuta.length;
+// Añadir punto de ruta con menú en popup (mover arriba/abajo, eliminar)
+function agregarPuntoRuta(lat, lng) {
+    puntosCrearRuta.push([lng, lat]);
+    const index = puntosCrearRuta.length;
 
-    const marker = L.marker([lat, lng], { draggable: true })
-        .addTo(map)
-        .bindTooltip(`${index}`, {
-            permanent: true,
-            direction: "top",
-            className: "fw-bold text-white bg-danger border-0 shadow rounded px-2 opacity-100",
-            offset: [-14.5, 14],
-        });
+    const rutaIcon = L.divIcon({
+        html: `<div class="d-flex justify-content-center align-items-center rounded-circle border border-2 border-white bg-danger" style="width:32px; height:32px;">
+                 <span class="text-white fw-bold">${index}</span>
+               </div>`,
+        className: '',
+        iconSize: [32, 32],
+        iconAnchor: [16, 16]
+    });
 
-    marcadores.push(marker);
+    const marker = L.marker([lat, lng], { icon: rutaIcon, draggable: true }).addTo(map);
+    marcadoresCrearRuta.push(marker);
 
+    // crear fila en la lista
     const li = document.createElement("li");
     li.className = "d-flex align-items-center mb-1";
     li.innerHTML = `
@@ -916,41 +913,222 @@ function agregarPunto(lat, lng) {
             <i class="fa-solid fa-trash"></i>
         </button>
     `;
-
     document.getElementById("lista-puntos").appendChild(li);
 
     const input = li.querySelector("input");
     const deleteBtn = li.querySelector(".btn-delete");
 
+    // Popup HTML (sin id fijo)
+    const popupHTML = `
+      <div class="list-group rounded-4 shadow-sm">
+        <button class="list-group-item list-group-item-action" data-action="up">
+          <i class="fa-solid fa-arrow-up me-2"></i> Mover arriba
+        </button>
+        <button class="list-group-item list-group-item-action" data-action="down">
+          <i class="fa-solid fa-arrow-down me-2"></i> Mover abajo
+        </button>
+        <button class="list-group-item list-group-item-action text-danger" data-action="delete">
+          <i class="fa-solid fa-trash me-2"></i> Eliminar
+        </button>
+      </div>
+    `;
+
+    // Bind popup evitando que se cierre por clicks en mapa
+    marker.bindPopup(popupHTML, { closeOnClick: false, autoClose: false });
+
+    // Cuando se abre el popup, añadimos listeners seguros a sus botones
+    marker.on("popupopen", (e) => {
+        const popupEl = e.popup.getElement();
+        if (!popupEl) return;
+
+        // Evita que los clicks dentro del popup lleguen al mapa y provoquen zoom/añadir puntos
+        L.DomEvent.disableClickPropagation(popupEl);
+        L.DomEvent.disableScrollPropagation(popupEl);
+
+        // Seleccionamos botones y los manejamos
+        popupEl.querySelectorAll("button[data-action]").forEach(btn => {
+            // antes de añadir, quitamos cualquier handler previo para evitar duplicados
+            btn.replaceWith(btn.cloneNode(true));
+        });
+
+        // Re-obtener botones (clonados)
+        popupEl.querySelectorAll("button[data-action]").forEach(btn => {
+            btn.addEventListener("click", (ev) => {
+                ev.preventDefault();
+                ev.stopPropagation(); // importantísimo: que no burbujee al mapa
+
+                const action = btn.dataset.action;
+                const i = marcadoresCrearRuta.indexOf(marker); // indice actual del marcador
+
+                if (action === "up") moverArriba(i);
+                else if (action === "down") moverAbajo(i);
+                else if (action === "delete") eliminarPunto(i);
+
+                // No hace falta reabrir el popup normalmente porque cerramos el popup manualmente sólo si borramos.
+                // Si quieres mantenerlo abierto tras mover, lo reabrimos:
+                setTimeout(() => {
+                    if (marker._map && !marker.getPopup().isOpen()) marker.openPopup();
+                }, 10);
+            });
+        });
+    });
+
+    // Dragend actualiza coords
     marker.on("dragend", (event) => {
         const newPos = event.target.getLatLng();
-        const i = marcadores.indexOf(marker);
+        const i = marcadoresCrearRuta.indexOf(marker);
         if (i !== -1) {
-            puntosRuta[i] = [newPos.lng, newPos.lat];
+            puntosCrearRuta[i] = [newPos.lng, newPos.lat];
             input.value = `[${newPos.lat.toFixed(6)}, ${newPos.lng.toFixed(6)}]`;
         }
     });
 
-    marker.on("contextmenu", () => eliminarPunto());
-    deleteBtn.addEventListener("click", eliminarPunto);
+    // abrir popup con click derecho (útil)
+    marker.on("contextmenu", (e) => {
+        e.originalEvent && e.originalEvent.preventDefault();
+        marker.openPopup();
+    });
 
-    function eliminarPunto() {
-        const i = marcadores.indexOf(marker);
-        if (i !== -1) {
-            map.removeLayer(marker);
-            marcadores.splice(i, 1);
-            puntosRuta.splice(i, 1);
-            li.remove();
-            reindexar();
-        }
+    // botón eliminar en la lista
+    deleteBtn.addEventListener("click", () => {
+        const i = marcadoresCrearRuta.indexOf(marker);
+        eliminarPunto(i);
+    });
+
+    reindexar();
+}
+
+// Reindexa números y actualiza iconos
+function reindexar() {
+    const lis = document.querySelectorAll("#lista-puntos li");
+    lis.forEach((li, index) => {
+        const span = li.querySelector("span");
+        if (span) span.innerText = index + 1;
+    });
+
+    marcadoresCrearRuta.forEach((marker, idx) => {
+        // actualizar icono para que muestre el índice correcto
+        const newIcon = L.divIcon({
+            html: `<div class="d-flex justify-content-center align-items-center rounded-circle border border-2 border-white bg-danger" style="width:32px; height:32px;">
+                     <span class="text-white fw-bold">${idx + 1}</span>
+                   </div>`,
+            className: '',
+            iconSize: [32, 32],
+            iconAnchor: [16, 16]
+        });
+        marker.setIcon(newIcon);
+    });
+}
+
+// eliminar marcador y fila asociada
+function eliminarPunto(i) {
+    if (i >= 0 && i < marcadoresCrearRuta.length) {
+        map.removeLayer(marcadoresCrearRuta[i]);
+        marcadoresCrearRuta.splice(i, 1);
+        puntosCrearRuta.splice(i, 1);
+
+        const lista = document.getElementById("lista-puntos");
+        if (lista && lista.children[i]) lista.children[i].remove();
+
+        reindexar();
     }
 }
 
-function reindexar() {
-    document.querySelectorAll("#lista-puntos li").forEach((li, index) => {
-        li.querySelector("span").innerText = index + 1;
-        marcadores[index].setTooltipContent(`${index + 1}`);
-    });
+// mover arriba
+function moverArriba(i) {
+    if (i > 0) {
+        swap(marcadoresCrearRuta, i, i - 1);
+        swap(puntosCrearRuta, i, i - 1);
+
+        const lista = document.getElementById("lista-puntos");
+        lista.insertBefore(lista.children[i], lista.children[i - 1]);
+
+        reindexar();
+    }
+}
+
+// mover abajo
+function moverAbajo(i) {
+    if (i < marcadoresCrearRuta.length - 1) {
+        swap(marcadoresCrearRuta, i, i + 1);
+        swap(puntosCrearRuta, i, i + 1);
+
+        const lista = document.getElementById("lista-puntos");
+        lista.insertBefore(lista.children[i + 1], lista.children[i]);
+
+        reindexar();
+    }
+}
+
+// FUNCIÓN PARA PREVISUALIZAR LA RUTA USANDO EL BACKEND Y ORS
+async function previsualizarRuta() {
+    // 1. Validar que existan al menos dos puntos para trazar una ruta
+    if (puntosCrearRuta.length < 2) {
+        alert("Necesitas agregar al menos 2 puntos en el mapa para previsualizar la ruta.");
+        return;
+    }
+
+    // Opcional: Mostrar un indicador de carga
+    // (ej. cambiar el texto del botón, mostrar un spinner)
+    const boton = document.querySelector('button[onclick="previsualizarRuta()"]');
+    boton.disabled = true;
+    boton.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> Calculando...';
+
+    try {
+        // 2. Enviar los puntos al nuevo endpoint del backend
+        const response = await fetch('http://localhost:3000/preview-route', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ coordinates: puntosCrearRuta })
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.error || 'No se pudo obtener la ruta.');
+        }
+
+        const data = await response.json();
+        const routeGeometry = data.geometry;
+
+        // 3. Si ya hay una línea de previsualización en el mapa, la borramos
+        if (lineaPrevisualizacion) {
+            map.removeLayer(lineaPrevisualizacion);
+        }
+
+        // 4. Dibujar la nueva ruta en el mapa
+        // OpenRouteService devuelve [lng, lat], Leaflet necesita [lat, lng]. ¡Hay que invertirlos!
+        const latLngs = routeGeometry.map(coord => [coord[1], coord[0]]);
+
+        lineaPrevisualizacion = L.polyline(latLngs, {
+            color: document.getElementById('color-ruta').value || '#3388ff', // Usa el color seleccionado
+            weight: 5,
+            opacity: 0.8
+        }).addTo(map);
+
+        // 5. Ajustar el zoom del mapa para que se vea toda la ruta
+        map.fitBounds(lineaPrevisualizacion.getBounds());
+
+    } catch (error) {
+        console.error("Error al previsualizar la ruta:", error);
+        alert(`Error: ${error.message}`);
+    } finally {
+        // Restaurar el botón a su estado original
+        boton.disabled = false;
+        boton.innerHTML = '<i class="fa-solid fa-route me-1"></i> Previsualizar ruta';
+    }
+}
+
+function limpiarRuta() {
+    puntosCrearRuta = [];
+    marcadoresCrearRuta = [];
+    if (lineaPrevisualizacion) {
+        map.removeLayer(lineaPrevisualizacion);
+        lineaPrevisualizacion = null; // Resetea la variable
+    }
+}
+
+function limpiarParadas() {
+    paradasCrearRuta = [];
 }
 
 // ---------------- Eventos del mapa ----------------
@@ -976,12 +1154,6 @@ map.on("click", (e) => {
         establecerDestino(lat, lng);
     }
 });
-
-function agregarPuntoRuta(lat, lng) {
-  // Ejemplo: agregar marcador azul para ruta
-  L.marker([lat, lng], { icon: destinoIcon }).addTo(map);
-  console.log(`Punto de ruta agregado: ${lat}, ${lng}`);
-}
 
 function agregarPuntoParada(lat, lng) {
   // Ejemplo: agregar marcador verde para parada
@@ -1284,12 +1456,12 @@ function actualizarSidebar(clave) {
     const sidebar = document.getElementById("sidebar-content");
     if (!sidebar) return;
 
+    localStorage.removeItem("admin");
+    localStorage.removeItem("modoCreacion");
+
     if (sidebar.dataset.abierto === clave) {
         sidebar.classList.remove("show");
         sidebar.removeAttribute("data-abierto");
-        if (clave === "crear") {
-            localStorage.removeItem("admin");
-        }
         return;
     }
     sidebar.dataset.abierto = clave;
@@ -1327,10 +1499,10 @@ function mostrarMisRutas(sidebar) {
             </div>
             <div class="btn-group mt-3">
                 <button class="btn btn-success" onclick="mostrarTodasLasRutas()">
-                    <i class="fa-solid fa-bus-simple me-2"></i> Mostrar todas las rutas
+                    <i class="fa-solid fa-bus-simple me-2"></i> Mostrar todas
                 </button>
                 <button class="btn btn-danger" onclick="ocultarTodasLasRutas()">
-                    <i class="fa-solid fa-ban me-2"></i> Ocultar todas las rutas
+                    <i class="fa-solid fa-ban me-2"></i> Ocultar todas
                 </button>
             </div>
             <div id="lista-mis-rutas" class="d-flex flex-column gap-2 mt-3"></div>
@@ -1350,10 +1522,10 @@ function mostrarRutas(sidebar) {
             </div>
             <div class="btn-group mt-3">
                 <button class="btn btn-success" onclick="mostrarTodasLasRutas()">
-                    <i class="fa-solid fa-bus-simple me-2"></i> Mostrar todas las rutas
+                    <i class="fa-solid fa-bus-simple me-2"></i> Mostrar todas
                 </button>
                 <button class="btn btn-danger" onclick="ocultarTodasLasRutas()">
-                    <i class="fa-solid fa-ban me-2"></i> Ocultar todas las rutas
+                    <i class="fa-solid fa-ban me-2"></i> Ocultar todas
                 </button>
             </div>
             <div id="lista-rutas" class="d-flex flex-column gap-2 mt-3"></div>
@@ -1540,6 +1712,8 @@ async function mostrarCrearRutas(sidebar) {
     const crear = document.getElementById("crear-rutas");
     sidebar.innerHTML = crear.innerHTML;
     localStorage.setItem("admin", "true");
+    localStorage.setItem("modoCreacion", "ruta");
+    
 }
 
 // ---------------- Funciones adicionales ----------------
@@ -1706,37 +1880,6 @@ function filtrarRutas() {
 
     // Mostrar todas calles que contengan el texto ingresado
     buscarDireccion(input, query, lista, limpiar);
-
-    // // Filtrar rutas
-    // const resultados = rutas.filter(ruta =>
-    //     ruta.nombre.toLowerCase().includes(query)
-    // );
-
-    // if (resultados.length > 0) {
-    //     resultados.forEach(ruta => {
-    //         const btn = document.createElement("button");
-    //         btn.className = "btn btn-sm btn-outline-secondary rounded-0 border-secondary-subtle border-start-0 border-end-0 border-bottom-0 w-100 py-2 text-start";
-    //         btn.style.fontSize = "0.875rem";
-    //         btn.textContent = ruta.nombre;
-
-    //         // Cuando el usuario hace clic en una ruta
-    //         btn.addEventListener("click", () => {
-    //             input.value = ruta.nombre;
-    //             lista.classList.add("d-none");
-    //             cargarRuta(ruta);
-    //         });
-    //         lista.appendChild(btn);
-    //     });
-    // } else {
-    //     buscarDireccion(query);
-    //     // Mostrar mensaje de no resultados
-    //     const noRes = document.createElement("div");
-    //     noRes.className = "text-muted text-center py-2 border border-secondary-subtle border-bottom-0 border-start-0 border-end-0 w-100";
-    //     noRes.style.fontSize = "0.875rem";
-    //     noRes.textContent = "No se encontraron rutas.";
-    //     lista.appendChild(noRes);
-    //     console.log("No se encontraron rutas.");
-    // }
 }
 
 function buscarDireccion(input, query, lista, limpiar) {

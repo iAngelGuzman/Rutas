@@ -54,6 +54,49 @@ app.post("/subir-imagen", upload.single("imagen"), (req, res) => {
     res.json({ message: "Imagen subida correctamente", path: filePath });
 });
 
+// NUEVO ENDPOINT PARA LA PREVISUALIZACIÓN DE LA RUTA
+app.post("/preview-route", async (req, res) => {
+    // Obtenemos solo las coordenadas del cuerpo de la solicitud
+    const { coordinates } = req.body;
+
+    // Validación básica
+    if (!coordinates || coordinates.length < 2) {
+        return res.status(400).json({ error: "Se requieren al menos 2 puntos para la previsualización." });
+    }
+
+    try {
+        // Hacemos la llamada a la API de OpenRouteService
+        const orsResponse = await fetch(ORS_URL, {
+            method: "POST",
+            headers: {
+                "Authorization": ORS_API_KEY,
+                "Content-Type": "application/json; charset=utf-8",
+                "Accept": "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
+            },
+            body: JSON.stringify({ coordinates: coordinates })
+        });
+
+        if (!orsResponse.ok) {
+            // Si ORS da un error, lo pasamos al cliente
+            const errorData = await orsResponse.json();
+            console.error("Error de OpenRouteService:", errorData);
+            return res.status(orsResponse.status).json({ error: "Error al calcular la ruta con OpenRouteService." });
+        }
+
+        const routeData = await orsResponse.json();
+
+        // Extraemos la geometría de la primera ruta encontrada
+        const geometry = routeData.features[0].geometry.coordinates;
+
+        // Enviamos solo la geometría de vuelta al frontend
+        res.json({ geometry: geometry });
+
+    } catch (error) {
+        console.error("Error en el servidor al previsualizar la ruta:", error);
+        res.status(500).json({ error: "Error interno del servidor." });
+    }
+});
+
 app.post("/directions", async (req, res) => {
     const { nombre, color, mujerSegura, horario, puntos } = req.body;
 

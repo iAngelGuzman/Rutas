@@ -213,12 +213,12 @@
       <!-- panel crear rutas -->
       <div id="crear-rutas" class="d-none">
         <div class="d-flex flex-column h-100">
-          <div class="d-flex flex-column p-3 overflow-auto h-100 border">
+          <div class="d-flex flex-column p-3 overflow-auto mb-auto border">
             <div class="d-flex justify-content-start align-items-center gap-2">
                 <button class="close-btn btn btn-outline-secondary bg-transparent border-0 fs-3 p-0 d-flex d-md-none" onclick="abrirMenuMovil()">
                     <i class="fa-solid fa-circle-arrow-left"></i>
                 </button>
-                <h4 class="fw-bold m-0">Crear Rutas</h4>
+                <h4 class="fw-bold m-0">Crear Ruta</h4>
             </div>
 
             <!-- botón instrucciones -->
@@ -231,14 +231,14 @@
 
             <!-- crear ruta -->
             <form id="form-ruta" class="mt-3">
-              <div class="d-grid bg-dark position-relative" style="width: 20rem; height: 12rem;">
+              <div class="d-grid bg-dark position-relative">
                 <!-- Imagen de fondo -->
-                <img id="fondo-imagen" src="" alt="Logo" class="img-fluid"
-                  style="width: 20rem; height: 12rem; object-fit: cover; grid-area: 1 / 1; filter: blur(2px) brightness(0.5);">
+                <img id="fondo-imagen" src="" alt="Logo" class="w-100 h-100"
+                  style="aspect-ratio: 16 / 9; object-fit: cover; grid-area: 1 / 1; filter: blur(2px) brightness(0.5); max-width: 20rem;">
 
                 <!-- Imagen principal (frontal) -->
-                <img id="imagen-principal" src="https://cdn-icons-png.freepik.com/512/13434/13434886.png" alt="Logo" class="img-fluid"
-                  style="width: 20rem; height: 12rem; object-fit: contain; grid-area: 1 / 1; z-index: 1; cursor: pointer;"
+                <img id="imagen-principal" src="https://cdn-icons-png.freepik.com/512/13434/13434886.png" alt="Logo" class="w-100 h-100 mx-auto"
+                  style="aspect-ratio: 16 / 9; object-fit: contain; grid-area: 1 / 1; z-index: 1; cursor: pointer; max-width: 20rem;"
                   onclick="document.getElementById('input-imagen').click()">
 
                 <!-- Input oculto para seleccionar imagen -->
@@ -286,7 +286,7 @@
                 </label>
               </div>
 
-              <div class="d-flex flex-column mt-3 border rounded p-2">
+              <div class="d-flex flex-column mt-3 border rounded">
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs justify-content-center nav-fill" id="tabs-ruta-paradas" role="tablist" style="border-bottom: 2px solid #dee2e6;">
                   <li class="nav-item" role="presentation">
@@ -308,24 +308,26 @@
                 </ul>
 
                 <!-- Tab content -->
-                <div class="tab-content mt-3" id="contenido-tabs-ruta-paradas">
+                <div class="tab-content p-3" id="contenido-tabs-ruta-paradas">
                   <!-- TAB RUTA -->
                   <div class="tab-pane fade show active" id="contenido-ruta" role="tabpanel" aria-labelledby="tab-ruta">
-                    <div class="text-muted fs-6 mt-3 mb-2">
+                    <div class="text-muted fs-6 mb-2">
                       <i class="fa-solid fa-list-ul ms-1 me-2"></i>Lista de puntos
                     </div>
                     <div id="lista-puntos"></div>
-                    <div class="d-flex gap-1 mt-3">
-                      <button class="btn btn-danger w-100" type="button" onclick="limpiarFormulario()">
-                        <i class="fa-solid fa-trash me-1"></i>
-                        Limpiar puntos
-                      </button>
-                    </div>
+                    <button class="btn btn-primary w-100 mt-2" type="button" onclick="previsualizarRuta()">
+                      <i class="fa-solid fa-route me-1"></i>
+                      Previsualizar ruta
+                    </button>
+                    <button class="btn btn-danger w-100 mt-2" type="button" onclick="limpiarRuta()">
+                      <i class="fa-solid fa-trash me-1"></i>
+                      Limpiar puntos
+                    </button>
                   </div>
 
                   <!-- TAB PARADAS -->
                   <div class="tab-pane fade" id="contenido-paradas" role="tabpanel" aria-labelledby="tab-paradas">
-                    <div class="text-muted fs-6 mt-3 mb-2">
+                    <div class="text-muted fs-6 mb-2">
                       <i class="fa-solid fa-bus ms-1 me-2"></i>Lista de paradas
                     </div>
                     <div id="lista-paradas"></div>
