@@ -218,6 +218,7 @@ let puntosRuta = [];
 let puntosCrearRuta = [];
 let marcadores = [];
 let marcadoresCrearRuta = [];
+let modoCreacionActivo = false;
 let lineaPrevisualizacion = null;
 let marcadorDestino = null;
 let rutaSeleccionada = null;
@@ -1131,6 +1132,9 @@ function limpiarParadas() {
     paradasCrearRuta = [];
 }
 
+
+
+
 // ---------------- Eventos del mapa ----------------
 map.on("click", (e) => {
     const { lat, lng } = e.latlng;
@@ -1452,9 +1456,50 @@ function configurarTooltip() {
 }
 
 // ---------------- Funciones de sidebar ----------------
-function actualizarSidebar(clave) {
+function confirmarSalidaDeCreacion() {
+    return Swal.fire({
+        title: '¿Estás seguro?',
+        text: "Se perderán los puntos y la información no guardada de la ruta.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, salir sin guardar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        // La promesa se resolverá a `true` solo si el usuario confirma.
+        return result.isConfirmed; 
+    });
+}
+
+function salirModoCreacion() {
+    modoCreacionActivo = false;
+    paradasCrearRuta = [];
+    puntosCrearRuta = [];
+    marcadoresCrearRuta.forEach(m => m.removeFrom(map));
+    marcadoresCrearRuta = [];
+}
+
+async function actualizarSidebar(clave) {
     const sidebar = document.getElementById("sidebar-content");
     if (!sidebar) return;
+
+    // Condición para mostrar la alerta
+    const hayCambiosSinGuardar = modoCreacionActivo && puntosCrearRuta.length > 0;
+
+    // Si el usuario intenta cerrar el sidebar o cambiar a otra sección mientras crea una ruta...
+    if (hayCambiosSinGuardar && (sidebar.dataset.abierto === clave || sidebar.dataset.abierto === "crear")) {
+        // Esperamos la confirmación del usuario. El código se pausa aquí.
+        const confirmoSalir = await confirmarSalidaDeCreacion();
+
+        // Si el usuario hizo clic en "Cancelar", no hacemos nada más.
+        if (!confirmoSalir) {
+            return;
+        }
+        
+        // Si confirmó, limpiamos todo.
+        salirModoCreacion(); 
+    }
 
     localStorage.removeItem("admin");
     localStorage.removeItem("modoCreacion");
@@ -1464,6 +1509,7 @@ function actualizarSidebar(clave) {
         sidebar.removeAttribute("data-abierto");
         return;
     }
+
     sidebar.dataset.abierto = clave;
 
     switch (clave) {
@@ -1543,6 +1589,8 @@ function cerrarDetallesRuta() {
 function mostrarDetallesRuta(ruta) {
   const sidebar = document.getElementById("sidebar-content");
   if (!sidebar) return;
+
+  if (tieneModoCreacion()) return;
 
   // Imagen con respaldo
   const imagen = ruta.archivos?.imagen || "/icon.png";
@@ -1713,7 +1761,7 @@ async function mostrarCrearRutas(sidebar) {
     sidebar.innerHTML = crear.innerHTML;
     localStorage.setItem("admin", "true");
     localStorage.setItem("modoCreacion", "ruta");
-    
+    modoCreacionActivo = true;
 }
 
 // ---------------- Funciones adicionales ----------------

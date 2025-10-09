@@ -9,7 +9,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const ORS_API_KEY = "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjM4NzUxZjU1ZGE5ZjQ3OGZiNjhkOGVjZTViM2M4ZGQwIiwiaCI6Im11cm11cjY0In0="; // pon aquí tu key de ORS
+const ORS_API_KEY = "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjdkMjQ1MDA3MTk2YTRjM2RhMDYxMTdkZGIzMDljYzU5IiwiaCI6Im11cm11cjY0In0="; // pon aquí tu key de ORS
 const ORS_URL = "https://api.openrouteservice.org/v2/directions/driving-car/geojson";
 const RUTAS_DIR = path.join(process.cwd(), "..", "rutas");
 const RUTAS_FILE = path.join(process.cwd(), "..", "rutasGenerar.json");
