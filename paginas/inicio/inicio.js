@@ -217,7 +217,10 @@ let paradasCrearRuta = [];
 let puntosRuta = [];
 let puntosCrearRuta = [];
 let marcadores = [];
+let marcadoresParadas = [];
 let marcadoresCrearRuta = [];
+let datosParadas = [];
+
 let modoCreacionActivo = false;
 let lineaPrevisualizacion = null;
 let marcadorDestino = null;
@@ -887,6 +890,118 @@ async function cargarParadas(url) {
 // util
 function swap(arr, i, j) { [arr[i], arr[j]] = [arr[j], arr[i]]; }
 
+// Agregar punto de parada con menú
+function agregarPuntoParada(lat, lng) {
+    const paradaId = Date.now();
+    
+    // 1. 💾 Guardar los datos de la parada
+    const nuevaParada = {
+        id: paradaId,
+        nombre: `Parada ${datosParadas.length + 1}`,
+        coords: [lng, lat]
+    };
+    datosParadas.push(nuevaParada);
+
+    // 2. 📍 Crear el marcador en el mapa
+    const marker = L.marker([lat, lng], { 
+        icon: paradaIcon, 
+        draggable: true 
+    }).addTo(map);
+    
+    marker.paradaId = paradaId; 
+    marcadoresParadas.push(marker);
+    
+    // 3. 📝 Crear el elemento en la lista del panel
+    const li = document.createElement("li");
+    li.className = "d-flex align-items-center mb-2";
+    li.dataset.id = paradaId; 
+    li.innerHTML = `
+        <i class="fa-solid fa-bus text-primary me-2"></i>
+        <input type="text" class="form-control form-control-sm me-2" value="${nuevaParada.nombre}">
+        <button type="button" class="btn btn-sm btn-outline-danger btn-delete-parada">
+            <i class="fa-solid fa-trash"></i>
+        </button>
+    `;
+    document.getElementById("lista-paradas").appendChild(li);
+
+    // 4. ✨ Añadir interactividad (Eventos)
+    const inputNombre = li.querySelector("input");
+    inputNombre.addEventListener("change", (e) => {
+        const parada = datosParadas.find(p => p.id === paradaId);
+        if (parada) parada.nombre = e.target.value;
+    });
+
+    const deleteBtn = li.querySelector(".btn-delete-parada");
+    deleteBtn.addEventListener("click", () => {
+        eliminarPuntoParada(paradaId);
+    });
+
+    marker.on("dragend", (event) => {
+        const newPos = event.target.getLatLng();
+        const parada = datosParadas.find(p => p.id === paradaId);
+        if (parada) parada.coords = [newPos.lng, newPos.lat];
+    });
+
+    // --- INICIO: Lógica del Menú Popup ---
+
+    // 1. HTML para el menú (sencillo, solo un botón)
+    const popupHTML = `
+      <div class="list-group rounded-4 shadow-sm" style="font-size: .9rem;">
+        <button class="list-group-item list-group-item-action text-danger" data-action="delete">
+          <i class="fa-solid fa-trash me-2"></i> Eliminar parada
+        </button>
+      </div>
+    `;
+
+    // 2. Vincular el popup al marcador
+    marker.bindPopup(popupHTML, { closeOnClick: false, autoClose: false });
+
+    // 3. Manejar eventos cuando se abre el popup
+    marker.on("popupopen", (e) => {
+        const popupEl = e.popup.getElement();
+        if (!popupEl) return;
+
+        // ¡CRÍTICO! Evita que los clics en el menú se propaguen al mapa
+        L.DomEvent.disableClickPropagation(popupEl);
+
+        // Añadir el listener al botón de eliminar
+        popupEl.querySelector("button[data-action='delete']").addEventListener("click", () => {
+            marker.closePopup(); // Cerramos el popup
+            eliminarPuntoParada(paradaId); // Llamamos a la función que ya tienes
+        });
+    });
+    
+    // Opcional: abrir el menú con clic derecho para una mejor UX
+    marker.on("contextmenu", (e) => {
+        e.originalEvent.preventDefault();
+        marker.openPopup();
+    });
+
+    // --- FIN: Lógica del Menú Popup ---
+}
+
+// 🗑️ Eliminar un punto de parada por su ID
+function eliminarPuntoParada(id) {
+    // Eliminar el marcador del mapa y del array
+    const markerIndex = marcadoresParadas.findIndex(m => m.paradaId === id);
+    if (markerIndex !== -1) {
+        map.removeLayer(marcadoresParadas[markerIndex]);
+        marcadoresParadas.splice(markerIndex, 1);
+    }
+
+    // Eliminar los datos de la parada del array de datos
+    const dataIndex = datosParadas.findIndex(p => p.id === id);
+    if (dataIndex !== -1) {
+        datosParadas.splice(dataIndex, 1);
+    }
+
+    // Eliminar el elemento de la lista del panel
+    const li = document.querySelector(`#lista-paradas li[data-id='${id}']`);
+    if (li) {
+        li.remove();
+    }
+}
+
 // Añadir punto de ruta con menú en popup (mover arriba/abajo, eliminar)
 function agregarPuntoRuta(lat, lng) {
     puntosCrearRuta.push([lng, lat]);
@@ -1119,17 +1234,50 @@ async function previsualizarRuta() {
     }
 }
 
+/**
+ * Limpia solo los puntos de la ruta del mapa y del panel.
+ * No afecta los campos del formulario como nombre o color.
+ */
 function limpiarRuta() {
-    puntosCrearRuta = [];
-    marcadoresCrearRuta = [];
+    // 1. 🗺️ Limpia los marcadores y la línea del mapa
+    marcadoresCrearRuta.forEach(marker => {
+        map.removeLayer(marker);
+    });
+
     if (lineaPrevisualizacion) {
         map.removeLayer(lineaPrevisualizacion);
-        lineaPrevisualizacion = null; // Resetea la variable
+        lineaPrevisualizacion = null;
+    }
+
+    // 2. 💾 Resetea los arrays de datos de los puntos
+    marcadoresCrearRuta = [];
+    puntosCrearRuta = [];
+
+    // 3. 📝 Limpia la lista de puntos en el panel
+    const listaPuntosUI = document.getElementById("lista-puntos");
+    if (listaPuntosUI) {
+        listaPuntosUI.innerHTML = "";
     }
 }
 
+/**
+ * Elimina todos los marcadores y datos de las paradas.
+ */
 function limpiarParadas() {
-    paradasCrearRuta = [];
+    // 1. Elimina cada marcador del mapa
+    marcadoresParadas.forEach(marker => {
+        map.removeLayer(marker);
+    });
+
+    // 2. Resetea los arrays de datos y marcadores
+    marcadoresParadas = [];
+    datosParadas = [];
+
+    // 3. Limpia la lista de paradas en el panel HTML
+    const listaParadasUI = document.getElementById("lista-paradas");
+    if (listaParadasUI) {
+        listaParadasUI.innerHTML = "";
+    }
 }
 
 
@@ -1158,12 +1306,6 @@ map.on("click", (e) => {
         establecerDestino(lat, lng);
     }
 });
-
-function agregarPuntoParada(lat, lng) {
-  // Ejemplo: agregar marcador verde para parada
-  L.marker([lat, lng], { icon: paradaIcon }).addTo(map);
-  console.log(`Punto de parada agregado: ${lat}, ${lng}`);
-}
 
 
 // Icono de destino
