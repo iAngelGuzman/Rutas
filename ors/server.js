@@ -4,6 +4,12 @@ import fetch from "node-fetch";
 import fs from "fs";
 import path from "path";
 import multer from "multer";
+import { createClient } from '@supabase/supabase-js';
+import dotenv from 'dotenv';
+
+const SUPABASE_URL = "https://rxfqkbhymotlapterzpk.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ4ZnFrYmh5bW90bGFwdGVyenBrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg3MjU4MDgsImV4cCI6MjA3NDMwMTgwOH0.hymErnZfJFdGEpa9sn43Q_TOsj3rOmue6RRI6DrLv0A";
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const app = express();
 app.use(cors());
@@ -183,44 +189,142 @@ app.get("/rutas", (req, res) => {
     res.json({ rutas });
 });
 
-app.post("/guardar-ruta", (req, res) => {
-    const { nombre, color, mujerSegura, horario, archivos } = req.body;
+// --- NUEVO ENDPOINT PARA OBTENER LAS RUTAS ---
+app.get("/api/rutas", async (req, res) => {
+    try {
+        // Hacemos la consulta a la tabla 'rutas'
+        // .select('*') trae todas las columnas
+        const { data, error } = await supabase
+            .from('rutas')
+            .select('*')
+            .order('nombre', { ascending: true }); // Opcional: ordenar por nombre
 
-    if (!nombre || !color || !archivos) {
-        return res.status(400).json({ error: "Faltan datos obligatorios de la ruta" });
-    }
-
-    // Crear carpeta de la ruta si no existe
-    const safeName = nombre.replace(/[^a-z0-9]/gi, "_").toLowerCase();
-    const rutaDir = path.join(RUTAS_BASE, safeName);
-    if (!fs.existsSync(rutaDir)) fs.mkdirSync(rutaDir, { recursive: true });
-
-    // Leer JSON existente
-    let rutasJson = { rutas: [] };
-    if (fs.existsSync(RUTAS_JSON)) {
-        rutasJson = JSON.parse(fs.readFileSync(RUTAS_JSON, "utf-8"));
-    }
-
-    // Construir objeto de la nueva ruta
-    const nuevaRuta = {
-        nombre,
-        color,
-        "mujer segura": mujerSegura ? "true" : "false",
-        horario: horario || { lunes: "6:00am - 10:00pm", domingo: "8:00am - 8:00pm" },
-        archivos: {
-            imagen: archivos.imagen || null,
-            ruta: archivos.ruta || null,
-            paradas: archivos.paradas || null
+        // Si Supabase devuelve un error, lo enviamos al cliente
+        if (error) {
+            console.error("Error de Supabase:", error.message);
+            // Lanzamos el error para que sea capturado por el bloque catch
+            throw error; 
         }
-    };
 
-    // Agregar al array
-    rutasJson.rutas.push(nuevaRuta);
+        // Si todo sale bien, enviamos los datos
+        res.status(200).json(data);
 
-    // Guardar JSON actualizado
-    fs.writeFileSync(RUTAS_JSON, JSON.stringify(rutasJson, null, 2), "utf-8");
+    } catch (error) {
+        // Manejamos cualquier error que ocurra durante el proceso
+        res.status(500).json({ error: "Error al obtener las rutas desde la base de datos.", details: error.message });
+    }
+});
 
-    res.json({ message: "Ruta guardada correctamente", ruta: nuevaRuta });
+// --- ENDPOINT PARA INSERTAR UNA NUEVA RUTA ---
+app.post("/api/agregar-ruta", async (req, res) => {
+    try {
+        // 1. Recibir los datos del cuerpo de la petición (desde el frontend)
+        const datosRuta = req.body;
+
+        // 2. Validación básica (puedes hacerla más robusta)
+        if (!datosRuta.nombre || !datosRuta['ruta']) {
+            return res.status(400).json({ 
+                error: "Faltan datos obligatorios.",
+                details: "Se requiere al menos un nombre y una ruta."
+            });
+        }
+
+        // 3. Construir el objeto para la inserción.
+        // Las claves deben coincidir EXACTAMENTE con las columnas de tu tabla.
+        const nuevaRuta = {
+            nombre: datosRuta.nombre,
+            horario: datosRuta.horario, // Espera un objeto JSON
+            paradas: datosRuta.paradas, // Espera un array de objetos JSON
+            imagen: datosRuta.imagen,
+            activo: datosRuta.activo,
+            "mujer-segura": datosRuta["mujer-segura"], // Espera un booleano
+
+            // Columnas con guiones, OBLIGATORIAMENTE entre comillas
+            "ruta": datosRuta["ruta"],
+            "ruta-color": datosRuta["ruta-color"],
+            "ruta-puntos": datosRuta["ruta-puntos"],
+
+            "ruta-ida": datosRuta["ruta-ida"],
+            "ruta-ida-color": datosRuta["ruta-ida-color"],
+            "ruta-ida-puntos": datosRuta["ruta-ida-puntos"],
+            "ruta-vuelta": datosRuta["ruta-vuelta"], // Será null si no se envía
+            "ruta-vuelta-color": datosRuta["ruta-vuelta-color"],
+            "ruta-vuelta-puntos": datosRuta["ruta-vuelta-puntos"]
+        };
+
+        // 4. Ejecutar la inserción en Supabase
+        const { data, error } = await supabase
+            .from('rutas') // El nombre de tu tabla
+            .insert([nuevaRuta]) // .insert() espera un array de objetos
+            .select() // .select() devuelve el registro que acabas de insertar
+
+        // 5. Manejar la respuesta de Supabase
+        if (error) {
+            // Si Supabase devuelve un error, lo lanzamos para que lo capture el 'catch'
+            throw error;
+        }
+
+        // Si la inserción fue exitosa, enviamos una respuesta 201 (Created)
+        res.status(201).json({
+            message: "Ruta guardada exitosamente en la base de datos.",
+            data: data // Contiene la nueva ruta insertada, incluyendo su 'id'
+        });
+
+    } catch (error) {
+        // Manejo de errores generales
+        console.error("Error al insertar la ruta:", error.message);
+        res.status(500).json({
+            error: "Ocurrió un error en el servidor al intentar guardar la ruta.",
+            details: error.message
+        });
+    }
+});
+
+app.put("/api/actualizar-ruta/:id", async (req, res) => {
+    const { id } = req.params;
+    const datosActualizados = req.body;
+
+    const { data, error } = await supabase
+        .from('rutas')
+        .update(datosActualizados)
+        .eq('id', id)
+        .select();
+
+    if (error) {
+        return res.status(500).json({ error: "Error al actualizar la ruta.", details: error.message });
+    }
+    res.status(200).json({ message: "Ruta actualizada.", data: data });
+});
+
+// --- ENDPOINT PARA ELIMINAR UNA RUTA POR SU ID ---
+app.delete("/api/eliminar-ruta/:id", async (req, res) => {
+    try {
+        // 1. Obtener el ID de los parámetros de la URL
+        const { id } = req.params;
+
+        // 2. Ejecutar la eliminación en Supabase
+        const { error } = await supabase
+            .from('rutas')
+            .delete()
+            .eq('id', id); // Condición: donde el id coincida
+
+        // 3. Manejar la respuesta de Supabase
+        if (error) {
+            throw error;
+        }
+
+        // Si todo sale bien, envía una respuesta de éxito
+        res.status(200).json({
+            message: "La ruta ha sido eliminada correctamente."
+        });
+
+    } catch (error) {
+        console.error("Error al eliminar la ruta:", error.message);
+        res.status(500).json({
+            error: "Ocurrió un error en el servidor al intentar eliminar la ruta.",
+            details: error.message
+        });
+    }
 });
 
 app.listen(3000, () => console.log("Servidor corriendo en http://localhost:3000"));

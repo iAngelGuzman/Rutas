@@ -6,7 +6,7 @@
     configurarAdmin();
     configurarSidebar();
     await cargarRutas();
-    await cargarMisRutas();
+    await obtenerRutas();
 })();
 
 function configurarSidebar() {
@@ -18,10 +18,6 @@ function configurarSidebar() {
         });
     });
 }
-
-// Variables globales
-let rutas = [];
-let rutasCreadas = [];
 
 function configurarAdmin() {
     localStorage.setItem("admin", "false");
@@ -210,6 +206,11 @@ map.addControl(new modo());
 map.addControl(new alertasControl());
 
 // ---------------- Variables globales ----------------
+let rutas = [];
+let rutasSupabase = [];
+let rutaEnEdicion = null;
+let elementosRuta = [];
+
 let rutasDibujadas = [];
 let lineas = [];
 let paradas = [];
@@ -220,6 +221,7 @@ let marcadores = [];
 let marcadoresParadas = [];
 let marcadoresCrearRuta = [];
 let datosParadas = [];
+let contadorIdParada = 0;
 
 let modoCreacionActivo = false;
 let lineaPrevisualizacion = null;
@@ -490,20 +492,19 @@ function reactivarClicEnParadas() {
     });
 }
 
-function cargarRuta(ruta) {
+function cargarRuta(ruta, supabase = false) {
     // limpiarDestino();
     lineas = [];
     paradas = [];
-    crearRuta(ruta);
+    if (supabase) crearRutaSupabase(ruta); else crearRuta(ruta);
     rutaSeleccionada = ruta;
     configurarSeleccionDestino();
     mostrarMensajeTemporal(`✅ Ruta "${ruta.nombre}" cargada. Haz clic en una parada para seleccionar destino.`);
-    mostrarDetallesRuta(ruta);
+    if (supabase) mostrarDetallesRuta(ruta, supabase); else mostrarDetallesRuta(ruta);
 }
 
 // ---------------- Funciones de rutas ----------------
-function crearBotonRuta(ruta) {
-    const lista = document.getElementById("lista-rutas");
+function btnRuta(ruta) {
     const contenedor = document.createElement("div");
     contenedor.className = "d-flex align-items-center justify-content-between";
 
@@ -584,15 +585,132 @@ function crearBotonRuta(ruta) {
     } else {
         favBtn.className = "btn btn-outline-dark";
     }
-    favBtn.innerHTML = '<i class="fa-solid fa-bookmark"></i>';
+    // Comprueba si la ruta es favorita al momento de crear el botón.
+    if (esRutaFavorita(ruta)) {
+        // Ícono sólido si ya es favorita
+        favBtn.innerHTML = '<i class="fa-solid fa-bookmark"></i>'; 
+    } else {
+        // Ícono de contorno si no es favorita
+        favBtn.innerHTML = '<i class="fa-regular fa-bookmark"></i>'; 
+    }
     favBtn.onclick = () => {
-        guardarFavorito(ruta);
+        guardarFavorito(ruta, favBtn);
     };
 
     // Agregar botones al contenedor
     contenedor.appendChild(btn);
     contenedor.appendChild(botonHorario);
     contenedor.appendChild(favBtn);
+    return contenedor;
+}
+function crearBotonRuta(ruta) {
+    const lista = document.getElementById("lista-rutas");
+    const contenedor = btnRuta(ruta);
+    lista.appendChild(contenedor);
+}
+
+/**
+ * Crea y devuelve el conjunto de botones para una ruta específica.
+ * @param {object} ruta - El objeto de la ruta, con la estructura de la tabla de Supabase.
+ * @returns {HTMLElement} El elemento 'div' contenedor con todos los botones.
+ */
+function btnRutaSupabase(ruta) {
+    const contenedor = document.createElement("div");
+    contenedor.className = "d-flex align-items-center justify-content-between";
+
+    // --- 1. Botón Principal de la Ruta ---
+    const btn = document.createElement("button");
+    btn.style.cssText = "font-size: .875rem; max-width: 20rem; min-width: 0;";
+    
+    // CAMBIO CLAVE: "mujer - segura" ahora es un booleano (true/false), no un string ("true").
+    const esMujerSegura = ruta["mujer-segura"] === true;
+
+    if (esMujerSegura) {
+        btn.className = "btn text-white text-start flex-grow-1 me-2";
+        btn.style.backgroundColor = "#683475"; // Morado
+        btn.style.borderColor = "#683475";
+    } else {
+        btn.className = "btn btn-secondary text-start flex-grow-1 me-2";
+    }
+
+    const icono = document.createElement("i");
+    icono.className = esMujerSegura ? "fa-solid fa-shield-heart me-2" : "fa-solid fa-bus-simple me-2";
+    
+    btn.appendChild(icono);
+    btn.appendChild(document.createTextNode(ruta.nombre));
+    btn.onclick = () => cargarRuta(ruta, true);
+
+    // --- 2. Botón de Horario ---
+    const botonHorario = document.createElement("button");
+    if (esMujerSegura) {
+        botonHorario.className = "btn btn-outline-light me-2";
+        botonHorario.style.borderColor = "#683475";
+        botonHorario.style.color = "#683475";
+    } else {
+        botonHorario.className = "btn btn-outline-secondary me-2";
+    }
+    botonHorario.innerHTML = '<i class="fa-solid fa-clock"></i>';
+
+    botonHorario.onclick = () => {
+        // Accede de forma segura al objeto de horario desde la DB
+        const horario = ruta.horario;
+        const horarioLV = horario?.lunes_viernes || "No disponible";
+        const horarioSD = horario?.sabado_domingo || "No disponible";
+
+        document.getElementById("horario-texto").innerHTML = `
+            <div class="text-center">
+                <h5 class="fw-bold mb-3"><i class="fa-solid fa-clock me-2"></i> Horario de la Ruta</h5>
+                <p class="mb-2 fs-6 text-muted">📍 <strong>Ruta:</strong> ${ruta.nombre}</p>
+                <div class="d-flex flex-column align-items-center">
+                    <div class="p-2 mb-2 w-75 bg-light rounded shadow-sm">
+                        <i class="fa-solid fa-calendar-days me-2 text-primary"></i>
+                        <strong>Lunes a Viernes:</strong> ${horarioLV}
+                    </div>
+                    <div class="p-2 w-75 bg-light rounded shadow-sm">
+                        <i class="fa-solid fa-calendar-week me-2 text-success"></i>
+                        <strong>Sábado y Domingo:</strong> ${horarioSD}
+                    </div>
+                </div>
+            </div>`;
+
+        const horarioModal = new bootstrap.Modal(document.getElementById("horarioModal"));
+        horarioModal.show();
+    };
+
+    // --- 3. Botón de Favorito ---
+    const favBtn = document.createElement("button");
+    if (esMujerSegura) {
+        favBtn.className = "btn btn-outline-light";
+        favBtn.style.borderColor = "#683475";
+        favBtn.style.color = "#683475";
+    } else {
+        favBtn.className = "btn btn-outline-dark";
+    }
+    // Comprueba si la ruta es favorita al momento de crear el botón.
+    if (esRutaFavorita(ruta)) {
+        // Ícono sólido si ya es favorita
+        favBtn.innerHTML = '<i class="fa-solid fa-bookmark"></i>'; 
+    } else {
+        // Ícono de contorno si no es favorita
+        favBtn.innerHTML = '<i class="fa-regular fa-bookmark"></i>'; 
+    }
+    favBtn.onclick = () => guardarFavorito(ruta, favBtn, true);
+
+    // --- Ensamblaje y Retorno ---
+    contenedor.appendChild(btn);
+    contenedor.appendChild(botonHorario);
+    contenedor.appendChild(favBtn);
+    return contenedor;
+}
+
+function crearBotonRutaSupabase(ruta, admin = false) {
+    let lista;
+    if (admin) {
+        lista = document.getElementById("lista-mis-rutas");
+    } else {
+        lista = document.getElementById("rutas-supabase");
+    }
+    const contenedor = btnRutaSupabase(ruta);
     lista.appendChild(contenedor);
 }
 
@@ -695,15 +813,78 @@ function mostrarHorario(horario) {
     document.getElementById("horario-texto").innerHTML = horario;
 }
 
+/**
+ * Comprueba si una ruta ya está guardada en favoritos.
+ * @param {object} ruta - El objeto de la ruta a comprobar.
+ * @returns {boolean} - Devuelve true si la ruta es favorita, de lo contrario false.
+ */
+function esRutaFavorita(ruta) {
+    const favoritos = JSON.parse(localStorage.getItem("rutasFavoritas")) || [];
+    return favoritos.some(fav => fav.ruta.nombre === ruta.nombre);
+}
 
-function guardarFavorito(ruta) {
+/**
+ * Guarda o elimina una ruta de favoritos en localStorage.
+ * Si la ruta no es favorita, la agrega.
+ * Si ya es favorita, pide confirmación para eliminarla.
+ * @param {object} ruta - El objeto de la ruta a guardar/eliminar.
+ * @param {boolean} supabase - Indica si la ruta proviene de Supabase o de un archivo local.
+ */
+function guardarFavorito(ruta, btn, supabase = false) {
     let favoritos = JSON.parse(localStorage.getItem("rutasFavoritas")) || [];
-    if (!favoritos.some(fav => fav.nombre === ruta.nombre)) {
-        favoritos.push(ruta);
+    const nombreRuta = ruta.nombre;
+    const icono = btn.querySelector('i');
+
+    // Busca el índice de la ruta en el array de favoritos.
+    // Se busca dentro del objeto 'ruta' anidado.
+    const indexExistente = favoritos.findIndex(fav => fav.ruta.nombre === nombreRuta);
+
+    if (indexExistente === -1) {
+        // --- Si la ruta NO está en favoritos, la agrega ---
+        favoritos.push({ ruta: ruta, tipo: supabase ? 'supabase' : 'local' });
         localStorage.setItem("rutasFavoritas", JSON.stringify(favoritos));
-        alert(`Ruta "${ruta.nombre}" guardada en favoritos.`);
+
+        // Actualiza el ícono del botón a sólido
+        icono.classList.remove('fa-regular');
+        icono.classList.add('fa-solid');
+        
+        Swal.fire({
+            icon: 'success',
+            title: '¡Guardada!',
+            text: `La ruta "${nombreRuta}" se ha añadido a tus favoritos.`,
+            timer: 1500, // Cierra la alerta automáticamente
+            showConfirmButton: false
+        });
     } else {
-        alert(`La ruta "${ruta.nombre}" ya está en favoritos.`);
+        // --- Si la ruta YA está en favoritos, pide confirmación para quitarla ---
+        Swal.fire({
+            title: '¿Quitar de favoritos?',
+            text: `La ruta "${nombreRuta}" ya está en tus favoritos. ¿Deseas eliminarla?`,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, quitar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // El usuario confirmó, así que eliminamos la ruta del array
+                favoritos.splice(indexExistente, 1);
+                localStorage.setItem("rutasFavoritas", JSON.stringify(favoritos));
+
+                // Actualiza el ícono del botón a contorno
+                icono.classList.remove('fa-solid');
+                icono.classList.add('fa-regular');
+
+                Swal.fire(
+                    '¡Eliminada!',
+                    `La ruta "${nombreRuta}" ha sido eliminada de tus favoritos.`,
+                    'success'
+                );
+                // Actualiza la lista de favoritos
+                verFavoritos();
+            }
+        });
     }
 }
 
@@ -716,23 +897,18 @@ function verFavoritos() {
         lista.innerHTML = '<p class="text-muted">No tienes rutas favoritas guardadas.</p>';
     } else {
         favoritos.forEach(ruta => {
-            const btn = document.createElement("button");
-            btn.className = "btn btn-outline-primary w-100 text-start";
-            btn.innerHTML = `<i class="fa-solid fa-bus-simple me-2"></i> ${ruta.nombre}`;
-            btn.onclick = () => {
-                limpiarDestino();
-                crearRuta(ruta);
-                rutaSeleccionada = ruta;
-                configurarSeleccionDestino();
-            };
-            lista.appendChild(btn);
+            let contenedor;
+            if (ruta.tipo === 'supabase') {
+                contenedor = btnRutaSupabase(ruta.ruta);
+            } else {
+                contenedor = btnRuta(ruta.ruta);
+            }
+            lista.appendChild(contenedor);
         });
     }
 }
 
-function dibujarRuta(ruta, lineas, paradas = []) {
-    let elementosRuta = [];
-
+function dibujarRuta(ruta, lineas, paradas = [], supabase = false) {
     // Limpiar marcadores excepto el destino
     marcadores.forEach((m) => {
         if (m !== marcadorDestino) {
@@ -750,8 +926,6 @@ function dibujarRuta(ruta, lineas, paradas = []) {
     });
     rutasDibujadas = rutasDibujadas.filter(r => r === marcadorDestino);
 
-    document.getElementById("lista-puntos").innerHTML = "";
-
     // Dibujar líneas
     lineas.forEach(l => {
         const polyline = L.polyline(l.coords, {
@@ -759,11 +933,19 @@ function dibujarRuta(ruta, lineas, paradas = []) {
             weight: 5,
             dashArray: l.estilo === "dashed" ? "8, 6" : null
         }).addTo(map);
+        // Adjunta el objeto 'ruta' a la polilínea.
+        polyline.rutaData = ruta; 
+        polyline.esSupabase = supabase; // Guardamos también el tipo de ruta
         rutasDibujadas.push(polyline);
 
         polyline.on("click", function (e) {
             L.DomEvent.stopPropagation(e);
-            mostrarDetallesRuta(ruta);
+            
+            // Obtén los datos desde la polilínea que fue clickeada.
+            const rutaCorrecta = e.target.rutaData;
+            const esDeSupabase = e.target.esSupabase;
+            
+            mostrarDetallesRuta(rutaCorrecta, esDeSupabase);
         });
     });
 
@@ -872,6 +1054,73 @@ async function crearRuta(ruta) {
     }
 }
 
+/**
+ * Procesa un objeto de ruta obtenido de Supabase y lo prepara para ser dibujado en el mapa.
+ * @param {object} ruta - El objeto de la ruta con la estructura de la tabla de Supabase.
+*/
+async function crearRutaSupabase(ruta) {
+    try {
+        // 1. Procesar rutas y paradas
+        if (ruta["ruta"] && ruta["ruta"] !== null) {
+            const coordsLngLat = ruta["ruta"];
+            // IMPORTANTE: Transformar de GeoJSON [lng, lat] a Leaflet [lat, lng]
+            const coordsLatLng = coordsLngLat.map(coord => [coord[1], coord[0]]);
+            
+            lineas.push({
+                coords: coordsLatLng,
+                color: ruta["ruta - color"] || '#FF5733', // Color por defecto si no hay
+                estilo: "solid"
+            });
+        }
+
+        // 2. Procesa la RUTA DE IDA si existe
+        if (ruta["ruta-ida"] && ruta["ruta-ida"].coordinates) {
+            const coordsLngLat = ruta["ruta-ida"].coordinates;
+            // IMPORTANTE: Transformar de GeoJSON [lng, lat] a Leaflet [lat, lng]
+            const coordsLatLng = coordsLngLat.map(coord => [coord[1], coord[0]]);
+            
+            lineas.push({
+                coords: coordsLatLng,
+                color: ruta["ruta-ida-color"] || '#FF5733', // Color por defecto si no hay
+                estilo: "solid"
+            });
+        }
+
+        // 3. Procesa la RUTA DE VUELTA si existe
+        if (ruta["ruta-vuelta"] && ruta["ruta-vuelta"].coordinates) {
+            const coordsLngLat = ruta["ruta-vuelta"].coordinates;
+            const coordsLatLng = coordsLngLat.map(coord => [coord[1], coord[0]]);
+            
+            lineas.push({
+                coords: coordsLatLng,
+                color: ruta["ruta-vuelta-color"] || '#3375FF',
+                estilo: "dashed" // Estilo diferente para la vuelta
+            });
+        }
+        
+        // 4. Procesa las PARADAS si existen
+        // 'paradas' en la DB es un array de objetos: [{"nombre": "...", "coords": [lng, lat]}]
+        if (ruta.paradas && Array.isArray(ruta.paradas)) {
+            // Procesa las nuevas paradas transformando sus coordenadas
+            const nuevasParadas = ruta.paradas.map(parada => {
+                // Transforma de [lng, lat] a [lat, lng]
+                return [parada.coords[1], parada.coords[0]];
+            });
+
+            // ✅ SUMA las nuevas paradas al array existente en lugar de reemplazarlo
+            paradas = [...paradas, ...nuevasParadas];
+        }
+
+        // 4. Llama a la función que dibuja todo en el mapa
+        dibujarRuta(ruta, lineas, paradas, true);
+
+    } catch (err) {
+        console.error("Error al procesar la ruta:", ruta.nombre, err);
+        // Opcional: Mostrar un mensaje de error al usuario
+        // mostrarMensajeTemporal(`Error al cargar la ruta "${ruta.nombre}"`);
+    }
+}
+
 async function cargarGeoJSON(url) {
     const res = await fetch(url);
     if (!res.ok) throw new Error("No se pudo cargar: " + url);
@@ -891,60 +1140,61 @@ async function cargarParadas(url) {
 function swap(arr, i, j) { [arr[i], arr[j]] = [arr[j], arr[i]]; }
 
 // Agregar punto de parada con menú
-function agregarPuntoParada(lat, lng) {
-    const paradaId = Date.now();
-    
-    // 1. 💾 Guardar los datos de la parada
+function agregarPuntoParada(lat, lng, id = null) {
+    let paradaId;
+    if (id) {
+        paradaId = id;
+    } else {
+        paradaId = Date.now() + (contadorIdParada++);
+    }
+
+    // Guardar los datos de la parada
     const nuevaParada = {
         id: paradaId,
-        nombre: `Parada ${datosParadas.length + 1}`,
-        coords: [lng, lat]
+        coords: [lng, lat] 
     };
     datosParadas.push(nuevaParada);
 
-    // 2. 📍 Crear el marcador en el mapa
+    // Crear el marcador en el mapa
     const marker = L.marker([lat, lng], { 
-        icon: paradaIcon, 
-        draggable: true 
+        icon: paradaIcon,
+        draggable: true
     }).addTo(map);
     
+    // ¡IMPORTANTE! Guardamos el ID en el propio marcador.
     marker.paradaId = paradaId; 
     marcadoresParadas.push(marker);
     
-    // 3. 📝 Crear el elemento en la lista del panel
+    // --- El código para crear el elemento <li> en la lista se mantiene igual ---
     const li = document.createElement("li");
     li.className = "d-flex align-items-center mb-2";
     li.dataset.id = paradaId; 
     li.innerHTML = `
         <i class="fa-solid fa-bus text-primary me-2"></i>
-        <input type="text" class="form-control form-control-sm me-2" value="${nuevaParada.nombre}">
+        <input type="text" class="form-control form-control-sm me-2" value="[${lat}, ${lng}]" readonly>
         <button type="button" class="btn btn-sm btn-outline-danger btn-delete-parada">
             <i class="fa-solid fa-trash"></i>
         </button>
     `;
     document.getElementById("lista-paradas").appendChild(li);
-
-    // 4. ✨ Añadir interactividad (Eventos)
-    const inputNombre = li.querySelector("input");
-    inputNombre.addEventListener("change", (e) => {
-        const parada = datosParadas.find(p => p.id === paradaId);
-        if (parada) parada.nombre = e.target.value;
-    });
-
-    const deleteBtn = li.querySelector(".btn-delete-parada");
-    deleteBtn.addEventListener("click", () => {
-        eliminarPuntoParada(paradaId);
-    });
-
+    
+    const inputElement = li.querySelector("input");
+    li.querySelector(".btn-delete-parada").addEventListener("click", () => eliminarPuntoParada(paradaId));
     marker.on("dragend", (event) => {
         const newPos = event.target.getLatLng();
-        const parada = datosParadas.find(p => p.id === paradaId);
-        if (parada) parada.coords = [newPos.lng, newPos.lat];
+        const paradaData = datosParadas.find(p => p.id === paradaId);
+        
+        // Actualiza el array de datos en memoria
+        if (paradaData) {
+            paradaData.coords = [newPos.lng.toFixed(6), newPos.lat.toFixed(6)];
+        }
+
+        // --- ✅ PASO 2: ACTUALIZAR LA INTERFAZ DE USUARIO (UI) ---
+        // Esta es la línea que faltaba.
+        inputElement.value = `[${newPos.lat.toFixed(6)}, ${newPos.lng.toFixed(6)}]`;
     });
 
-    // --- INICIO: Lógica del Menú Popup ---
-
-    // 1. HTML para el menú (sencillo, solo un botón)
+    // --- Lógica del Menú Popup CORREGIDA ---
     const popupHTML = `
       <div class="list-group rounded-4 shadow-sm" style="font-size: .9rem;">
         <button class="list-group-item list-group-item-action text-danger" data-action="delete">
@@ -952,35 +1202,39 @@ function agregarPuntoParada(lat, lng) {
         </button>
       </div>
     `;
-
-    // 2. Vincular el popup al marcador
     marker.bindPopup(popupHTML, { closeOnClick: false, autoClose: false });
 
-    // 3. Manejar eventos cuando se abre el popup
+    // Cuando se abre el popup, añadimos el listener de forma segura
     marker.on("popupopen", (e) => {
         const popupEl = e.popup.getElement();
         if (!popupEl) return;
 
-        // ¡CRÍTICO! Evita que los clics en el menú se propaguen al mapa
         L.DomEvent.disableClickPropagation(popupEl);
 
-        // Añadir el listener al botón de eliminar
-        popupEl.querySelector("button[data-action='delete']").addEventListener("click", () => {
-            marker.closePopup(); // Cerramos el popup
-            eliminarPuntoParada(paradaId); // Llamamos a la función que ya tienes
+        // ✅ CAMBIO 1: Obtenemos el ID directamente del marcador que disparó el evento.
+        const idParaEliminar = e.target.paradaId;
+
+        const deleteBtn = popupEl.querySelector("button[data-action='delete']");
+        
+        // ✅ CAMBIO 2: Reemplazamos el botón para limpiar listeners antiguos y evitar duplicados.
+        const newDeleteBtn = deleteBtn.cloneNode(true);
+        deleteBtn.parentNode.replaceChild(newDeleteBtn, deleteBtn);
+
+        // Añadimos el listener al nuevo botón clonado.
+        newDeleteBtn.addEventListener("click", () => {
+            marker.closePopup();
+            // Usamos el ID que obtuvimos de forma segura.
+            eliminarPuntoParada(idParaEliminar);
         });
     });
     
-    // Opcional: abrir el menú con clic derecho para una mejor UX
     marker.on("contextmenu", (e) => {
         e.originalEvent.preventDefault();
         marker.openPopup();
     });
-
-    // --- FIN: Lógica del Menú Popup ---
 }
 
-// 🗑️ Eliminar un punto de parada por su ID
+// Eliminar un punto de parada por su ID
 function eliminarPuntoParada(id) {
     // Eliminar el marcador del mapa y del array
     const markerIndex = marcadoresParadas.findIndex(m => m.paradaId === id);
@@ -1239,7 +1493,7 @@ async function previsualizarRuta() {
  * No afecta los campos del formulario como nombre o color.
  */
 function limpiarRuta() {
-    // 1. 🗺️ Limpia los marcadores y la línea del mapa
+    // Limpia los marcadores y la línea del mapa
     marcadoresCrearRuta.forEach(marker => {
         map.removeLayer(marker);
     });
@@ -1249,11 +1503,11 @@ function limpiarRuta() {
         lineaPrevisualizacion = null;
     }
 
-    // 2. 💾 Resetea los arrays de datos de los puntos
+    // Resetea los arrays de datos de los puntos
     marcadoresCrearRuta = [];
     puntosCrearRuta = [];
 
-    // 3. 📝 Limpia la lista de puntos en el panel
+    // Limpia la lista de puntos en el panel
     const listaPuntosUI = document.getElementById("lista-puntos");
     if (listaPuntosUI) {
         listaPuntosUI.innerHTML = "";
@@ -1270,7 +1524,9 @@ function limpiarParadas() {
     });
 
     // 2. Resetea los arrays de datos y marcadores
+    marcadoresParadas.forEach(m => map.removeLayer(m));
     marcadoresParadas = [];
+    datosParadas.forEach(p => map.removeLayer(p));
     datosParadas = [];
 
     // 3. Limpia la lista de paradas en el panel HTML
@@ -1279,9 +1535,6 @@ function limpiarParadas() {
         listaParadasUI.innerHTML = "";
     }
 }
-
-
-
 
 // ---------------- Eventos del mapa ----------------
 map.on("click", (e) => {
@@ -1519,59 +1772,6 @@ async function cargarRutas() {
     }
 }
 
-async function cargarMisRutas() {
-    try {
-        const res = await fetch("/rutasGenerar.json");
-        const data = await res.json();
-        rutasCreadas = data.rutas;
-    } catch (err) {
-        console.error("Error cargando rutas.json:", err);
-    }
-}
-
-function crearBotonGenerarRuta(ruta) {
-    const lista = document.getElementById("generar-rutas");
-    const contenedor = document.createElement("div");
-    contenedor.className = "d-flex align-items-center gap-1";
-
-    const btn = document.createElement("button");
-    btn.className = "btn btn-secondary text-start w-100";
-
-    const icono = document.createElement("i");
-    icono.className = "fa-solid fa-bus-simple me-2";
-    btn.appendChild(icono);
-    btn.appendChild(document.createTextNode(ruta.nombre));
-
-    btn.onclick = (e) => {
-        e.preventDefault();
-        document.getElementById("nombre-ruta").value = ruta.nombre;
-        document.getElementById("color-ruta").value = ruta.color;
-        document.getElementById("lista-puntos").innerHTML = "";
-        puntosRuta = [];
-        marcadores.forEach(m => map.removeLayer(m));
-        marcadores = [];
-
-        ruta.puntos.forEach(([lng, lat]) => {
-            agregarPunto(lat, lng);
-        });
-    };
-
-    const btnGen = document.createElement("button");
-    btnGen.className = "btn btn-success";
-    const iconoGen = document.createElement("i");
-    iconoGen.className = "fa-solid fa-route";
-    btnGen.appendChild(iconoGen);
-
-    btnGen.onclick = (e) => {
-        e.preventDefault();
-        crearGenerarRuta(ruta.nombre, ruta.puntos, ruta.color);
-    };
-
-    contenedor.appendChild(btn);
-    contenedor.appendChild(btnGen);
-    lista.appendChild(contenedor);
-}
-
 function configurarBienvenida() {
     if (localStorage.getItem("mostrarBienvenida") === null) {
         localStorage.setItem("mostrarBienvenida", "true");
@@ -1616,6 +1816,8 @@ function confirmarSalidaDeCreacion() {
 
 function salirModoCreacion() {
     modoCreacionActivo = false;
+    rutaEnEdicion = null;
+    paradasCrearRuta.forEach(m => m.removeFrom(map));
     paradasCrearRuta = [];
     puntosCrearRuta = [];
     marcadoresCrearRuta.forEach(m => m.removeFrom(map));
@@ -1686,7 +1888,7 @@ function mostrarMisRutas(sidebar) {
                 <h4 class="fw-bold m-0">Mis Rutas</h4>
             </div>
             <div class="btn-group mt-3">
-                <button class="btn btn-success" onclick="mostrarTodasLasRutas()">
+                <button class="btn btn-success" onclick="mostrarTodasLasRutas(true)">
                     <i class="fa-solid fa-bus-simple me-2"></i> Mostrar todas
                 </button>
                 <button class="btn btn-danger" onclick="ocultarTodasLasRutas()">
@@ -1696,7 +1898,12 @@ function mostrarMisRutas(sidebar) {
             <div id="lista-mis-rutas" class="d-flex flex-column gap-2 mt-3"></div>
         </div>
     `;
-    rutasCreadas.forEach((ruta) => crearBotonMiRuta(ruta));
+    if (rutasSupabase.length > 0) {
+        rutasSupabase.forEach((ruta) => {
+            crearBotonRutaSupabase(ruta, true);
+        });
+        document.getElementById("lista-mis-rutas").classList.remove("d-none");
+    }
 }
 
 function mostrarRutas(sidebar) {
@@ -1708,7 +1915,7 @@ function mostrarRutas(sidebar) {
                 </button>
                 <h4 class="fw-bold m-0">Rutas</h4>
             </div>
-            <div class="btn-group mt-3">
+            <div class="btn-group my-3">
                 <button class="btn btn-success" onclick="mostrarTodasLasRutas()">
                     <i class="fa-solid fa-bus-simple me-2"></i> Mostrar todas
                 </button>
@@ -1716,10 +1923,18 @@ function mostrarRutas(sidebar) {
                     <i class="fa-solid fa-ban me-2"></i> Ocultar todas
                 </button>
             </div>
-            <div id="lista-rutas" class="d-flex flex-column gap-2 mt-3"></div>
+            <div id="rutas-supabase" class="d-flex flex-column gap-2 d-none mb-2"></div>
+            <div id="lista-rutas" class="d-flex flex-column gap-2"></div>
         </div>
     `;
     rutas.forEach((ruta) => crearBotonRuta(ruta));
+    if (rutasSupabase.length > 0) {
+        rutasSupabase.forEach((ruta) => {
+            if (ruta["activo"] === false) return;
+            crearBotonRutaSupabase(ruta);
+        });
+        document.getElementById("rutas-supabase").classList.remove("d-none");
+    }
 }
 
 function cerrarDetallesRuta() {
@@ -1728,21 +1943,48 @@ function cerrarDetallesRuta() {
     sidebar.removeAttribute("data-abierto");
 }
 
-function mostrarDetallesRuta(ruta) {
+function tieneModoCreacion() {
+    return localStorage.getItem("modoCreacion") === "ruta";
+}
+
+function mostrarDetallesRuta(ruta, supabase = false) {
   const sidebar = document.getElementById("sidebar-content");
   if (!sidebar) return;
 
   if (tieneModoCreacion()) return;
 
+  let imagen = null;
   // Imagen con respaldo
-  const imagen = ruta.archivos?.imagen || "/icon.png";
+  if (supabase) {
+    imagen = ruta["imagen"] || "/icon.png";
+  } else {
+    imagen = ruta.archivos?.imagen || "/icon.png";
+  }
 
   // Horarios
-  const horarioLunes = ruta.horario?.lunes || "No disponible";
-  const horarioSabado = ruta.horario?.sabado || ruta.horario?.domingo || "No disponible";
+  let horarioLunes = null;
+  let horarioSabado = null;
+  if (supabase) {
+    let horarios = ruta["horario"];
+    if (horarios) {
+      horarioLunes = horarios["lunes_viernes"] || "No disponible";
+      horarioSabado = horarios["sabado_domingo"] || "No disponible";
+    } else {
+        horarioLunes = "No disponible";
+        horarioSabado = "No disponible";
+    }
+  } else {
+    horarioLunes = ruta.horario?.lunes || "No disponible";
+    horarioSabado = ruta.horario?.sabado || ruta.horario?.domingo || "No disponible";
+  }
 
   // Nombre
-  const nombre = ruta.nombre || "Ruta sin nombre";
+  let nombre = null;
+  if (supabase) {
+    nombre = ruta["nombre"] || "Ruta sin nombre";
+  } else {
+    nombre = ruta.nombre || "Ruta sin nombre";
+  }
 
   // Color fijo azul
   const colorFijo = "#0d2e52";
@@ -1794,6 +2036,16 @@ function mostrarDetallesRuta(ruta) {
           <button id="btnAgregarAlerta" class="btn btn-primary w-100">Agregar alerta</button>
         </div>
 
+        <!-- Editar ruta -->
+        <button id="btnEditarRuta" class="btn btn-success w-100 d-none" type="button" onclick="editarRuta()">
+          <i class="fa-solid fa-pencil-alt me-1"></i> Editar ruta
+        </button>
+
+        <!-- Eliminar ruta -->
+        <button id="btnEliminarRuta" class="btn btn-danger w-100 d-none" type="button" onclick="eliminarRuta()">
+          <i class="fa-solid fa-trash me-1"></i> Eliminar ruta
+        </button>
+
         <div class="mt-auto text-center">
           <span style="display:inline-block; background:${colorFijo}; width:60%; height:5px; border-radius:4px;"></span>
           <p class="text-muted mt-2" style="font-size:0.85rem; color:${colorFijo}">Ruta destacada de Xalapa</p>
@@ -1802,6 +2054,10 @@ function mostrarDetallesRuta(ruta) {
       </div>
     </div>
   `;
+
+  if (supabase) rutaEnEdicion = ruta;
+  if (supabase) document.getElementById("btnEditarRuta").classList.remove("d-none");
+  if (supabase) document.getElementById("btnEliminarRuta").classList.remove("d-none");
 
   sidebar.classList.add("show");
 
@@ -1889,7 +2145,7 @@ function mostrarFavoritos(sidebar) {
                 </button>
                 <h4 class="fw-bold m-0">Rutas Favoritas</h4>
             </div>
-            <div id="favoritos" class="d-flex flex-column gap-2 mt-2"></div>
+            <div id="favoritos" class="d-flex flex-column gap-2 mt-3"></div>
             <button class="btn btn-warning mt-2" onclick="limpiarDestino()">
                 <i class="fa-solid fa-flag"></i> Limpiar destino
             </button>
@@ -1904,6 +2160,14 @@ async function mostrarCrearRutas(sidebar) {
     localStorage.setItem("admin", "true");
     localStorage.setItem("modoCreacion", "ruta");
     modoCreacionActivo = true;
+    marcadores.forEach(m => map.removeLayer(m));
+    marcadores = [];
+    rutasDibujadas.forEach(r => map.removeLayer(r));
+    rutasDibujadas = [];
+    lineas.forEach(l => map.removeLayer(l));
+    lineas = [];
+    paradas.forEach(p => map.removeLayer(p));
+    paradas = [];
 }
 
 // ---------------- Funciones adicionales ----------------
@@ -1916,132 +2180,153 @@ function borrarLocalStorage() {
 
 function limpiarFormulario() {
     document.getElementById("form-ruta").reset();
-    document.getElementById("lista-puntos").innerHTML = "";
-    puntosRuta = [];
-    marcadores.forEach(m => map.removeLayer(m));
-    marcadores = [];
+    limpiarRuta();
+    limpiarParadas();
 }
 
+/**
+ * Obtiene los horarios del formulario y los formatea en un objeto.
+ * @returns {object} El objeto de horario para la base de datos.
+ */
+function obtenerHorarios() {
+    const inicioLV = document.getElementById('hora-inicio-lv').value;
+    const finLV = document.getElementById('hora-fin-lv').value;
+    const inicioSD = document.getElementById('hora-inicio-sd').value;
+    const finSD = document.getElementById('hora-fin-sd').value;
+
+    return {
+        lunes_viernes: (inicioLV && finLV) ? `${inicioLV} - ${finLV}` : null,
+        sabado_domingo: (inicioSD && finSD) ? `${inicioSD} - ${finSD}` : null
+    };
+}
+
+/**
+ * Llama al backend para obtener la geometría de la ruta desde ORS.
+ * @param {Array} puntos - El array de puntos [lng, lat].
+ * @returns {Promise<object|null>} El objeto de geometría GeoJSON o null si falla.
+ */
+async function obtenerGeometriaRuta(puntos) {
+    if (!puntos || puntos.length < 2) return null;
+    try {
+        const response = await fetch('http://localhost:3000/preview-route', { // Revisa que la URL sea correcta
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ coordinates: puntos })
+        });
+        if (!response.ok) return null;
+        const data = await response.json();
+        return data.geometry; // Devuelve solo el objeto de geometría
+    } catch (error) {
+        console.error("Error obteniendo la geometría de la ruta:", error);
+        return null;
+    }
+}
+
+/**
+ * Recopila todos los datos del formulario, los procesa y los envía al backend para guardarlos en la base de datos.
+ */
 async function guardarRuta() {
-
-    const nombre = document.getElementById("nombre-ruta").value.trim();
-    const color = document.getElementById("color-ruta").value;
-    const horario = document.getElementById("horario-ruta").value.trim();
-    const mujerSegura = document.getElementById("mujer-segura").checked;
-    const imagenInput = document.getElementById("input-imagen");
-    const puntos = puntosRuta; // <-- asumimos que ya lo tienes en tu script
-
-    if (!nombre || puntos.length < 2) {
+    const botonGuardar = document.querySelector('button[onclick="guardarRuta()"]');
+    
+    // --- 1. VALIDACIÓN ---
+    const nombre = document.getElementById('nombre-ruta').value.trim();
+    if (!nombre || puntosCrearRuta.length < 2) {
         Swal.fire({
-            icon: "warning",
-            title: "Faltan datos",
-            text: "Debes colocar un nombre y al menos 2 puntos en el mapa.",
+            icon: 'warning',
+            title: 'Faltan Datos',
+            text: 'Debes proporcionar un nombre y al menos 2 puntos en el mapa para la ruta.'
         });
         return;
     }
 
-    // 1️⃣ Subir imagen (si el usuario seleccionó una)
-    let imagenPath = null;
-    if (imagenInput.files.length > 0) {
-        const formData = new FormData();
-        formData.append("imagen", imagenInput.files[0]);
-        formData.append("nombre", nombre);
+    // --- 2. MOSTRAR ESTADO DE CARGA ---
+    botonGuardar.disabled = true;
+    botonGuardar.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> Guardando...';
 
-        try {
-            const resImg = await fetch("http://localhost:3000/subir-imagen", {
-                method: "POST",
-                body: formData,
+    try {
+        // --- 3. RECOPILACIÓN DE DATOS ---
+        const datosParaGuardar = {
+            nombre: nombre,
+            "mujer-segura": document.getElementById('mujer-segura').checked,
+            activo: document.getElementById('ruta-activada').checked,
+            horario: obtenerHorarios(),
+            paradas: datosParadas,
+            
+            // --- Procesamiento de la RUTA (la pestaña "Ruta" se considera "ida") ---
+            "ruta-color": document.getElementById('color-ruta').value,
+            "ruta-puntos": puntosCrearRuta,
+            "ruta": await obtenerGeometriaRuta(puntosCrearRuta), // Llama a ORS para la geometría
+
+            // Dejamos los campos de 'vuelta' como null, ya que el form no los tiene
+            "ruta-ida": null,
+            "ruta-ida-color": null,
+            "ruta-ida-puntos": null,
+            "ruta-vuelta": null,
+            "ruta-vuelta-color": null,
+            "ruta-vuelta-puntos": null,
+
+            // La imagen se manejará por separado si es necesario, o se puede incluir la URL aquí.
+            // Por ahora, la dejamos como null.
+            imagen: null,
+            actualizado: new Date().toISOString()
+        };
+
+        // --- 4. ENVÍO AL BACKEND ---
+        let response;
+        if (rutaEnEdicion) {
+            // --- MODO ACTUALIZACIÓN ---
+            console.log(`Actualizando ruta con ID: ${rutaEnEdicion.id}`);
+            let url = `http://localhost:3000/api/actualizar-ruta/${rutaEnEdicion.id}`; // Añadir el ID a la URL
+            
+            response = await fetch(url, {
+                method: 'PUT', // o 'PATCH'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(datosParaGuardar)
             });
-            const imgData = await resImg.json();
-            imagenPath = imgData.path; // El servidor devuelve el path final
-        } catch (error) {
-            console.error("Error al subir imagen:", error);
-        }
-    }
-
-    // 2️⃣ Preparar objeto de la ruta
-    const ruta = {
-        nombre,
-        color,
-        mujerSegura,
-        horario: {
-            general: horario // puedes personalizarlo para lunes/domingo si deseas
-        },
-        puntos,
-        imagen: imagenPath || null
-    };
-
-    // 3️⃣ Enviar datos de la ruta al backend
-    try {
-        const res = await fetch("http://localhost:3000/directions", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(ruta),
-        });
-
-        const data = await res.json();
-
-        Swal.fire({
-            icon: "success",
-            title: "Ruta guardada",
-            text: data.message || "Se ha creado la ruta correctamente.",
-        });
-
-        // limpiarFormulario(); // si tienes esta función
-    } catch (err) {
-        console.error(err);
-        Swal.fire({
-            icon: "error",
-            title: "Error al guardar",
-            text: "No se pudo guardar la ruta.",
-        });
-    }
-}
-
-
-async function crearGenerarRuta(nombre, puntos, color = "red") {
-    try {
-        const cache = localStorage.getItem(nombre);
-        if (cache) {
-            dibujarRuta2(JSON.parse(cache), color);
-            return;
+        } else {
+            // --- MODO CREACIÓN ---
+            console.log("Creando nueva ruta...");
+            response = await fetch('http://localhost:3000/api/agregar-ruta', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(datosParaGuardar)
+            });
         }
 
-        const res = await fetch("http://localhost:3000/directions", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ nombre, puntos, color })
+        const resultado = await response.json();
+
+        if (!response.ok) {
+            // Si el servidor devuelve un error, lo mostramos
+            throw new Error(resultado.details || 'Error desconocido del servidor');
+        }
+
+        // --- 5. ÉXITO ---
+        Swal.fire({
+            icon: 'success',
+            title: `¡Ruta ${rutaEnEdicion ? 'Actualizada' : 'Guardada'}!`,
+            text: `La ruta se ha ${rutaEnEdicion ? 'actualizado' : 'guardado'} correctamente.`,
         });
 
-        if (!res.ok) throw new Error("Error al generar ruta");
+        // Opcional: Limpiar todo el formulario después de guardar
+        limpiarFormulario();
 
-        const data = await res.json();
-        const coords = data.features[0].geometry.coordinates;
-        const latlngs = coords.map((c) => [c[1], c[0]]);
+        obtenerRutas(); // Refresca las rutas en el mapa y sidebar
 
-        localStorage.setItem(nombre, JSON.stringify(latlngs));
-        dibujarRuta2(latlngs, color);
-    } catch (err) {
-        console.error("Error cargando ruta:", err);
+    } catch (error) {
+        // --- 6. MANEJO DE ERRORES ---
+        console.error('Error al guardar la ruta:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error al Guardar',
+            text: `No se pudo guardar la ruta. Motivo: ${error.message}`
+        });
+    } finally {
+        // --- 7. RESTAURAR BOTÓN ---
+        botonGuardar.disabled = false;
+        botonGuardar.innerHTML = '<i class="fa-solid fa-floppy-disk me-1"></i> Guardar ruta';
     }
 }
 
-function dibujarRuta2(latlngs, color = "red") {
-    rutasDibujadas.forEach((r) => map.removeLayer(r));
-    rutasDibujadas = [];
-
-    const polyline = L.polyline(latlngs, { color, weight: 5 }).addTo(map);
-    rutasDibujadas.push(polyline);
-
-    polyline.on('click', function () {
-        map.removeLayer(polyline);
-        rutasDibujadas = rutasDibujadas.filter(l => l !== polyline);
-    });
-
-    map.fitBounds(polyline.getBounds());
-}
 // Drag & Drop para lista de puntos
 const lista = document.getElementById("lista-puntos");
 Sortable.create(lista, {
@@ -2296,10 +2581,14 @@ function cargarNuevaImagen(event) {
     reader.readAsDataURL(file);
 }
 
-function mostrarTodasLasRutas() {
-    rutasDibujadas.forEach((r) => map.removeLayer(r));
-    rutasDibujadas = [];
-    rutas.forEach((ruta) => crearRuta(ruta));
+function mostrarTodasLasRutas(supabase = false) {
+    ocultarTodasLasRutas();
+    if (supabase) {
+        rutasSupabase.forEach((ruta) => crearRutaSupabase(ruta));
+    } else {
+        rutas.forEach((ruta) => crearRuta(ruta));
+        rutasSupabase.forEach((ruta) => crearRutaSupabase(ruta));
+    }
     cerrarDetallesRuta();
 }
 
@@ -2327,4 +2616,161 @@ function adminModoRuta() {
 
 function adminModoParadas() {
     localStorage.setItem("modoCreacion", "parada");
+}
+
+async function obtenerRutas() {
+    try {
+        // Hacemos la petición a nuestro propio backend
+        const response = await fetch('http://localhost:3000/api/rutas');
+
+        if (!response.ok) {
+            // Si el servidor respondió con un error (ej. 500), lo manejamos
+            const errorInfo = await response.json();
+            throw new Error(errorInfo.error || "No se pudieron cargar las rutas.");
+        }
+
+        // Convertimos la respuesta a JSON
+        rutasSupabase = await response.json();
+        console.log("Cargadas las rutas:", rutasSupabase);
+
+    } catch (error) {
+        console.error("Error al obtener las rutas:", error);
+        // Muestra un error al usuario de forma amigable
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Hubo un problema al cargar las rutas. Inténtalo de nuevo más tarde.'
+        });
+    }
+}
+
+function editarRuta() {
+    if (!rutaEnEdicion) {
+        console.error("No hay ninguna ruta seleccionada para editar.");
+        return;
+    }
+
+    // 1. Cambia la vista del sidebar al formulario de creación/edición
+    actualizarSidebar('crear');
+
+    // 2. Espera un breve momento para que el DOM del formulario se renderice
+    setTimeout(() => {
+        llenarFormularioConRuta(rutaEnEdicion);
+    }, 100); // 100ms suele ser suficiente
+}
+
+/**
+ * Muestra una alerta de confirmación antes de eliminar la ruta.
+ * Llama a la función de borrado si el usuario confirma.
+ */
+function eliminarRuta() {
+    if (!rutaEnEdicion) {
+        console.error("No hay ninguna ruta seleccionada para eliminar.");
+        return;
+    }
+    const nombreRuta = rutaEnEdicion.nombre;
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: `Esta acción no se puede deshacer. Se eliminará permanentemente la ruta "${nombreRuta}".`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, ¡eliminar!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Si el usuario confirma, procede con la eliminación
+            eliminarRutaEnDB(rutaEnEdicion.id);
+        }
+    });
+}
+
+/**
+ * Envía la petición DELETE al backend para eliminar la ruta de la base de datos.
+ * @param {number} id - El ID de la ruta a eliminar.
+ */
+async function eliminarRutaEnDB(id) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/eliminar-ruta/${id}`, {
+            method: 'DELETE'
+        });
+        const resultado = await response.json();
+        if (!response.ok) {
+            throw new Error(resultado.details || 'Error del servidor');
+        }
+        Swal.fire(
+            '¡Eliminada!',
+            resultado.message,
+            'success'
+        );
+        cerrarDetallesRuta();
+        ocultarTodasLasRutas();
+        obtenerRutas();
+    } catch (error) {
+        console.error('Error al eliminar la ruta:', error);
+        Swal.fire(
+            'Error',
+            `No se pudo eliminar la ruta. Motivo: ${error.message}`,
+            'error'
+        );
+    }
+}
+
+/**
+ * Llena todos los campos del formulario con los datos de un objeto de ruta.
+ * @param {object} ruta - El objeto de la ruta a editar.
+ */
+function llenarFormularioConRuta(ruta) {
+    // --- Llenar campos de texto y checkboxes ---
+    document.getElementById('nombre-ruta').value = ruta.nombre || '';
+    document.getElementById('mujer-segura').checked = ruta['mujer-segura'] === true;
+    document.getElementById('ruta-activada').checked = ruta.activo === true;
+    
+    // --- Llenar horarios (parseando el string) ---
+    if (ruta.horario?.lunes_viernes) {
+        const [inicio, fin] = ruta.horario.lunes_viernes.split(' - ');
+        document.getElementById('hora-inicio-lv').value = inicio || '';
+        document.getElementById('hora-fin-lv').value = fin || '';
+    }
+    if (ruta.horario?.sabado_domingo) {
+        const [inicio, fin] = ruta.horario.sabado_domingo.split(' - ');
+        document.getElementById('hora-inicio-sd').value = inicio || '';
+        document.getElementById('hora-fin-sd').value = fin || '';
+    }
+
+    // --- Llenar imagen y color ---
+    document.getElementById('imagen-principal').src = ruta.imagen || 'https://cdn-icons-png.freepik.com/512/13434/13434886.png';
+    document.getElementById('fondo-imagen').src = ruta.imagen || '';
+    // Asumimos que la pestaña "Ruta" corresponde a "ida"
+    document.getElementById('color-ruta').value = ruta['ruta-ida-color'] || '#ff0000';
+
+    // --- ¡CRÍTICO! Limpiar y dibujar los puntos y paradas existentes ---
+    limpiarRuta();
+    limpiarParadas();
+
+    // Dibujar los puntos de la ruta
+    if (ruta['ruta-puntos'] && Array.isArray(ruta['ruta-puntos'])) {
+        ruta['ruta-puntos'].forEach(punto => {
+            // Tu función espera (lat, lng), pero la DB guarda [lng, lat]
+            agregarPuntoRuta(punto[1], punto[0]);
+        });
+    }
+
+    // Dibujar las paradas
+    if (ruta.paradas && Array.isArray(ruta.paradas)) {
+        ruta.paradas.forEach(parada => {
+            // Tu función espera (lat, lng), pero la DB guarda [lng, lat]
+            agregarPuntoParada(parada.coords[1], parada.coords[0], parada.id);
+        });
+    }
+
+    // Previsualizar la ruta
+    previsualizarRuta();
+
+    // Cambiar texto del botón de guardar para reflejar la acción de edición
+    const botonGuardar = document.querySelector('button[onclick="guardarRuta()"]');
+    if(botonGuardar) {
+        botonGuardar.innerHTML = '<i class="fa-solid fa-sync-alt me-1"></i> Actualizar ruta';
+    }
 }
