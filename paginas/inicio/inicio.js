@@ -73,10 +73,11 @@ const ubicacion = L.Control.extend({
         const locateBtn = L.DomUtil.create("a", "", container);
         locateBtn.classList.add("d-flex", "justify-content-center", "align-items-center");
         locateBtn.innerHTML = '<i class="fa-solid fa-location-crosshairs fs-6"></i>';
+        locateBtn.id = "btn-ubicacion";
         locateBtn.href = "#";
         locateBtn.title = "Ver mi ubicación";
         L.DomEvent.on(locateBtn, "click", L.DomEvent.stop)
-                  .on(locateBtn, "click", () => verMiUbicacion(locateBtn));
+                  .on(locateBtn, "click", () => verMiUbicacion());
         return container;
     }
 });
@@ -210,6 +211,7 @@ let rutas = [];
 let rutasSupabase = [];
 let rutaEnEdicion = null;
 let elementosRuta = [];
+let todasLasParadas = [];
 
 let rutasDibujadas = [];
 let lineas = [];
@@ -1434,7 +1436,12 @@ function moverAbajo(i) {
 async function previsualizarRuta() {
     // 1. Validar que existan al menos dos puntos para trazar una ruta
     if (puntosCrearRuta.length < 2) {
-        alert("Necesitas agregar al menos 2 puntos en el mapa para previsualizar la ruta.");
+        Swal.fire({
+            icon: 'warning',
+            title: 'Puntos insuficientes',
+            text: 'Agrega al menos 2 puntos en el mapa para previsualizar la ruta.',
+            confirmButtonText: 'Entendido'
+        });
         return;
     }
 
@@ -1589,7 +1596,7 @@ function establecerDestino(lat, lng) {
           <button class="list-group-item list-group-item-action" onclick="verDetalles()"> 
             <i class="fa-solid fa-circle-info me-2"></i> Ver detalles 
           </button>
-          <button class="list-group-item list-group-item-action" onclick="establecerRuta()"> 
+          <button class="list-group-item list-group-item-action" onclick="establecerRuta(${lat}, ${lng})"> 
             <i class="fa-solid fa-route me-2"></i> Establecer ruta 
           </button>
           <button class="list-group-item list-group-item-action text-danger" onclick="eliminarDestino()"> 
@@ -1627,8 +1634,87 @@ function verDetalles() {
     alert("Detalles del destino");
 }
 
-function establecerRuta() {
-    alert("Se estableció la ruta al destino");
+/**
+ * Busca la ruta óptima basada en un destino y la ubicación del usuario.
+ * @param {number} lat - Latitud del punto de destino seleccionado.
+ * @param {number} lng - Longitud del punto de destino seleccionado.
+ */
+function establecerRuta(lat, lng) {
+    const destinoLatLng = L.latLng(lat, lng);
+
+    procesarParadasGlobales(); // Asegura que todasLasParadas esté actualizado
+
+    // --- Validación inicial ---
+    if (!marcadorUbicacion) {
+        mostrarMensajeTemporal("Por favor, activa primero tu ubicación.");
+        verMiUbicacion(); // Intenta activar la ubicación
+        return;
+    }
+    if (todasLasParadas.length === 0) {
+        mostrarMensajeTemporal("No hay paradas cargadas para buscar.");
+        return;
+    }
+
+    const ubicacionActualLatLng = marcadorUbicacion.getLatLng();
+
+    // --- Paso 1: Encontrar la Parada Destino (la más cercana al clic) ---
+    let paradaDestino = null;
+    let distanciaMinimaADestino = Infinity;
+
+    todasLasParadas.forEach(parada => {
+        const distancia = destinoLatLng.distanceTo(parada.latlng);
+        if (distancia < distanciaMinimaADestino) {
+            distanciaMinimaADestino = distancia;
+            paradaDestino = parada;
+        }
+    });
+
+    if (!paradaDestino) {
+        mostrarMensajeTemporal("No se encontró ninguna parada cerca de tu destino.");
+        return;
+    }
+
+    // --- Paso 2: Encontrar la Parada Origen (la más cercana al usuario en la misma ruta) ---
+    const rutaEncontrada = paradaDestino;
+    let paradaOrigen = null;
+    let distanciaMinimaAUsuario = Infinity;
+
+    // Filtramos solo las paradas que pertenecen a la ruta encontrada
+    const paradasDeLaRuta = todasLasParadas.filter(p => p.ruta.id === rutaEncontrada.ruta.id);
+
+    paradasDeLaRuta.forEach(parada => {
+        const distancia = ubicacionActualLatLng.distanceTo(parada.latlng);
+        if (distancia < distanciaMinimaAUsuario) {
+            distanciaMinimaAUsuario = distancia;
+            paradaOrigen = parada;
+        }
+    });
+
+    if (!paradaOrigen) {a
+        // Esto es poco probable si ya encontramos una parada destino, pero es una buena verificación
+        mostrarMensajeTemporal("No se pudo encontrar una parada de origen en la ruta.");
+        return;
+    }
+
+    // Dibuja la ruta encontrada
+    if (rutaEncontrada.esSupabase) {
+        crearRutaSupabase(rutaEncontrada.ruta); 
+    } else {
+        crearRuta(rutaEncontrada.ruta);
+    }
+
+    // Marcador para la parada de origen (donde el usuario debe subir)
+    L.marker(paradaOrigen.latlng, { icon: paradaIcon })
+        .addTo(map)
+        .bindPopup(`<b>Sube aquí</b><br>Parada más cercana a tu ubicación en la ruta "${rutaEncontrada.nombre}"`)
+        .openPopup();
+
+    // Marcador para la parada de destino (donde el usuario debe bajar)
+    L.marker(paradaDestino.latlng, { icon: destinoIcon })
+        .addTo(map)
+        .bindPopup(`<b>Baja aquí</b><br>Parada más cercana a tu destino.`);
+
+    mostrarMensajeTemporal(`Ruta encontrada: "${rutaEncontrada.ruta.nombre}"`);
 }
 
 function eliminarDestino() {
@@ -1645,8 +1731,8 @@ let circuloUbicacion = null;
 let circuloPulsante = null;
 let animando = false;
 
-function verMiUbicacion(btn) {
-    const locateBtn = btn;
+function verMiUbicacion() {
+    const locateBtn = document.getElementById("btn-ubicacion");
     locateBtn.classList.add("gradiente");
     map.locate({ setView: true, maxZoom: 17, watch: true });
 
@@ -2171,13 +2257,6 @@ async function mostrarCrearRutas(sidebar) {
 }
 
 // ---------------- Funciones adicionales ----------------
-function borrarLocalStorage() {
-    if (confirm("¿Seguro que quieres borrar todas las rutas en cache?")) {
-        localStorage.clear();
-        alert("Cache borrada");
-    }
-}
-
 function limpiarFormulario() {
     document.getElementById("form-ruta").reset();
     limpiarRuta();
@@ -2773,4 +2852,35 @@ function llenarFormularioConRuta(ruta) {
     if(botonGuardar) {
         botonGuardar.innerHTML = '<i class="fa-solid fa-sync-alt me-1"></i> Actualizar ruta';
     }
+}
+
+/**
+ * Procesa el array de rutas y crea una lista unificada de todas las paradas.
+ * Llama a esta función después de cargar tus rutas desde Supabase.
+ */
+function procesarParadasGlobales() {
+    todasLasParadas = []; // Limpia el array antes de llenarlo
+    
+    rutas.forEach(ruta => {
+        if (ruta.paradas && Array.isArray(ruta.paradas)) {
+            ruta.paradas.forEach(parada => {
+                todasLasParadas.push({
+                    ruta: ruta,
+                    esSupabase: false,
+                    latlng: L.latLng(parada.coords[1], parada.coords[0]) 
+                });
+            });
+        }
+    });
+    rutasSupabase.forEach(ruta => {
+        if (ruta.paradas && Array.isArray(ruta.paradas)) {
+            ruta.paradas.forEach(parada => {
+                todasLasParadas.push({
+                    ruta: ruta,
+                    esSupabase: true,
+                    latlng: L.latLng(parada.coords[1], parada.coords[0]) 
+                });
+            });
+        }
+    });
 }
