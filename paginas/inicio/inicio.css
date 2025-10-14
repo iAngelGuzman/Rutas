@@ -90,6 +90,11 @@ body.swal2-height-auto {
     opacity: 0.25;
 }
 
+.active-location {
+    color: #ffffff !important;
+    background-color: #0c5aeb !important;
+}
+
 .gradiente {
     background: #acacac;
     /* Base oscura */

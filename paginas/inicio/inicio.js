@@ -1134,7 +1134,8 @@ async function cargarParadas(url) {
     const res = await fetch(url);
     if (!res.ok) throw new Error("No se pudo cargar: " + url);
     const data = await res.json();
-    return data.features.map(f => [f.geometry.coordinates[1], f.geometry.coordinates[0]]);
+    const dataMap = data.features.map(f => [f.geometry.coordinates[1], f.geometry.coordinates[0]]);
+    return dataMap;
 }
 
 // ---------------- Funciones de administración ----------------
@@ -1588,6 +1589,9 @@ function establecerDestino(lat, lng) {
         draggable: true
     }).addTo(map);
 
+    // centrar mapa en el destino
+    map.setView([lat, lng], 15);
+
     marcadorDestino.setZIndexOffset(1200);
 
     // Popup con menú de opciones
@@ -1639,82 +1643,87 @@ function verDetalles() {
  * @param {number} lat - Latitud del punto de destino seleccionado.
  * @param {number} lng - Longitud del punto de destino seleccionado.
  */
-function establecerRuta(lat, lng) {
+async function establecerRuta(lat, lng) {
+    ocultarTodasLasRutas();
+
     const destinoLatLng = L.latLng(lat, lng);
 
-    procesarParadasGlobales(); // Asegura que todasLasParadas esté actualizado
-
-    // --- Validación inicial ---
-    if (!marcadorUbicacion) {
-        mostrarMensajeTemporal("Por favor, activa primero tu ubicación.");
-        verMiUbicacion(); // Intenta activar la ubicación
-        return;
-    }
-    if (todasLasParadas.length === 0) {
-        mostrarMensajeTemporal("No hay paradas cargadas para buscar.");
-        return;
-    }
-
-    const ubicacionActualLatLng = marcadorUbicacion.getLatLng();
-
-    // --- Paso 1: Encontrar la Parada Destino (la más cercana al clic) ---
-    let paradaDestino = null;
-    let distanciaMinimaADestino = Infinity;
-
-    todasLasParadas.forEach(parada => {
-        const distancia = destinoLatLng.distanceTo(parada.latlng);
-        if (distancia < distanciaMinimaADestino) {
-            distanciaMinimaADestino = distancia;
-            paradaDestino = parada;
+    await procesarParadasGlobales().then(() => {
+        console.log("Paradas globales procesadas:", todasLasParadas);
+        // --- Validación inicial ---
+        if (!marcadorUbicacion) {
+            mostrarMensajeTemporal("Por favor, activa primero tu ubicación.");
+            verMiUbicacion(); // Intenta activar la ubicación
+            return;
         }
-    });
-
-    if (!paradaDestino) {
-        mostrarMensajeTemporal("No se encontró ninguna parada cerca de tu destino.");
-        return;
-    }
-
-    // --- Paso 2: Encontrar la Parada Origen (la más cercana al usuario en la misma ruta) ---
-    const rutaEncontrada = paradaDestino;
-    let paradaOrigen = null;
-    let distanciaMinimaAUsuario = Infinity;
-
-    // Filtramos solo las paradas que pertenecen a la ruta encontrada
-    const paradasDeLaRuta = todasLasParadas.filter(p => p.ruta.id === rutaEncontrada.ruta.id);
-
-    paradasDeLaRuta.forEach(parada => {
-        const distancia = ubicacionActualLatLng.distanceTo(parada.latlng);
-        if (distancia < distanciaMinimaAUsuario) {
-            distanciaMinimaAUsuario = distancia;
-            paradaOrigen = parada;
+        if (todasLasParadas.length === 0) {
+            mostrarMensajeTemporal("No hay paradas cargadas para buscar.");
+            return;
         }
+
+        const ubicacionActualLatLng = marcadorUbicacion.getLatLng();
+
+        // --- Paso 1: Encontrar la Parada Destino (la más cercana al clic) ---
+        let paradaDestino = null;
+        let distanciaMinimaADestino = Infinity;
+
+        todasLasParadas.forEach(parada => {
+            const distancia = destinoLatLng.distanceTo(parada.latlng);
+            if (distancia < distanciaMinimaADestino) {
+                distanciaMinimaADestino = distancia;
+                paradaDestino = parada;
+            }
+        });
+
+        if (!paradaDestino) {
+            mostrarMensajeTemporal("No se encontró ninguna parada cerca de tu destino.");
+            return;
+        }
+
+        // --- Paso 2: Encontrar la Parada Origen (la más cercana al usuario en la misma ruta) ---
+        const rutaEncontrada = paradaDestino;
+        let paradaOrigen = null;
+        let distanciaMinimaAUsuario = Infinity;
+
+        // Filtramos solo las paradas que pertenecen a la ruta encontrada
+        const paradasDeLaRuta = todasLasParadas.filter(p => p.ruta.id === rutaEncontrada.ruta.id);
+
+        paradasDeLaRuta.forEach(parada => {
+            const distancia = ubicacionActualLatLng.distanceTo(parada.latlng);
+            if (distancia < distanciaMinimaAUsuario) {
+                distanciaMinimaAUsuario = distancia;
+                paradaOrigen = parada;
+            }
+        });
+
+        if (!paradaOrigen) {a
+            // Esto es poco probable si ya encontramos una parada destino, pero es una buena verificación
+            mostrarMensajeTemporal("No se pudo encontrar una parada de origen en la ruta.");
+            return;
+        }
+
+        // Dibuja la ruta encontrada
+        if (rutaEncontrada.esSupabase) {
+            crearRutaSupabase(rutaEncontrada.ruta); 
+        } else {
+            crearRuta(rutaEncontrada.ruta);
+        }
+
+        // Marcador para la parada de origen (donde el usuario debe subir)
+        L.marker(paradaOrigen.latlng, { icon: paradaIcon })
+            .addTo(map)
+            .bindPopup(`<b>Sube aquí</b><br>Parada más cercana a tu ubicación en la ruta "${rutaEncontrada.nombre}"`)
+            .openPopup();
+
+        // Marcador para la parada de destino (donde el usuario debe bajar)
+        L.marker(paradaDestino.latlng, { icon: destinoIcon })
+            .addTo(map)
+            .bindPopup(`<b>Baja aquí</b><br>Parada más cercana a tu destino.`);
+
+        mostrarMensajeTemporal(`Ruta encontrada: "${rutaEncontrada.ruta.nombre}"`);
+    }).catch(err => {
+        console.error("Error procesando paradas globales:", err);
     });
-
-    if (!paradaOrigen) {a
-        // Esto es poco probable si ya encontramos una parada destino, pero es una buena verificación
-        mostrarMensajeTemporal("No se pudo encontrar una parada de origen en la ruta.");
-        return;
-    }
-
-    // Dibuja la ruta encontrada
-    if (rutaEncontrada.esSupabase) {
-        crearRutaSupabase(rutaEncontrada.ruta); 
-    } else {
-        crearRuta(rutaEncontrada.ruta);
-    }
-
-    // Marcador para la parada de origen (donde el usuario debe subir)
-    L.marker(paradaOrigen.latlng, { icon: paradaIcon })
-        .addTo(map)
-        .bindPopup(`<b>Sube aquí</b><br>Parada más cercana a tu ubicación en la ruta "${rutaEncontrada.nombre}"`)
-        .openPopup();
-
-    // Marcador para la parada de destino (donde el usuario debe bajar)
-    L.marker(paradaDestino.latlng, { icon: destinoIcon })
-        .addTo(map)
-        .bindPopup(`<b>Baja aquí</b><br>Parada más cercana a tu destino.`);
-
-    mostrarMensajeTemporal(`Ruta encontrada: "${rutaEncontrada.ruta.nombre}"`);
 }
 
 function eliminarDestino() {
@@ -1730,120 +1739,109 @@ let marcadorUbicacion = null;
 let circuloUbicacion = null;
 let circuloPulsante = null;
 let animando = false;
+let isWatchingLocation = false;
 
-function verMiUbicacion() {
-    const locateBtn = document.getElementById("btn-ubicacion");
+function verMiUbicacion(btn) {
+    const locateBtn = btn || document.getElementById("btn-ubicacion");
+    
+    // Si ya estamos siguiendo la ubicación, la detenemos
+    if (isWatchingLocation) {
+        map.stopLocate();
+        locateBtn.classList.remove("gradiente", "active-location");
+        isWatchingLocation = false;
+        // Opcional: Ocultar los marcadores de ubicación al detener
+        if (marcadorUbicacion) map.removeLayer(marcadorUbicacion);
+        if (circuloUbicacion) map.removeLayer(circuloUbicacion);
+        if (circuloPulsante) map.removeLayer(circuloPulsante);
+        marcadorUbicacion = circuloUbicacion = circuloPulsante = null;
+        animando = false;
+        return;
+    }
+
+    // Inicia el efecto de carga en el botón
     locateBtn.classList.add("gradiente");
-    map.locate({ setView: true, maxZoom: 17, watch: true });
+    
+    // Inicia la geolocalización
+    map.locate({ setView: false, watch: true });
+    isWatchingLocation = true;
+    locateBtn.classList.add("active-location");
 
-    // Solo enganchamos UNA vez el evento
-    if (!map._locationHandler) {
-        map._locationHandler = true;
+    // --- MANEJADORES DE EVENTOS (se adjuntan solo una vez si no existen) ---
+    if (!map._locationHandlersAttached) {
+        map._locationHandlersAttached = true;
 
+        // Se ejecuta LA PRIMERA VEZ que se encuentra la ubicación
+        map.once("locationfound", (e) => {
+            map.setView(e.latlng, 17);
+
+            locateBtn.classList.remove("gradiente");
+            crearMarcadoresUbicacion(e.latlng);
+
+            // Muestra el popup temporal
+            const popup = L.popup({ closeButton: false, autoClose: true, className: "popup-ubicacion" })
+                .setLatLng(e.latlng)
+                .setContent("¡Aquí estás!")
+                .openOn(map);
+            setTimeout(() => map.closePopup(popup), 2000);
+        });
+
+        // Se ejecuta CADA VEZ que la ubicación se actualiza
         map.on("locationfound", (e) => {
-            const { latlng } = e;
-
-            if (!popupUbicacion) {
-                popupUbicacion = L.popup({
-                    closeButton: false,
-                    autoClose: true,
-                    closeOnClick: true,
-                    className: "popup-ubicacion"
-                })
-                    .setLatLng(latlng)
-                    .setContent("¡Aquí estás!")
-                    .openOn(map);
-
-                // Cerrar automáticamente después de 2 segundos
-                setTimeout(() => {
-                    map.closePopup(popupUbicacion);
-                    popupUbicacion = null; // opcional, para que pueda crearse de nuevo
-                }, 2000);
-
+            if (marcadorUbicacion) {
+                marcadorUbicacion.setLatLng(e.latlng);
+                circuloUbicacion.setLatLng(e.latlng);
+                circuloPulsante.setLatLng(e.latlng);
             } else {
-                popupUbicacion.setLatLng(latlng);
+                // Si los marcadores fueron borrados, los recrea
+                crearMarcadoresUbicacion(e.latlng);
             }
+            locateBtn.classList.remove("gradiente");
+        });
 
-            if (!marcadorUbicacion) {
-                marcadorUbicacion = L.circle(latlng, {
-                    radius: 14,
-                    color: "blue",
-                    opacity: 1,
-                    weight: 1,
-                    fillColor: "rgba(0, 0, 200, 1)",
-                    fillOpacity: 1,
-                }).addTo(map);
-            } else {
-                marcadorUbicacion.setLatLng(latlng);
-            }
-
-            if (!circuloUbicacion) {
-                circuloUbicacion = L.circle(latlng, {
-                    radius: 110,
-                    color: "blue",
-                    opacity: 0.4,
-                    weight: 1,
-                    fillColor: "rgba(0, 179, 255, 1)",
-                    fillOpacity: 0.2,
-                }).addTo(map);
-            } else {
-                circuloUbicacion.setLatLng(latlng);
-            }
-
-            if (!circuloPulsante) {
-                circuloPulsante = L.circle(latlng, {
-                    radius: 0,
-                    color: "blue",
-                    weight: 2,
-                    fillColor: "rgba(0, 179, 255, 1)",
-                    fillOpacity: 0.5,
-                }).addTo(map);
-
-                // Animación solo una vez
-                if (!animando) {
-                    animando = true;
-                    animarCirculo();
-                }
-            } else {
-                circuloPulsante.setLatLng(latlng);
-            }
-
-            // // Si hay un destino, iniciar monitoreo
-            // if (marcadorDestino) {
-            //     iniciarMonitoreoProximidad();
-            // }
+        // Se ejecuta si hay un ERROR
+        map.on("locationerror", (e) => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error de Ubicación',
+                text: 'No se pudo obtener tu ubicación. Por favor, revisa los permisos en tu navegador.'
+            });
+            locateBtn.classList.remove("gradiente", "active-location");
+            map.stopLocate();
+            isWatchingLocation = false;
         });
     }
-    locateBtn.classList.remove("gradiente");
 }
 
-function animarCirculo() {
-    if (!circuloPulsante) return;
+/**
+ * Crea los 3 círculos que representan la ubicación del usuario.
+ */
+function crearMarcadoresUbicacion(latlng) {
+    marcadorUbicacion = L.circle(latlng, { radius: 8, color: "blue", fillColor: "rgba(0, 0, 200, 1)", fillOpacity: 1 }).addTo(map);
+    circuloUbicacion = L.circle(latlng, { radius: 110, color: "blue", weight: 1, fillColor: "rgba(0, 179, 255, 1)", fillOpacity: 0.2 }).addTo(map);
+    circuloPulsante = L.circle(latlng, { radius: 0, color: "blue", weight: 2, fillColor: "rgba(0, 179, 255, 1)", fillOpacity: 0.5 }).addTo(map);
+    animarCirculo();
+}
 
-    const radioMax = 110;
+
+// Tu función de animación (con una pequeña mejora para detenerse)
+function animarCirculo() {
+    if (animando) return; // Evita iniciar múltiples animaciones
+    animando = true;
+
     let radio = 0;
-    let opacity = 0.5;
+    const radioMax = 110;
 
     function frame() {
-        if (!circuloPulsante) return;
-
-        radio += 1;
-        opacity = Math.max(0, 0.5 * (1 - radio / radioMax));
-
-        circuloPulsante.setRadius(radio);
-        circuloPulsante.setStyle({
-            fillOpacity: opacity,
-            opacity: opacity
-        });
-
-        if (radio >= radioMax) {
-            radio = 0;
-            opacity = 0.5;
+        if (!isWatchingLocation) {
+            animando = false;
+            return; // Detiene la animación si se apaga el seguimiento
         }
-
+        radio = (radio + 1) % radioMax;
+        const opacity = Math.max(0, 0.5 * (1 - radio / radioMax));
+        circuloPulsante.setRadius(radio);
+        circuloPulsante.setStyle({ fillOpacity: opacity, opacity: opacity });
         requestAnimationFrame(frame);
     }
-
     frame();
 }
 
@@ -1994,7 +1992,7 @@ function mostrarMisRutas(sidebar) {
 
 function mostrarRutas(sidebar) {
     sidebar.innerHTML = `
-        <div class="d-flex flex-column p-3 h-100 overflow-auto bg-white">
+        <div class="d-flex flex-column p-3 h-100 overflow-auto">
             <div class="d-flex justify-content-start align-items-center gap-2">
                 <button class="close-btn btn btn-outline-secondary bg-transparent border-0 fs-3 p-0 d-flex d-md-none" onclick="abrirMenuMovil()">
                     <i class="fa-solid fa-circle-arrow-left"></i>
@@ -2220,7 +2218,6 @@ function mostrarDetallesRuta(ruta, supabase = false) {
     btnAgregarAlerta.insertAdjacentElement("afterend", menu);
   };
 }
-
 
 function mostrarFavoritos(sidebar) {
     sidebar.innerHTML = `
@@ -2479,11 +2476,7 @@ function buscarDireccion(input, query, lista, limpiar) {
                     btn.innerHTML = `<i class="fa-solid fa-location-dot me-1"></i> ${item.display_name}`;
 
                     btn.addEventListener("click", () => {
-                        map.setView([item.lat, item.lon], 16);
-                        L.marker([item.lat, item.lon])
-                          .addTo(map)
-                          .bindPopup(`<b>${item.display_name}</b>`)
-                          .openPopup();
+                        establecerDestino(item.lat, item.lon);
 
                         lista.classList.add("d-none");
                         input.value = item.display_name;
@@ -2532,11 +2525,7 @@ function mostrarHistorial(lista) {
         btn.innerHTML = `<i class="fa-solid fa-clock me-1"></i> ${item.display_name}`;
 
         btn.addEventListener("click", () => {
-            map.setView([item.lat, item.lon], 16);
-            L.marker([item.lat, item.lon])
-              .addTo(map)
-              .bindPopup(`<b>${item.display_name}</b>`)
-              .openPopup();
+            establecerDestino(item.lat, item.lon);
 
             lista.classList.add("d-none");
             input.value = item.display_name;
@@ -2858,20 +2847,60 @@ function llenarFormularioConRuta(ruta) {
  * Procesa el array de rutas y crea una lista unificada de todas las paradas.
  * Llama a esta función después de cargar tus rutas desde Supabase.
  */
-function procesarParadasGlobales() {
+async function procesarParadasGlobales() {
     todasLasParadas = []; // Limpia el array antes de llenarlo
-    
-    rutas.forEach(ruta => {
-        if (ruta.paradas && Array.isArray(ruta.paradas)) {
-            ruta.paradas.forEach(parada => {
-                todasLasParadas.push({
-                    ruta: ruta,
-                    esSupabase: false,
-                    latlng: L.latLng(parada.coords[1], parada.coords[0]) 
+
+    for (const ruta of rutas) {
+        const archivos = ruta.archivos;
+        if (archivos.ruta && archivos.paradas) {
+            try {
+                const paradasArray = await cargarParadas(archivos.paradas);
+                paradasArray.forEach(paradaCoords => {
+                    const lat = paradaCoords[0];
+                    const lng = paradaCoords[1];
+                    todasLasParadas.push({
+                        ruta: ruta,
+                        esSupabase: false,
+                        latlng: L.latLng(lat, lng)
+                    });
                 });
-            });
+            } catch (error) {
+                console.error("Error al procesar las paradas locales:", error);
+            }
         }
-    });
+        if (archivos.ida && archivos["ida-paradas"]) {
+            try {
+                const paradasArray = await cargarParadas(archivos["ida-paradas"]);
+                paradasArray.forEach(paradaCoords => {
+                    const lat = paradaCoords[0];
+                    const lng = paradaCoords[1];
+                    todasLasParadas.push({
+                        ruta: ruta,
+                        esSupabase: false,
+                        latlng: L.latLng(lat, lng)
+                    });
+                });
+            } catch (error) {
+                console.error("Error al procesar las paradas locales:", error);
+            }
+        }
+        if (archivos.vuelta && archivos["vuelta-paradas"]) {
+            try {
+                const paradasArray = await cargarParadas(archivos["vuelta-paradas"]);
+                paradasArray.forEach(paradaCoords => {
+                    const lat = paradaCoords[0];
+                    const lng = paradaCoords[1];
+                    todasLasParadas.push({
+                        ruta: ruta,
+                        esSupabase: false,
+                        latlng: L.latLng(lat, lng)
+                    });
+                });
+            } catch (error) {
+                console.error("Error al procesar las paradas locales:", error);
+            }
+        }
+    };
     rutasSupabase.forEach(ruta => {
         if (ruta.paradas && Array.isArray(ruta.paradas)) {
             ruta.paradas.forEach(parada => {
