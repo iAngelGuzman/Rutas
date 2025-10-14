@@ -510,8 +510,8 @@
             <span class="text-primary pe-2"
               style="font-size: .9rem; margin-top: -.1rem;">Foro</span>
           </button>
-          <button
-            class="menu-item-movil btn btn-outline-primary d-flex flex-row justify-content-start align-items-center p-0 border-0 bg-transparent text-primary"
+          <button id="btn-crear"
+            class="menu-item-movil btn btn-outline-primary d-none flex-row justify-content-start align-items-center p-0 border-0 bg-transparent text-primary"
             onclick="actualizarSidebar('crear')">
             <i
               class="fa-solid fa-route fs-5 rounded d-flex justify-content-center align-items-center"
@@ -519,8 +519,8 @@
             <span class="text-primary pe-2"
               style="font-size: .9rem; margin-top: -.1rem;">Crear</span>
           </button>
-          <button
-            class="menu-item-movil btn btn-outline-primary d-flex flex-row justify-content-start align-items-center p-0 border-0 bg-transparent text-primary"
+          <button id="btn-creadas"
+            class="menu-item-movil btn btn-outline-primary d-none flex-row justify-content-start align-items-center p-0 border-0 bg-transparent text-primary"
             onclick="actualizarSidebar('mis-rutas')">
             <i
               class="fa-solid fa-route fs-5 rounded d-flex justify-content-center align-items-center"
@@ -547,7 +547,7 @@
     <script
       src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
-    <script src="inicio.js"></script>
+    <script type="module" src="inicio.js"></script>
     <script type="module" src="util.js"></script>
 
   </body>
