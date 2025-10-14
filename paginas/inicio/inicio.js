@@ -5,9 +5,30 @@
     configurarItemsMenu();
     configurarAdmin();
     configurarSidebar();
+    configurarInputBusqueda();
     await cargarRutas();
     await obtenerRutas();
+    await procesarParadasGlobales();
 })();
+
+function configurarInputBusqueda() {
+    const input = document.getElementById("buscar-ruta");
+    const lista = document.getElementById("resultados-busqueda");
+    const limpiar = document.getElementById("btn-limpiar");
+
+    input.value = "";
+
+    input.addEventListener("focus", () => {
+        // si no hay historial no se muestra nada
+        if (historialBusquedas.length === 0) return;
+
+        lista.innerHTML = "";
+        lista.classList.remove("d-none");
+        limpiar.classList.remove("d-none");
+
+        mostrarHistorial(lista, input);
+    });
+}
 
 function configurarSidebar() {
     const sidebar = document.getElementById('sidebar-content');
@@ -1648,82 +1669,86 @@ async function establecerRuta(lat, lng) {
 
     const destinoLatLng = L.latLng(lat, lng);
 
-    await procesarParadasGlobales().then(() => {
-        console.log("Paradas globales procesadas:", todasLasParadas);
-        // --- Validación inicial ---
-        if (!marcadorUbicacion) {
-            mostrarMensajeTemporal("Por favor, activa primero tu ubicación.");
-            verMiUbicacion(); // Intenta activar la ubicación
-            return;
+    if (todasLasParadas.length === 0) { return; }
+
+    console.log("Paradas globales procesadas:", todasLasParadas);
+    // --- Validación inicial ---
+    if (!marcadorUbicacion) {
+        mostrarMensajeTemporal("Por favor, activa primero tu ubicación.");
+        verMiUbicacion(); // Intenta activar la ubicación
+        return;
+    }
+    if (todasLasParadas.length === 0) {
+        mostrarMensajeTemporal("No hay paradas cargadas para buscar.");
+        return;
+    }
+
+    const ubicacionActualLatLng = marcadorUbicacion.getLatLng();
+
+    // --- Paso 1: Encontrar la Parada Destino (la más cercana al clic) ---
+    let paradaDestino = null;
+    let distanciaMinimaADestino = Infinity;
+
+    todasLasParadas.forEach(parada => {
+        const distancia = destinoLatLng.distanceTo(parada.latlng);
+        if (distancia < distanciaMinimaADestino) {
+            distanciaMinimaADestino = distancia;
+            paradaDestino = parada;
         }
-        if (todasLasParadas.length === 0) {
-            mostrarMensajeTemporal("No hay paradas cargadas para buscar.");
-            return;
-        }
-
-        const ubicacionActualLatLng = marcadorUbicacion.getLatLng();
-
-        // --- Paso 1: Encontrar la Parada Destino (la más cercana al clic) ---
-        let paradaDestino = null;
-        let distanciaMinimaADestino = Infinity;
-
-        todasLasParadas.forEach(parada => {
-            const distancia = destinoLatLng.distanceTo(parada.latlng);
-            if (distancia < distanciaMinimaADestino) {
-                distanciaMinimaADestino = distancia;
-                paradaDestino = parada;
-            }
-        });
-
-        if (!paradaDestino) {
-            mostrarMensajeTemporal("No se encontró ninguna parada cerca de tu destino.");
-            return;
-        }
-
-        // --- Paso 2: Encontrar la Parada Origen (la más cercana al usuario en la misma ruta) ---
-        const rutaEncontrada = paradaDestino;
-        let paradaOrigen = null;
-        let distanciaMinimaAUsuario = Infinity;
-
-        // Filtramos solo las paradas que pertenecen a la ruta encontrada
-        const paradasDeLaRuta = todasLasParadas.filter(p => p.ruta.id === rutaEncontrada.ruta.id);
-
-        paradasDeLaRuta.forEach(parada => {
-            const distancia = ubicacionActualLatLng.distanceTo(parada.latlng);
-            if (distancia < distanciaMinimaAUsuario) {
-                distanciaMinimaAUsuario = distancia;
-                paradaOrigen = parada;
-            }
-        });
-
-        if (!paradaOrigen) {a
-            // Esto es poco probable si ya encontramos una parada destino, pero es una buena verificación
-            mostrarMensajeTemporal("No se pudo encontrar una parada de origen en la ruta.");
-            return;
-        }
-
-        // Dibuja la ruta encontrada
-        if (rutaEncontrada.esSupabase) {
-            crearRutaSupabase(rutaEncontrada.ruta); 
-        } else {
-            crearRuta(rutaEncontrada.ruta);
-        }
-
-        // Marcador para la parada de origen (donde el usuario debe subir)
-        L.marker(paradaOrigen.latlng, { icon: paradaIcon })
-            .addTo(map)
-            .bindPopup(`<b>Sube aquí</b><br>Parada más cercana a tu ubicación en la ruta "${rutaEncontrada.nombre}"`)
-            .openPopup();
-
-        // Marcador para la parada de destino (donde el usuario debe bajar)
-        L.marker(paradaDestino.latlng, { icon: destinoIcon })
-            .addTo(map)
-            .bindPopup(`<b>Baja aquí</b><br>Parada más cercana a tu destino.`);
-
-        mostrarMensajeTemporal(`Ruta encontrada: "${rutaEncontrada.ruta.nombre}"`);
-    }).catch(err => {
-        console.error("Error procesando paradas globales:", err);
     });
+
+    if (!paradaDestino) {
+        mostrarMensajeTemporal("No se encontró ninguna parada cerca de tu destino.");
+        return;
+    }
+
+    // --- Paso 2: Encontrar la Parada Origen (la más cercana al usuario en la misma ruta) ---
+    const rutaEncontrada = paradaDestino;
+    let paradaOrigen = null;
+    let distanciaMinimaAUsuario = Infinity;
+
+    // Filtramos solo las paradas que pertenecen a la ruta encontrada
+    const paradasDeLaRuta = todasLasParadas.filter(p => p.ruta.nombre === rutaEncontrada.ruta.nombre);
+
+    paradasDeLaRuta.forEach(parada => {
+        const distancia = ubicacionActualLatLng.distanceTo(parada.latlng);
+        if (distancia < distanciaMinimaAUsuario) {
+            distanciaMinimaAUsuario = distancia;
+            paradaOrigen = parada;
+        }
+    });
+
+    if (!paradaOrigen) {
+        // Esto es poco probable si ya encontramos una parada destino, pero es una buena verificación
+        mostrarMensajeTemporal("No se pudo encontrar una parada de origen en la ruta.");
+        return;
+    }
+
+    ocultarTodasLasRutas();
+
+    // Dibuja la ruta encontrada
+    if (rutaEncontrada.esSupabase) {
+        console.log("Ruta desde Supabase:", rutaEncontrada.ruta);
+        mostrarDetallesRuta(rutaEncontrada.ruta, true);
+        crearRutaSupabase(rutaEncontrada.ruta);
+    } else {
+        console.log("Ruta desde archivos:", rutaEncontrada.ruta);
+        mostrarDetallesRuta(rutaEncontrada.ruta);
+        crearRuta(rutaEncontrada.ruta);
+    }
+
+    // Marcador para la parada de origen (donde el usuario debe subir)
+    L.marker(paradaOrigen.latlng, { icon: paradaIcon })
+        .addTo(map)
+        .bindPopup(`<b>Sube aquí</b><br>Parada más cercana a tu ubicación en la ruta "${rutaEncontrada.nombre}"`)
+        .openPopup();
+
+    // Marcador para la parada de destino (donde el usuario debe bajar)
+    L.marker(paradaDestino.latlng, { icon: destinoIcon })
+        .addTo(map)
+        .bindPopup(`<b>Baja aquí</b><br>Parada más cercana a tu destino.`);
+
+    mostrarMensajeTemporal(`Ruta encontrada: "${rutaEncontrada.ruta.nombre}"`);
 }
 
 function eliminarDestino() {
@@ -2032,191 +2057,192 @@ function tieneModoCreacion() {
 }
 
 function mostrarDetallesRuta(ruta, supabase = false) {
-  const sidebar = document.getElementById("sidebar-content");
-  if (!sidebar) return;
+    console.log("Mostrando detalles de la ruta:", ruta);
+    const sidebar = document.getElementById("sidebar-content");
+    if (!sidebar) return;
 
-  if (tieneModoCreacion()) return;
+    if (tieneModoCreacion()) return;
 
-  let imagen = null;
-  // Imagen con respaldo
-  if (supabase) {
-    imagen = ruta["imagen"] || "/icon.png";
-  } else {
-    imagen = ruta.archivos?.imagen || "/icon.png";
-  }
-
-  // Horarios
-  let horarioLunes = null;
-  let horarioSabado = null;
-  if (supabase) {
-    let horarios = ruta["horario"];
-    if (horarios) {
-      horarioLunes = horarios["lunes_viernes"] || "No disponible";
-      horarioSabado = horarios["sabado_domingo"] || "No disponible";
+    let imagen = null;
+    // Imagen con respaldo
+    if (supabase) {
+        imagen = ruta["imagen"] || "/icon.png";
     } else {
-        horarioLunes = "No disponible";
-        horarioSabado = "No disponible";
+        imagen = ruta.archivos?.imagen || "/icon.png";
     }
-  } else {
-    horarioLunes = ruta.horario?.lunes || "No disponible";
-    horarioSabado = ruta.horario?.sabado || ruta.horario?.domingo || "No disponible";
-  }
 
-  // Nombre
-  let nombre = null;
-  if (supabase) {
-    nombre = ruta["nombre"] || "Ruta sin nombre";
-  } else {
-    nombre = ruta.nombre || "Ruta sin nombre";
-  }
+    // Horarios
+    let horarioLunes = null;
+    let horarioSabado = null;
+    if (supabase) {
+        let horarios = ruta["horario"];
+        if (horarios) {
+        horarioLunes = horarios["lunes_viernes"] || "No disponible";
+        horarioSabado = horarios["sabado_domingo"] || "No disponible";
+        } else {
+            horarioLunes = "No disponible";
+            horarioSabado = "No disponible";
+        }
+    } else {
+        horarioLunes = ruta.horario?.lunes || "No disponible";
+        horarioSabado = ruta.horario?.sabado || ruta.horario?.domingo || "No disponible";
+    }
 
-  // Color fijo azul
-  const colorFijo = "#0d2e52";
-  const colorFondo = "#f9f9fb";
-  const sombra = "0 4px 20px rgba(0, 0, 0, 0.1)";
+    // Nombre
+    let nombre = null;
+    if (supabase) {
+        nombre = ruta["nombre"] || "Ruta sin nombre";
+    } else {
+        nombre = ruta.nombre || "Ruta sin nombre";
+    }
 
-  // Inicializa alertas si no existen
-  if (!ruta.alertas) ruta.alertas = [];
+    // Color fijo azul
+    const colorFijo = "#0d2e52";
+    const colorFondo = "#f9f9fb";
+    const sombra = "0 4px 20px rgba(0, 0, 0, 0.1)";
 
-  // Crea el sidebar
-  sidebar.innerHTML = `
-    <div class="d-flex flex-column h-100 overflow-auto" 
-         style="max-width: 22rem; background: ${colorFondo}; border-left: 1px solid #ddd; box-shadow: ${sombra}; border-radius: 12px 0 0 12px;">
-      
-      <!-- Imagen de cabecera -->
-      <div class="position-relative" style="height: 12rem; overflow: hidden; border-radius: 12px 12px 0 0;">
-        <img src="${imagen}" alt="${nombre}" 
-             style="width: 100%; height: 100%; object-fit: cover; filter: brightness(0.6);">
-        <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;">
-          <h5 style="color: white; font-weight: bold; text-align: center; text-shadow: 0 2px 8px rgba(0,0,0,0.6); padding: 0 10px;">${nombre}</h5>
-        </div>
-        <button class="btn bg-transparent border-0 position-absolute p-0" 
-                style="top: 0.6rem; right: 0.8rem; color: white;" 
-                onclick="cerrarDetallesRuta()">
-          <i class="fa-solid fa-xmark" style="font-size: 1.6rem; text-shadow: 0 0 8px black;"></i>
-        </button>
-      </div>
+    // Inicializa alertas si no existen
+    if (!ruta.alertas) ruta.alertas = [];
 
-      <!-- Contenido -->
-      <div id="detalles-ruta" class="p-3" style="flex-grow: 1; display: flex; flex-direction: column; gap: 1rem;">
+    // Crea el sidebar
+    sidebar.innerHTML = `
+        <div class="d-flex flex-column h-100 overflow-auto" 
+            style="max-width: 22rem; background: ${colorFondo}; border-left: 1px solid #ddd; box-shadow: ${sombra}; border-radius: 12px 0 0 12px;">
         
-        <!-- Horario -->
-        <div>
-          <h6 class="fw-bold mb-2" style="color: ${colorFijo};"><i class="fa-solid fa-clock me-2"></i>Horario</h6>
-          <div class="p-2 rounded" style="background: white; border: 1px solid #eee; box-shadow: ${sombra}; color: ${colorFijo};">
-            <p class="mb-1"><strong>Lunes a Viernes:</strong> ${horarioLunes}</p>
-            <p class="mb-0"><strong>Sábado y Domingo:</strong> ${horarioSabado}</p>
-          </div>
+        <!-- Imagen de cabecera -->
+        <div class="position-relative" style="height: 12rem; overflow: hidden; border-radius: 12px 12px 0 0;">
+            <img src="${imagen}" alt="${nombre}" 
+                style="width: 100%; height: 100%; object-fit: cover; filter: brightness(0.6);">
+            <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;">
+            <h5 style="color: white; font-weight: bold; text-align: center; text-shadow: 0 2px 8px rgba(0,0,0,0.6); padding: 0 10px;">${nombre}</h5>
+            </div>
+            <button class="btn bg-transparent border-0 position-absolute p-0" 
+                    style="top: 0.6rem; right: 0.8rem; color: white;" 
+                    onclick="cerrarDetallesRuta()">
+            <i class="fa-solid fa-xmark" style="font-size: 1.6rem; text-shadow: 0 0 8px black;"></i>
+            </button>
         </div>
 
-        <!-- Alertas -->
-        <div>
-          <h6 class="fw-bold mb-2" style="color: ${colorFijo};"><i class="fa-solid fa-triangle-exclamation me-2"></i>Alertas</h6>
-          
-          <!-- Contenedor de alertas existentes -->
-          <div id="alertaContainer" class="d-flex flex-column gap-2 mb-2"></div>
-          
-          <!-- Botón para agregar alerta -->
-          <button id="btnAgregarAlerta" class="btn btn-primary w-100">Agregar alerta</button>
+        <!-- Contenido -->
+        <div id="detalles-ruta" class="p-3" style="flex-grow: 1; display: flex; flex-direction: column; gap: 1rem;">
+            
+            <!-- Horario -->
+            <div>
+            <h6 class="fw-bold mb-2" style="color: ${colorFijo};"><i class="fa-solid fa-clock me-2"></i>Horario</h6>
+            <div class="p-2 rounded" style="background: white; border: 1px solid #eee; box-shadow: ${sombra}; color: ${colorFijo};">
+                <p class="mb-1"><strong>Lunes a Viernes:</strong> ${horarioLunes}</p>
+                <p class="mb-0"><strong>Sábado y Domingo:</strong> ${horarioSabado}</p>
+            </div>
+            </div>
+
+            <!-- Alertas -->
+            <div>
+            <h6 class="fw-bold mb-2" style="color: ${colorFijo};"><i class="fa-solid fa-triangle-exclamation me-2"></i>Alertas</h6>
+            
+            <!-- Contenedor de alertas existentes -->
+            <div id="alertaContainer" class="d-flex flex-column gap-2 mb-2"></div>
+            
+            <!-- Botón para agregar alerta -->
+            <button id="btnAgregarAlerta" class="btn btn-primary w-100">Agregar alerta</button>
+            </div>
+
+            <!-- Editar ruta -->
+            <button id="btnEditarRuta" class="btn btn-success w-100 d-none" type="button" onclick="editarRuta()">
+            <i class="fa-solid fa-pencil-alt me-1"></i> Editar ruta
+            </button>
+
+            <!-- Eliminar ruta -->
+            <button id="btnEliminarRuta" class="btn btn-danger w-100 d-none" type="button" onclick="eliminarRuta()">
+            <i class="fa-solid fa-trash me-1"></i> Eliminar ruta
+            </button>
+
+            <div class="mt-auto text-center">
+            <span style="display:inline-block; background:${colorFijo}; width:60%; height:5px; border-radius:4px;"></span>
+            <p class="text-muted mt-2" style="font-size:0.85rem; color:${colorFijo}">Ruta destacada de Xalapa</p>
+            </div>
+
         </div>
-
-        <!-- Editar ruta -->
-        <button id="btnEditarRuta" class="btn btn-success w-100 d-none" type="button" onclick="editarRuta()">
-          <i class="fa-solid fa-pencil-alt me-1"></i> Editar ruta
-        </button>
-
-        <!-- Eliminar ruta -->
-        <button id="btnEliminarRuta" class="btn btn-danger w-100 d-none" type="button" onclick="eliminarRuta()">
-          <i class="fa-solid fa-trash me-1"></i> Eliminar ruta
-        </button>
-
-        <div class="mt-auto text-center">
-          <span style="display:inline-block; background:${colorFijo}; width:60%; height:5px; border-radius:4px;"></span>
-          <p class="text-muted mt-2" style="font-size:0.85rem; color:${colorFijo}">Ruta destacada de Xalapa</p>
         </div>
+    `;
 
-      </div>
-    </div>
-  `;
+    if (supabase) rutaEnEdicion = ruta;
+    if (supabase) document.getElementById("btnEditarRuta").classList.remove("d-none");
+    if (supabase) document.getElementById("btnEliminarRuta").classList.remove("d-none");
 
-  if (supabase) rutaEnEdicion = ruta;
-  if (supabase) document.getElementById("btnEditarRuta").classList.remove("d-none");
-  if (supabase) document.getElementById("btnEliminarRuta").classList.remove("d-none");
+    sidebar.classList.add("show");
 
-  sidebar.classList.add("show");
+    // ======= ALERTAS =======
+    const alertaContainer = document.getElementById("alertaContainer");
 
-  // ======= ALERTAS =======
-  const alertaContainer = document.getElementById("alertaContainer");
+    // Función para renderizar alertas
+    function renderAlertas() {
+        alertaContainer.innerHTML = "";
+        ruta.alertas.forEach((tipo, index) => {
+        const div = document.createElement("div");
+        div.className = "d-flex align-items-center justify-content-between gap-2 p-2 rounded border";
+        div.style.background = "#fff5f5";
+        div.style.border = "1px solid #f0dede";
 
-  // Función para renderizar alertas
-  function renderAlertas() {
-    alertaContainer.innerHTML = "";
-    ruta.alertas.forEach((tipo, index) => {
-      const div = document.createElement("div");
-      div.className = "d-flex align-items-center justify-content-between gap-2 p-2 rounded border";
-      div.style.background = "#fff5f5";
-      div.style.border = "1px solid #f0dede";
+        const icono = tipo === "Tráfico" ? "fa-car" :
+                        tipo === "Accidente" ? "fa-car-burst" : "fa-person-digging";
+        const colorIcono = tipo === "Tráfico" ? "text-danger" :
+                            tipo === "Accidente" ? "text-warning" : "text-primary";
 
-      const icono = tipo === "Tráfico" ? "fa-car" :
-                    tipo === "Accidente" ? "fa-car-burst" : "fa-person-digging";
-      const colorIcono = tipo === "Tráfico" ? "text-danger" :
-                         tipo === "Accidente" ? "text-warning" : "text-primary";
+        div.innerHTML = `
+            <div class="d-flex align-items-center gap-2">
+            <i class="fa-solid ${icono} ${colorIcono}"></i> ${tipo}
+            </div>
+            <button class="btn btn-sm btn-outline-secondary"><i class="fa-solid fa-trash"></i></button>
+        `;
 
-      div.innerHTML = `
-        <div class="d-flex align-items-center gap-2">
-          <i class="fa-solid ${icono} ${colorIcono}"></i> ${tipo}
-        </div>
-        <button class="btn btn-sm btn-outline-secondary"><i class="fa-solid fa-trash"></i></button>
-      `;
+        // Quitar alerta al hacer click en el basurero
+        div.querySelector("button").onclick = () => {
+            ruta.alertas.splice(index, 1);
+            renderAlertas();
+        };
 
-      // Quitar alerta al hacer click en el basurero
-      div.querySelector("button").onclick = () => {
-        ruta.alertas.splice(index, 1);
-        renderAlertas();
-      };
+        alertaContainer.appendChild(div);
+        });
+    }
 
-      alertaContainer.appendChild(div);
-    });
-  }
+    renderAlertas();
 
-  renderAlertas();
+    // Botón agregar alerta
+    const btnAgregarAlerta = document.getElementById("btnAgregarAlerta");
+    btnAgregarAlerta.onclick = () => {
+        // Evitar que se duplique el menú
+        if (document.getElementById("miniMenuAlertas")) return;
 
-  // Botón agregar alerta
-  const btnAgregarAlerta = document.getElementById("btnAgregarAlerta");
-  btnAgregarAlerta.onclick = () => {
-    // Evitar que se duplique el menú
-    if (document.getElementById("miniMenuAlertas")) return;
+        // Crear mini menú dentro del sidebar
+        const menu = document.createElement("div");
+        menu.id = "miniMenuAlertas";
+        menu.style.background = "#ffffff";
+        menu.style.border = "1px solid #ddd";
+        menu.style.borderRadius = "10px";
+        menu.style.padding = "8px";
+        menu.style.marginTop = "5px";
+        menu.style.boxShadow = sombra;
 
-    // Crear mini menú dentro del sidebar
-    const menu = document.createElement("div");
-    menu.id = "miniMenuAlertas";
-    menu.style.background = "#ffffff";
-    menu.style.border = "1px solid #ddd";
-    menu.style.borderRadius = "10px";
-    menu.style.padding = "8px";
-    menu.style.marginTop = "5px";
-    menu.style.boxShadow = sombra;
+        const opciones = [
+        { tipo: "Tráfico", icono: "fa-car", color: "text-danger" },
+        { tipo: "Accidente", icono: "fa-car-burst", color: "text-warning" },
+        { tipo: "Construcción", icono: "fa-person-digging", color: "text-primary" }
+        ];
 
-    const opciones = [
-      { tipo: "Tráfico", icono: "fa-car", color: "text-danger" },
-      { tipo: "Accidente", icono: "fa-car-burst", color: "text-warning" },
-      { tipo: "Construcción", icono: "fa-person-digging", color: "text-primary" }
-    ];
+        opciones.forEach(op => {
+        const boton = document.createElement("button");
+        boton.className = `btn btn-light w-100 text-start d-flex align-items-center gap-2 mb-1`;
+        boton.innerHTML = `<i class="fa-solid ${op.icono} ${op.color}"></i> ${op.tipo}`;
+        boton.onclick = () => {
+            if (!ruta.alertas.includes(op.tipo)) ruta.alertas.push(op.tipo);
+            renderAlertas();
+            menu.remove();
+        };
+        menu.appendChild(boton);
+        });
 
-    opciones.forEach(op => {
-      const boton = document.createElement("button");
-      boton.className = `btn btn-light w-100 text-start d-flex align-items-center gap-2 mb-1`;
-      boton.innerHTML = `<i class="fa-solid ${op.icono} ${op.color}"></i> ${op.tipo}`;
-      boton.onclick = () => {
-        if (!ruta.alertas.includes(op.tipo)) ruta.alertas.push(op.tipo);
-        renderAlertas();
-        menu.remove();
-      };
-      menu.appendChild(boton);
-    });
-
-    btnAgregarAlerta.insertAdjacentElement("afterend", menu);
-  };
+        btnAgregarAlerta.insertAdjacentElement("afterend", menu);
+    };
 }
 
 function mostrarFavoritos(sidebar) {
@@ -2487,7 +2513,7 @@ function buscarDireccion(input, query, lista, limpiar) {
                 });
 
                 // mostrar historial si existe
-                mostrarHistorial(lista);
+                mostrarHistorial(lista, input);
             })
             .catch(err => console.error("Error en búsqueda:", err));
     }, tiempoBusqueda);
@@ -2509,7 +2535,7 @@ function guardarEnHistorial(item) {
     localStorage.setItem("historialBusquedas", JSON.stringify(historialBusquedas));
 }
 
-function mostrarHistorial(lista) {
+function mostrarHistorial(lista, input) {
     if (historialBusquedas.length === 0) return;
 
     const titulo = document.createElement("div");
@@ -2549,7 +2575,7 @@ function reMostrarResultados() {
         lista.classList.remove("d-none");
         limpiar.classList.remove("d-none");
 
-        mostrarHistorial(lista);
+        mostrarHistorial(lista, input);
     });
 
     document.addEventListener("click", (e) => {
