@@ -2769,6 +2769,7 @@ async function eliminarRutaEnDB(id) {
  * @param {object} ruta - El objeto de la ruta a editar.
  */
 function llenarFormularioConRuta(ruta) {
+    document.getElementById('titulo-crear').innerText = 'Editar Ruta';
     // --- Llenar campos de texto y checkboxes ---
     document.getElementById('nombre-ruta').value = ruta.nombre || '';
     document.getElementById('mujer-segura').checked = ruta['mujer-segura'] === true;
