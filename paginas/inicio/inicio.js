@@ -1,3 +1,5 @@
+import { obtenerRutasDesdeSupabase, crearRutaEnSupabase, actualizarRutaEnSupabase, eliminarRutaDeSupabase, cerrarSesion, obtenerGeometriaRuta } from "./util.js";
+
 // ---------------- Inicialización ----------------
 (async function init() {
     configurarBienvenida();
@@ -1469,32 +1471,19 @@ async function previsualizarRuta() {
 
     // Opcional: Mostrar un indicador de carga
     // (ej. cambiar el texto del botón, mostrar un spinner)
-    const boton = document.querySelector('button[onclick="previsualizarRuta()"]');
+    const boton = document.getElementById("btn-prev-ruta");
     boton.disabled = true;
     boton.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> Calculando...';
 
     try {
-        // 2. Enviar los puntos al nuevo endpoint del backend
-        const response = await fetch('http://localhost:3000/preview-route', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ coordinates: puntosCrearRuta })
-        });
+        const routeGeometry = await obtenerGeometriaRuta(puntosCrearRuta);
 
-        if (!response.ok) {
-            const error = await response.json();
-            throw new Error(error.error || 'No se pudo obtener la ruta.');
-        }
-
-        const data = await response.json();
-        const routeGeometry = data.geometry;
-
-        // 3. Si ya hay una línea de previsualización en el mapa, la borramos
+        // Si ya hay una línea de previsualización en el mapa, la borramos
         if (lineaPrevisualizacion) {
             map.removeLayer(lineaPrevisualizacion);
         }
 
-        // 4. Dibujar la nueva ruta en el mapa
+        // Dibujar la nueva ruta en el mapa
         // OpenRouteService devuelve [lng, lat], Leaflet necesita [lat, lng]. ¡Hay que invertirlos!
         const latLngs = routeGeometry.map(coord => [coord[1], coord[0]]);
 
@@ -1504,7 +1493,7 @@ async function previsualizarRuta() {
             opacity: 0.8
         }).addTo(map);
 
-        // 5. Ajustar el zoom del mapa para que se vea toda la ruta
+        // Ajustar el zoom del mapa para que se vea toda la ruta
         map.fitBounds(lineaPrevisualizacion.getBounds());
 
     } catch (error) {
@@ -2147,12 +2136,12 @@ function mostrarDetallesRuta(ruta, supabase = false) {
             </div>
 
             <!-- Editar ruta -->
-            <button id="btnEditarRuta" class="btn btn-success w-100 d-none" type="button" onclick="editarRuta()">
+            <button id="btnEditarRuta" class="btn btn-success w-100 d-none" type="button">
             <i class="fa-solid fa-pencil-alt me-1"></i> Editar ruta
             </button>
 
             <!-- Eliminar ruta -->
-            <button id="btnEliminarRuta" class="btn btn-danger w-100 d-none" type="button" onclick="eliminarRuta()">
+            <button id="btnEliminarRuta" class="btn btn-danger w-100 d-none" type="button">
             <i class="fa-solid fa-trash me-1"></i> Eliminar ruta
             </button>
 
@@ -2164,6 +2153,8 @@ function mostrarDetallesRuta(ruta, supabase = false) {
         </div>
         </div>
     `;
+    document.getElementById("btnEditarRuta").addEventListener("click", editarRuta);
+    document.getElementById("btnEliminarRuta").addEventListener("click", eliminarRuta);
 
     if (supabase) rutaEnEdicion = ruta;
     if (supabase) document.getElementById("btnEditarRuta").classList.remove("d-none");
@@ -2249,17 +2240,19 @@ function mostrarFavoritos(sidebar) {
     sidebar.innerHTML = `
         <div class="d-flex flex-column p-3 bg-white" id="lista-favoritos">
             <div class="d-flex justify-content-start align-items-center gap-2">
-                <button class="close-btn btn btn-outline-secondary bg-transparent border-0 fs-3 p-0 d-flex d-md-none" onclick="abrirMenuMovil()">
+                <button id="btn-menu-movil-fav" class="close-btn btn btn-outline-secondary bg-transparent border-0 fs-3 p-0 d-flex d-md-none">
                     <i class="fa-solid fa-circle-arrow-left"></i>
                 </button>
                 <h4 class="fw-bold m-0">Rutas Favoritas</h4>
             </div>
             <div id="favoritos" class="d-flex flex-column gap-2 mt-3"></div>
-            <button class="btn btn-warning mt-2" onclick="limpiarDestino()">
+            <button id="btn-limpiar-fav" class="btn btn-warning mt-2">
                 <i class="fa-solid fa-flag"></i> Limpiar destino
             </button>
         </div>
     `;
+    document.getElementById("btn-menu-movil-fav").addEventListener("click", abrirMenuMovil);
+    document.getElementById("btn-limpiar-fav").addEventListener("click", limpiarDestino);
     verFavoritos();
 }
 
@@ -2300,28 +2293,6 @@ function obtenerHorarios() {
         lunes_viernes: (inicioLV && finLV) ? `${inicioLV} - ${finLV}` : null,
         sabado_domingo: (inicioSD && finSD) ? `${inicioSD} - ${finSD}` : null
     };
-}
-
-/**
- * Llama al backend para obtener la geometría de la ruta desde ORS.
- * @param {Array} puntos - El array de puntos [lng, lat].
- * @returns {Promise<object|null>} El objeto de geometría GeoJSON o null si falla.
- */
-async function obtenerGeometriaRuta(puntos) {
-    if (!puntos || puntos.length < 2) return null;
-    try {
-        const response = await fetch('http://localhost:3000/preview-route', { // Revisa que la URL sea correcta
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ coordinates: puntos })
-        });
-        if (!response.ok) return null;
-        const data = await response.json();
-        return data.geometry; // Devuelve solo el objeto de geometría
-    } catch (error) {
-        console.error("Error obteniendo la geometría de la ruta:", error);
-        return null;
-    }
 }
 
 /**
@@ -2714,17 +2685,8 @@ function adminModoParadas() {
 
 async function obtenerRutas() {
     try {
-        // Hacemos la petición a nuestro propio backend
-        const response = await fetch('http://localhost:3000/api/rutas');
-
-        if (!response.ok) {
-            // Si el servidor respondió con un error (ej. 500), lo manejamos
-            const errorInfo = await response.json();
-            throw new Error(errorInfo.error || "No se pudieron cargar las rutas.");
-        }
-
         // Convertimos la respuesta a JSON
-        rutasSupabase = await response.json();
+        rutasSupabase = await obtenerRutasDesdeSupabase();
         console.log("Cargadas las rutas:", rutasSupabase);
 
     } catch (error) {
@@ -2939,3 +2901,76 @@ async function procesarParadasGlobales() {
         }
     });
 }
+
+window.mostrarTodasLasRutas = mostrarTodasLasRutas;
+window.ocultarTodasLasRutas = ocultarTodasLasRutas;
+
+document.getElementById("btn-rutas").addEventListener("click", () => {
+    actualizarSidebar('rutas')
+});
+document.getElementById("btn-favoritos").addEventListener("click", () => {
+    actualizarSidebar('favoritos')
+});
+document.getElementById("btn-crear").addEventListener("click", () => {
+    actualizarSidebar('crear')
+});
+document.getElementById("btn-creadas").addEventListener("click", () => {
+    actualizarSidebar('mis-rutas')
+});
+document.getElementById("btn-rutas-movil").addEventListener("click", () => {
+    actualizarSidebar('rutas')
+});
+document.getElementById("btn-favoritos-movil").addEventListener("click", () => {
+    actualizarSidebar('favoritos')
+});
+document.getElementById("btn-crear-movil").addEventListener("click", () => {
+    actualizarSidebar('crear')
+});
+document.getElementById("btn-creadas-movil").addEventListener("click", () => {
+    actualizarSidebar('mis-rutas')
+});
+document.getElementById("perfil-logout").addEventListener("click", () => {
+    cerrarSesion();
+});
+document.getElementById("perfil-logout-movil").addEventListener("click", () => {
+    cerrarSesion();
+});
+document.getElementById("btn-menu-movil").addEventListener("click", () => {
+    abrirMenuMovil();
+});
+document.getElementById("btn-cerrar-movil").addEventListener("click", () => {
+    cerrarMenuMovil();
+});
+document.getElementById("buscar-ruta").addEventListener("input", () => {
+    filtrarRutas();
+});
+document.getElementById("buscar-ruta").addEventListener("focus", () => {
+    reMostrarResultados();
+});
+document.getElementById("btn-limpiar").addEventListener("click", () => {
+    limpiarBusqueda();
+});
+document.getElementById("imagen-principal").addEventListener("click", () => {
+    document.getElementById("input-imagen").click();
+});
+document.getElementById("input-imagen").addEventListener("change", (event) => {
+    cargarNuevaImagen(event);
+});
+document.getElementById("tab-ruta").addEventListener("click", () => {
+    adminModoRuta();
+});
+document.getElementById("tab-paradas").addEventListener("click", () => {
+    adminModoParadas();
+});
+document.getElementById("btn-prev-ruta").addEventListener("click", () => {
+    previsualizarRuta();
+});
+document.getElementById("btn-limpiar-ruta").addEventListener("click", () => {
+    limpiarRuta();
+});
+document.getElementById("btn-limpiar-paradas").addEventListener("click", () => {
+    limpiarParadas();
+});
+document.getElementById("btn-guardar-ruta").addEventListener("click", () => {
+    guardarRuta();
+});

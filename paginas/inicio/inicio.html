@@ -30,57 +30,45 @@
         <div class="d-flex flex-column border">
           <!-- menú principal -->
           <div class="d-flex flex-column px-2 py-3 gap-3">
-            <button
-              class="menu-item btn btn-outline-primary d-flex flex-column justify-content-center align-items-center p-0 border-0 bg-transparent text-primary"
+            <button class="menu-item btn btn-outline-primary d-flex flex-column justify-content-center align-items-center p-0 border-0 bg-transparent text-primary"
               onclick="window.location.href='/index.html'">
-              <i
-                class="fa-solid fa-house fs-5 p-2 rounded d-flex justify-content-center align-items-center"
+              <i class="fa-solid fa-house fs-5 p-2 rounded d-flex justify-content-center align-items-center"
                 style="width: 2.4rem; height: 2.4rem;"></i>
               <span class="text-primary"
                 style="font-size: .8rem; margin-top: -.1rem;">Inicio</span>
             </button>
-            <button
-              class="menu-item btn btn-outline-primary d-flex flex-column justify-content-center align-items-center p-0 border-0 bg-transparent text-primary"
-              onclick="actualizarSidebar('rutas')">
-              <i
-                class="fa-solid fa-bus-simple fs-5 p-2 rounded d-flex justify-content-center align-items-center"
+            <button id="btn-rutas"
+              class="menu-item btn btn-outline-primary d-flex flex-column justify-content-center align-items-center p-0 border-0 bg-transparent text-primary">
+              <i class="fa-solid fa-bus-simple fs-5 p-2 rounded d-flex justify-content-center align-items-center"
                 style="width: 2.4rem; height: 2.4rem;"></i>
               <span class="text-primary"
                 style="font-size: .8rem; margin-top: -.1rem;">Rutas</span>
             </button>
-            <button
-              class="menu-item btn btn-outline-primary d-flex flex-column justify-content-center align-items-center p-0 border-0 bg-transparent text-primary"
-              onclick="actualizarSidebar('favoritos')">
-              <i
-                class="fa-solid fa-bookmark fs-5 rounded d-flex justify-content-center align-items-center"
+            <button id="btn-favoritos"
+              class="menu-item btn btn-outline-primary d-flex flex-column justify-content-center align-items-center p-0 border-0 bg-transparent text-primary">
+              <i class="fa-solid fa-bookmark fs-5 rounded d-flex justify-content-center align-items-center"
                 style="width: 2.4rem; height: 2.4rem;"></i>
               <span class="text-primary"
                 style="font-size: .8rem; margin-top: -.1rem;">Favoritos</span>
             </button>
             <hr />
-            <button
-              class="menu-item btn btn-outline-primary d-flex flex-column justify-content-center align-items-center p-0 border-0 bg-transparent text-primary"
+            <button class="menu-item btn btn-outline-primary d-flex flex-column justify-content-center align-items-center p-0 border-0 bg-transparent text-primary"
               onclick="window.location.href='/paginas/foro/foro.html'">
-              <i
-                class="fa-solid fa-comments fs-5 p-2 rounded d-flex justify-content-center align-items-center"
+              <i class="fa-solid fa-comments fs-5 p-2 rounded d-flex justify-content-center align-items-center"
                 style="width: 2.4rem; height: 2.4rem;"></i>
               <span class="text-primary"
                 style="font-size: .8rem; margin-top: -.1rem;">Foro</span>
             </button>
-            <button
-              class="menu-item btn btn-outline-primary d-flex flex-column justify-content-center align-items-center p-0 border-0 bg-transparent text-primary"
-              onclick="actualizarSidebar('crear')">
-              <i
-                class="fa-solid fa-route fs-5 rounded d-flex justify-content-center align-items-center"
+            <button id="btn-crear"
+              class="menu-item btn btn-outline-primary d-flex flex-column justify-content-center align-items-center p-0 border-0 bg-transparent text-primary">
+              <i class="fa-solid fa-route fs-5 rounded d-flex justify-content-center align-items-center"
                 style="width: 2.4rem; height: 2.4rem;"></i>
               <span class="text-primary"
                 style="font-size: .8rem; margin-top: -.1rem;">Crear</span>
             </button>
-            <button
-              class="menu-item btn btn-outline-primary d-flex flex-column justify-content-center align-items-center p-0 border-0 bg-transparent text-primary"
-              onclick="actualizarSidebar('mis-rutas')">
-              <i
-                class="fa-solid fa-route fs-5 rounded d-flex justify-content-center align-items-center"
+            <button id="btn-creadas"
+              class="menu-item btn btn-outline-primary d-flex flex-column justify-content-center align-items-center p-0 border-0 bg-transparent text-primary">
+              <i class="fa-solid fa-route fs-5 rounded d-flex justify-content-center align-items-center"
                 style="width: 2.4rem; height: 2.4rem;"></i>
               <span class="text-primary"
                 style="font-size: .8rem; margin-top: -.1rem;">Creadas</span>
@@ -90,17 +78,15 @@
           <!-- menu inferior usuario -->
           <div
             class="d-flex flex-column px-2 py-3 gap-3 mt-auto align-items-center">
-            <button
-              class="menu-item btn btn-outline-primary d-flex flex-column p-0 border-0 bg-transparent text-primary"
+            <button class="menu-item btn btn-outline-primary d-flex flex-column p-0 border-0 bg-transparent text-primary"
               onclick="window.location.href='/index.html'">
               <i class="fa-solid fa-bell fs-4 p-2 rounded"></i>
             </button>
             <div class="dropdown">
               <img src="/images/avatar-default.png" alt="Avatar"
-                class="w-100 h-100 rounded-circle border shadow-sm"
-                type="button"
-                style="width: 2rem; height: 2rem; max-width: 2rem; max-height: 2rem; min-width: 2rem; min-height: 2rem; object-fit: cover;"
                 id="dropdownMenuButton" data-bs-toggle="dropdown"
+                class="w-100 h-100 rounded-circle border shadow-sm" type="button"
+                style="width: 2rem; height: 2rem; max-width: 2rem; max-height: 2rem; min-width: 2rem; min-height: 2rem; object-fit: cover;"
                 aria-haspopup="true" aria-expanded="false">
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item d-none"
@@ -108,8 +94,7 @@
                   <i class="fa-solid fa-user me-2"></i>
                   Perfil
                 </a>
-                <button class="dropdown-item d-none" onclick="cerrarSesion()"
-                  id="perfil-logout">
+                <button id="perfil-logout" class="dropdown-item d-none">
                   <i class="fa-solid fa-right-from-bracket me-2"></i>
                   Cerrar sesión
                 </button>
@@ -145,8 +130,8 @@
           <div id="menu-movil"
             class="d-flex d-md-none gap-2 p-2 px-3 border-bottom bg-white mb-1 shadow-sm"
             style="pointer-events: auto;">
-            <button class="btn btn-primary d-flex p-0"
-              style="width: 2rem; height: 2rem;" onclick="abrirMenuMovil()">
+            <button id="btn-menu-movil" class="btn btn-primary d-flex p-0"
+              style="width: 2rem; height: 2rem;">
               <i class="fa-solid fa-bars m-auto"></i>
             </button>
             <h3 class="text-primary fw-bold my-auto p-0 mx-auto">XalaBus</h3>
@@ -164,8 +149,7 @@
                   <i class="fa-solid fa-user me-2"></i>
                   Perfil
                 </a>
-                <button class="dropdown-item d-none" onclick="cerrarSesion()"
-                  id="perfil-logout-movil">
+                <button id="perfil-logout-movil" class="dropdown-item d-none">
                   <i class="fa-solid fa-right-from-bracket me-2"></i>
                   Cerrar sesión
                 </button>
@@ -195,11 +179,9 @@
               <input type="text" id="buscar-ruta"
                 style="padding: .3rem .5rem .2rem .5rem;"
                 class="form-control form-control-sm border-0 w-100 rounded-5 shadow-none"
-                placeholder="Escribe una calle o lugar..."
-                oninput="filtrarRutas()" onfocus="reMostrarResultados()">
+                placeholder="Escribe una calle o lugar...">
               <button id="btn-limpiar"
-                class="btn btn-sm btn-outline-secondary bg-transparent border-0 p-0 d-none d-flex"
-                onclick="limpiarBusqueda()">
+                class="btn btn-sm btn-outline-secondary bg-transparent border-0 p-0 d-none d-flex">
                 <i class="fa-solid fa-xmark pe-2"
                   style="font-size: 1.1rem;"></i>
               </button>
@@ -238,12 +220,11 @@
 
                 <!-- Imagen principal (frontal) -->
                 <img id="imagen-principal" src="https://cdn-icons-png.freepik.com/512/13434/13434886.png" alt="Logo" class="w-100 h-100 mx-auto"
-                  style="aspect-ratio: 16 / 9; object-fit: contain; grid-area: 1 / 1; z-index: 1; cursor: pointer; max-width: 20rem;"
-                  onclick="document.getElementById('input-imagen').click()">
+                  style="aspect-ratio: 16 / 9; object-fit: contain; grid-area: 1 / 1; z-index: 1; cursor: pointer; max-width: 20rem;">
 
                 <!-- Input oculto para seleccionar imagen -->
                 <input type="file" id="input-imagen" accept="image/*"
-                  style="display: none;" onchange="cargarNuevaImagen(event)">
+                  style="display: none;">
               </div>
 
               <input type="text" class="form-control mt-2" id="nombre-ruta"
@@ -298,7 +279,7 @@
                     <button class="nav-link active fw-semibold py-2" id="tab-ruta"
                       data-bs-toggle="tab" data-bs-target="#contenido-ruta"
                       type="button" role="tab" aria-controls="contenido-ruta" aria-selected="true"
-                      style="font-size: .9rem;" onclick="adminModoRuta()">
+                      style="font-size: .9rem;">
                       Ruta
                     </button>
                   </li>
@@ -306,7 +287,7 @@
                     <button class="nav-link fw-semibold py-2" id="tab-paradas"
                       data-bs-toggle="tab" data-bs-target="#contenido-paradas"
                       type="button" role="tab" aria-controls="contenido-paradas" aria-selected="false"
-                      style="font-size: .9rem;" onclick="adminModoParadas()">
+                      style="font-size: .9rem;">
                       Paradas
                     </button>
                   </li>
@@ -320,11 +301,11 @@
                       <i class="fa-solid fa-list-ul ms-1 me-2"></i>Lista de puntos
                     </div>
                     <div id="lista-puntos"></div>
-                    <button class="btn btn-primary w-100 mt-2" type="button" onclick="previsualizarRuta()">
+                    <button id="btn-prev-ruta" class="btn btn-primary w-100 mt-2" type="button">
                       <i class="fa-solid fa-route me-1"></i>
                       Previsualizar ruta
                     </button>
-                    <button class="btn btn-danger w-100 mt-2" type="button" onclick="limpiarRuta()">
+                    <button id="btn-limpiar-ruta" class="btn btn-danger w-100 mt-2" type="button">
                       <i class="fa-solid fa-trash me-1"></i>
                       Limpiar puntos
                     </button>
@@ -337,7 +318,7 @@
                     </div>
                     <div id="lista-paradas"></div>
                     <div class="d-flex gap-1 mt-3">
-                      <button class="btn btn-danger w-100" type="button" onclick="limpiarParadas()">
+                      <button id="btn-limpiar-paradas" class="btn btn-danger w-100" type="button">
                         <i class="fa-solid fa-trash me-1"></i>
                         Limpiar paradas
                       </button>
@@ -347,7 +328,7 @@
               </div>
             </div>
             <div class="d-flex p-3">
-              <button class="btn btn-success w-100" type="button" onclick="guardarRuta()">
+              <button id="btn-guardar-ruta" class="btn btn-success w-100" type="button">
                 <i class="fa-solid fa-floppy-disk me-1"></i> Guardar ruta
               </button>
             </div>
@@ -468,34 +449,28 @@
     <div id="contenedor-movil"
       class="position-absolute w-100 h-100 top-0 start-0"
       style="z-index: 1000;">
-      <div id="overlay" class="bg-black w-100 h-100"
-        onclick="cerrarMenuMovil()"></div>
+      <div id="btn-cerrar-movil" class="bg-black w-100 h-100"></div>
       <div id="contenido-movil"
         class="position-absolute bg-white h-100 top-0 start-0">
         <div class="d-flex flex-column p-3 gap-1">
           <button
             class="menu-item-movil btn btn-outline-primary d-flex flex-row justify-content-start align-items-center p-0 border-0 bg-transparent text-primary"
             onclick="window.location.href='/index.html'">
-            <i
-              class="fa-solid fa-house fs-5 p-2 rounded d-flex justify-content-center align-items-center"
+            <i class="fa-solid fa-house fs-5 p-2 rounded d-flex justify-content-center align-items-center"
               style="width: 2.4rem; height: 2.4rem;"></i>
             <span class="text-primary pe-2"
               style="font-size: .9rem; margin-top: -.1rem;">Inicio</span>
           </button>
-          <button
-            class="menu-item-movil btn btn-outline-primary d-flex flex-row justify-content-start align-items-center p-0 border-0 bg-transparent text-primary"
-            onclick="actualizarSidebar('rutas')">
-            <i
-              class="fa-solid fa-bus-simple fs-5 p-2 rounded d-flex justify-content-center align-items-center"
+          <button id="btn-rutas-movil"
+            class="menu-item-movil btn btn-outline-primary d-flex flex-row justify-content-start align-items-center p-0 border-0 bg-transparent text-primary">
+            <i class="fa-solid fa-bus-simple fs-5 p-2 rounded d-flex justify-content-center align-items-center"
               style="width: 2.4rem; height: 2.4rem;"></i>
             <span class="text-primary pe-2"
               style="font-size: .9rem; margin-top: -.1rem;">Rutas</span>
           </button>
-          <button
-            class="menu-item-movil btn btn-outline-primary d-flex flex-row justify-content-start align-items-center p-0 border-0 bg-transparent text-primary"
-            onclick="actualizarSidebar('favoritos')">
-            <i
-              class="fa-solid fa-bookmark fs-5 rounded d-flex justify-content-center align-items-center"
+          <button id="btn-favoritos-movil"
+            class="menu-item-movil btn btn-outline-primary d-flex flex-row justify-content-start align-items-center p-0 border-0 bg-transparent text-primary">
+            <i class="fa-solid fa-bookmark fs-5 rounded d-flex justify-content-center align-items-center"
               style="width: 2.4rem; height: 2.4rem;"></i>
             <span class="text-primary pe-2"
               style="font-size: .9rem; margin-top: -.1rem;">Favoritos</span>
@@ -504,26 +479,21 @@
           <button
             class="menu-item-movil btn btn-outline-primary d-flex flex-row justify-content-start align-items-center p-0 border-0 bg-transparent text-primary"
             onclick="window.location.href='/paginas/foro/foro.html'">
-            <i
-              class="fa-solid fa-comments fs-5 p-2 rounded d-flex justify-content-center align-items-center"
+            <i class="fa-solid fa-comments fs-5 p-2 rounded d-flex justify-content-center align-items-center"
               style="width: 2.4rem; height: 2.4rem;"></i>
             <span class="text-primary pe-2"
               style="font-size: .9rem; margin-top: -.1rem;">Foro</span>
           </button>
-          <button id="btn-crear"
-            class="menu-item-movil btn btn-outline-primary d-none flex-row justify-content-start align-items-center p-0 border-0 bg-transparent text-primary"
-            onclick="actualizarSidebar('crear')">
-            <i
-              class="fa-solid fa-route fs-5 rounded d-flex justify-content-center align-items-center"
+          <button id="btn-crear-movil"
+            class="menu-item-movil btn btn-outline-primary d-none flex-row justify-content-start align-items-center p-0 border-0 bg-transparent text-primary">
+            <i class="fa-solid fa-route fs-5 rounded d-flex justify-content-center align-items-center"
               style="width: 2.4rem; height: 2.4rem;"></i>
             <span class="text-primary pe-2"
               style="font-size: .9rem; margin-top: -.1rem;">Crear</span>
           </button>
-          <button id="btn-creadas"
-            class="menu-item-movil btn btn-outline-primary d-none flex-row justify-content-start align-items-center p-0 border-0 bg-transparent text-primary"
-            onclick="actualizarSidebar('mis-rutas')">
-            <i
-              class="fa-solid fa-route fs-5 rounded d-flex justify-content-center align-items-center"
+          <button id="btn-creadas-movil"
+            class="menu-item-movil btn btn-outline-primary d-none flex-row justify-content-start align-items-center p-0 border-0 bg-transparent text-primary">
+            <i class="fa-solid fa-route fs-5 rounded d-flex justify-content-center align-items-center"
               style="width: 2.4rem; height: 2.4rem;"></i>
             <span class="text-primary pe-2"
               style="font-size: .9rem; margin-top: -.1rem;">Creadas</span>

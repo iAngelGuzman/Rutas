@@ -118,7 +118,7 @@ async function cerrarSesion() {
 }
 
 /**
- * 📚 OBTENER TODAS LAS RUTAS
+ * OBTENER TODAS LAS RUTAS
  * Reemplaza a: GET /api/rutas
  */
 async function obtenerRutasDesdeSupabase() {
@@ -141,7 +141,7 @@ async function obtenerRutasDesdeSupabase() {
 }
 
 /**
- * ✨ CREAR UNA NUEVA RUTA
+ * CREAR UNA NUEVA RUTA
  * Reemplaza a: POST /api/agregar-ruta
  * @param {object} nuevaRuta - El objeto de la ruta a insertar.
  */
@@ -172,7 +172,7 @@ async function crearRutaEnSupabase(nuevaRuta) {
 }
 
 /**
- * 🔄 ACTUALIZAR UNA RUTA EXISTENTE
+ * ACTUALIZAR UNA RUTA EXISTENTE
  * Reemplaza a: PUT /api/actualizar-ruta/:id
  * @param {number} idRuta - El ID de la ruta a actualizar.
  * @param {object} datosActualizados - El objeto con los campos a modificar.
@@ -203,7 +203,7 @@ async function actualizarRutaEnSupabase(idRuta, datosActualizados) {
 }
 
 /**
- * 🗑️ ELIMINAR UNA RUTA
+ * ELIMINAR UNA RUTA
  * Reemplaza a: DELETE /api/eliminar-ruta/:id
  * @param {number} idRuta - El ID de la ruta a eliminar.
  */
@@ -226,106 +226,37 @@ async function eliminarRutaDeSupabase(idRuta) {
     }
 }
 
-// =============================================================================
-// LÓGICA DE GUARDADO INTEGRADA CON EL FORMULARIO
-// =============================================================================
-
 /**
- * Recopila, procesa y guarda (crea o actualiza) una ruta en Supabase.
+ * Obtiene la geometría de una ruta llamando a una Supabase Edge Function.
+ * @param {Array} puntos - El array de puntos [lng, lat].
+ * @returns {Promise<object|null>} El objeto de geometría GeoJSON o null si falla.
  */
-async function guardarRuta() {
-    const botonGuardar = document.querySelector('button[onclick="guardarRuta()"]');
+async function obtenerGeometriaRuta(puntos) {
+    if (!puntos || puntos.length < 2) return null;
     
-    // --- 1. VALIDACIÓN ---
-    const nombre = document.getElementById('nombre-ruta').value.trim();
-    if (!nombre || puntosCrearRuta.length < 2) {
-        Swal.fire({
-            icon: 'warning',
-            title: 'Faltan Datos',
-            text: 'Debes proporcionar un nombre y al menos 2 puntos en el mapa para la ruta.'
-        });
-        return;
-    }
-
-    // --- 2. MOSTRAR ESTADO DE CARGA ---
-    botonGuardar.disabled = true;
-    botonGuardar.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> Guardando...';
-
     try {
-        // --- 3. RECOPILACIÓN DE DATOS ---
-        const datosParaGuardar = {
-            nombre: nombre,
-            "mujer-segura": document.getElementById('mujer-segura').checked,
-            activo: document.getElementById('ruta-activada').checked,
-            horario: obtenerHorarios(),
-            paradas: datosParadas,
-            "ruta-color": document.getElementById('color-ruta').value,
-            "ruta-puntos": puntosCrearRuta,
-            "ruta": await obtenerGeometriaRuta(puntosCrearRuta),
-            // Asegúrate de limpiar los campos no necesarios o ponerlos en null
-            "ruta-ida": null,
-            "ruta-ida-color": null,
-            "ruta-ida-puntos": null,
-            "ruta-vuelta": null,
-            "ruta-vuelta-color": null,
-            "ruta-vuelta-puntos": null,
-            imagen: null,
-        };
+        // Llama a la Edge Function por su nombre
+        const { data, error } = await supabase.functions.invoke('get-route-geometry', {
+            body: { coordinates: puntos },
+        });
 
-        // --- 4. DECIDIR SI CREAR O ACTUALIZAR Y ENVIAR A SUPABASE ---
-        let resultado;
-        if (rutaEnEdicion) {
-            // MODO ACTUALIZACIÓN
-            console.log(`Actualizando ruta con ID: ${rutaEnEdicion.id}`);
-            resultado = await actualizarRutaEnSupabase(rutaEnEdicion.id, datosParaGuardar);
-        } else {
-            // MODO CREACIÓN
-            console.log("Creando nueva ruta...");
-            resultado = await crearRutaEnSupabase(datosParaGuardar);
-        }
-
-        // --- 5. ÉXITO ---
-        if (resultado) {
-            limpiarFormulario(); // Asumiendo que esta función limpia el formulario
-            await cargarRutasDesdeAPI(); // Refresca la lista de rutas
-            procesarParadasGlobales(); // Actualiza la lista global de paradas
-        }
-        // Las funciones de Supabase ya muestran la alerta de éxito/error
+        if (error) throw error;
+        
+        // La Edge Function devuelve { geometry: [...] }
+        return data.geometry;
 
     } catch (error) {
-        // --- 6. MANEJO DE ERRORES INESPERADOS ---
-        console.error('Error en el proceso de guardarRuta:', error);
-        Swal.fire({
-            icon: 'error',
-            title: 'Error Inesperado',
-            text: `Ocurrió un problema durante el guardado: ${error.message}`
-        });
-    } finally {
-        // --- 7. RESTAURAR BOTÓN ---
-        botonGuardar.disabled = false;
-        botonGuardar.innerHTML = '<i class="fa-solid fa-floppy-disk me-1"></i> Guardar ruta';
+        console.error("Error al invocar la Edge Function:", error.message);
+        Swal.fire('Error', 'No se pudo calcular la previsualización de la ruta.', 'error');
+        return null;
     }
 }
 
-
-/**
- * Función auxiliar para obtener los horarios del formulario.
- * @returns {object}
- */
-function obtenerHorarios() {
-    const inicioLV = document.getElementById('hora-inicio-lv')?.value;
-    const finLV = document.getElementById('hora-fin-lv')?.value;
-    const inicioSD = document.getElementById('hora-inicio-sd')?.value;
-    const finSD = document.getElementById('hora-fin-sd')?.value;
-
-    return {
-        lunes_viernes: (inicioLV && finLV) ? `${inicioLV} - ${finLV}` : null,
-        sabado_domingo: (inicioSD && finSD) ? `${inicioSD} - ${finSD}` : null
-    };
-}
-
-
-
-window.cerrarSesion = cerrarSesion;
-window.guardarRuta = guardarRuta;
-export { obtenerRutasDesdeSupabase, crearRutaEnSupabase, actualizarRutaEnSupabase, eliminarRutaDeSupabase };
+export {
+    cerrarSesion,
+    obtenerRutasDesdeSupabase,
+    crearRutaEnSupabase,
+    actualizarRutaEnSupabase,
+    eliminarRutaDeSupabase,
+    obtenerGeometriaRuta
+};
