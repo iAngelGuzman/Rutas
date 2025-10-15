@@ -2349,21 +2349,11 @@ async function guardarRuta() {
         if (rutaEnEdicion) {
             // --- MODO ACTUALIZACIÓN ---
             console.log(`Actualizando ruta con ID: ${rutaEnEdicion.id}`);
-            let url = `http://localhost:3000/api/actualizar-ruta/${rutaEnEdicion.id}`; // Añadir el ID a la URL
-            
-            response = await fetch(url, {
-                method: 'PUT', // o 'PATCH'
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(datosParaGuardar)
-            });
+            await actualizarRutaEnSupabase(rutaEnEdicion.id, datosParaGuardar);
         } else {
             // --- MODO CREACIÓN ---
             console.log("Creando nueva ruta...");
-            response = await fetch('http://localhost:3000/api/agregar-ruta', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(datosParaGuardar)
-            });
+            await crearRutaEnSupabase(datosParaGuardar);
         }
 
         const resultado = await response.json();
@@ -2748,18 +2738,7 @@ function eliminarRuta() {
  */
 async function eliminarRutaEnDB(id) {
     try {
-        const response = await fetch(`http://localhost:3000/api/eliminar-ruta/${id}`, {
-            method: 'DELETE'
-        });
-        const resultado = await response.json();
-        if (!response.ok) {
-            throw new Error(resultado.details || 'Error del servidor');
-        }
-        Swal.fire(
-            '¡Eliminada!',
-            resultado.message,
-            'success'
-        );
+        await eliminarRutaDeSupabase(id);
         cerrarDetallesRuta();
         ocultarTodasLasRutas();
         obtenerRutas();
