@@ -1607,13 +1607,13 @@ function establecerDestino(lat, lng) {
     // Popup con menú de opciones
     marcadorDestino.bindPopup(`
         <div class="list-group rounded-4 shadow">
-          <button class="list-group-item list-group-item-action" onclick="verDetalles()"> 
+          <button id="btn-ver-detalles" class="list-group-item list-group-item-action" onclick="verDetalles()"> 
             <i class="fa-solid fa-circle-info me-2"></i> Ver detalles 
           </button>
-          <button class="list-group-item list-group-item-action" onclick="establecerRuta(${lat}, ${lng})"> 
+          <button id="btn-establecer-ruta" class="list-group-item list-group-item-action" onclick="establecerRuta(${lat}, ${lng})"> 
             <i class="fa-solid fa-route me-2"></i> Establecer ruta 
           </button>
-          <button class="list-group-item list-group-item-action text-danger" onclick="eliminarDestino()"> 
+          <button id="btn-eliminar-destino" class="list-group-item list-group-item-action text-danger" onclick="eliminarDestino()"> 
             <i class="fa-solid fa-trash me-2"></i> Eliminar 
           </button>
         </div>
@@ -1718,12 +1718,15 @@ async function establecerRuta(lat, lng) {
     // Dibuja la ruta encontrada
     if (rutaEncontrada.esSupabase) {
         console.log("Ruta desde Supabase:", rutaEncontrada.ruta);
-        mostrarDetallesRuta(rutaEncontrada.ruta, true);
-        crearRutaSupabase(rutaEncontrada.ruta);
+        await crearRutaSupabase(rutaEncontrada.ruta).then(() => {
+            mostrarDetallesRuta(rutaEncontrada.ruta, true);
+        });
     } else {
         console.log("Ruta desde archivos:", rutaEncontrada.ruta);
-        mostrarDetallesRuta(rutaEncontrada.ruta);
-        crearRuta(rutaEncontrada.ruta);
+        await crearRuta(rutaEncontrada.ruta).then(() => {
+            mostrarDetallesRuta(rutaEncontrada.ruta);
+        });
+        
     }
 
     // Marcador para la parada de origen (donde el usuario debe subir)
@@ -1949,6 +1952,9 @@ async function actualizarSidebar(clave) {
     if (sidebar.dataset.abierto === clave) {
         sidebar.classList.remove("show");
         sidebar.removeAttribute("data-abierto");
+        if (clave === "crear") {
+            rutaEnEdicion = null;
+        }
         return;
     }
 
@@ -2258,7 +2264,20 @@ function mostrarFavoritos(sidebar) {
 
 async function mostrarCrearRutas(sidebar) {
     const crear = document.getElementById("crear-rutas");
+    ocultarTodasLasRutas();
     sidebar.innerHTML = crear.innerHTML;
+    document.getElementById("btn-prev-ruta").addEventListener("click", () => {
+        previsualizarRuta();
+    });
+    document.getElementById("tab-paradas").addEventListener("click", () => {
+        adminModoParadas();
+    });
+    document.getElementById("tab-ruta").addEventListener("click", () => {
+        adminModoRuta();
+    });
+    document.getElementById("btn-guardar-ruta").addEventListener("click", () => {
+        guardarRuta();
+    });
     localStorage.setItem("admin", "true");
     localStorage.setItem("modoCreacion", "ruta");
     modoCreacionActivo = true;
@@ -2299,7 +2318,7 @@ function obtenerHorarios() {
  * Recopila todos los datos del formulario, los procesa y los envía al backend para guardarlos en la base de datos.
  */
 async function guardarRuta() {
-    const botonGuardar = document.querySelector('button[onclick="guardarRuta()"]');
+    const botonGuardar = document.getElementById("btn-guardar-ruta");
     
     // --- 1. VALIDACIÓN ---
     const nombre = document.getElementById('nombre-ruta').value.trim();
@@ -2345,7 +2364,6 @@ async function guardarRuta() {
         };
 
         // --- 4. ENVÍO AL BACKEND ---
-        let response;
         if (rutaEnEdicion) {
             // --- MODO ACTUALIZACIÓN ---
             console.log(`Actualizando ruta con ID: ${rutaEnEdicion.id}`);
@@ -2354,13 +2372,6 @@ async function guardarRuta() {
             // --- MODO CREACIÓN ---
             console.log("Creando nueva ruta...");
             await crearRutaEnSupabase(datosParaGuardar);
-        }
-
-        const resultado = await response.json();
-
-        if (!response.ok) {
-            // Si el servidor devuelve un error, lo mostramos
-            throw new Error(resultado.details || 'Error desconocido del servidor');
         }
 
         // --- 5. ÉXITO ---
@@ -2738,10 +2749,11 @@ function eliminarRuta() {
  */
 async function eliminarRutaEnDB(id) {
     try {
-        await eliminarRutaDeSupabase(id);
-        cerrarDetallesRuta();
-        ocultarTodasLasRutas();
-        obtenerRutas();
+        await eliminarRutaDeSupabase(id).then(() => {
+            cerrarDetallesRuta();
+            ocultarTodasLasRutas();
+            obtenerRutas();
+        });
     } catch (error) {
         console.error('Error al eliminar la ruta:', error);
         Swal.fire(
@@ -2804,7 +2816,7 @@ function llenarFormularioConRuta(ruta) {
     previsualizarRuta();
 
     // Cambiar texto del botón de guardar para reflejar la acción de edición
-    const botonGuardar = document.querySelector('button[onclick="guardarRuta()"]');
+    const botonGuardar = document.getElementById('btn-guardar-ruta');
     if(botonGuardar) {
         botonGuardar.innerHTML = '<i class="fa-solid fa-sync-alt me-1"></i> Actualizar ruta';
     }
@@ -2883,6 +2895,11 @@ async function procesarParadasGlobales() {
 
 window.mostrarTodasLasRutas = mostrarTodasLasRutas;
 window.ocultarTodasLasRutas = ocultarTodasLasRutas;
+window.establecerRuta = establecerRuta;
+window.verDetalles = verDetalles;
+window.eliminarDestino = eliminarDestino;
+window.mostrarDetallesRuta = mostrarDetallesRuta;
+window.cerrarDetallesRuta = cerrarDetallesRuta;
 
 document.getElementById("btn-rutas").addEventListener("click", () => {
     actualizarSidebar('rutas')
